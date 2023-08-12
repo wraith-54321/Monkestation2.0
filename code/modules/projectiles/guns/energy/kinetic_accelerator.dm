@@ -212,6 +212,14 @@
 			if(carbon_firer.mind)
 				skill_modifier = carbon_firer.mind.get_skill_modifier(/datum/skill/mining, SKILL_SPEED_MODIFIER)
 			kinetic_gun.attempt_reload(kinetic_gun.recharge_time * skill_modifier) //If you hit a mineral, you might get a quicker reload. epic gamer style.
+//monkestation edit start
+	if(istype(target_turf, /turf/open/floor/plating/dirt/jungleland))
+		var/turf/open/floor/plating/dirt/jungleland/JG = target_turf
+		JG.spawn_rock()
+
+	if(istype(target, /obj/structure/flora))
+		qdel(target)
+//monkestation edit end
 	var/obj/effect/temp_visual/kinetic_blast/K = new /obj/effect/temp_visual/kinetic_blast(target_turf)
 	K.color = color
 
@@ -386,6 +394,10 @@
 			if(ismineralturf(T))
 				var/turf/closed/mineral/M = T
 				M.gets_drilled(K.firer, TRUE)
+//monkestation edit start
+			if(istype(T, /turf/open/floor/plating/dirt/jungleland))
+				var/turf/open/floor/plating/dirt/jungleland/dirt_turf = T
+				dirt_turf.spawn_rock()
 	if(modifier)
 		for(var/mob/living/L in range(1, target_turf) - K.firer - target)
 			var/armor = L.run_armor_check(K.def_zone, K.armor_flag, "", "", K.armour_penetration)

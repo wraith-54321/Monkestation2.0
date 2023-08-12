@@ -89,6 +89,7 @@ SUBSYSTEM_DEF(mapping)
 	/// list of lazy templates that have been loaded
 	var/list/loaded_lazy_templates
 
+//monkestation edit start
 	///Random rooms template list, gets initialized and filled when server starts.
 	var/list/random_room_templates = list()
 	var/list/random_bar_templates = list()
@@ -97,6 +98,7 @@ SUBSYSTEM_DEF(mapping)
 	var/list/random_room_spawners = list()
 	var/list/random_engine_spawners = list()
 	var/list/random_bar_spawners = list()
+//monkestation edit end
 
 /datum/controller/subsystem/mapping/PreInit()
 	..()
@@ -261,6 +263,17 @@ SUBSYSTEM_DEF(mapping)
 	var/list/space_ruins = levels_by_trait(ZTRAIT_SPACE_RUINS)
 	if (space_ruins.len)
 		seedRuins(space_ruins, CONFIG_GET(number/space_budget), list(/area/space), themed_ruins[ZTRAIT_SPACE_RUINS])
+//monkestation edit start
+	//Pregenerate generic jungleland ruins that are biome-nonspecific
+	var/list/jungle_ruins = levels_by_trait(ZTRAIT_JUNGLE_RUINS)
+	//this is really fuckign hacky, but we need to have a very specific order for these things, and if jungleland isn't even being loaded then i dont fucking care.
+	if(jungle_ruins.len)
+		seedRuins(jungle_ruins, CONFIG_GET(number/jungleland_budget), /area/pregen, themed_ruins[ZTRAIT_JUNGLE_RUINS])
+		seedRuins(jungle_ruins, CONFIG_GET(number/jungleland_budget), /area/jungleland/proper, themed_ruins[ZTRAIT_JUNGLE_RUINS])
+		seedRuins(jungle_ruins, CONFIG_GET(number/jungleland_budget), /area/jungleland/dying_forest, themed_ruins[ZTRAIT_JUNGLE_RUINS])
+		seedRuins(jungle_ruins, CONFIG_GET(number/jungleland_budget), /area/jungleland/toxic_pit, themed_ruins[ZTRAIT_JUNGLE_RUINS])
+		seedRuins(jungle_ruins, CONFIG_GET(number/jungleland_budget), /area/jungleland/barren_rocks, themed_ruins[ZTRAIT_JUNGLE_RUINS])
+//monkestation edit end
 
 /// Sets up rivers, and things that behave like rivers. So lava/plasma rivers, and chasms
 /// It is important that this happens AFTER generating mineral walls and such, since we rely on them for river logic
@@ -513,8 +526,12 @@ Used by the AI doomsday and the self-destruct nuke.
 
 	if(config.minetype == "lavaland")
 		LoadGroup(FailedZs, "Lavaland", "map_files/Mining", "Lavaland.dmm", default_traits = ZTRAITS_LAVALAND)
+//monkestation edit start
+	else if(config.minetype == "jungleland")
+		LoadGroup(FailedZs, "Jungleland", "map_files/Mining", "Jungleland.dmm", default_traits = ZTRAITS_JUNGLELAND)
 	else if(config.minetype == "oshan")
 		LoadGroup(FailedZs, "Trench", "map_files/Mining", "Oshan.dmm", default_traits = ZTRAITS_TRENCH)
+//monkestation edit end
 	else if (!isnull(config.minetype) && config.minetype != "none")
 		INIT_ANNOUNCE("WARNING: An unknown minetype '[config.minetype]' was set! This is being ignored! Update the maploader code!")
 #endif

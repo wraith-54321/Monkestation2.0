@@ -44,6 +44,11 @@ map northstar
 	votable
 endmap
 
+map monkedome
+	minplayers 20
+	votable
+endmap
+
 
 map runtimestation
 endmap

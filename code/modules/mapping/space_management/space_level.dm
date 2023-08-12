@@ -6,11 +6,16 @@
 	var/linkage = SELFLOOPING
 	var/xi
 	var/yi   //imaginary placements on the grid
+//monkestation edit start
+	///list of all possible weather_effects this z can have
+	var/list/weather_effects
+//monkestation edit end
 
-/datum/space_level/New(new_z, new_name, list/new_traits = list())
+/datum/space_level/New(new_z, new_name, list/new_traits = list(), new_weather_effects) //monkestation edit: adds new_weather_effects
 	z_value = new_z
 	name = new_name
 	traits = new_traits
+	weather_effects = new_weather_effects //monkestation edit
 
 	if (islist(new_traits))
 		for (var/trait in new_traits)

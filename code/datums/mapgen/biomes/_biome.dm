@@ -35,10 +35,22 @@
 /datum/biome/jungle
 	turf_type = /turf/open/misc/grass/jungle
 	flora_types = list(/obj/structure/flora/grass/jungle/a/style_random,/obj/structure/flora/grass/jungle/b/style_random, /obj/structure/flora/tree/jungle/style_random, /obj/structure/flora/rock/pile/jungle/style_random, /obj/structure/flora/bush/jungle/a/style_random, /obj/structure/flora/bush/jungle/b/style_random, /obj/structure/flora/bush/jungle/c/style_random, /obj/structure/flora/bush/large/style_random, /obj/structure/flora/rock/pile/jungle/large/style_random)
-	flora_density = 40
+	flora_density = 50 //monkestation edit: from 40 to 50
 
 /datum/biome/jungle/deep
-	flora_density = 65
+//monkestation edit start
+	flora_types = list(/obj/structure/flora/grass/jungle,
+	/obj/structure/flora/grass/jungle/b,
+	/obj/structure/flora/tree/jungle,
+	/obj/structure/flora/rock/jungle,
+	/obj/structure/flora/junglebush, /obj/structure/flora/junglebush/b,
+	/obj/structure/flora/junglebush/c,
+	/obj/structure/flora/junglebush/large,
+	/obj/structure/flora/rock/pile/largejungle,
+	/obj/structure/spacevine/dense,
+	/obj/structure/spacevine)
+//monkestation edit end
+	flora_density = 90 //monkestation edit: from 65 to 90
 
 /datum/biome/wasteland
 	turf_type = /turf/open/misc/dirt/jungle/wasteland

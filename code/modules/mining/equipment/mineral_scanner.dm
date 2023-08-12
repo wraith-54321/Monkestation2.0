@@ -66,6 +66,11 @@
 	for(var/turf/closed/mineral/M in range(range, T))
 		if(M.scan_state)
 			minerals += M
+//monkestation edit start
+	for(var/turf/open/floor/plating/dirt/jungleland/dirt_floor in range(range, T))
+		if(dirt_floor.ore_present)
+			minerals += dirt_floor
+//monkestation edit end
 	if(LAZYLEN(minerals))
 		for(var/turf/closed/mineral/M in minerals)
 			var/obj/effect/temp_visual/mining_overlay/oldC = locate(/obj/effect/temp_visual/mining_overlay) in M
@@ -73,6 +78,19 @@
 				qdel(oldC)
 			var/obj/effect/temp_visual/mining_overlay/C = new /obj/effect/temp_visual/mining_overlay(M)
 			C.icon_state = M.scan_state
+//monkestation edit start
+		for(var/turf/open/floor/plating/dirt/jungleland/dirt_floor in minerals)
+			if(dirt_floor.ore_present == ORE_EMPTY || !dirt_floor.can_spawn_ore)
+				continue
+
+			var/obj/effect/temp_visual/mining_overlay/old_ore_overlay = locate(/obj/effect/temp_visual/mining_overlay) in dirt_floor
+			if(old_ore_overlay)
+				qdel(old_ore_overlay)
+
+			var/obj/effect/temp_visual/mining_overlay/ore_overlay = new /obj/effect/temp_visual/mining_overlay(dirt_floor)
+			var/datum/ore_patch/ore = GLOB.jungle_ores[dirt_floor.ore_present]
+			ore_overlay.icon_state = initial(ore.overlay_state)
+//monkestation edit end
 
 /obj/effect/temp_visual/mining_overlay
 	plane = HIGH_GAME_PLANE
