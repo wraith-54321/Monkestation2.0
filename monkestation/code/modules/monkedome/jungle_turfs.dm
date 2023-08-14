@@ -83,7 +83,7 @@ Temperature: 126.85 °C (400 K)
 	initial_gas_mix = JUNGLELAND_DEFAULT_ATMOS
 	planetary_atmos = TRUE
 	baseturfs = /turf/open/water/toxic_pit
-	icon_plating = "jungle"
+//	icon_plating = "jungle"
 	var/can_spawn_ore = TRUE
 	var/ore_present = ORE_EMPTY
 	var/spawn_overlay = TRUE
@@ -107,13 +107,13 @@ Temperature: 126.85 °C (400 K)
 			new /obj/item/stack/ore/glass(src)
 
 /turf/open/floor/plating/dirt/jungleland/attackby(obj/item/I, mob/user, params)
-	if(istype(I, /obj/item/gun/energy/kinetic_accelerator))
+/*	if(istype(I, /obj/item/gun/energy/kinetic_accelerator))
 		var/obj/item/gun/energy/kinetic_accelerator/gun = I
 		var/obj/item/projectile/kinetic/gun_projectile = new()
 		gun.empty()
 		gun_projectile.strike_thing(src)
 		qdel(gun_projectile)
-		return
+		return*/
 
 	if(I.tool_behaviour != TOOL_MINING && I.tool_behaviour != TOOL_SHOVEL)
 		return ..()
@@ -142,48 +142,49 @@ Temperature: 126.85 °C (400 K)
 	name = "rocky surface"
 	desc = "Surface covered by rocks, pebbles and stones."
 	icon_state = "barren_rocks"
-	icon_plating = "barren_rocks"
+//	icon_plating = "barren_rocks"
 
 /turf/open/floor/plating/dirt/jungleland/toxic_rocks
 	name = "mud"
 	desc = "Liquid mixed with dirt"
 	icon_state = "toxic_rocks"
-	icon_plating = "toxic_rocks"
+//	icon_plating = "toxic_rocks"
+
 /turf/open/floor/plating/dirt/jungleland/dry_swamp
 	name = "sand"
 	desc = "mounds upon mounds of sand"
 	icon_state = "dry_swamp"
-	icon_plating = "dry_swamp"
+//	icon_plating = "dry_swamp"
 
 /turf/open/floor/plating/dirt/jungleland/toxic_pit
 	name = "shallow mud"
 	desc = "pit of shallow mud"
 	icon_state = "toxic_pit"
-	icon_plating = "toxic_pit"
+//	icon_plating = "toxic_pit"
 
 /turf/open/floor/plating/dirt/jungleland/dry_swamp1
 	name = "dried surface"
 	desc = "it used to be a riverbed"
 	icon_state = "dry_swamp1"
-	icon_plating = "dry_swamp1"
+//	icon_plating = "dry_swamp1"
 
 /turf/open/floor/plating/dirt/jungleland/dying_forest
 	name = "deep sand"
 	desc = "this sand runs deep into the earth"
 	icon_state = "dying_forest"
-	icon_plating = "dying_forest"
+//	icon_plating = "dying_forest"
 
 /turf/open/floor/plating/dirt/jungleland/jungle
 	name = "forest litter"
 	desc = "rich in minerals, this feeds the flora and fauna of the jungle"
 	icon_state = "jungle"
-	icon_plating = "jungle"
+//	icon_plating = "jungle"
 
 /turf/open/floor/plating/dirt/jungleland/quarry
 	name = "loose quarry stones"
 	desc = "there are some mineral underneath"
 	icon_state = "quarry"
-	icon_plating = "quarry"
+//	icon_plating = "quarry"
 	spawn_overlay = FALSE
 
 /turf/open/floor/plating/dirt/jungleland/quarry/Initialize()
@@ -217,9 +218,9 @@ Temperature: 126.85 °C (400 K)
 		return
 	if(!ishuman(AM))
 		return
-	var/chance = ((humie.wear_suit ? 100 - humie.wear_suit.armor.bio : 100)  +  (humie.head ? 100 - humie.head.armor.bio : 100) )/2
+/*	var/chance = ((humie.wear_suit ? 100 - humie.wear_suit.armor.bio : 100)  +  (humie.head ? 100 - humie.head.armor.bio : 100) )/2
 	if(prob(chance * 0.33))
-		humie.apply_status_effect(/datum/status_effect/toxic_buildup)
+		humie.apply_status_effect(/datum/status_effect/toxic_buildup)*/
 
 /turf/open/floor/wood/jungle
 	initial_gas_mix = JUNGLELAND_DEFAULT_ATMOS
@@ -272,8 +273,6 @@ Temperature: 126.85 °C (400 K)
 	desc = "Obsidian wal tearing out of the earth, it reflects light in all the colours you could ever imagine, and you can see something shining brightly within it. You can't quite seem to destroy it with a pickaxe, but maybe an explosion mau suffice?"
 	icon = 'monkestation/icons/turf/walls/obsidian.dmi'
 	icon_state = "wall"
-	canSmoothWith = list(SMOOTH_GROUP_OBISIDAN_WALL)
-	smoothing_groups = list(SMOOTH_GROUP_OBISIDAN_WALL)
 	smoothing_flags = SMOOTH_BITMASK
 	var/list/explosion_threshold = list(EXPLODE_DEVASTATE, EXPLODE_HEAVY, EXPLODE_LIGHT)
 

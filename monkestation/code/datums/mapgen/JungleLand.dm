@@ -175,7 +175,6 @@
 		ORE_GOLD,
 		ORE_PLASMA,
 		ORE_DIAMOND,
-		ORE_DILITHIUM,
 		ORE_BLUESPACE
 	)
 	var/return_list[world.maxx * world.maxy]
@@ -196,16 +195,7 @@
 
 		CHECK_TICK
 
-	//guaranteed spawn at least some rare ores like bluespace and dilithium in small pockets
-
-	for(var/i in 0 to 64)
-		var/x = rand(16,239)
-		var/y = rand(16,239)
-		return_list[world.maxx * y + x] = ORE_DILITHIUM
-		for(var/j in 1 to 8)
-			var/x_o = x + rand(-j,j)
-			var/y_o = y + rand(-j,j)
-			return_list[world.maxx * y_o + x_o] = ORE_DILITHIUM
+	//guaranteed spawn at least some rare ores like bluespace
 
 	for(var/i in 0 to 32)
 		var/x = rand(16,239)

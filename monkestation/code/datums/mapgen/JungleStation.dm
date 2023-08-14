@@ -135,8 +135,7 @@
 		ORE_TITANIUM,
 		ORE_URANIUM,
 		ORE_GOLD,
-		ORE_PLASMA,
-		ORE_DILITHIUM
+		ORE_PLASMA
 	)
 	var/return_list[world.maxx * world.maxy]
 

@@ -4,12 +4,12 @@
 	agent = "Plasmodium Exotica"
 	cure_text = "Quinine, Synaptizine or Tonic water"
 	max_stages = 8 // yes 8 fucking stages
-	danger = DISEASE_HARMFUL
+	severity = DISEASE_SEVERITY_HARMFUL
 	disease_flags = CURABLE
 	visibility_flags = HIDDEN_SCANNER
 	spread_flags = DISEASE_SPREAD_BLOOD
 	needs_all_cures = FALSE
-	cures = list(/datum/reagent/quinine, /datum/reagent/medicine/synaptizine,/datum/reagent/consumable/tonic)
+	cures = list(/datum/reagent/quinine, /datum/reagent/medicine/synaptizine, /datum/reagent/consumable/tonic)
 	viable_mobtypes = list(/mob/living/carbon/human, /mob/living/carbon/monkey)
 
 	var/next_stage_time = 0
@@ -57,10 +57,9 @@
 					to_chat(affected_mob, span_warning("[pick("You feel dizzy.", "Your head spins.")]"))
 				else
 					to_chat(affected_mob, span_userdanger("A wave of dizziness washes over you!"))
-					affected_mob.Dizzy(5)
 
 			if(prob(10))
-				affected_mob.Jitter(5)
+				affected_mob.do_jitter_animation(5)
 				if(prob(30))
 					to_chat(affected_mob, span_warning("[pick("Your head hurts.", "Your head pounds.")]"))
 
@@ -73,7 +72,7 @@
 			return
 
 		if(5) // a few more minutes before disease really becomes deadly
-			danger = DISEASE_DANGEROUS
+			severity = DISEASE_SEVERITY_DANGEROUS
 			affected_mob.blood_volume -= 0.75
 			affected_mob.adjust_bodytemperature(30) //slowly rising fever that can become deadly
 			if(prob(30))
@@ -84,16 +83,15 @@
 					to_chat(affected_mob, span_warning("[pick("You feel dizzy.", "Your head spins.")]"))
 				else
 					to_chat(affected_mob, span_userdanger("A wave of dizziness washes over you!"))
-					affected_mob.Dizzy(5)
 
 			if(prob(15))
-				affected_mob.Jitter(5)
+				affected_mob.do_jitter_animation(5)
 				if(prob(30))
 					if(prob(50))
 						to_chat(affected_mob, span_warning("[pick("Your head hurts.", "Your head pounds.")]"))
 					else
 						to_chat(affected_mob, span_warning("[pick("Your head hurts a lot.", "Your head pounds incessantly.")]"))
-						affected_mob.adjustStaminaLoss(25)
+						affected_mob.stamina.adjust(-25)
 
 			if(prob(40))
 				affected_mob.emote("cough")
@@ -116,16 +114,16 @@
 				affected_mob.emote("cough")
 
 			if(prob(15))
-				affected_mob.Jitter(5)
+				affected_mob.do_jitter_animation(5)
 				if(prob(60))
 					if(prob(30))
 						to_chat(affected_mob, span_warning("[pick("Your head hurts.", "Your head pounds.")]"))
 					else
 						to_chat(affected_mob, span_warning("[pick("Your head hurts a lot.", "Your head pounds incessantly.")]"))
-						affected_mob.adjustStaminaLoss(25)
+						affected_mob.stamina.adjust(-25)
 
 			if(prob(10))
-				affected_mob.adjustStaminaLoss(20)
+				affected_mob.stamina.adjust(-20)
 				to_chat(affected_mob, span_warning("[pick("You feel weak.", "Your body feel numb.")]"))
 			return
 		if(8)
@@ -139,22 +137,21 @@
 					to_chat(affected_mob, span_warning("[pick("You feel dizzy.", "Your head spins.")]"))
 				else
 					to_chat(affected_mob, span_userdanger("A wave of dizziness washes over you!"))
-					affected_mob.Dizzy(5)
 
 			if(prob(50))
 				affected_mob.emote("cough")
 
 			if(prob(20))
-				affected_mob.Jitter(5)
+				affected_mob.do_jitter_animation(5)
 				if(prob(50))
 					to_chat(affected_mob, span_warning("[pick("Your head hurts a lot.", "Your head pounds incessantly.")]"))
-					affected_mob.adjustStaminaLoss(25)
+					affected_mob.stamina.adjust(-25)
 				else
 					to_chat(affected_mob, span_userdanger("[pick("Your head hurts!", "You feel a burning knife inside your brain!", "A wave of pain fills your head!")]"))
-					affected_mob.Stun(35)
+					affected_mob.Stun(3.5 SECONDS)
 
 			if(prob(25))
-				affected_mob.adjustStaminaLoss(50)
+				affected_mob.stamina.adjust(-50)
 				to_chat(affected_mob, span_warning("[pick("You feel very weak.", "Your body feel completely numb.")]"))
 			return
 		else

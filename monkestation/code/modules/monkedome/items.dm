@@ -168,67 +168,11 @@
 	growthstages = 3
 	reagents_add = list(/datum/reagent/quinine = 0.1, /datum/reagent/medicine/atropine = 0.05, /datum/reagent/medicine/omnizine = 0.1)
 
-/obj/item/organ/regenerative_core/dryad
-	desc = "Heart of a dryad. It can be used to heal completely and cleanse the body of certain jungle toxins, but it will rapidly decay into uselessness."
-	icon = 'monkestation/icons/obj/jungle.dmi'
-	icon_state = "dryad_heart"
-	status_effect = /datum/status_effect/regenerative_core/dryad
-
-/obj/item/organ/regenerative_core/dryad/Initialize()
-	. = ..()
-	update_icon()
-
-/obj/item/organ/regenerative_core/dryad/update_icon()
-	icon_state = inert ? "dryad_heart_decay" : "dryad_heart"
-	for(var/X in actions)
-		var/datum/action/A = X
-		A.UpdateButtonIcon()
-
-/obj/item/organ/regenerative_core/dryad/go_inert()
-	..()
-	desc = "[src] has become inert. It has decayed, and is completely useless."
-
-/obj/item/organ/regenerative_core/dryad/preserved(implanted = 0)
-	..()
-	desc = "[src] has been stabilized. It is preserved, allowing you to use it to heal completely without danger of decay."
-
-/obj/item/organ/regenerative_core/dryad
-	name = "Dryad heart"
-	desc = "Heart of a dryad. It can be used to heal completely, but it will rapidly decay into uselessness."
-	icon = 'monkestation/icons/obj/jungle.dmi'
-	icon_state = "dryad_heart"
-	status_effect = /datum/status_effect/regenerative_core/dryad
-
-/obj/item/organ/regenerative_core/dryad/Initialize()
-	. = ..()
-	update_icon()
-
-/obj/item/organ/regenerative_core/dryad/update_icon()
-	icon_state = inert ? "dryad_heart_decay" : "dryad_heart"
-	for(var/X in actions)
-		var/datum/action/A = X
-		A.UpdateButtonIcon()
-
-/obj/item/organ/regenerative_core/dryad/go_inert()
-	..()
-	desc = "[src] has become inert. It has decayed, and is completely useless."
-
-/obj/item/organ/regenerative_core/dryad/preserved(implanted = 0)
-	..()
-	desc = "[src] has been stabilized. It is preserved, allowing you to use it to heal completely without danger of decay."
-
-/obj/item/organ/regenerative_core/dryad/corrupted
-	name = "Corrupted dryad heart"
-	desc = "Heart of a corrupted dryad, for now it still lives, and i may use some of it's strength to help me live aswell."
-	icon_state = "corrupted_heart"
-	status_effect = /datum/status_effect/corrupted_dryad
-
 /obj/item/clothing/neck/skin_twister
 	name = "skin-twister cloak"
 	desc = "Cloak made out of skin of the elusive skin-twister, when worn over head it makes you invisible to the smaller fauna of the jungle."
 	icon = 'monkestation/icons/obj/clothing/neck.dmi'
 	icon_state = "skin_twister_cloak_0"
-	item_state = "skin_twister_cloak_0"
 
 	var/active = FALSE
 	var/list/cached_faction_list
@@ -282,7 +226,6 @@
 	lefthand_file = 'monkestation/icons/mob/inhands/lefthand.dmi'
 	righthand_file = 'monkestation/icons/mob/inhands/righthand.dmi'
 	icon_state = "stinger_sword"
-	item_state = "stinger_sword"
 
 /obj/item/melee/stinger_sword/afterattack(atom/target, mob/user, proximity_flag, click_parameters)
 	. = ..()
@@ -304,13 +247,12 @@
 	slot_flags = ITEM_SLOT_BACK
 	throwforce = 24
 	throw_speed = 4
-	embedding = list("embedded_impact_pain_multiplier" = 3)
+	embedding = list(EMBEDDED_IMPACT_PAIN_MULTIPLIER = 3)
 	armour_penetration = 25				//Enhanced armor piercing
 	hitsound = 'sound/weapons/bladeslice.ogg'
-	attack_verb = list("attacked", "poked", "jabbed", "torn", "gored", "stung")
-	sharpness = IS_SHARP_ACCURATE
 
 /obj/item/twohanded/stinger_trident/update_icon()  //Currently only here to fuck with the on-mob icons.
+	. = ..()
 	icon_state = "sting_trident"
 	return
 
@@ -361,12 +303,22 @@
 	desc = "And old and withered crown made out of bone of unknown origin, there is a vibrant pinkish crystal embedded in it, it is warm to the touch..."
 	icon = 'monkestation/icons/obj/jungle.dmi'
 	icon_state = "tar_king_crown"
-	armor = list(MELEE = 80, BULLET = 40, LASER = 60, ENERGY = 50, BOMB = 80, BIO = 70, RAD = 60, FIRE = 100, ACID = 100)
+	armor_type = /datum/armor/tar_king_crown
 	actions_types = list(/datum/action/cooldown/tar_crown_spawn_altar,/datum/action/cooldown/tar_crown_teleport)
 	var/max_tar_shrines = 3
 	var/list/current_tar_shrines = list()
 	var/next_spawn = 0
 	var/next_teleport = 0
+
+/datum/armor/tar_king_crown
+	melee = 80
+	bullet = 40
+	laser = 60
+	energy = 50
+	bomb = 80
+	bio = 70
+	fire = 100
+	acid = 100
 
 /obj/item/clothing/head/tar_king_crown/Destroy()
 	QDEL_LIST_ASSOC_VAL(current_tar_shrines)
@@ -377,7 +329,8 @@
 		return TRUE
 	return FALSE
 
-/obj/item/book/manual/ivymen
+//fun
+/*/obj/item/book/manual/ivymen
 	name = "Tome of Herbal Knowledge"
 	icon_state = "book1"
 	author = "Manchineel the Shaman"
@@ -425,7 +378,7 @@
 				It is deadly and causes confusion in targets, and is useful in blowguns against humans.
 				</body>
 				</html>
-			"}
+			"}*/
 
 /obj/item/gps/internal/tar_king_crystal
 	icon_state = null
@@ -495,7 +448,7 @@
 /obj/item/crusher_trophy/jungleland/blob_brain/effect_desc()
 	return "Spreads the mark to mobs close together, activating a mark on adjacent mobs activates all the marks at once."
 
-/obj/item/crusher_trophy/jungleland/blob_brain/on_mark_detonation(mob/living/target, mob/living/user,obj/item/kinetic_crusher/hammer_synced)
+/*/obj/item/crusher_trophy/jungleland/blob_brain/on_mark_detonation(mob/living/target, mob/living/user,obj/item/kinetic_crusher/hammer_synced)
 	for(var/mob/living/L in range(1,target))
 		if(L == user || L == target)
 			continue
@@ -532,7 +485,7 @@
 			for(var/t in hammer_synced.trophies)
 				var/obj/item/crusher_trophy/T = t
 				T.on_mark_application(target, CM, had_effect, hammer_synced)
-
+*/
 /obj/item/stack/sheet/animalhide/weaver_chitin
 	name = "weaver chitin"
 	desc = "A chunk of hardened and layered chitin from a marrow weaver's carapace."

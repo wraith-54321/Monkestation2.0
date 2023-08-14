@@ -2,9 +2,9 @@
 	name = "Summon tar altar"
 	desc = "Summons a tar altar at your current location (MAX 3)"
 	cooldown_time = 1 MINUTES
-	button_icon = 'monkestation/icons/mob/actions/backgrounds.dmi'
+	background_icon = 'monkestation/icons/mob/actions/backgrounds.dmi'
 	background_icon_state = "jungle"
-	icon_icon = 'monkestation/icons/mob/actions.dmi'
+	button_icon = 'monkestation/icons/mob/actions.dmi'
 	button_icon_state = "tar_crown_summon"
 	var/obj/item/clothing/head/tar_king_crown/crown
 
@@ -14,7 +14,7 @@
 	LAZYINITLIST(crown.actions)
 	crown.actions += src
 
-/datum/action/cooldown/tar_crown_spawn_altar/Trigger()
+/datum/action/cooldown/tar_crown_spawn_altar/Trigger(trigger_flags)
 	. = TRUE
 	if(!IsAvailable())
 		return FALSE
@@ -32,9 +32,9 @@
 	name = "Teleport to a tar shrine"
 	desc = "Teleports you to a chosen tar shrine"
 	cooldown_time = 1 MINUTES
-	button_icon = 'monkestation/icons/mob/actions/backgrounds.dmi'
+	background_icon = 'monkestation/icons/mob/actions/backgrounds.dmi'
 	background_icon_state = "jungle"
-	icon_icon = 'monkestation/icons/mob/actions.dmi'
+	button_icon = 'monkestation/icons/mob/actions.dmi'
 	button_icon_state = "tar_crown_teleport"
 	var/obj/item/clothing/head/tar_king_crown/crown
 
@@ -44,7 +44,7 @@
 	LAZYINITLIST(crown.actions)
 	crown.actions += src
 
-/datum/action/cooldown/tar_crown_teleport/Trigger()
+/datum/action/cooldown/tar_crown_teleport/Trigger(trigger_flags)
 	. = TRUE
 	if(!IsAvailable())
 		return FALSE

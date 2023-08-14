@@ -24,18 +24,18 @@
 		spawn_loose_flora(gen_turf)
 
 	if((!closed || spawn_fauna_on_closed) && length(fauna_types) && prob(fauna_density))
-		var/mob/fauna = pickweight(fauna_types)
+		var/mob/fauna = pick_weight(fauna_types)
 		new fauna(gen_turf)
 	. = gen_turf.ChangeTurf(chosen_turf, initial(chosen_turf.baseturfs), CHANGETURF_DEFER_CHANGE)
 
 /datum/biome/jungleland/proc/spawn_dense_flora(turf/gen_turf)
 	if(length(dense_flora)  && prob(dense_flora_density))
-		var/obj/structure/flora = pickweight(dense_flora)
+		var/obj/structure/flora = pick_weight(dense_flora)
 		new flora(gen_turf)
 
 /datum/biome/jungleland/proc/spawn_loose_flora(turf/gen_turf)
 	if(length(loose_flora) && prob(loose_flora_density))
-		var/obj/structure/flora = pickweight(loose_flora)
+		var/obj/structure/flora = pick_weight(loose_flora)
 		new flora(gen_turf)
 
 /datum/biome/jungleland/barren_rocks

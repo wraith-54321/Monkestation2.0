@@ -14,14 +14,14 @@
 	move_to_delay = 7
 	butcher_results = list(/obj/item/stack/sheet/meduracha = 5)
 	faction = list("mining")
-	response_help  = "gently pokes"
+/*	response_help  = "gently pokes"
 	response_disarm = "gently pushes aside"
-	response_harm   = "hits"
+	response_harm   = "hits" */
 	maxHealth = 300
 	health = 300
-	spacewalk = TRUE
+//	spacewalk = TRUE
 	crusher_loot = /obj/item/crusher_trophy/jungleland/meduracha_tentacles
-	melee_damage = 20
+//	melee_damage = 20
 	ranged = TRUE
 	ranged_cooldown = 5 SECONDS
 	projectiletype = /obj/item/projectile/jungle/meduracha_spit
@@ -58,16 +58,16 @@
 	var/turf/startloc = get_turf(src)
 	var/obj/item/projectile/P = new projectiletype(startloc)
 	playsound(src, projectilesound, 100, 1)
-	P.starting = startloc
+/*	P.starting = startloc
 	P.firer = src
 	P.fired_from = src
 	P.yo = targeted_atom.y - startloc.y
-	P.xo = targeted_atom.x - startloc.x
+	P.xo = targeted_atom.x - startloc.x */
 	if(AIStatus != AI_ON)//Don't want mindless mobs to have their movement screwed up firing in space
 		newtonian_move(get_dir(targeted_atom, targets_from))
-	P.original = targeted_atom
+/*	P.original = targeted_atom
 	P.preparePixelProjectile(targeted_atom, src)
-	P.fire()
+	P.fire() */
 
 /mob/living/simple_animal/hostile/jungleland/alpha_meduracha/proc/get_beam()
 	var/list/turfs = spiral_range_turfs(4,src)
@@ -94,18 +94,18 @@
 	speak_chance = 1
 	taunt_chance = 1
 	turns_per_move = 1
-	response_help  = "pets"
+/*	response_help  = "pets"
 	response_disarm = "gently pushes aside"
-	response_harm   = "hits"
+	response_harm   = "hits"*/
 	faction = list("mining")
 	maxHealth = 400
 	health = 400
-	spacewalk = TRUE
+//	spacewalk = TRUE
 	pixel_x = -16
 	pixel_y = -16
 	move_to_delay = 5
 	loot  = list(/obj/item/stack/sheet/slime = 10)
-	melee_damage = 30
+//	melee_damage = 30
 	crusher_loot = /obj/item/crusher_trophy/jungleland/blob_brain
 	var/stage = 1
 

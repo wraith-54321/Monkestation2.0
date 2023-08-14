@@ -9,7 +9,7 @@
 	volume = 150
 
 /datum/looping_sound/rain
-	mid_sounds = ('monkestation/sound/weather/weather_rain.ogg' = 1)
+	mid_sounds = list('monkestation/sound/weather/weather_rain.ogg' = 1)
 	mid_length = 40 SECONDS
 	volume = 150
 

@@ -63,23 +63,20 @@
 
 	switch(stack)
 		if(1)
-			human_owner.adjustStaminaLoss(75)
+			human_owner.stamina.adjust(-75)
 			human_owner.adjustOrganLoss(ORGAN_SLOT_LIVER,10)
 		if(2)
-			human_owner.Jitter(1)
-			human_owner.adjustStaminaLoss(150)
+			human_owner.do_jitter_animation(1)
+			human_owner.stamina.adjust(-150)
 			human_owner.adjustOrganLoss(ORGAN_SLOT_LIVER,10)
 		if(3)
-			human_owner.Jitter(1)
-			human_owner.Dizzy(1)
-			human_owner.adjustStaminaLoss(300)
+			human_owner.do_jitter_animation(1)
+			human_owner.stamina.adjust(-300)
 			human_owner.Paralyze(3 SECONDS)
 			human_owner.adjustOrganLoss(ORGAN_SLOT_LIVER,10)
 		if(4)
-			human_owner.adjust_blurriness(0.5)
-			human_owner.Dizzy(1)
-			human_owner.Jitter(1)
-			human_owner.adjustStaminaLoss(450)
+			human_owner.do_jitter_animation(1)
+			human_owner.stamina.adjust(-450)
 			human_owner.Sleeping(5 SECONDS)
 			human_owner.adjustOrganLoss(ORGAN_SLOT_LIVER,20)
 
@@ -145,20 +142,19 @@
 	owner.setMaxHealth(initial_health * health_multiplier)
 	owner.adjustBruteLoss(-50)
 	owner.adjustFireLoss(-50)
-	owner.remove_CC()
+	owner.remove_client_colour() //used to be remove_CC(), unsure if this is the same proc
 	owner.bodytemperature = BODYTEMP_NORMAL
 	ADD_TRAIT(owner, TRAIT_IGNOREDAMAGESLOWDOWN, id)
-	SEND_SIGNAL(owner, COMSIG_ADD_MOOD_EVENT, "corruption", /datum/mood_event/corrupted_dryad)
+	owner.add_mood_event("corruption", /datum/mood_event/corrupted_dryad)
 
 /datum/status_effect/corrupted_dryad/on_remove()
 	owner.setMaxHealth(initial_health)
 	if(iscarbon(owner))
-		var/mob/living/carbon/C = owner
-		C.vomit(10, TRUE, TRUE, 3)
-	owner.Dizzy(30)
-	owner.Jitter(30)
+		var/mob/living/carbon/carbon_owner = owner
+		carbon_owner.vomit(10, TRUE, TRUE, 3)
+	owner.do_jitter_animation(3 SECONDS)
 	REMOVE_TRAIT(owner, TRAIT_IGNOREDAMAGESLOWDOWN, id)
-	SEND_SIGNAL(owner, COMSIG_ADD_MOOD_EVENT, "corruption", /datum/mood_event/corrupted_dryad_bad)
+	owner.add_mood_event("corruption", /datum/mood_event/corrupted_dryad_bad)
 	return ..()
 
 /atom/movable/screen/alert/status_effect/corrupted_dryad

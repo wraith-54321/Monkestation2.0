@@ -23,11 +23,12 @@
 		ADD_TRAIT(user,TRAIT_ENEMY_OF_THE_FOREST,JUNGLELAND_TRAIT)
 	return ..()
 
-/mob/living/simple_animal/hostile/jungleland/death(gibbed)
+/*/mob/living/simple_animal/hostile/jungleland/death(gibbed)
 	var/datum/status_effect/crusher_damage/C = has_status_effect(STATUS_EFFECT_CRUSHERDAMAGETRACKING)
 	if(C && crusher_loot && C.total_damage >= maxHealth * 0.6 && crusher_loot)
 		loot += crusher_loot
-	. = ..()
+	. = ..()*/
+
 /mob/living/simple_animal/hostile/jungleland/dryad
 	name = "Jungle spirit"
 	desc = "A spirit of the jungle, protector of the forest, heals the ones in need, and butchers the ones that plauge the forest."
@@ -43,12 +44,12 @@
 	taunt_chance = 1
 	turns_per_move = 1
 	butcher_results = list()
-	response_help  = "pets"
+/*	response_help  = "pets"
 	response_disarm = "gently pushes aside"
-	response_harm   = "hits"
+	response_harm   = "hits" */
 	maxHealth = 60
 	health = 60
-	spacewalk = TRUE
+//	spacewalk = TRUE
 	ranged = TRUE
 	loot = list(/obj/item/organ/regenerative_core/dryad)
 	ranged_cooldown_time = 4 SECONDS
@@ -109,14 +110,14 @@
 	taunt_chance = 1
 	turns_per_move = 1
 	butcher_results = list(/obj/item/stack/sheet/meduracha = 1)
-	response_help  = "gently pokes"
+/*	response_help  = "gently pokes"
 	response_disarm = "gently pushes aside"
-	response_harm   = "hits"
+	response_harm   = "hits"*/
 	maxHealth = 100
 	health = 100
-	spacewalk = TRUE
+//	spacewalk = TRUE
 
-	melee_damage = 15
+//	melee_damage = 15
 
 	rapid_melee = 3
 
@@ -176,13 +177,13 @@
 	speak_chance = 1
 	taunt_chance = 1
 	turns_per_move = 1
-	response_help  = "pets"
+/*	response_help  = "pets"
 	response_disarm = "gently pushes aside"
-	response_harm   = "hits"
+	response_harm   = "hits" */
 	maxHealth = 320
 	health = 320
-	spacewalk = TRUE
-	melee_damage = 45
+/*	spacewalk = TRUE
+	melee_damage = 45 */
 	rapid_melee = 2
 	butcher_results = list(/obj/item/stack/sheet/skin_twister = 2)
 	alpha_damage_boost = 0 // 30-55 damage is too much to be boosts by 50%
@@ -293,14 +294,14 @@
 	speak_chance = 1
 	taunt_chance = 1
 	turns_per_move = 1
-	response_help  = "pets"
+/*	response_help  = "pets"
 	response_disarm = "gently pushes aside"
-	response_harm   = "hits"
+	response_harm   = "hits" */
 	maxHealth = 100
 	health = 100
-	spacewalk = TRUE
+//	spacewalk = TRUE
 	loot  = list(/obj/item/stack/sheet/slime)
-	melee_damage = 5
+//	melee_damage = 5
 
 	alpha_type = /mob/living/simple_animal/hostile/jungleland/alpha_blobby
 
@@ -310,7 +311,7 @@
 /mob/living/simple_animal/hostile/jungleland/blobby/Initialize(mapload,spawned_size = 4)
 	. = ..()
 	current_size = spawned_size > 0 ? spawned_size : current_size
-	melee_damage = melee_damage * current_size
+//	melee_damage = melee_damage * current_size
 	var/matrix/M = new
 	M.Scale(current_size/2)
 	transform = M
@@ -347,13 +348,13 @@
 	taunt_chance = 0
 	turns_per_move = 0
 	butcher_results = list(/obj/item/stinger = 1)
-	response_help  = "pets"
+/*	response_help  = "pets"
 	response_disarm = "gently pushes aside"
-	response_harm   = "hits"
+	response_harm   = "hits"*/
 	maxHealth = 60
 	health = 60
-	spacewalk = TRUE
-	melee_damage = 20
+//	spacewalk = TRUE
+//	melee_damage = 20
 
 	var/can_charge = TRUE
 	var/cooldown = 15 SECONDS
@@ -386,13 +387,13 @@
 
 	var/mob/living/carbon/human/humie = hit_atom
 	humie.blood_volume -= 100 // ouch!
-	var/malaria_chance = ((humie.wear_suit ? 100 - humie.wear_suit.armor.bio : 100)  +  (humie.head ? 100 - humie.head.armor.bio : 100) )/2
+/*	var/malaria_chance = ((humie.wear_suit ? 100 - humie.wear_suit.armor.bio : 100)  +  (humie.head ? 100 - humie.head.armor.bio : 100) )/2
 	if(prob(malaria_chance * 0.25))
 		var/datum/disease/malaria/infection = new()
-		humie.ForceContractDisease(infection,FALSE,TRUE)
+		humie.ForceContractDisease(infection,FALSE,TRUE) */
 	has_blood = TRUE
 	rapid_melee = TRUE
-	melee_damage = 40
+//	melee_damage = 40
 	icon_state = "mosquito_blood"
 	animate(src,color = initial(color),time = charge_ramp_up*2)
 
@@ -461,10 +462,10 @@
 	maxHealth = 160
 	health = 160
 	environment_smash = ENVIRONMENT_SMASH_NONE //held off by walls and windows, stupid oversized bee
-	melee_damage = 10
-	attacktext = "stings"
+//	melee_damage = 10
+//	attacktext = "stings"
 	attack_sound = 'sound/voice/moth/scream_moth.ogg'
-	deathmessage = "rolls over, falling to the ground."
+//	deathmessage = "rolls over, falling to the ground."
 	gold_core_spawnable = HOSTILE_SPAWN
 	butcher_results = list(/obj/item/stinger = 1)
 	loot = list()
@@ -507,12 +508,12 @@
 	revving_charge = TRUE
 	do_alert_animation(src)
 	walk(src, 0)
-	setDir(dir)
-	SLEEP_CHECK_DEATH(delay)
+//	setDir(dir)
+//	SLEEP_CHECK_DEATH(delay)
 	revving_charge = FALSE
 	var/movespeed = 1
-	walk_towards(src, T, movespeed)
-	SLEEP_CHECK_DEATH(get_dist(src, T) * movespeed)
+//	walk_towards(src, T, movespeed)
+//	SLEEP_CHECK_DEATH(get_dist(src, T) * movespeed)
 	walk(src, 0) // cancel the movement
 	charging = FALSE
 
@@ -531,7 +532,7 @@
 	icon_dead = "emeraldspider_dead"
 	butcher_results = list(/obj/item/stack/sheet/bone = 3, /obj/item/stack/sheet/sinew = 2, /obj/item/stack/sheet/animalhide/weaver_chitin = 4, /obj/item/food/meat/slab/spider = 2)
 	loot = list()
-	attacktext = "bites"
+//	attacktext = "bites"
 	gold_core_spawnable = HOSTILE_SPAWN
 	health = 240
 	maxHealth = 240
@@ -539,21 +540,21 @@
 	move_to_delay = 12
 	speed = 3
 	ranged = 1
-	melee_damage = 14
+//	melee_damage = 14
 	stat_attack = 1
 	robust_searching = 1
 	see_in_dark = 7
-	ventcrawler = 2
+//	ventcrawler = 2
 	ranged_cooldown_time = 80
 	projectiletype = /obj/item/projectile/websling
 	projectilesound = 'sound/weapons/pierce.ogg'
 	pass_flags = PASSTABLE
 	attack_sound = 'sound/weapons/bite.ogg'
-	deathmessage = "rolls over, frothing at the mouth before stilling."
+//	deathmessage = "rolls over, frothing at the mouth before stilling."
 	var/poison_type = /datum/reagent/toxin
 	var/poison_per_bite = 4
 
-/obj/item/projectile/websling
+/obj/projectile/websling
 	name = "web"
 	icon = 'monkestation/icons/obj/jungle.dmi'
 	nodamage = TRUE
@@ -561,11 +562,11 @@
 	speed = 3 //you can dodge it from far away
 	icon_state = "websling"
 
-/obj/item/projectile/websling/on_hit(atom/target, blocked = FALSE)
+/objprojectile/websling/on_hit(atom/target, blocked = FALSE)
 	if(iscarbon(target) && blocked < 100)
 		var/obj/item/restraints/legcuffs/beartrap/emeraldspider/B = new /obj/item/restraints/legcuffs/beartrap/emeraldspider(get_turf(target))
 		B.Crossed(target)
-	..()
+	. = ..()
 
 /obj/item/restraints/legcuffs/beartrap/emeraldspider
 	name = "silk restraints"
@@ -579,7 +580,7 @@
 	icon_state = "websling"
 	icon = 'monkestation/icons/mob/jungle.dmi'
 
-/mob/living/simple_animal/hostile/jungleland/emeraldspider/AttackingTarget()
+/*/mob/living/simple_animal/hostile/jungleland/emeraldspider/AttackingTarget()
 	..()
 	if(isliving(target))
 		var/mob/living/L = target
@@ -602,9 +603,9 @@
 					if(B.body_zone == "chest")
 						B.dismember()
 			else
-				to_chat(src, span_warning("There are no organs left in this corpse."))
+				to_chat(src, span_warning("There are no organs left in this corpse."))*/
 
-/mob/living/simple_animal/hostile/jungleland/emeraldspider/CanAttack(atom/A)
+/*/mob/living/simple_animal/hostile/jungleland/emeraldspider/CanAttack(atom/A)
 	if(..())
 		return TRUE
 	if((health < maxHealth) && ishuman(A) && !faction_check_mob(A))
@@ -612,7 +613,7 @@
 		for(var/obj/item/organ/O in H.internal_organs)
 			if(O.zone == "chest")
 				return TRUE
-	return FALSE
+	return FALSE*/
 
 /mob/living/simple_animal/hostile/tar
 	icon = 'monkestation/icons/mob/jungle.dmi'
@@ -634,15 +635,15 @@
 	icon_state = "tar_faithless"
 	health = 200
 	maxHealth = 200
-	melee_damage = 25
+//	melee_damage = 25
 
 /mob/living/simple_animal/hostile/tar/amalgamation/AttackingTarget()
 	if(isliving(target))
 		var/mob/living/L = target
-		if(L.has_status_effect(/datum/status_effect/tar_curse))
+/*		if(L.has_status_effect(/datum/status_effect/tar_curse))
 			melee_damage = initial(melee_damage) * 1.5
 		else
-			melee_damage = initial(melee_damage)
+			melee_damage = initial(melee_damage)*/
 	return ..()
 
 /mob/living/simple_animal/hostile/tar/dryad
@@ -651,7 +652,7 @@
 	icon_state = "tar_dryad"
 	health = 100
 	maxHealth = 100
-	inverse_faction_check = TRUE
+//	inverse_faction_check = TRUE
 	ranged = TRUE
 	ranged_cooldown_time = 5 SECONDS
 	projectiletype = /obj/item/projectile/jungle/heal_orb

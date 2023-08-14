@@ -135,24 +135,24 @@
 
 /obj/effect/timed_attack/tar_priest/shroud/finish_attack()
 	var/turf/T = get_turf(src)
-	for(var/mob/living/L in T.contents)
-		if(L.has_status_effect(/datum/status_effect/tar_curse))
-			L.set_blindness(20)
-			SEND_SIGNAL(L,COMSIG_JUNGLELAND_TAR_CURSE_PROC)
-		else
-			L.set_blurriness(20)
+	for(var/mob/living/living_mob in T.contents)
+		if(living_mob.has_status_effect(/datum/status_effect/tar_curse))
+//			L.set_blindness(20)
+			SEND_SIGNAL(living_mob, COMSIG_JUNGLELAND_TAR_CURSE_PROC)
+//		else
+//			L.set_blurriness(20)
 	return ..()
 /obj/effect/timed_attack/tar_priest/tendril
 	replace_icon_state = "tar_shade_tendril"
 
 /obj/effect/timed_attack/tar_priest/tendril/finish_attack()
 	var/turf/T = get_turf(src)
-	for(var/mob/living/L in T.contents)
-		if(L.has_status_effect(/datum/status_effect/tar_curse))
-			L.Stun(5 SECONDS)
-			SEND_SIGNAL(L,COMSIG_JUNGLELAND_TAR_CURSE_PROC)
+	for(var/mob/living/living_mob in T.contents)
+		if(living_mob.has_status_effect(/datum/status_effect/tar_curse))
+			living_mob.Stun(5 SECONDS)
+			SEND_SIGNAL(living_mob, COMSIG_JUNGLELAND_TAR_CURSE_PROC)
 		else
-			L.adjustStaminaLoss(60)
+			living_mob.stamina.adjust(-60)
 	return ..()
 
 /obj/structure/fluff/tarstatue
@@ -327,16 +327,13 @@
 		switch(lootoutcome)
 			if(1 to 8)
 				for(var/i in 1 to 5)
-					new /obj/item/stack/ore/dilithium_crystal(get_turf(src))
+					new /obj/item/stack/ore/diamond(get_turf(src))
 			if(9 to 14)
 				for(var/i in 1 to 5)
-					new /obj/item/stack/ore/diamond(get_turf(src))
-			if(15 to 22)
-				for(var/i in 1 to 5)
 					new /obj/item/stack/ore/bluespace_crystal(get_turf(src))
-			if(23)
+			if(15 to 20)
 				new /obj/item/stack/ore/bananium(get_turf(src))
-			if(24)
+			if(21 to 24)
 				new /obj/item/stack/sheet/mineral/mythril(get_turf(src))
 			if(25)
 				new /obj/item/stack/sheet/mineral/adamantine(get_turf(src))
@@ -389,8 +386,8 @@ GLOBAL_LIST_INIT(nests, list())
 		monster.setMaxHealth(monster.maxHealth * 1.5)
 		monster.health = monster.maxHealth * 1.5
 		monster.move_to_delay = max(monster.move_to_delay / 2, 1)
-		if(monster.alpha_damage_boost == 1) //mobs with really high damage amounts may be exempt from giant damage boosts
-			monster.melee_damage *= 1.5
+/*		if(monster.alpha_damage_boost == 1) //mobs with really high damage amounts may be exempt from giant damage boosts
+			monster.melee_damage *= 1.5 */
 		monster.faction = list("mining")
 		var/matrix/M = matrix()
 		M.Scale(1.5,1.5)
@@ -441,8 +438,7 @@ GLOBAL_LIST_INIT(nests, list())
 /obj/effect/edge_transition/Initialize(mapload)
 	. = ..()
 	if(z_transport)
-		RegisterSignal(get_turf(src), COMSIG_ATOM_ENTERED, .proc/on_entered)
-		RegisterSignal(get_turf(src), COMSIG_GHOST_ENTERED, .proc/on_entered)
+		RegisterSignal(get_turf(src), COMSIG_ATOM_ENTERED, PROC_REF(on_entered))
 
 /obj/effect/edge_transition/proc/on_entered(datum/source, atom/movable/arrived)
 	SIGNAL_HANDLER
