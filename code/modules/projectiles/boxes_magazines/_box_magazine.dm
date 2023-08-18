@@ -44,6 +44,19 @@
 	if(!start_empty)
 		top_off(starting=TRUE)
 
+/obj/item/ammo_box/proc/remove_from_stored_ammo(atom/movable/gone)
+	stored_ammo -= gone
+	update_appearance()
+
+/obj/item/ammo_box/Exited(atom/movable/gone, direction)
+	. = ..()
+	if(gone in stored_ammo)
+		remove_from_stored_ammo(gone)
+
+/obj/item/ammo_box/proc/remove_from_stored_ammo(atom/movable/gone)
+	stored_ammo -= gone
+	update_appearance()
+
 /obj/item/ammo_box/add_weapon_description()
 	AddElement(/datum/element/weapon_description, attached_proc = PROC_REF(add_notes_box))
 
@@ -81,16 +94,16 @@
 		stored_ammo += new round_check(src)
 	update_ammo_count()
 
-///gets a round from the magazine, if keep is TRUE the round will stay in the gun
+///gets a round from the magazine, if keep is TRUE the round will be moved to the bottom of the list.
 /obj/item/ammo_box/proc/get_round(keep = FALSE)
-	if (!stored_ammo.len)
+	var/ammo_len = length(stored_ammo)
+	if (!ammo_len)
 		return null
-	else
-		var/b = stored_ammo[stored_ammo.len]
-		stored_ammo -= b
-		if (keep)
-			stored_ammo.Insert(1,b)
-		return b
+	var/casing = stored_ammo[ammo_len]
+	if (keep)
+		stored_ammo -= casing
+		stored_ammo.Insert(1,casing)
+	return casing
 
 ///puts a round into the magazine
 /obj/item/ammo_box/proc/give_round(obj/item/ammo_casing/R, replace_spent = 0)
@@ -196,11 +209,8 @@
 	return boolets
 
 ///list of every bullet in the magazine
-/obj/item/ammo_box/magazine/proc/ammo_list(drop_list = FALSE)
-	var/list/L = stored_ammo.Copy()
-	if(drop_list)
-		stored_ammo.Cut()
-	return L
+/obj/item/ammo_box/magazine/proc/ammo_list()
+	return stored_ammo.Copy()
 
 ///drops the entire contents of the magazine on the floor
 /obj/item/ammo_box/magazine/proc/empty_magazine()
@@ -208,7 +218,3 @@
 	for(var/obj/item/ammo in stored_ammo)
 		ammo.forceMove(turf_mag)
 		stored_ammo -= ammo
-
-/obj/item/ammo_box/magazine/handle_atom_del(atom/A)
-	stored_ammo -= A
-	update_ammo_count()

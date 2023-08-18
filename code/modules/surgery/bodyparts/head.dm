@@ -88,16 +88,16 @@
 	QDEL_NULL(worn_face_offset)
 	return ..()*/
 
-/obj/item/bodypart/head/handle_atom_del(atom/head_atom)
-	if(head_atom == brain)
+/obj/item/bodypart/head/Exited(atom/movable/gone, direction)
+	if(gone == brain)
 		brain = null
 		update_icon_dropped()
 	if(gone == eyes)
 		eyes = null
 		update_icon_dropped()
-	if(head_atom == ears)
+	if(gone == ears)
 		ears = null
-	if(head_atom == tongue)
+	if(gone == tongue)
 		tongue = null
 	return ..()
 

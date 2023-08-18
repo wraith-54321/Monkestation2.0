@@ -50,6 +50,12 @@
 	QDEL_NULL(bottle)
 	return ..()
 
+/obj/machinery/chem_master/Exited(atom/movable/gone, direction)
+	. = ..()
+	if(gone == beaker)
+		beaker = null
+		update_appearance(UPDATE_ICON)
+
 /obj/machinery/chem_master/RefreshParts()
 	. = ..()
 	reagents.maximum_volume = 0
