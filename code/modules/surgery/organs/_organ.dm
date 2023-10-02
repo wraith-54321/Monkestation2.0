@@ -6,6 +6,8 @@
 	throwforce = 0
 	/// The mob that owns this organ.
 	var/mob/living/carbon/owner = null
+	/// The cached info about the blood this organ belongs to
+	var/list/blood_dna_info = list("Synthetic DNA" = "O+") // not every organ spawns inside a person
 	/// Reference to the limb we're inside of
 	var/obj/item/bodypart/bodypart_owner
 	/// The body zone this organ is supposed to inhabit.
@@ -16,7 +18,7 @@
 	 */
 	var/slot
 	/// Random flags that describe this organ
-	var/organ_flags = ORGAN_ORGANIC | ORGAN_EDIBLE
+	var/organ_flags = ORGAN_ORGANIC | ORGAN_EDIBLE | ORGAN_VIRGIN
 	/// Maximum damage the organ can take, ever.
 	var/maxHealth = STANDARD_ORGAN_THRESHOLD
 	/**
@@ -140,6 +142,22 @@ INITIALIZE_IMMEDIATE(/obj/item/organ)
 
 /obj/item/organ/proc/on_find(mob/living/finder)
 	return
+
+/**
+ * Proc that gets called when the organ is surgically removed by someone, can be used for special effects
+ * Currently only used so surplus organs can explode when surgically removed.
+ */
+/obj/item/organ/proc/on_surgical_removal(mob/living/user, mob/living/carbon/old_owner, target_zone, obj/item/tool)
+	SHOULD_CALL_PARENT(TRUE)
+	SEND_SIGNAL(src, COMSIG_ORGAN_SURGICALLY_REMOVED, user, old_owner, target_zone, tool)
+	RemoveElement(/datum/element/decal/blood)
+
+/obj/item/organ/wash(clean_types)
+	. = ..()
+
+	// always add the original dna to the organ after it's washed
+	if(!IS_ROBOTIC_ORGAN(src) && (clean_types & CLEAN_TYPE_BLOOD))
+		add_blood_DNA(blood_dna_info)
 
 /obj/item/organ/process(seconds_per_tick, times_fired)
 	return
