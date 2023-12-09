@@ -50,7 +50,7 @@
 	AddElement(/datum/element/organ_set_bonus, /datum/status_effect/organ_set_bonus/rat)
 	AddElement(/datum/element/noticable_organ, "mouth is drooling excessively.", BODY_ZONE_PRECISE_MOUTH)
 
-/obj/item/organ/internal/stomach/rat/on_insert(mob/living/carbon/receiver)
+/obj/item/organ/internal/stomach/rat/on_mob_insert(mob/living/carbon/receiver)
 	. = ..()
 	if(!ishuman(receiver))
 		return
@@ -73,7 +73,7 @@
 	new_species.disliked_food = NONE
 	new_species.toxic_food = NONE
 
-/obj/item/organ/internal/stomach/rat/on_remove(mob/living/carbon/stomach_owner)
+/obj/item/organ/internal/stomach/rat/on_mob_remove(mob/living/carbon/stomach_owner)
 	. = ..()
 	if(!ishuman(stomach_owner))
 		return
@@ -103,7 +103,7 @@
 	AddElement(/datum/element/organ_set_bonus, /datum/status_effect/organ_set_bonus/rat)
 	AddElement(/datum/element/noticable_organ, "hunch%PRONOUN_ES over unnaturally!")
 
-/obj/item/organ/internal/heart/rat/on_insert(mob/living/carbon/receiver)
+/obj/item/organ/internal/heart/rat/on_mob_insert(mob/living/carbon/receiver)
 	. = ..()
 	if(!ishuman(receiver))
 		return
@@ -113,7 +113,7 @@
 	//but 1.5 damage
 	human_receiver.physiology?.damage_resistance -= 50
 
-/obj/item/organ/internal/heart/rat/on_remove(mob/living/carbon/heartless, special)
+/obj/item/organ/internal/heart/rat/on_mob_remove(mob/living/carbon/heartless, special)
 	. = ..()
 	if(!ishuman(heartless))
 		return
@@ -147,11 +147,11 @@
 	if(message == "hi?")
 		speech_args[SPEECH_MESSAGE] = "Um... cheesed to meet you?"
 
-/obj/item/organ/internal/tongue/rat/on_insert(mob/living/carbon/tongue_owner, special, drop_if_replaced)
+/obj/item/organ/internal/tongue/rat/on_mob_insert(mob/living/carbon/tongue_owner, special, movement_flags)
 	. = ..()
 	RegisterSignal(tongue_owner, COMSIG_CARBON_ITEM_GIVEN, PROC_REF(its_on_the_mouse))
 
-/obj/item/organ/internal/tongue/rat/on_remove(mob/living/carbon/tongue_owner)
+/obj/item/organ/internal/tongue/rat/on_mob_remove(mob/living/carbon/tongue_owner)
 	. = ..()
 	UnregisterSignal(tongue_owner, COMSIG_CARBON_ITEM_GIVEN)
 

@@ -35,7 +35,7 @@
 	for(var/obj/item/organ/external/organ_path as anything in anime_list)
 		//Load a persons preferences from DNA
 		var/obj/item/organ/external/new_organ = SSwardrobe.provide_type(organ_path)
-		new_organ.Insert(human_holder, special=TRUE, drop_if_replaced=FALSE)
+		new_organ.Insert(human_holder, special = TRUE, movement_flags = DELETE_IF_REPLACED)
 		species.external_organs |= organ_path
 
 /datum/quirk/anime/remove()

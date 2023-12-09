@@ -56,7 +56,7 @@
 
 	return ..()
 
-/obj/item/organ/external/Insert(mob/living/carbon/receiver, special, drop_if_replaced)
+/obj/item/organ/external/Insert(mob/living/carbon/receiver, special, movement_flags)
 	var/obj/item/bodypart/limb = receiver.get_bodypart(deprecise_zone(zone))
 
 	if(!limb)

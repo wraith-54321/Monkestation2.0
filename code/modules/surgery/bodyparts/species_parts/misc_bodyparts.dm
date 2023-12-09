@@ -358,16 +358,15 @@
 	unarmed_damage_high = 14
 	unarmed_stun_threshold = 11
 
-/obj/item/bodypart/arm/left/golem/set_owner(new_owner)
+/obj/item/bodypart/arm/left/golem/clear_ownership(mob/living/carbon/old_owner)
 	. = ..()
-	if (. == FALSE)
-		return
-	if (owner)
-		owner.AddComponentFrom(REF(src), /datum/component/shovel_hands)
-	if (isnull(.))
-		return
-	var/mob/living/carbon/old_owner = .
+
 	old_owner.RemoveComponentSource(REF(src), /datum/component/shovel_hands)
+
+/obj/item/bodypart/arm/left/golem/apply_ownership(mob/living/carbon/new_owner)
+	. = ..()
+
+	new_owner.AddComponentFrom(REF(src), /datum/component/shovel_hands)
 
 /obj/item/bodypart/arm/right/golem
 	biological_state = (BIO_BONE|BIO_JOINTED)
@@ -379,16 +378,15 @@
 	unarmed_damage_high = 14
 	unarmed_stun_threshold = 11
 
-/obj/item/bodypart/arm/right/golem/set_owner(new_owner)
+/obj/item/bodypart/arm/right/golem/clear_ownership(mob/living/carbon/old_owner)
 	. = ..()
-	if (. == FALSE)
-		return
-	if (owner)
-		owner.AddComponentFrom(REF(src), /datum/component/shovel_hands)
-	if (isnull(.))
-		return
-	var/mob/living/carbon/old_owner = .
+
 	old_owner.RemoveComponentSource(REF(src), /datum/component/shovel_hands)
+
+/obj/item/bodypart/arm/right/golem/apply_ownership(mob/living/carbon/new_owner)
+	. = ..()
+
+	new_owner.AddComponentFrom(REF(src), /datum/component/shovel_hands)
 
 /obj/item/bodypart/leg/left/golem
 	biological_state = (BIO_BONE|BIO_JOINTED)

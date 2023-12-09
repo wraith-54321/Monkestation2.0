@@ -6,6 +6,8 @@
 	throwforce = 0
 	///The mob that owns this organ.
 	var/mob/living/carbon/owner = null
+	/// Reference to the limb we're inside of
+	var/obj/item/bodypart/bodypart_owner
 	var/status = ORGAN_ORGANIC
 	///The body zone this organ is supposed to inhabit.
 	var/zone = BODY_ZONE_CHEST
@@ -81,109 +83,16 @@ INITIALIZE_IMMEDIATE(/obj/item/organ)
 			volume = reagent_vol,\
 			after_eat = CALLBACK(src, PROC_REF(OnEatFrom)))
 
-	if(cosmetic_only) //Cosmetic organs don't process.
-		if(mob_sprite)
-			set_sprite(mob_sprite)
-
-/obj/item/organ/proc/set_sprite(sprite_name)
-	stored_feature_id = sprite_name
-	sprite_datum = get_global_feature_list()[sprite_name]
-	if(!sprite_datum && stored_feature_id)
-		stack_trace("External organ has no valid sprite datum for name [sprite_name]")
-
-///Return a dumb glob list for this specific feature (called from parse_sprite)
-/obj/item/organ/proc/get_global_feature_list()
-	CRASH("External organ has no feature list, it will render invisible")
-
-/*
- * Insert the organ into the select mob.
- *
- * receiver - the mob who will get our organ
- * special - "quick swapping" an organ out - when TRUE, the mob will be unaffected by not having that organ for the moment
- * drop_if_replaced - if there's an organ in the slot already, whether we drop it afterwards
- */
-/obj/item/organ/proc/Insert(mob/living/carbon/receiver, special = FALSE, drop_if_replaced = TRUE)
-	SHOULD_CALL_PARENT(TRUE)
-
-	if(!iscarbon(receiver) || owner == receiver)
-		return FALSE
-
-	var/obj/item/organ/replaced = receiver.get_organ_slot(slot)
-	if(replaced)
-		replaced.Remove(receiver, special = TRUE)
-		if(drop_if_replaced)
-			replaced.forceMove(get_turf(receiver))
-		else
-			qdel(replaced)
-
-	receiver.organs |= src
-	receiver.organs_slot[slot] = src
-	owner = receiver
-
-	// Apply unique side-effects. Return value does not matter.
-	on_insert(receiver, special)
-
-	return TRUE
-
-/// Called after the organ is inserted into a mob.
-/// Adds Traits, Actions, and Status Effects on the mob in which the organ is impanted.
-/// Override this proc to create unique side-effects for inserting your organ. Must be called by overrides.
-/obj/item/organ/proc/on_insert(mob/living/carbon/organ_owner, special)
-	SHOULD_CALL_PARENT(TRUE)
-
-	moveToNullspace()
-
-	for(var/trait in organ_traits)
-		ADD_TRAIT(organ_owner, trait, REF(src))
-
-	for(var/datum/action/action as anything in actions)
-		action.Grant(organ_owner)
-
-	for(var/datum/status_effect/effect as anything in organ_effects)
-		organ_owner.apply_status_effect(effect, type)
-
-	RegisterSignal(owner, COMSIG_ATOM_EXAMINE, PROC_REF(on_owner_examine))
-	SEND_SIGNAL(src, COMSIG_ORGAN_IMPLANTED, organ_owner)
-	SEND_SIGNAL(organ_owner, COMSIG_CARBON_GAIN_ORGAN, src, special)
-
-/*
- * Remove the organ from the select mob.
- *
- * * organ_owner - the mob who owns our organ, that we're removing the organ from.
- * * special - "quick swapping" an organ out - when TRUE, the mob will be unaffected by not having that organ for the moment
- */
-/obj/item/organ/proc/Remove(mob/living/carbon/organ_owner, special = FALSE)
-	SHOULD_CALL_PARENT(TRUE)
-
-	organ_owner.organs -= src
-	if(organ_owner.organs_slot[slot] == src)
-		organ_owner.organs_slot.Remove(slot)
-
-	owner = null
-
-	// Apply or reset unique side-effects. Return value does not matter.
-	on_remove(organ_owner, special)
-
-	return TRUE
-
-/// Called after the organ is removed from a mob.
-/// Removes Traits, Actions, and Status Effects on the mob in which the organ was impanted.
-/// Override this proc to create unique side-effects for removing your organ. Must be called by overrides.
-/obj/item/organ/proc/on_remove(mob/living/carbon/organ_owner, special)
-	SHOULD_CALL_PARENT(TRUE)
-
-	for(var/trait in organ_traits)
-		REMOVE_TRAIT(organ_owner, trait, REF(src))
-
-	for(var/datum/action/action as anything in actions)
-		action.Remove(organ_owner)
-
-	for(var/datum/status_effect/effect as anything in organ_effects)
-		organ_owner.remove_status_effect(effect, type)
-
-	UnregisterSignal(organ_owner, COMSIG_ATOM_EXAMINE)
-	SEND_SIGNAL(src, COMSIG_ORGAN_REMOVED, organ_owner)
-	SEND_SIGNAL(organ_owner, COMSIG_CARBON_LOSE_ORGAN, src, special)
+/obj/item/organ/Destroy()
+	if(bodypart_owner && !owner && !QDELETED(bodypart_owner))
+		bodypart_remove(bodypart_owner)
+	else if(owner)
+		// The special flag is important, because otherwise mobs can die
+		// while undergoing transformation into different mobs.
+		Remove(owner, special=TRUE)
+	else
+		STOP_PROCESSING(SSobj, src)
+	return ..()
 
 /// Add a Trait to an organ that it will give its owner.
 /obj/item/organ/proc/add_organ_trait(trait)
@@ -219,6 +128,13 @@ INITIALIZE_IMMEDIATE(/obj/item/organ)
 
 /obj/item/organ/proc/on_find(mob/living/finder)
 	return
+
+/obj/item/organ/wash(clean_types)
+	. = ..()
+
+	// always add the original dna to the organ after it's washed
+	if(!IS_ROBOTIC_ORGAN(src) && (clean_types & CLEAN_TYPE_BLOOD))
+		add_blood_DNA(blood_dna_info)
 
 /obj/item/organ/process(seconds_per_tick, times_fired)
 	return
@@ -425,4 +341,4 @@ INITIALIZE_IMMEDIATE(/obj/item/organ)
 
 /// Tries to replace the existing organ on the passed mob with this one, with special handling for replacing a brain without ghosting target
 /obj/item/organ/proc/replace_into(mob/living/carbon/new_owner)
-	Insert(new_owner, special = TRUE, drop_if_replaced = FALSE)
+	return Insert(new_owner, special = TRUE, movement_flags = DELETE_IF_REPLACED)

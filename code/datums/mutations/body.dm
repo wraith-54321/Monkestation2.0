@@ -504,14 +504,16 @@
 		return TRUE
 	var/obj/item/organ/internal/brain/brain = owner.get_organ_slot(ORGAN_SLOT_BRAIN)
 	if(brain)
+		brain.Remove(owner, special = TRUE)
 		brain.zone = BODY_ZONE_CHEST
+		brain.Insert(owner, special = TRUE)
 
 	var/obj/item/bodypart/head/head = owner.get_bodypart(BODY_ZONE_HEAD)
 	if(head)
 		owner.visible_message(span_warning("[owner]'s head splatters with a sickening crunch!"), ignored_mobs = list(owner))
 		new /obj/effect/gibspawner/generic(get_turf(owner), owner)
-		head.dismember(BRUTE)
 		head.drop_organs()
+		head.dismember(dam_type = BRUTE, silent = TRUE)
 		qdel(head)
 		owner.regenerate_icons()
 	RegisterSignal(owner, COMSIG_ATTEMPT_CARBON_ATTACH_LIMB, PROC_REF(abortattachment))
