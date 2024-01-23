@@ -12,9 +12,9 @@
 			qdel(listed_atom)
 		listed_turf.baseturfs = list(/turf/open/indestructible/event/plating)
 	var/turf/located = locate(148, 29, SSmapping.levels_by_trait(ZTRAIT_CENTCOM)[1]) // this grabs the bottom corner turf
-	new /obj/effect/spawner/random_arena_spawner(located)
+	new /obj/effect/spawner/room/random_arena_spawner(located)
 
-/obj/effect/spawner/random_arena_spawner
+/obj/effect/spawner/room/random_arena_spawner
 	name = "random arena spawner"
 	room_width = 17
 	room_height = 10

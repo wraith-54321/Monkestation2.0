@@ -6,7 +6,7 @@
 	template_height = 21
 	template_width = 20
 	weight = 8
-	station_name = "Kilo Station"
+	valid_station_list = list("Kilo Station")
 
 /datum/map_template/random_room/random_engines/kilo_singularity
 	name = "Kilo Singularity"
@@ -16,4 +16,4 @@
 	template_height = 21
 	template_width = 20
 	weight = 8
-	station_name = "Kilo Station"
+	valid_station_list = list("Kilo Station")

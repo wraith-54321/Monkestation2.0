@@ -33,8 +33,8 @@ GLOBAL_VAR_INIT(running_create_and_destroy, FALSE)
 		//Both are abstract types meant to scream bloody murder if spawned in raw
 		/obj/item/organ/external,
 		/obj/item/organ/external/wings,
-		/obj/effect/spawner/random_engines,
-		/obj/effect/spawner/random_bar,
+		/obj/effect/spawner/room/random_engines,
+		/obj/effect/spawner/room/random_bar,
 		///this instant starts a timer, and if its being instantly deleted it can cause issues
 		/obj/machinery/atm,
 		/datum/hotspot,

@@ -7,7 +7,7 @@
 	template_height = 12
 	template_width = 18
 	weight = 8
-	station_name = "Ice Box Station"
+	valid_station_list = list("Ice Box Station")
 
 
 /datum/map_template/random_room/random_bar/icebox_base/abductor

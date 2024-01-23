@@ -7,7 +7,7 @@
 	template_height = 20
 	template_width = 24
 	weight = 8
-	station_name = "Tramstation"
+	valid_station_list = list("Tramstation")
 
 /datum/map_template/random_room/random_engines/tram_singularity
 	name = "Tram Singularity"
@@ -17,4 +17,4 @@
 	template_height = 20
 	template_width = 24
 	weight = 8
-	station_name = "Tramstation"
+	valid_station_list = list("Tramstation")

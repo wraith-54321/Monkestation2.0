@@ -90,43 +90,41 @@
 	room_width = 5
 	room_height = 11
 
-/obj/effect/spawner/random_engines
+/obj/effect/spawner/room/random_engines
 	name = "random room spawner"
 	icon = 'icons/effects/landmarks_static.dmi'
 	icon_state = "random_room"
 	dir = NORTH
 
 /// MetaStation Engine Area Spawner
-/obj/effect/spawner/random_engines/meta
+/obj/effect/spawner/room/random_engines/meta
 	name = "meta engine spawner"
 	room_width = 33
 	room_height = 25
 
 /// TramStation Engine Area Spawner
-/obj/effect/spawner/random_engines/tram
+/obj/effect/spawner/room/random_engines/tram
 	name = "tram engine spawner"
 	room_width = 24
 	room_height = 20
 
-/obj/effect/spawner/random_engines/kilo
+/obj/effect/spawner/room/random_engines/kilo
 	name = "kilo engine spawner"
 	room_width = 20
 	room_height = 21
 
-
-
-/obj/effect/spawner/random_bar
+/obj/effect/spawner/room/random_bar
 	name = "random bar spawner"
 	icon = 'icons/effects/landmarks_static.dmi'
 	icon_state = "random_room"
 	dir = NORTH
 
-/obj/effect/spawner/random_bar/icebox
+/obj/effect/spawner/room/random_bar/icebox
 	name = "Icebox bar spawner"
 	room_width = 18
 	room_height = 12
 
-/obj/effect/spawner/random_bar/tramstation
+/obj/effect/spawner/room/random_bar/tramstation
 	name = "Tramstation bar spawner"
 	room_width = 30
 	room_height = 25

@@ -6,7 +6,7 @@
 	template_height = 25
 	template_width = 30
 	weight = 8
-	station_name = "Tramstation"
+	valid_station_list = list("Tramstation")
 
 /datum/map_template/random_room/random_bar/tramstation_base/slum_bar
     name = "Slum Tram Bar"
