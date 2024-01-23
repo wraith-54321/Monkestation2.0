@@ -1,5 +1,6 @@
 /datum/map_template/random_room/random_bar/tramstation_base
 	name = "Baseline Tram Bar"
+	room_key = RANDOM_ROOM_KEY_TRAM_BAR
 	room_id = "tram_bar_base"
 	mappath = "_maps/~monkestation/RandomBars/Tram/tram_bar_base.dmm"
 	centerspawner = FALSE

@@ -26,7 +26,7 @@
 		SSmapping.valid_random_templates_by_spawner_type[src.type] = list()
 		for(var/key in valid_room_keys)
 			for(var/datum/map_template/random_room/possible_template in SSmapping.random_room_templates[key])
-				if(room_height != possible_template.template_height || room_width != possible_template.template_width)
+				if(room_height != possible_template.template_height || room_width != possible_template.template_width || !(config.map_name in possible_template.valid_station_list))
 					continue
 
 				SSmapping.valid_random_templates_by_spawner_type[src.type] += possible_template.weight
@@ -99,17 +99,20 @@
 /// MetaStation Engine Area Spawner
 /obj/effect/spawner/room/random_engines/meta
 	name = "meta engine spawner"
+	valid_room_keys = list(RANDOM_ROOM_KEY_META_ENGINE)
 	room_width = 33
 	room_height = 25
 
 /// TramStation Engine Area Spawner
 /obj/effect/spawner/room/random_engines/tram
 	name = "tram engine spawner"
+	valid_room_keys = list(RANDOM_ROOM_KEY_TRAM_ENGINE)
 	room_width = 24
 	room_height = 20
 
 /obj/effect/spawner/room/random_engines/kilo
 	name = "kilo engine spawner"
+	valid_room_keys = list(RANDOM_ROOM_KEY_KILO_ENGINE)
 	room_width = 20
 	room_height = 21
 
@@ -121,10 +124,12 @@
 
 /obj/effect/spawner/room/random_bar/icebox
 	name = "Icebox bar spawner"
+	valid_room_keys = list(RANDOM_ROOM_KEY_ICEBOX_BAR)
 	room_width = 18
 	room_height = 12
 
 /obj/effect/spawner/room/random_bar/tramstation
 	name = "Tramstation bar spawner"
+	valid_room_keys = list(RANDOM_ROOM_KEY_TRAM_BAR)
 	room_width = 30
 	room_height = 25
