@@ -8,17 +8,15 @@
 
 /datum/controller/subsystem/mapping/proc/LoadStationRoomTemplates()
 	for(var/datum/map_template/random_room/room as anything in subtypesof(/datum/map_template/random_room))
-		room = new room
-		if(!room.mappath)
+		if(!initial(room.room_key) || !initial(room.room_id))
+			continue
+
+		if(!initial(room.mappath))
 			message_admins("Template [initial(room.name)] found without mappath. Yell at coders")
-			stack_trace("Template [initial(room.name)] found without mappath.")
-			qdel(room)
+			stack_trace("Template [room] found without mappath.")
 			continue
 
-		if(!room.room_key || !room.room_id)
-			qdel(room)
-			continue
-
+		room = new room
 		if(!random_room_templates[room.room_key])
 			random_room_templates[room.room_key] = list()
 

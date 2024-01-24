@@ -13,23 +13,16 @@
 	///What is the height of rooms we spawn
 	var/room_height = 0
 
-//CHECK MOVING THIS FROM New() ACTUALLY WORKS
 /obj/effect/spawner/room/Initialize(mapload)
 	. = ..()
-	/*if(!SSmapping.random_room_spawners[src.type])
-		SSmapping.random_room_spawners[src.type] = list()
-
-	SSmapping.random_room_spawners[src.type] += src
-	return INITIALIZE_HINT_LATELOAD*/
-
 	if(!SSmapping.valid_random_templates_by_spawner_type[src.type])
 		SSmapping.valid_random_templates_by_spawner_type[src.type] = list()
 		for(var/key in valid_room_keys)
 			for(var/datum/map_template/random_room/possible_template in SSmapping.random_room_templates[key])
-				if(room_height != possible_template.template_height || room_width != possible_template.template_width || !(config.map_name in possible_template.valid_station_list))
+				if(room_height != possible_template.template_height || room_width != possible_template.template_width || \
+					(possible_template.valid_station_list && !(SSmapping.config.map_name in possible_template.valid_station_list)))
 					continue
-
-				SSmapping.valid_random_templates_by_spawner_type[src.type] += possible_template.weight
+				SSmapping.valid_random_templates_by_spawner_type[src.type] += possible_template
 
 	//template weights can change so this has to be generated each time we want to spawn a room
 	var/list/weighted_template_list = list()
@@ -37,7 +30,6 @@
 		if((template.stock != -1 && !template.stock))
 			SSmapping.valid_random_templates_by_spawner_type[src.type] -= template
 			continue
-
 		weighted_template_list[template] = template.weight
 
 	if(!length(weighted_template_list))

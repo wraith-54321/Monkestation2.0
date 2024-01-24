@@ -16,5 +16,6 @@
 
 /obj/effect/spawner/room/random_arena_spawner
 	name = "random arena spawner"
+	valid_room_keys = list(RANDOM_ROOM_KEY_ARENA)
 	room_width = 17
 	room_height = 10
