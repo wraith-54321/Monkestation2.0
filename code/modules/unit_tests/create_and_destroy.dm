@@ -33,8 +33,6 @@ GLOBAL_VAR_INIT(running_create_and_destroy, FALSE)
 		//Both are abstract types meant to scream bloody murder if spawned in raw
 		/obj/item/organ/external,
 		/obj/item/organ/external/wings,
-		/obj/effect/spawner/room/random_engines,
-		/obj/effect/spawner/room/random_bar,
 		///this instant starts a timer, and if its being instantly deleted it can cause issues
 		/obj/machinery/atm,
 		/datum/hotspot,
@@ -120,6 +118,7 @@ GLOBAL_VAR_INIT(running_create_and_destroy, FALSE)
 	ignore += typesof(/datum/weather_event)
 	ignore += typesof(/datum/particle_weather)
 	ignore += typesof(/mob/living/basic/aquatic)
+	ignore += typesof(/obj/effect/spawner/room) //monkestation edit
 
 	var/list/cached_contents = spawn_at.contents.Copy()
 	var/original_turf_type = spawn_at.type
