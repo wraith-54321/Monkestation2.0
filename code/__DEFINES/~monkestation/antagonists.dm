@@ -19,7 +19,7 @@
 #define iseminence(checked) (istype(checked, /mob/living/eminence))
 
 // Gang member
-//#define IS_GANGMEMBER(mob) mob?.mind?.has_antag_datum(/datum/antagonist/gang_member)
+#define IS_GANGMEMBER(mob) mob?.mind?.has_antag_datum(/datum/antagonist/gang_member)
 /// check if someone is in the specified gang
 #define IS_IN_GANG(mob, gang) mob?.mind in gang.members
 

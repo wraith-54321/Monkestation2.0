@@ -5821,6 +5821,8 @@
 #include "monkestation\code\modules\antagonists\gangs\antag_datums\gang_data_datums.dm"
 #include "monkestation\code\modules\antagonists\gangs\antag_datums\gang_team.dm"
 #include "monkestation\code\modules\antagonists\gangs\antag_datums\gangmember_datum.dm"
+#include "monkestation\code\modules\antagonists\gangs\antag_datums\uplink_handler.dm"
+#include "monkestation\code\modules\antagonists\gangs\items\tools\gang_spraycan.dm"
 #include "monkestation\code\modules\antagonists\gangs\uplink\uplink_implant.dm"
 #include "monkestation\code\modules\antagonists\slasher\__base_slasher_additions.dm"
 #include "monkestation\code\modules\antagonists\slasher\ghost_role.dm"

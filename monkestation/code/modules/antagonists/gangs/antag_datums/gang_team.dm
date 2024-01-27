@@ -2,6 +2,8 @@
 	name = "Syndicate Gang"
 	///What gang data do we use(what syndicate orginization are we aligned with)
 	var/datum/gang_data/our_gang_type = /datum/gang_data
+	///Temp for while I decide if I want to use gang_data or not
+	var/gang_type = "Omni"
 	///assoc list of uplink handlers for our gang leaders, keyed to the mind that owns the handler
 	var/list/handlers = list()
 	///how much TC does the gang boss have left to allocate to lieutenants
@@ -9,10 +11,10 @@
 
 /datum/team/gang/New(starting_members)
 	. = ..()
-	set_gang_info()
+//	set_gang_info()
 
 ///set up all our stuff for our gang_data, if there is already another gang then we wont pick from their blacklisted types for our data. forced_type will just set our data to whats passed
-/datum/team/gang/proc/set_gang_info(/datum/gang_data/forced_type)
+/*/datum/team/gang/proc/set_gang_info(datum/gang_data/forced_type)
 	if(forced_type)
 		our_gang_type = forced_type
 	else
@@ -27,4 +29,4 @@
 
 	for(var/datum/mind/gang_member in members)
 		var/datum/antagonist/gang_member/member_datum = IS_GANGMEMBER(gang_member)
-		member_datum.set_title(our_gang_type)
+		member_datum.set_title(our_gang_type)*/
