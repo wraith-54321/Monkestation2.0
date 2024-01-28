@@ -1,9 +1,15 @@
+///Assoc list of all gangs keyed to their tag
+GLOBAL_LIST_EMPTY(all_gangs_by_tag)
+
+///Assoc list of gang controlled area types with values of what gang controls them
+GLOBAL_LIST_EMPTY(gang_controlled_areas)
+
 /datum/team/gang
 	name = "Syndicate Gang"
 	///What gang data do we use(what syndicate orginization are we aligned with)
 	var/datum/gang_data/our_gang_type = /datum/gang_data
 	///Temp for while I decide if I want to use gang_data or not
-	var/gang_type = "Omni"
+	var/gang_tag = "Omni"
 	///assoc list of uplink handlers for our gang leaders, keyed to the mind that owns the handler
 	var/list/handlers = list()
 	///how much TC does the gang boss have left to allocate to lieutenants
@@ -12,6 +18,10 @@
 /datum/team/gang/New(starting_members)
 	. = ..()
 //	set_gang_info()
+	if(all_gangs_by_tag[gang_tag])
+		stack_trace("Gang([src]) created with duplicate tag to already exsisting gang([all_gangs_by_tag[gang_tag]]).")
+		message_admins("Gang([src]) created with duplicate tag to already exsisting gang([all_gangs_by_tag[gang_tag]]), overriding old gang.")
+	all_gangs_by_tag[gang_tag] = src
 
 ///set up all our stuff for our gang_data, if there is already another gang then we wont pick from their blacklisted types for our data. forced_type will just set our data to whats passed
 /*/datum/team/gang/proc/set_gang_info(datum/gang_data/forced_type)
