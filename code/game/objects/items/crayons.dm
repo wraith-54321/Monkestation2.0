@@ -330,7 +330,7 @@
 		crayon_drawables = staticDrawables()
 
 	. = list()
-	.["drawables"] = crayon_drawables + additional_drawables //monkestation edit: adds additional_drawables
+	.["drawables"] = crayon_drawables + formatted_additional_drawables //monkestation edit: adds formatted_additional_drawables
 	.["selected_stencil"] = drawtype
 	.["text_buffer"] = text_buffer
 
@@ -351,7 +351,7 @@
 				. = TRUE
 		if("select_stencil")
 			var/stencil = params["item"]
-			if(stencil in all_drawables + randoms + additional_drawables) //monkestation edit: adds additional_drawables
+			if(stencil in all_drawables + randoms + formatted_additional_drawables) //monkestation edit: adds additional_drawables
 				drawtype = stencil
 				. = TRUE
 				text_buffer = ""

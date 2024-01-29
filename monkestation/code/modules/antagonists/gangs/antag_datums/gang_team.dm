@@ -9,7 +9,7 @@ GLOBAL_LIST_EMPTY(gang_controlled_areas)
 	///What gang data do we use(what syndicate orginization are we aligned with)
 	var/datum/gang_data/our_gang_type = /datum/gang_data
 	///Temp for while I decide if I want to use gang_data or not
-	var/gang_tag = "Omni"
+	var/gang_tag = "Error"
 	///assoc list of uplink handlers for our gang leaders, keyed to the mind that owns the handler
 	var/list/handlers = list()
 	///how much TC does the gang boss have left to allocate to lieutenants
