@@ -11,6 +11,8 @@ GLOBAL_LIST_EMPTY(all_gangs_by_tag)
 	var/list/handlers = list()
 	///how much TC does the gang boss have left to allocate to lieutenants
 	var/unallocated_tc = 0
+	///how much rep does the gang have
+	var/rep = 0
 
 /datum/team/gang/New(starting_members)
 	. = ..()
@@ -19,6 +21,11 @@ GLOBAL_LIST_EMPTY(all_gangs_by_tag)
 		stack_trace("Gang([src]) created with duplicate tag to already exsisting gang([GLOB.all_gangs_by_tag[gang_tag]]).")
 		message_admins("Gang([src]) created with duplicate tag to already exsisting gang([GLOB.all_gangs_by_tag[gang_tag]]), overriding old gang.")
 	GLOB.all_gangs_by_tag[gang_tag] = src
+
+/datum/team/gang/proc/update_rep()
+	for(var/mind in handlers)
+		var/datum/uplink_handler/handler = handlers[mind]
+		handler.progression_points = rep
 
 ///set up all our stuff for our gang_data, if there is already another gang then we wont pick from their blacklisted types for our data. forced_type will just set our data to whats passed
 /*/datum/team/gang/proc/set_gang_info(datum/gang_data/forced_type)
