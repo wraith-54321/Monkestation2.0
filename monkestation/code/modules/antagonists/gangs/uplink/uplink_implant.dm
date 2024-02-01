@@ -13,7 +13,7 @@
 	uplink_handler = handler
 	. = ..()
 
-/obj/item/implant/uplink/gang/removed(mob/living/source, silent, special)
+/obj/item/implant/uplink/gang/removed(mob/living/source, silent, special, forced) //monkestation edit: adds forced
 	. = ..()
 	if(!.)
 		return

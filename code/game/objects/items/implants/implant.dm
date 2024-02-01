@@ -113,7 +113,7 @@
  */
 /obj/item/implant/proc/removed(mob/living/source, silent = FALSE, special = 0, forced = FALSE) //monkestation edit: adds forced
 //monkestation edit start
-	if(!forced && (SEND_SIGNAL(src, COMSIG_RE_IMPLANT_REMOVED, args) & COMPONENT_STOP_IMPLANT_REMOVAL))
+	if(!forced && (SEND_SIGNAL(src, COMSIG_PRE_IMPLANT_REMOVED, args) & COMPONENT_STOP_IMPLANT_REMOVAL))
 		return FALSE
 //monkestation edit end
 
