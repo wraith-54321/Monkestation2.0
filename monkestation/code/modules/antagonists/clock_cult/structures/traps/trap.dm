@@ -56,7 +56,7 @@
 
 /obj/item/wallframe/clocktrap/Initialize(mapload)
 	. = ..()
-	AddElement(/datum/element/clockwork_description, clockwork_desc)
+	AddElement(/datum/element/extra_examine/clockwork_description, clockwork_desc)
 
 
 //Wall item (either spawned by a wallframe or directly)
