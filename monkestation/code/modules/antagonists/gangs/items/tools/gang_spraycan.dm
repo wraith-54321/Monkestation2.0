@@ -91,7 +91,8 @@ GLOBAL_LIST_EMPTY(gang_controlled_areas)
 	if(controlling_tag)
 		qdel(controlling_tag)
 
-	var/obj/effect/decal/cleanable/crayon/gang/created_tag = new(target, paint_color, antag_datum.gang_team?.gang_tag, null/*name*/, null, null, antag_datum.gang_team)
+	var/obj/effect/decal/cleanable/crayon/gang/created_tag = new(target, paint_color, antag_datum.gang_team?.gang_tag, "[antag_datum.gang_team?.gang_tag] tag", \
+																null, null, antag_datum.gang_team)
 	if(resistant_coating_charges)
 		resistant_coating_charges--
 		created_tag.resistant = TRUE

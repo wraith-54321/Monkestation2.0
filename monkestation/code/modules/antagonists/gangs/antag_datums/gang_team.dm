@@ -7,12 +7,14 @@ GLOBAL_LIST_EMPTY(all_gangs_by_tag)
 	var/datum/gang_data/our_gang_type = /datum/gang_data
 	///Temp for while I decide if I want to use gang_data or not
 	var/gang_tag = "Error"
-	///assoc list of uplink handlers for our gang leaders, keyed to the mind that owns the handler
+	///Assoc list of uplink handlers for our gang leaders, keyed to the mind that owns the handler
 	var/list/handlers = list()
-	///how much TC does the gang boss have left to allocate to lieutenants
+	///How much TC does the gang boss have left to allocate to lieutenants
 	var/unallocated_tc = 0
-	///how much rep does the gang have
+	///How much rep does the gang have
 	var/rep = 0
+	///Ref to the uplink handler of the current boss
+	var/datum/uplink_handler/boss_handler
 
 /datum/team/gang/New(starting_members)
 	. = ..()
