@@ -9,25 +9,61 @@ GLOBAL_LIST_EMPTY(all_gangs_by_tag)
 	var/gang_tag = "Error"
 	///Assoc list of uplink handlers for our gang leaders, keyed to the mind that owns the handler
 	var/list/handlers = list()
-	///How much TC does the gang boss have left to allocate to lieutenants
-	var/unallocated_tc = 0
-	///How much rep does the gang have
-	var/rep = 0
+	///How much threat does the gang have
+	var/threat = 0
 	///Ref to the uplink handler of the current boss
 	var/datum/uplink_handler/boss_handler
+	///Static list of all gang tags
+	var/static/list/all_gang_tags = list(
+		"Omni",
+		"Newton",
+		"Clandestine",
+		"Prima",
+		"Zero-G",
+		"Osiron",
+		"Psyke",
+		"Diablo",
+		"Blasto",
+		"North",
+		"Donk",
+		"Sleeping Carp",
+		"Gene",
+		"Cyber",
+		"Tunnel",
+		"Sirius",
+		"Waffle",
+		"Max",
+		"Gib",
+	)
 
 /datum/team/gang/New(starting_members)
 	. = ..()
 //	set_gang_info()
+	var/list/possible_tags = all_gang_tags - GLOB.all_gangs_by_tag
+	if(!length(possible_tags))
+		stack_trace("Gang created without possible_tags.")
+	else
+		gang_tag = pick(possible_tags)
+
 	if(GLOB.all_gangs_by_tag[gang_tag])
-		stack_trace("Gang([src]) created with duplicate tag to already exsisting gang([GLOB.all_gangs_by_tag[gang_tag]]).")
-		message_admins("Gang([src]) created with duplicate tag to already exsisting gang([GLOB.all_gangs_by_tag[gang_tag]]), overriding old gang.")
+		stack_trace("Gang([src]) created with duplicate tag([gang_tag]) to already exsisting gang([GLOB.all_gangs_by_tag[gang_tag]]).")
+		message_admins("Gang([src]) created with duplicate tag([gang_tag]) to already exsisting gang([GLOB.all_gangs_by_tag[gang_tag]]), overriding old gang.")
 	GLOB.all_gangs_by_tag[gang_tag] = src
+	name = "[gang_tag] gang"
+	member_name = "[gang_tag] gang member"
+	setup_objectives()
+
+/datum/team/gang/Destroy(force, ...)
+	GLOB.all_gangs_by_tag -= gang_tag
+	return ..()
 
 /datum/team/gang/proc/update_rep()
 	for(var/mind in handlers)
 		var/datum/uplink_handler/handler = handlers[mind]
 		handler.progression_points = rep
+
+/datum/team/gang/proc/setup_objectives()
+	add_objective(new /datum/objective/highest_gang_threat())
 
 ///set up all our stuff for our gang_data, if there is already another gang then we wont pick from their blacklisted types for our data. forced_type will just set our data to whats passed
 /*/datum/team/gang/proc/set_gang_info(datum/gang_data/forced_type)
