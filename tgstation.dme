@@ -5629,6 +5629,7 @@
 #include "monkestation\code\_onclick\hud\alert.dm"
 #include "monkestation\code\area\areas\station.dm"
 #include "monkestation\code\controllers\subsystem\job.dm"
+#include "monkestation\code\controllers\subsystem\traitor.dm"
 #include "monkestation\code\datums\action.dm"
 #include "monkestation\code\datums\dna.dm"
 #include "monkestation\code\datums\emotes.dm"

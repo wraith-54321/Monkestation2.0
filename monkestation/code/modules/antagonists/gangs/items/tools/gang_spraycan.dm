@@ -1,4 +1,4 @@
-///Assoc list of gang controlled area types with values of what gang controls them
+///Assoc list of gang controlled area types with values of the gang that controls them
 GLOBAL_LIST_EMPTY(gang_controlled_areas)
 //might be possible to combine this with double assoc stuff
 ///Assoc list of all tag decals keyed to the area they are in
@@ -64,6 +64,10 @@ GLOBAL_LIST_EMPTY(gang_controlled_areas)
 	var/area/target_area = get_area(target)
 	if(!target_area)
 		stack_trace("Gang spraycan([src]) calling snowflake_graffiti_creation() on a target without an area.")
+		return FALSE
+
+	if(target_area.outdoors || !(target_area.type in GLOB.the_station_areas))
+		to_chat(user, "This area is not valid to take control of.")
 		return FALSE
 
 	var/datum/team/gang/controlling_gang = GLOB.gang_controlled_areas[target.type]

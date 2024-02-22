@@ -11,8 +11,8 @@ GLOBAL_LIST_EMPTY(all_gangs_by_tag)
 	var/list/handlers = list()
 	///How much threat does the gang have
 	var/threat = 0
-	///Ref to the uplink handler of the current boss
-	var/datum/uplink_handler/boss_handler
+	///How much TC does the gang boss have left to allocate
+	var/unallocated_tc = 0
 	///Static list of all gang tags
 	var/static/list/all_gang_tags = list(
 		"Omni",
@@ -35,6 +35,8 @@ GLOBAL_LIST_EMPTY(all_gangs_by_tag)
 		"Max",
 		"Gib",
 	)
+	///Assoc list of member antag datums keyed to their rank
+	var/list/member_datums_by_rank = list()
 
 /datum/team/gang/New(starting_members)
 	. = ..()
@@ -52,15 +54,21 @@ GLOBAL_LIST_EMPTY(all_gangs_by_tag)
 	name = "[gang_tag] gang"
 	member_name = "[gang_tag] gang member"
 	setup_objectives()
+//	START_PROCESSING(SStraitor, src)
 
 /datum/team/gang/Destroy(force, ...)
+//	STOP_PROCESSING(SStraitor, src)
 	GLOB.all_gangs_by_tag -= gang_tag
 	return ..()
 
-/datum/team/gang/proc/update_rep()
+///datum/team/gang/process(seconds_per_tick)
+
+
+/datum/team/gang/proc/update_handlers()
 	for(var/mind in handlers)
 		var/datum/uplink_handler/handler = handlers[mind]
-		handler.progression_points = rep
+		handler.progression_points = threat
+		handler.on_update()
 
 /datum/team/gang/proc/setup_objectives()
 	add_objective(new /datum/objective/highest_gang_threat())
