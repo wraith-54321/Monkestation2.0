@@ -6,44 +6,60 @@
 	var/datum/antagonist/gang_member/antag_type = /datum/antagonist/gang_member
 	///If TRUE then this implant can only be used for promotion and not conversion
 	var/promotion_only = FALSE
+	///If set to TRUE then we force our implanting
+	var/debug = FALSE
+	///Ref to our gang communicator action, if we have one
+	var/datum/action/innate/gang_communicate/communicate
+
+/obj/item/implant/uplink/gang/Initialize(mapload, uplink_handler)
+	. = ..()
+	if(initial(antag_type.rank) >= GANG_RANK_LIEUTENANT) //leaders always get a communicator
+		add_communicator()
+
+/obj/item/implant/uplink/gang/Destroy()
+	if(!QDELETED(communicate))
+		QDEL_NULL(communicate)
+	return ..()
 
 /obj/item/implant/uplink/gang/can_be_implanted_in(mob/living/target)
 	. = ..()
 	if(!.)
 		return
 
-	if(!ishuman(target) || HAS_TRAIT(target, TRAIT_MINDSHIELD)) //mindshields work the same way as cultists where they will block conversion but wont deconvert if implanted with one
+	if(!ishuman(target) || HAS_TRAIT(target, TRAIT_MINDSHIELD) || IS_TRAITOR(target)) //mindshields work the same way as cultists
 		return FALSE
 
-/obj/item/implant/uplink/gang/implant(mob/living/carbon/target, mob/user, silent, force)
+/obj/item/implant/uplink/gang/implant(mob/living/carbon/target, mob/user, silent, force = debug)
 	if(!target.mind) //implanting a mindless mob wont work and will runtime, so override force
-		to_chat(user, "\The [src] rejects [target].")
+		to_chat(user, span_warning("\The [src] rejects [target]."))
 		return FALSE
 
 	var/datum/antagonist/gang_member/gang_user = IS_GANGMEMBER(user)
 	if(!force && (!gang_user || !gang_user.gang_team))
-		to_chat(user, "You can't figure out how to use \the [src].")
+		to_chat(user, span_warning("You can't figure out how to use \the [src]."))
 		return FALSE
 
 	var/datum/antagonist/gang_member/gang_target = IS_GANGMEMBER(target)
-	if((!gang_target && promotion_only) || (gang_target && !promotion_checks()))
-		to_chat(user, "\The [src] refuses to implant [target].")
+	if((!gang_target && promotion_only) || (gang_target && !promotion_checks(gang_target, gang_user)))
+		to_chat(user, span_warning("\The [src] refuses to implant [target]."))
 		return FALSE
 
 	if(gang_target) //if the previous check passes then we are valid to promote
 		gang_target.change_rank(antag_type)
+		var/obj/item/implant/uplink/gang/target_implant = locate(/obj/item/implant/uplink/gang) in target.contents
+		target_implant?.add_communicator()
 		moveToNullspace()
 		qdel(src)
 		return TRUE
 
-	var/datum/uplink_handler/gang/handler = gang_user.gang_team.handlers[target.mind]
+	var/datum/uplink_handler/gang/handler = gang_user?.gang_team.handlers[target.mind]
 	var/qdel_handler_on_fail = FALSE //we only want to qdel the handler if its new
 	if(!handler)
 		handler = new
 		qdel_handler_on_fail = TRUE
 		handler.owner = target.mind
 		handler.telecrystals = starting_tc //if we override handler then starting_tc does not get used
-		handler.owning_gang = gang_user.gang_team
+		handler.owning_gang = gang_user?.gang_team
 	uplink_handler = handler
 
 	. = ..()
@@ -52,15 +68,36 @@
 			qdel(handler)
 		return
 
-	var/datum/antagonist/gang_member/new_member_datum = target.mind.add_antag_datum(antag_type, gang_user.gang_team)
+	var/datum/antagonist/gang_member/new_member_datum = new antag_type
 	new_member_datum.handler = handler
+	target.mind.add_antag_datum(new_member_datum, gang_user?.gang_team)
 	new_member_datum.gang_team?.handlers[target.mind] = handler
+	new_member_datum.RegisterSignal(src, COMSIG_PRE_IMPLANT_REMOVED, TYPE_PROC_REF(/datum/antagonist/gang_member, handle_pre_implant_removal))
+	new_member_datum.RegisterSignal(src, COMSIG_IMPLANT_REMOVED, TYPE_PROC_REF(/datum/antagonist/gang_member, handle_implant_removal))
+	communicate?.Grant(target)
+
+/obj/item/implant/uplink/gang/removed(mob/living/source, silent, special, forced)
+	. = ..()
+	if(!.)
+		return
+
+	communicate?.Remove(source)
+
+/obj/item/implant/uplink/gang/proc/add_communicator()
+	if(communicate)
+		return FALSE
+
+	communicate = new
+	if(imp_in)
+		communicate.Grant(imp_in)
 
 ///put any unique checks you want for rank promotion here
 /obj/item/implant/uplink/gang/proc/promotion_checks(datum/antagonist/gang_member/target, datum/antagonist/gang_member/user)
 	if(target.gang_team != user.gang_team || !MEETS_GANG_RANK(user, GANG_RANK_LIEUTENANT) || !initial(antag_type.rank) > target.rank)
 		return FALSE
 	return TRUE
+/obj/item/implant/uplink/gang/debug
+	debug = TRUE
 
 /obj/item/implant/uplink/gang/boss
 	starting_tc = 25 //bosses get extra TC over traitors
@@ -105,3 +142,25 @@
 		else
 			return FALSE
 	return TRUE
+
+/obj/item/implanter/uplink/gang
+	name = "implanter (gang uplink)"
+	imp_type = /obj/item/implant/uplink/gang
+
+/obj/item/implanter/uplink/gang_debug
+	item_flags = ABSTRACT //this is to prevent a few things from trying to spawn this
+	imp_type = /obj/item/implant/uplink/gang/debug
+
+/obj/item/implanter/uplink/gang_lieutenant
+	name = "implanter (gang lieutenant uplink)"
+	imp_type = /obj/item/implant/uplink/gang/lieutenant
+
+/obj/item/implanter/uplink/gang_lieutenant/fabricated
+	imp_type = /obj/item/implant/uplink/gang/lieutenant/fabricated
+
+/obj/item/implanter/uplink/gang_boss
+	name = "implanter (gang boss uplink)"
+	imp_type = /obj/item/implant/uplink/gang/boss
+
+/obj/item/implanter/uplink/gang_boss/fabricated
+	imp_type = /obj/item/implant/uplink/gang/boss/fabricated

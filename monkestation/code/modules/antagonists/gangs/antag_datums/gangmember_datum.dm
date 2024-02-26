@@ -1,4 +1,11 @@
 /datum/antagonist/gang_member
+	name = "\improper Syndicate gang member"
+	roundend_category = "gangs"
+	job_rank = ROLE_GANG_MEMBER
+	antag_moodlet = /datum/mood_event/focused
+	hijack_speed = 0.5
+	antagpanel_category = "Gang"
+	antag_hud_name = "hud_gangster"
 	///Ref to our team
 	var/datum/team/gang/gang_team
 	///What is our rank
@@ -16,7 +23,6 @@
 	return gang_team
 
 /datum/antagonist/gang_member/on_gain()
-	. = ..()
 	var/list/member_list = gang_team.member_datums_by_rank["[rank]"]
 	if(!member_list)
 		member_list = list()
@@ -24,11 +30,16 @@
 	member_list += src
 
 	objectives += gang_team.objectives
-	handler.can_take_objectives = rank != 0 //return it as a bool
+	handler.can_take_objectives = !!rank //return it as a bool
 	handler.maximum_active_objectives = 1 * rank //this actually just works, but if you for some reason ever mess with ranks this will break
 	handler.maximum_potential_objectives = 3 * rank
 	if(handler.maximum_potential_objectives)
 		handler.generate_objectives()
+
+	hud_keys = gang_team.tag
+	if(owner?.current)
+		add_team_hud(owner.current)
+	. = ..()
 
 /datum/antagonist/gang_member/on_removal()
 	. = ..()
@@ -44,19 +55,26 @@
 	owner?.add_antag_datum(new_datum, gang_team)
 
 ///Block imoplant removal if we are a lieutenant or higher
-/datum/antagonist/gang_member/proc/handle_pre_implant_removal(mob/living/source, silent, special)
+/datum/antagonist/gang_member/proc/handle_pre_implant_removal(datum/source, mob/living/mob_source, silent, special)
 	SIGNAL_HANDLER
 	if(rank >= GANG_RANK_LIEUTENANT)
 		return COMPONENT_STOP_IMPLANT_REMOVAL
 
-/datum/antagonist/gang_member/proc/handle_implant_removal(mob/living/source, silent, special)
+/datum/antagonist/gang_member/proc/handle_implant_removal(datum/source, mob/living/mob_source, silent, special)
 	SIGNAL_HANDLER
+	UnregisterSignal(source, list(COMSIG_IMPLANT_REMOVED, COMSIG_PRE_IMPLANT_REMOVED))
 	on_removal()
 
 /datum/antagonist/gang_member/boss
-	name = "Syndicate Gang Boss"
+	name = "\improper Syndicate Gang Boss"
+	hud_icon = 'monkestation/icons/mob/huds/antag_hud.dmi'
+	show_to_ghosts = TRUE
+	antag_hud_name = "gang_boss"
 	rank = GANG_RANK_BOSS
 
 /datum/antagonist/gang_member/lieutenant
-	name = "Syndicate Gang Lieutenant"
+	name = "\improper Syndicate Gang Lieutenant"
+	hud_icon = 'monkestation/icons/mob/huds/antag_hud.dmi'
+	show_to_ghosts = TRUE
+	antag_hud_name = "gang_lieutenant"
 	rank = GANG_RANK_LIEUTENANT
