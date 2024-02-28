@@ -58,11 +58,11 @@
 		var/sender_rank = "Member"
 		if(sender_datum.rank == GANG_RANK_LIEUTENANT)
 			sender_rank = "Lieutenant"
-			span = "<span class='alertsyndie'>"
+			span =+ "<span class='big'>"
+			append = "</span>"
 		else if(sender_datum.rank == GANG_RANK_BOSS)
 			sender_rank = "Boss"
-			span = "<span class='alertsyndie'><span class='big'>"
-			append = "</span>"
+			span = "<span class='alertsyndie'>"
 		final_message = span + "<i><b>[sender_rank] \
 						[findtextEx(sender_mob.name, sender_mob.real_name) ? sender_mob.name : "[sender_mob.real_name] (as [sender_mob.name])"]</b> transmits, \"" \
 						+ sent_message + "\"</i></span>" + append

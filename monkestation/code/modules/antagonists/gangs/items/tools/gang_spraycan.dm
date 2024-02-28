@@ -44,17 +44,13 @@ GLOBAL_LIST_EMPTY(gang_controlled_areas)
 			return snowflake_graffiti_creation(target, user, gang_datum)
 		else
 			to_chat(user, "You dont know how to draw this!")
-			stack_trace("")
 			return FALSE
 	else
 		return ..()
 
 ///We do a bunch of different stuff for our gang graffiti creation but still want normal function for the spraycan so im just cramming all our stuff into this proc instead of use_on()
 /obj/item/toy/crayon/spraycan/gang/proc/snowflake_graffiti_creation(atom/target, mob/user, datum/antagonist/gang_member/antag_datum)
-	if(target && !isturf(target))
-		target = get_turf(target)
-
-	if(!target)
+	if(!target || !isturf(target))
 		return FALSE
 
 	if(!isValidSurface(target))
@@ -70,7 +66,7 @@ GLOBAL_LIST_EMPTY(gang_controlled_areas)
 		to_chat(user, "This area is not valid to take control of.")
 		return FALSE
 
-	var/datum/team/gang/controlling_gang = GLOB.gang_controlled_areas[target.type]
+	var/datum/team/gang/controlling_gang = GLOB.gang_controlled_areas[target_area.type]
 	if(controlling_gang == antag_datum.gang_team)
 		to_chat(user, span_notice("We already control this area."))
 		return FALSE
