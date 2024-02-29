@@ -44,6 +44,7 @@
 		picked_template.stationinitload(get_turf(src), picked_template.centerspawner)
 	else
 		picked_template.load(get_turf(src), picked_template.centerspawner)
+	log_world("Loading random room template [picked_template.name] ([picked_template.type]) at [AREACOORD(src)]")
 	return INITIALIZE_HINT_QDEL
 
 /obj/effect/spawner/room/five_by_four
