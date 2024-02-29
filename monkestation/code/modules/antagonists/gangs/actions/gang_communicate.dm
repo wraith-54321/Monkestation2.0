@@ -58,7 +58,7 @@
 		var/sender_rank = "Member"
 		if(sender_datum.rank == GANG_RANK_LIEUTENANT)
 			sender_rank = "Lieutenant"
-			span =+ "<span class='big'>"
+			span += "<span class='big'>"
 			append = "</span>"
 		else if(sender_datum.rank == GANG_RANK_BOSS)
 			sender_rank = "Boss"

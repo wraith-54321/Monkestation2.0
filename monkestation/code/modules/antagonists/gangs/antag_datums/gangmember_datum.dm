@@ -41,9 +41,15 @@
 		add_team_hud(owner.current)
 	. = ..()
 
-/datum/antagonist/gang_member/on_removal()
+/datum/antagonist/gang_member/on_removal(obj/item/implant/uplink/gang/our_implant)
+	handler = null
+	if(!our_implant)
+		our_implant = locate() in owner?.current?.contents
+
 	. = ..()
 	gang_team.member_datums_by_rank["[rank]"] -= src
+	if(our_implant)
+		UnregisterSignal(our_implant, list(COMSIG_IMPLANT_REMOVED, COMSIG_PRE_IMPLANT_REMOVED))
 
 ///Change our datum type to a different one
 /datum/antagonist/gang_member/proc/change_rank(datum/antagonist/gang_member/new_datum)
@@ -51,10 +57,15 @@
 		new_datum = new new_datum()
 
 	silent = TRUE
-	on_removal()
+	var/obj/item/implant/uplink/gang/our_implant = locate() in owner?.current?.contents
+	new_datum.handler = handler
+	on_removal(our_implant)
 	owner?.add_antag_datum(new_datum, gang_team)
+	if(our_implant)
+		new_datum.RegisterSignal(our_implant, COMSIG_PRE_IMPLANT_REMOVED, TYPE_PROC_REF(/datum/antagonist/gang_member, handle_pre_implant_removal))
+		new_datum.RegisterSignal(our_implant, COMSIG_IMPLANT_REMOVED, TYPE_PROC_REF(/datum/antagonist/gang_member, handle_implant_removal))
 
-///Block imoplant removal if we are a lieutenant or higher
+///Block implant removal if we are a lieutenant or higher
 /datum/antagonist/gang_member/proc/handle_pre_implant_removal(datum/source, mob/living/mob_source, silent, special)
 	SIGNAL_HANDLER
 	if(rank >= GANG_RANK_LIEUTENANT)
@@ -62,8 +73,7 @@
 
 /datum/antagonist/gang_member/proc/handle_implant_removal(datum/source, mob/living/mob_source, silent, special)
 	SIGNAL_HANDLER
-	UnregisterSignal(source, list(COMSIG_IMPLANT_REMOVED, COMSIG_PRE_IMPLANT_REMOVED))
-	on_removal()
+	on_removal(source)
 
 /datum/antagonist/gang_member/boss
 	name = "\improper Syndicate Gang Boss"
