@@ -40,6 +40,10 @@
 	if(owner?.current)
 		add_team_hud(owner.current)
 	. = ..()
+//I need to handle body transfer
+/datum/antagonist/gang_member/apply_innate_effects(mob/living/mob_override)
+	. = ..()
+	owner?.current?.faction += "[REF(gang_team)]"
 
 /datum/antagonist/gang_member/on_removal(obj/item/implant/uplink/gang/our_implant)
 	handler = null
@@ -50,6 +54,10 @@
 	gang_team.member_datums_by_rank["[rank]"] -= src
 	if(our_implant)
 		UnregisterSignal(our_implant, list(COMSIG_IMPLANT_REMOVED, COMSIG_PRE_IMPLANT_REMOVED))
+
+/datum/antagonist/gang_member/remove_innate_effects(mob/living/mob_override)
+	. = ..()
+	owner?.current?.faction -= "[REF(gang_team)]"
 
 ///Change our datum type to a different one
 /datum/antagonist/gang_member/proc/change_rank(datum/antagonist/gang_member/new_datum)
