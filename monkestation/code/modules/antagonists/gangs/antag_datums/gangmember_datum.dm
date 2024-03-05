@@ -72,6 +72,8 @@
 	if(our_implant)
 		new_datum.RegisterSignal(our_implant, COMSIG_PRE_IMPLANT_REMOVED, TYPE_PROC_REF(/datum/antagonist/gang_member, handle_pre_implant_removal))
 		new_datum.RegisterSignal(our_implant, COMSIG_IMPLANT_REMOVED, TYPE_PROC_REF(/datum/antagonist/gang_member, handle_implant_removal))
+		if(MEETS_GANG_RANK(new_datum, GANG_RANK_LIEUTENANT))
+			our_implant.add_communicator()
 
 ///Block implant removal if we are a lieutenant or higher
 /datum/antagonist/gang_member/proc/handle_pre_implant_removal(datum/source, mob/living/mob_source, silent, special)

@@ -26,7 +26,7 @@
 	if(!.)
 		return
 
-	if(!ishuman(target) || HAS_TRAIT(target, TRAIT_MINDSHIELD) || IS_TRAITOR(target)) //mindshields work the same way as cultists
+	if(!ishuman(target) || HAS_TRAIT(target, TRAIT_MINDSHIELD) || IS_TRAITOR(target) || IS_NUKE_OP(target)) //mindshields work the same way as cultists
 		return FALSE
 
 /obj/item/implant/uplink/gang/implant(mob/living/carbon/target, mob/user, silent, force = debug)
