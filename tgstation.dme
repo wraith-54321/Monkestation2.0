@@ -5880,6 +5880,7 @@
 #include "monkestation\code\modules\antagonists\gangs\items\tools\gang_spraycan.dm"
 #include "monkestation\code\modules\antagonists\gangs\items\weapons\gang_turret.dm"
 #include "monkestation\code\modules\antagonists\gangs\machines\_gang_machine.dm"
+#include "monkestation\code\modules\antagonists\gangs\machines\credit_converter.dm"
 #include "monkestation\code\modules\antagonists\gangs\objectives\main_objectives.dm"
 #include "monkestation\code\modules\antagonists\gangs\uplink\uplink_handler.dm"
 #include "monkestation\code\modules\antagonists\gangs\uplink\uplink_implant.dm"

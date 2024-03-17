@@ -40,20 +40,22 @@
 	if(owner?.current)
 		add_team_hud(owner.current)
 	. = ..()
-//I need to handle body transfer
+
+//might need to handle body transfer
 /datum/antagonist/gang_member/apply_innate_effects(mob/living/mob_override)
 	. = ..()
 	owner?.current?.faction += "[REF(gang_team)]"
 
-/datum/antagonist/gang_member/on_removal(obj/item/implant/uplink/gang/our_implant)
+/datum/antagonist/gang_member/on_removal(obj/item/implant/uplink/gang/implant)
 	handler = null
-	if(!our_implant)
-		our_implant = locate() in owner?.current?.contents
+	if(!implant)
+		implant = locate() in owner?.current?.implants
 
 	. = ..()
 	gang_team.member_datums_by_rank["[rank]"] -= src
-	if(our_implant)
-		UnregisterSignal(our_implant, list(COMSIG_IMPLANT_REMOVED, COMSIG_PRE_IMPLANT_REMOVED))
+	if(implant)
+		UnregisterSignal(implant, list(COMSIG_IMPLANT_REMOVED, COMSIG_PRE_IMPLANT_REMOVED))
+		gang_team.implants -= implant
 
 /datum/antagonist/gang_member/remove_innate_effects(mob/living/mob_override)
 	. = ..()
@@ -65,15 +67,16 @@
 		new_datum = new new_datum()
 
 	silent = TRUE
-	var/obj/item/implant/uplink/gang/our_implant = locate() in owner?.current?.contents
 	new_datum.handler = handler
-	on_removal(our_implant)
-	owner?.add_antag_datum(new_datum, gang_team)
-	if(our_implant)
-		new_datum.RegisterSignal(our_implant, COMSIG_PRE_IMPLANT_REMOVED, TYPE_PROC_REF(/datum/antagonist/gang_member, handle_pre_implant_removal))
-		new_datum.RegisterSignal(our_implant, COMSIG_IMPLANT_REMOVED, TYPE_PROC_REF(/datum/antagonist/gang_member, handle_implant_removal))
+	var/obj/item/implant/uplink/gang/implant = locate() in owner?.current?.implants
+	var/datum/mind/owner_ref = owner //we need to keep a temp ref of this to use after on_removal()
+	on_removal(implant)
+	owner_ref?.add_antag_datum(new_datum, gang_team)
+	if(implant)
+		new_datum.RegisterSignal(implant, COMSIG_PRE_IMPLANT_REMOVED, TYPE_PROC_REF(/datum/antagonist/gang_member, handle_pre_implant_removal))
+		new_datum.RegisterSignal(implant, COMSIG_IMPLANT_REMOVED, TYPE_PROC_REF(/datum/antagonist/gang_member, handle_implant_removal))
 		if(MEETS_GANG_RANK(new_datum, GANG_RANK_LIEUTENANT))
-			our_implant.add_communicator()
+			implant.add_communicator()
 
 ///Block implant removal if we are a lieutenant or higher
 /datum/antagonist/gang_member/proc/handle_pre_implant_removal(datum/source, mob/living/mob_source, silent, special)

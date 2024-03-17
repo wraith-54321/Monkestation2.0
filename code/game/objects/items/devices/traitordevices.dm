@@ -324,7 +324,7 @@ effective or pretty fucking useless.
 		return
 
 //monkestation edit start
-	if(!construction_checks(mob/living/user))
+	if(!construction_checks(user))
 		return
 //monkestation edit end
 

@@ -42,15 +42,17 @@
 	send_gang_message(antag_datum, owner_gang, sanitize_text(input))
 
 /**
+ * Send a message to everyone in the passed gang(s)
  * sender - The mob sending this message, if any
- * receiving_gang - The gang who's member will hear the message
+ * receiving_gangs - List of gangs who's members will hear the message
  * sent_message - The message to send
  * span - The span to wrap the message in
  * append - Extra text to append onto the end of sent_message
+ * need_communicator - Do we only send to people with a communicator upgrade
  */
-/proc/send_gang_message(datum/antagonist/gang_member/sender_datum, datum/team/gang/receiving_gang, sent_message, span = "<span class='syndradio'>", append)
-	if(!receiving_gang)
-		CRASH("send_gang_message() called without receiving_gang.")
+/proc/send_gang_message(list/receiving_gangs, datum/antagonist/gang_member/sender_datum, sent_message, span = "<span class='syndradio'>", append, need_communicator = TRUE)
+	if(!receiving_gangs)
+		CRASH("send_gang_message() called without receiving_gangs.")
 
 	var/final_message = ""
 	var/mob/living/sender_mob = sender_datum?.owner?.current
@@ -69,4 +71,10 @@
 	else
 		final_message = span + sent_message + "</span>" + append
 
-	relay_to_list_and_observers(final_message, receiving_gang.members, sender_datum?.owner?.current)
+	var/list/receiving_members = list()
+	for(var/datum/team/gang/team in receiving_gangs)
+		for(var/obj/item/implant/uplink/gang/implant in team.implants)
+			if(implant.imp_in && (!need_communicator || implant.communicate))
+				receiving_members += implant.imp_in
+
+	relay_to_list_and_observers(final_message, receiving_members, sender_datum?.owner?.current)

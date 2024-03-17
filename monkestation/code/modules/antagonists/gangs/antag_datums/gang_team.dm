@@ -37,6 +37,8 @@ GLOBAL_LIST_EMPTY(all_gangs_by_tag)
 	)
 	///Assoc list of member antag datums keyed to their rank
 	var/list/member_datums_by_rank = list()
+	///List of all implants that are theoretically owned by us
+	var/list/implants = list()
 
 /datum/team/gang/New(starting_members)
 	. = ..()
@@ -63,15 +65,37 @@ GLOBAL_LIST_EMPTY(all_gangs_by_tag)
 
 ///datum/team/gang/process(seconds_per_tick)
 
-
+///Update the amount of threat local to each of our uplinks and then call their UI update
 /datum/team/gang/proc/update_handlers()
 	for(var/mind in handlers)
 		var/datum/uplink_handler/handler = handlers[mind]
 		handler.progression_points = threat
 		handler.on_update()
 
+///Setup our team objectives
 /datum/team/gang/proc/setup_objectives()
 	add_objective(new /datum/objective/highest_gang_threat())
+
+///Called to make us start tracking an implant
+/datum/team/gang/proc/track_implant(obj/item/implant/uplink/gang/tracked_implant)
+	implants += tracked_implant
+	RegisterSignal(tracked_implant, COMSIG_QDELETING, PROC_REF(on_tracked_qdel))
+	RegisterSignal(tracked_implant, COMSIG_IMPLANT_IMPLANTED, PROC_REF(on_tracked_implanted))
+
+///Called when we no longer want to track an implant(destroyed or implanted)
+/datum/team/gang/proc/stop_tracking_implant(obj/item/implant/uplink/gang/untracked_implant)
+	implants -= untracked_implant
+	UnregisterSignal(untracked_implant, list(COMSIG_QDELETING, COMSIG_IMPLANT_IMPLANTED))
+
+/datum/team/gang/proc/on_tracked_qdel(datum/source, force)
+	SIGNAL_HANDLER
+	stop_tracking_implant(source)
+
+/datum/team/gang/proc/on_tracked_implanted(datum/source, mob/living/target, mob/user, silent, force)
+	SIGNAL_HANDLER
+	if(IS_IN_GANG(user, src)) //if user is one of our members then we would just be tracking the implant again right away
+		return
+	stop_tracking_implant(source)
 
 ///set up all our stuff for our gang_data, if there is already another gang then we wont pick from their blacklisted types for our data. forced_type will just set our data to whats passed
 /*/datum/team/gang/proc/set_gang_info(datum/gang_data/forced_type)

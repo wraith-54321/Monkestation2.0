@@ -16,7 +16,7 @@
 	return TRUE
 
 /obj/machinery/porta_turret/syndicate/toolbox/gang
-	stun_projectile = /obj/projectile/bullet/non_lethal/non_lethal
+	stun_projectile = /obj/projectile/bullet/toolbox_turret/non_lethal
 	lethal_projectile = /obj/projectile/bullet/toolbox_turret
 
 /obj/machinery/porta_turret/syndicate/toolbox/gang/examine(mob/user)

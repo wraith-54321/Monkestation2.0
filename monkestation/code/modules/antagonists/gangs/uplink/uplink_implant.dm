@@ -11,8 +11,9 @@
 	///Ref to our gang communicator action, if we have one
 	var/datum/action/innate/gang_communicate/communicate
 
-/obj/item/implant/uplink/gang/Initialize(mapload, uplink_handler)
+/obj/item/implant/uplink/gang/Initialize(mapload, uplink_handler, datum/team/gang/tracking_gang)
 	. = ..()
+	tracking_gang?.track_implant(src)
 	if(initial(antag_type.rank) >= GANG_RANK_LIEUTENANT) //leaders always get a communicator
 		add_communicator()
 
@@ -46,7 +47,7 @@
 
 	if(gang_target) //if the previous check passes then we are valid to promote
 		gang_target.change_rank(antag_type)
-		var/obj/item/implant/uplink/gang/target_implant = locate(/obj/item/implant/uplink/gang) in target.contents
+		var/obj/item/implant/uplink/gang/target_implant = locate(/obj/item/implant/uplink/gang) in target.implants
 		target_implant?.add_communicator()
 		moveToNullspace()
 		qdel(src)
@@ -71,10 +72,12 @@
 	var/datum/antagonist/gang_member/new_member_datum = new antag_type
 	new_member_datum.handler = handler
 	target.mind.add_antag_datum(new_member_datum, gang_user?.gang_team)
-	new_member_datum.gang_team?.handlers[target.mind] = handler
 	new_member_datum.RegisterSignal(src, COMSIG_PRE_IMPLANT_REMOVED, TYPE_PROC_REF(/datum/antagonist/gang_member, handle_pre_implant_removal))
 	new_member_datum.RegisterSignal(src, COMSIG_IMPLANT_REMOVED, TYPE_PROC_REF(/datum/antagonist/gang_member, handle_implant_removal))
 	communicate?.Grant(target)
+	if(new_member_datum.gang_team)
+		new_member_datum.gang_team.handlers[target.mind] = handler
+		new_member_datum.gang_team.track_implant(src)
 
 /obj/item/implant/uplink/gang/removed(mob/living/source, silent, special, forced)
 	. = ..()
