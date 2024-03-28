@@ -1,5 +1,5 @@
 /obj/machinery/gang_machine
-	name = "gang machine"
+	name = "suspicious machine"
 	desc = "You should not be seeing this!"
 	idle_power_usage = 0
 	processing_flags = START_PROCESSING_MANUALLY
@@ -19,12 +19,12 @@
 
 /obj/machinery/gang_machine/attackby(obj/item/weapon, mob/user, params)
 	var/area/our_area = get_area(src)
-	if(setup_tc_cost && istype(weapon, /obj/item/stack/telecrystal) && setup_checks(user, our_area))
+	if(!setup && setup_tc_cost && istype(weapon, /obj/item/stack/telecrystal) && setup_checks(user, our_area))
 		var/obj/item/stack/telecrystal/tc = weapon
 		if(!tc.use(setup_tc_cost))
 			balloon_alert(user, "You need at least [setup_tc_cost] telecrystals to setup \the [src].")
 			return ..()
-		setup(our_area)
+		do_setup(our_area)
 		return
 	return ..()
 
@@ -47,6 +47,6 @@
 	return TRUE
 
 ///Fully setup the machine
-/obj/machinery/gang_machine/proc/setup(area/passed_area)
+/obj/machinery/gang_machine/proc/do_setup(area/passed_area)
 	setup = TRUE
 	return

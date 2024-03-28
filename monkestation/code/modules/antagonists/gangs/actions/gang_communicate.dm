@@ -8,25 +8,28 @@
 	check_flags = AB_CHECK_CONSCIOUS
 
 /datum/action/innate/gang_communicate/Activate()
-	var/input = tgui_input_text(usr, "Message to tell to the other gang members.", "Gang Communicator")
-	if(!input || !IsAvailable())
+	if(!IsAvailable())
 		return
 
-	var/list/filter_result = CAN_BYPASS_FILTER(usr) ? null : is_ic_filtered(input)
+	var/input = tgui_input_text(owner, "Message to tell to the other gang members.", "Gang Communicator")
+	if(!input)
+		return
+
+	var/list/filter_result = CAN_BYPASS_FILTER(owner) ? null : is_ic_filtered(input)
 	if(filter_result)
-		REPORT_CHAT_FILTER_TO_USER(usr, filter_result)
+		REPORT_CHAT_FILTER_TO_USER(owner, filter_result)
 		return
 
-	var/list/soft_filter_result = CAN_BYPASS_FILTER(usr) ? null : is_soft_ic_filtered(input)
+	var/list/soft_filter_result = CAN_BYPASS_FILTER(owner) ? null : is_soft_ic_filtered(input)
 	if(soft_filter_result)
-		if(tgui_alert(usr, "Your message contains \"[soft_filter_result[CHAT_FILTER_INDEX_WORD]]\". \"[soft_filter_result[CHAT_FILTER_INDEX_REASON]]\", Are you sure you want to say it?", \
+		if(tgui_alert(owner, "Your message contains \"[soft_filter_result[CHAT_FILTER_INDEX_WORD]]\". \"[soft_filter_result[CHAT_FILTER_INDEX_REASON]]\", Are you sure you want to say it?", \
 						"Soft Blocked Word", list("Yes", "No")) != "Yes")
 			return
-		message_admins("[ADMIN_LOOKUPFLW(usr)] has passed the soft filter for \"[soft_filter_result[CHAT_FILTER_INDEX_WORD]]\" they may be using a disallowed term. \
+		message_admins("[ADMIN_LOOKUPFLW(owner)] has passed the soft filter for \"[soft_filter_result[CHAT_FILTER_INDEX_WORD]]\" they may be using a disallowed term. \
 						Message: \"[html_encode(input)]\"")
-		log_admin_private("[key_name(usr)] has passed the soft filter for \"[soft_filter_result[CHAT_FILTER_INDEX_WORD]]\" they may be using a disallowed term. Message: \"[input]\"")
+		log_admin_private("[key_name(owner)] has passed the soft filter for \"[soft_filter_result[CHAT_FILTER_INDEX_WORD]]\" they may be using a disallowed term. Message: \"[input]\"")
 
-	var/mob/living/sender_mob = usr
+	var/mob/living/sender_mob = owner
 	if(!istype(sender_mob))
 		CRASH("[src] attempting to activate without a living mob.")
 

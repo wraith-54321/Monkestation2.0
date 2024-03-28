@@ -94,6 +94,27 @@
 	show_to_ghosts = TRUE
 	antag_hud_name = "gang_boss"
 	rank = GANG_RANK_BOSS
+	///Our TC allocation ability
+	var/datum/action/innate/allocate_gang_tc/allocate
+
+/datum/antagonist/gang_member/boss/on_gain()
+	allocate = new
+	return ..()
+
+/datum/antagonist/gang_member/boss/on_removal(obj/item/implant/uplink/gang/implant)
+	. = ..()
+	if(!QDELETED(allocate))
+		QDEL_NULL(allocate)
+
+/datum/antagonist/gang_member/boss/apply_innate_effects(mob/living/mob_override)
+	. = ..()
+	if(owner?.current)
+		allocate.Grant(owner.current)
+
+/datum/antagonist/gang_member/boss/remove_innate_effects(mob/living/mob_override)
+	. = ..()
+	if(owner?.current)
+		allocate.Remove(owner.current)
 
 /datum/antagonist/gang_member/lieutenant
 	name = "\improper Syndicate Gang Lieutenant"
