@@ -5928,6 +5928,7 @@
 #include "monkestation\code\modules\antagonists\gangs\datums\gang_examine.dm"
 #include "monkestation\code\modules\antagonists\gangs\items\tools\communicate_upgrader.dm"
 #include "monkestation\code\modules\antagonists\gangs\items\tools\gang_spraycan.dm"
+#include "monkestation\code\modules\antagonists\gangs\items\tools\mobroach_beacon.dm"
 #include "monkestation\code\modules\antagonists\gangs\items\weapons\gang_turret.dm"
 #include "monkestation\code\modules\antagonists\gangs\machines\_gang_machine.dm"
 #include "monkestation\code\modules\antagonists\gangs\machines\credit_converter.dm"
