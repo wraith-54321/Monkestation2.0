@@ -25,4 +25,4 @@
 ///Return the gang a mob is in or FALSE otherwise
 //#define GET_MOB_GANG(mob)
 ///Check if a mob is in the specified gang
-#define IS_IN_GANG(mob, gang) mob?.mind in gang.members
+#define IS_IN_GANG(mob, gang) mob?.mind in gang?.members

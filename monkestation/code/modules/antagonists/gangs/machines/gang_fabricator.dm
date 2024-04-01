@@ -84,7 +84,7 @@
 	var/name
 	///What is our base cost
 	var/cost = 0
-	///Type of object to create
+	///Type of object to create, can also be a list
 	var/fabrication_type
 
 /datum/gang_fabricator_design/proc/get_cost(obj/machinery/gang_machine/fabricator/passed_fabricator)
@@ -92,12 +92,17 @@
 
 /datum/gang_fabricator_design/proc/fabricate(obj/machinery/gang_machine/fabricator/create_at, real_cost = get_cost())
 	if(fabrication_type && create_at)
-		new fabrication_type(get_turf(create_at))
+		var/turf/creation_turf = get_turf(create_at)
+		if(islist(fabrication_type))
+			for(var/type in fabrication_type)
+				new fabrication_type(creation_turf)
+			return
+		new fabrication_type(creation_turf)
 
 /datum/gang_fabricator_design/gang_implant
 	name = "Gangmember Implant"
 	cost = 4
-	fabrication_type = /obj/item/implanter/uplink/gang
+	fabrication_type = list(/obj/item/implanter/uplink/gang, /obj/item/toy/crayon/spraycan/gang)
 
 /datum/gang_fabricator_design/gang_implant/get_cost(obj/machinery/gang_machine/fabricator/passed_fabricator)
 	if(!passed_fabricator?.owner || length(passed_fabricator.owner.members) <= cost)

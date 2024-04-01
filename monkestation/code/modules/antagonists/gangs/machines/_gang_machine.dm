@@ -49,4 +49,3 @@
 ///Fully setup the machine
 /obj/machinery/gang_machine/proc/do_setup(area/passed_area)
 	setup = TRUE
-	return

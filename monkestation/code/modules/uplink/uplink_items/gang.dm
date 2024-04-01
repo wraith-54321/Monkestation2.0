@@ -22,7 +22,7 @@
 /datum/uplink_item/device_tools/gang_communicator
 	name = "Uplink Communicator Upgrade"
 	desc = "An upgrade for your implant that when applied will grant you the ability to communicate to other members of your gang via your implant's inbuilt communication network."
-	item = /obj/item/gang_communicator_upgrade
+	item = /obj/item/gang_device/communicator_upgrade
 	cost = 4
 	purchasable_from = UPLINK_GANGS
 
@@ -39,4 +39,18 @@
 			and being sprayed over. This mix is also able to disolve the coating on other resistant tags."
 	item = /obj/item/toy/crayon/spraycan/gang/resistant
 	cost = 3
+	purchasable_from = UPLINK_GANGS
+
+/datum/uplink_item/device_tools/credit_converter_beacon
+	name = "Credit Converter Beacon"
+	desc = "A device used to call down a credit converter in a stylish drop pod."
+	item = /obj/item/gang_device/object_beacon/gang_machine/credit_converter
+	cost = 20
+	purchasable_from = UPLINK_GANGS
+
+/datum/uplink_item/device_tools/gang_fabricator_beacon
+	name = "Gang Fabricator Beacon"
+	desc = "A device used to call down a gang fabricator in a stylish drop pod."
+	item = /obj/item/gang_device/object_beacon/gang_machine/fabricator
+	cost = 15
 	purchasable_from = UPLINK_GANGS
