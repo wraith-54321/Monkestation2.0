@@ -1,9 +1,14 @@
+PROCESSING_SUBSYSTEM_DEF(gang_machines) //temp SS
+	name = "Gang Machines"
+	flags = SS_BACKGROUND|SS_POST_FIRE_TIMING|SS_NO_INIT|SS_KEEP_TIMING
+	wait = 10 SECONDS
+
 /obj/machinery/gang_machine
 	name = "suspicious machine"
 	desc = "You should not be seeing this!"
 	idle_power_usage = 0
 	processing_flags = START_PROCESSING_MANUALLY
-	subsystem_type = /datum/controller/subsystem/traitor
+	subsystem_type = /datum/controller/subsystem/processing/gang_machines
 	///Additional text to give to gang members on examine
 	var/extra_examine_text = ""
 	///How much TC do we cost to set up
