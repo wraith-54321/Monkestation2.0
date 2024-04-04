@@ -87,7 +87,7 @@
 	item = /obj/item/guardian_creator/tech
 	cost = 18
 	surplus = 40 //monkestation edit: from 0 to 40
-	purchasable_from = ~(UPLINK_NUKE_OPS | UPLINK_CLOWN_OPS)
+	purchasable_from = ~(UPLINK_NUKE_OPS | UPLINK_CLOWN_OPS | UPLINK_GANGS) //monkestation edit: adds UPLINK_GANGS
 	restricted = TRUE
 	refundable = TRUE
 

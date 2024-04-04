@@ -25,6 +25,7 @@
 //monkestation edit start
 	if(!.)
 		return
+//monkestation edit end
 	deltimer(timerid)
 	timerid = null
 

@@ -61,6 +61,7 @@
 		handler.owner = target.mind
 		handler.telecrystals = starting_tc //if we override handler then starting_tc does not get used
 		handler.owning_gang = gang_user?.gang_team
+		handler.uplink_flag = UPLINK_GANGS
 	uplink_handler = handler
 
 	. = ..()
@@ -99,15 +100,10 @@
 	if(target.gang_team != user.gang_team || !MEETS_GANG_RANK(user, GANG_RANK_LIEUTENANT) || !initial(antag_type.rank) > target.rank)
 		return FALSE
 	return TRUE
-/obj/item/implant/uplink/gang/debug
-	debug = TRUE
 
 /obj/item/implant/uplink/gang/boss
 	starting_tc = 25 //bosses get extra TC over traitors
 	antag_type = /datum/antagonist/gang_member/boss
-
-/obj/item/implant/uplink/gang/boss/fabricated
-	promotion_only = TRUE
 
 /obj/item/implant/uplink/gang/boss/promotion_checks(datum/antagonist/gang_member/target, datum/antagonist/gang_member/user)
 	if(!..() || !MEETS_GANG_RANK(target, GANG_RANK_LIEUTENANT))
@@ -124,9 +120,6 @@
 /obj/item/implant/uplink/gang/lieutenant
 	starting_tc = 5
 	antag_type = /datum/antagonist/gang_member/lieutenant
-
-/obj/item/implant/uplink/gang/lieutenant/fabricated
-	promotion_only = TRUE
 
 /obj/item/implant/uplink/gang/lieutenant/promotion_checks(datum/antagonist/gang_member/target, datum/antagonist/gang_member/user)
 	if(!..())
@@ -149,21 +142,36 @@
 /obj/item/implanter/uplink/gang
 	name = "implanter (gang uplink)"
 	imp_type = /obj/item/implant/uplink/gang
+	///What should we set the debug state of our implant to on init
+	var/debug_implant = FALSE
+	///What should we set the state of our implant's promotion_only to on init
+	var/fabricated = FALSE
 
-/obj/item/implanter/uplink/gang_debug
-	item_flags = ABSTRACT //this is to prevent a few things from trying to spawn this
-	imp_type = /obj/item/implant/uplink/gang/debug
+/obj/item/implanter/uplink/gang/Initialize(mapload, uplink_handler)
+	. = ..()
+	var/obj/item/implant/uplink/gang/implant = imp
+	implant.debug = debug_implant
+	implant.promotion_only = fabricated
+	if(fabricated)
+		AddElement(/datum/element/extra_examine/gang, span_syndradio("This one seems to unable to induct new members and can only be used to promote exsisting gang members."))
 
-/obj/item/implanter/uplink/gang_lieutenant
+/obj/item/implanter/uplink/gang/debug
+	item_flags = ABSTRACT //this is to prevent a few things from trying to spawn this, slightly janky but this is for debug anyway so it should be fine
+	debug_implant = TRUE
+
+/obj/item/implanter/uplink/gang/debug/boss
+	imp_type = /obj/item/implant/uplink/gang/boss
+
+/obj/item/implanter/uplink/gang/lieutenant
 	name = "implanter (gang lieutenant uplink)"
 	imp_type = /obj/item/implant/uplink/gang/lieutenant
 
-/obj/item/implanter/uplink/gang_lieutenant/fabricated
-	imp_type = /obj/item/implant/uplink/gang/lieutenant/fabricated
+/obj/item/implanter/uplink/gang/lieutenant/fabricated
+	fabricated = TRUE
 
-/obj/item/implanter/uplink/gang_boss
+/obj/item/implanter/uplink/gang/boss
 	name = "implanter (gang boss uplink)"
 	imp_type = /obj/item/implant/uplink/gang/boss
 
-/obj/item/implanter/uplink/gang_boss/fabricated
-	imp_type = /obj/item/implant/uplink/gang/boss/fabricated
+/obj/item/implanter/uplink/gang/boss/fabricated
+	fabricated = TRUE

@@ -70,38 +70,48 @@
 /// Checks for uplink flags as well as items restricted to roles and species
 /datum/uplink_handler/proc/check_if_restricted(datum/uplink_item/to_purchase)
 	if((to_purchase in extra_purchasable))
+		message_admins("2-1")
 		return TRUE
 	if(!(to_purchase.purchasable_from & uplink_flag))
+		message_admins("2-2")
 		return FALSE
 	if(length(to_purchase.restricted_roles) && !(assigned_role in to_purchase.restricted_roles))
+		message_admins("2-3")
 		return FALSE
 	if(length(to_purchase.restricted_species) && !(assigned_species in to_purchase.restricted_species))
+		message_admins("2-4")
 		return FALSE
 	return TRUE
 
 /datum/uplink_handler/proc/can_purchase_item(mob/user, datum/uplink_item/to_purchase, ignore_locked = FALSE) //monkestation edit: adds ignore_locked
 	if(debug_mode)
+		message_admins("1")
 		return TRUE
 
 	if(shop_locked)
+		message_admins("2")
 		return FALSE
 
 //monkestation edit start
 	if(!(ignore_locked) && (to_purchase.type in locked_entries))
+		message_admins("3")
 		return FALSE
 //monkestation edit end
 
 	if(to_purchase.lock_other_purchases)
 		// Can't purchase an uplink item that locks other purchases if you've already purchased something
 		if(length(purchase_log.purchase_log) > 0)
+			message_admins("4")
 			return FALSE
 
 	if(!check_if_restricted(to_purchase))
+		message_admins("5")
 		return FALSE
 
 	var/current_stock = item_stock[to_purchase.stock_key]
 	var/stock = current_stock != null? current_stock : INFINITY
 	if(telecrystals < to_purchase.cost || stock <= 0)
+		message_admins("6")
 		return FALSE
 
 	return TRUE

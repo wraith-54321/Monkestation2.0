@@ -122,9 +122,9 @@
 /datum/gang_fabricator_design/boss_implant
 	name = "Boss Implant"
 	cost = 20
-	fabrication_type = /obj/item/implanter/uplink/gang_boss/fabricated
+	fabrication_type = /obj/item/implanter/uplink/gang/boss/fabricated
 
 /datum/gang_fabricator_design/lieutenant_implant
 	name = "Lieutenant Implant"
 	cost = 10
-	fabrication_type = /obj/item/implanter/uplink/gang_lieutenant/fabricated
+	fabrication_type = /obj/item/implanter/uplink/gang/lieutenant/fabricated

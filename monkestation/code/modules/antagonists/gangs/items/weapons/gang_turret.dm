@@ -22,7 +22,7 @@
 /obj/machinery/porta_turret/syndicate/toolbox/gang/examine(mob/user)
 	. = ..()
 	if(isobserver(user) || faction_check_atom(user))
-		. += span_syndradio("It is current set to [mode ? "lethal" : "disable"] mode.") //mode is a bool
+		. += span_syndradio("It is current set to [mode ? "lethal" : "disable"] mode. Toggle modes with [span_bold("Alt-Click")]") //mode is a bool
 
 /obj/machinery/porta_turret/syndicate/toolbox/gang/AltClick(mob/user)
 	. = ..()

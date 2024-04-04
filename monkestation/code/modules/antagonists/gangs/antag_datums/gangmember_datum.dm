@@ -36,10 +36,11 @@
 	if(handler.maximum_potential_objectives)
 		handler.generate_objectives()
 
-	hud_keys = gang_team.tag
+	hud_keys = gang_team.gang_tag
 	if(owner?.current)
-		add_team_hud(owner.current)
+		add_team_hud(owner.current, /datum/antagonist/gang_member)
 	. = ..()
+	owner.current.playsound_local(get_turf(owner.current), 'sound/ambience/antag/tatoralert.ogg', 100, FALSE, pressure_affected = FALSE, use_reverb = FALSE)
 
 //might need to handle body transfer
 /datum/antagonist/gang_member/apply_innate_effects(mob/living/mob_override)
