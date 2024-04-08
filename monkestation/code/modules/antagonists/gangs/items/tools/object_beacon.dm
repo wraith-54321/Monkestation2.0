@@ -23,7 +23,8 @@
 	return ..()
 
 /obj/item/gang_device/object_beacon/attack_self(mob/user, modifiers)
-	if(!IS_GANGMEMBER(user))
+	var/datum/antagonist/gang_member/antag_datum = IS_GANGMEMBER(user)
+	if(!antag_datum)
 		balloon_alert(user, "You can't figure out how to use [src].")
 		return
 
@@ -31,9 +32,9 @@
 		balloon_alert(user, "[src] can't be used here.")
 		return
 
-	call_down_object()
+	call_down_object(antag_datum)
 
-/obj/item/gang_device/object_beacon/proc/call_down_object(spawn_override, location_override)
+/obj/item/gang_device/object_beacon/proc/call_down_object(datum/antagonist/gang_member/user_datum, spawn_override, location_override)
 	if(!created_type)
 		return
 
@@ -48,12 +49,13 @@
 
 /obj/item/gang_device/object_beacon/gang_machine
 
-/obj/item/gang_device/object_beacon/gang_machine/call_down_object(spawn_override, location_override)
+/obj/item/gang_device/object_beacon/gang_machine/call_down_object(datum/antagonist/gang_member/user_datum, spawn_override, location_override)
 	var/turf/our_turf = get_turf(src)
 	var/obj/machinery/gang_machine/created_machine = new created_type(our_turf)
 	created_machine.alpha = 0 //to hopefully avoid any flashing before coming down
+	created_machine.owner = user_datum.gang_team
 	created_machine.do_setup()
-	. = ..(created_machine, our_turf) //thats right its a parent call with args, dont worry about it
+	. = ..(user_datum, created_machine, our_turf) //thats right its a parent call with args, dont worry about it
 	created_machine.alpha = 255
 
 /obj/item/gang_device/object_beacon/gang_machine/credit_converter

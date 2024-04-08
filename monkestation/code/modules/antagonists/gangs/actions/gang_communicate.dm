@@ -42,7 +42,7 @@
 		CRASH("[src] attempting to activate without valid owner gang.")
 
 	sender_mob.whisper(input, sanitize = TRUE)
-	send_gang_message(antag_datum, owner_gang, sanitize_text(input))
+	send_gang_message(owner_gang, antag_datum, sanitize_text(input))
 
 /**
  * Send a message to everyone in the passed gang(s)
@@ -73,6 +73,9 @@
 						+ sent_message + "\"</i></span>" + append
 	else
 		final_message = span + sent_message + "</span>" + append
+
+	if(!islist(receiving_gangs))
+		receiving_gangs = list(receiving_gangs)
 
 	var/list/receiving_members = list()
 	for(var/datum/team/gang/team in receiving_gangs)

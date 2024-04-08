@@ -18,12 +18,14 @@
 		to_chat(owner, "You are not in a gang and should not have this!")
 		CRASH("[src] calling Activate() with an owner\[[owner]\] who is not in a gang.")
 
-	if(!antag_owner.gang_team.unallocated_tc)
-		to_chat(owner, "Your gang does not have any unallocated TC.")
+	var/truncated_tc_amount = trunc(antag_owner.gang_team.unallocated_tc)
+	if(!truncated_tc_amount)
+		to_chat(owner, span_notice("Your gang does not have any unallocated TC."))
 		return
 
 	var/list/ranking_member_handlers = list()
-	for(var/datum/antagonist/gang_member/antag_datum in antag_owner.gang_team.member_datums_by_rank[GANG_RANK_BOSS] + antag_owner.gang_team.member_datums_by_rank[GANG_RANK_LIEUTENANT])
+	var/list/member_datums_by_rank = antag_owner.gang_team.member_datums_by_rank //this is actualy slightly cheaper(but I actually just dont want the next line to be too long)
+	for(var/datum/antagonist/gang_member/antag_datum in member_datums_by_rank["[GANG_RANK_BOSS]"] + member_datums_by_rank["[GANG_RANK_LIEUTENANT]"])
 		if(!antag_datum.owner)
 			continue
 
@@ -37,8 +39,8 @@
 		return
 
 	chosen_handler = ranking_member_handlers[chosen_handler]
-	var/chosen_amount = tgui_input_number(owner, "How much would you like to allocate?", "Allocate TC", max_value = antag_owner.gang_team.unallocated_tc, min_value = 0, round_value = TRUE)
-	if(!chosen_amount || antag_owner.gang_team.unallocated_tc < chosen_amount)
+	var/chosen_amount = tgui_input_number(owner, "How much would you like to allocate?", "Available TC: [truncated_tc_amount]", 0, truncated_tc_amount, 0, round_value = TRUE)
+	if(!chosen_amount || truncated_tc_amount < chosen_amount)
 		return
 
 	chosen_handler.telecrystals += chosen_amount

@@ -2,7 +2,7 @@
 	name = "Type U3 Uzi"
 	desc = "A lightweight, burst-fire submachine gun, for when you really want someone dead. Uses 9mm rounds."
 	item = /obj/item/gun/ballistic/automatic/mini_uzi
-	cost = 16
+	cost = 18
 	purchasable_from = UPLINK_GANGS
 
 /datum/uplink_item/ammo/uzi_mag

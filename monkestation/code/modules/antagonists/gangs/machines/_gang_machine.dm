@@ -6,6 +6,8 @@ PROCESSING_SUBSYSTEM_DEF(gang_machines) //temp SS
 /obj/machinery/gang_machine
 	name = "suspicious machine"
 	desc = "You should not be seeing this!"
+	density = TRUE
+	layer = BELOW_OBJ_LAYER
 	idle_power_usage = 0
 	processing_flags = START_PROCESSING_MANUALLY
 	subsystem_type = /datum/controller/subsystem/processing/gang_machines

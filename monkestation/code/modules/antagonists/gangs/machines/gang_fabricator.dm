@@ -1,7 +1,9 @@
 /obj/machinery/gang_machine/fabricator
 	desc = "A machine with what look to be parts for assembling something."
+	icon = 'icons/obj/machines/mining_machines.dmi'
+	icon_state = "unloader-corner"
 	circuit = /obj/item/circuitboard/machine/gang_fabricator
-	extra_examine_text = "A machine that can fabricate various items from inserted telecrystals."
+	extra_examine_text = span_syndradio("A machine that can fabricate various items from inserted telecrystals.")
 	setup_tc_cost = 10
 	///Static assoc list of all our fabrication design datums
 	var/static/list/designs_by_name
@@ -10,9 +12,9 @@
 
 /obj/machinery/gang_machine/fabricator/Initialize(mapload, gang)
 	. = ..()
-	if(!length(designs_by_name))
+	if(!designs_by_name)
 		designs_by_name = list()
-		for(var/datum/gang_fabricator_design/design in subtypesof(/datum/gang_fabricator_design))
+		for(var/datum/gang_fabricator_design/design as anything in subtypesof(/datum/gang_fabricator_design))
 			if(!initial(design.name) || !initial(design.cost))
 				continue
 
@@ -61,9 +63,9 @@
 		if(stored_tc >= cost)
 			selected_design.fabricate(src, cost)
 			stored_tc -= cost
-			balloon_alert("Fabricated [selected_design.name].")
+			balloon_alert(user, "Fabricated [selected_design.name].")
 			return
-		balloon_alert("Not enough stored Telecrystals.")
+		balloon_alert(user, "Not enough stored Telecrystals.")
 
 /obj/machinery/gang_machine/fabricator/attackby(obj/item/weapon, mob/user, params)
 	if(setup && istype(weapon, /obj/item/stack/telecrystal))
@@ -95,14 +97,14 @@
 		var/turf/creation_turf = get_turf(create_at)
 		if(islist(fabrication_type))
 			for(var/type in fabrication_type)
-				new fabrication_type(creation_turf)
+				new type(creation_turf)
 			return
 		new fabrication_type(creation_turf)
 
 /datum/gang_fabricator_design/gang_implant
 	name = "Gangmember Implant"
 	cost = 4
-	fabrication_type = list(/obj/item/implanter/uplink/gang, /obj/item/toy/crayon/spraycan/gang)
+	fabrication_type = list(/obj/item/toy/crayon/spraycan/gang, /obj/item/implanter/uplink/gang)
 
 /datum/gang_fabricator_design/gang_implant/get_cost(obj/machinery/gang_machine/fabricator/passed_fabricator)
 	if(!passed_fabricator?.owner || length(passed_fabricator.owner.members) <= cost)

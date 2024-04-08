@@ -3,6 +3,7 @@
 
 /obj/machinery/gang_machine/credit_converter
 	desc = "A suspicious looking machine with something that looks like a slot to input credits. Maybe its a vending machine?"
+	icon_state = "exonet_node"
 	circuit = /obj/item/circuitboard/machine/gang_credit_converter
 	extra_examine_text = span_syndradio("A machine that will slowly convert inserted credits to threat for the gang that owns it.")
 	setup_tc_cost = 15
@@ -20,7 +21,7 @@
 	if(!our_area)
 		return
 
-	send_gang_message(null, owner, "Credit converter activated in [initial(our_area.name)]", "<span class='alertsyndie'>")
+	send_gang_message(owner, null, "Credit converter activated in [initial(our_area.name)]", "<span class='alertsyndie'>")
 
 /obj/machinery/gang_machine/credit_converter/examine(mob/user)
 	. = ..()
@@ -58,7 +59,7 @@
 		threat_to_give = desired_threat
 		credits_to_pay = round(desired_threat * CREDITS_PER_THREAT, 0.1)
 
-	owner.threat += threat_to_give //for now im just gonna leave updating the UI for this to the traitor SS loop as I need to check how expensive it is
+	owner.threat += threat_to_give MINUTES //for now im just gonna leave updating the UI for this to the traitor SS loop as I need to check how expensive it is
 	stored_credits -= credits_to_pay
 	if(stored_credits < min_cost)
 		end_processing()
