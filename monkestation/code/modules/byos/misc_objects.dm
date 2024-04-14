@@ -2,6 +2,11 @@
 	name = "contruction supply closet"
 	desc = "A closet containing all the supplies for building a station."
 
+/obj/structure/closet/syndicate/byos_supplies/populate_contents_immediate()
+	. = ..()
+	new /obj/item/clothing/gloves/color/yellow(src)
+	new /obj/item/pipe_dispenser(src)
+
 /obj/structure/closet/syndicate/byos_supplies/PopulateContents()
 	. = ..()
 	new /obj/item/stack/sheet/iron/fifty(src)
@@ -9,10 +14,8 @@
 	new /obj/item/stack/sheet/glass/fifty(src)
 	new /obj/item/stack/rods/fifty(src)
 	new /obj/item/stack/sheet/rglass/fifty(src)
-	new /obj/item/clothing/gloves/color/yellow(src)
 	new /obj/item/storage/belt/utility/full(src)
 	new /obj/item/storage/belt/utility/full/engi(src)
-	new /obj/item/pipe_dispenser(src)
 	new /obj/item/clothing/glasses/meson/engine(src)
 	new /obj/item/clothing/glasses/meson(src)
 	new /obj/item/tank/internals/emergency_oxygen/engi(src)
