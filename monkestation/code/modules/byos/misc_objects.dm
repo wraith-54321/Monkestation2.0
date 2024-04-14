@@ -32,6 +32,10 @@
 /obj/structure/closet/syndicate/byos_supplies/heavy
 	desc = "A closet containing all the supplies for building a station. This one seems to have more supplies then normal."
 
+/obj/structure/closet/syndicate/byos_supplies/heavy/populate_contents_immediate()
+	. = ..()
+	new /obj/item/areaeditor/blueprints(src)
+
 /obj/structure/closet/syndicate/byos_supplies/heavy/PopulateContents()
 	. = ..()
 	new /obj/item/mod/control/pre_equipped/advanced(src)
@@ -39,7 +43,6 @@
 	new /obj/item/storage/belt/utility/chief/full(src)
 	new /obj/item/stack/sheet/plasteel/fifty(src)
 	new /obj/item/stack/sheet/plasteel/twenty(src)
-	new /obj/item/areaeditor/blueprints(src)
 
 //the syndie supplies are better as they will have a lower crew count
 /obj/structure/closet/syndicate/byos_supplies_syndicate
