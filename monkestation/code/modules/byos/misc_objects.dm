@@ -52,6 +52,10 @@
 	name = "\improper Syndicate contruction supply closet"
 	desc = "A closet containing all the supplies for building a Syndicate station."
 
+/obj/structure/closet/syndicate/byos_supplies_syndicate/populate_contents_immediate()
+	. = ..()
+	new /obj/item/pipe_dispenser(src)
+
 /obj/structure/closet/syndicate/byos_supplies_syndicate/PopulateContents()
 	. = ..()
 	new /obj/item/stack/sheet/plastitaniumglass/fifty(src)
@@ -69,7 +73,6 @@
 	new /obj/item/rcd_ammo/large(src)
 	new /obj/item/rcd_ammo/large(src)
 	new /obj/item/clothing/gloves/combat(src)
-	new /obj/item/pipe_dispenser(src)
 	new /obj/item/storage/belt/utility/full/powertools(src)
 	new /obj/item/storage/belt/utility/full/powertools(src)
 	new /obj/item/storage/toolbox/electrical(src)
