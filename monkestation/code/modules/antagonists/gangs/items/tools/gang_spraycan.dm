@@ -32,11 +32,6 @@ GLOBAL_LIST_EMPTY(gang_controlled_areas)
 		if(initial(resistant_coating_charges))
 			. += span_syndradio("It has [resistant_coating_charges] sprays worth of resistant coating left.")
 
-/*/obj/item/toy/crayon/spraycan/gang/examine(mob/user)
-	. = ..()
-	if(IS_GANGMEMBER(user))
-		. += "It looks like this one is created for use in gang tag painting."*/
-
 /obj/item/toy/crayon/spraycan/gang/use_on(atom/target, mob/user, params)
 	if(drawtype in additional_drawables)
 		var/datum/antagonist/gang_member/gang_datum = IS_GANGMEMBER(user)
