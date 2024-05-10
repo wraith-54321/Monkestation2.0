@@ -762,8 +762,8 @@
 
 	owner = null
 
-	if(speed_modifier)
-		old_owner.update_bodypart_speed_modifier()
+/*	if(speed_modifier)
+		old_owner.update_bodypart_speed_modifier() */ //monkestation temp removal
 	if(length(bodypart_traits))
 		old_owner.remove_traits(bodypart_traits, bodypart_trait_source)
 
@@ -782,8 +782,8 @@
 
 	owner = new_owner
 
-	if(speed_modifier)
-		owner.update_bodypart_speed_modifier()
+/*	if(speed_modifier)
+		owner.update_bodypart_speed_modifier() */ //monkestation temp removal
 	if(length(bodypart_traits))
 		owner.add_traits(bodypart_traits, bodypart_trait_source)
 

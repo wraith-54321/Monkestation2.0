@@ -99,10 +99,7 @@
 		scar.victim = null
 		LAZYREMOVE(owner.all_scars, scar)
 
-	for(var/obj/item/organ/external/ext_organ as anything in external_organs)
-		ext_organ.transfer_to_limb(src, null) //Null is the second arg because the bodypart is being removed from it's owner.
-
-	var/mob/living/carbon/phantom_owner = set_owner(null) // so we can still refer to the guy who lost their limb after said limb forgets 'em
+	var/mob/living/carbon/phantom_owner = update_owner(null) // so we can still refer to the guy who lost their limb after said limb forgets 'em
 
 	for(var/datum/wound/wound as anything in wounds)
 		wound.remove_wound(TRUE)

@@ -14,10 +14,8 @@
 		STOP_PROCESSING(SSobj, src)
 	return ..()
 
-/obj/item/organ/internal/Insert(mob/living/carbon/receiver, special = FALSE, drop_if_replaced = TRUE)
+/obj/item/organ/internal/on_mob_insert(mob/living/carbon/organ_owner, special, movement_flags)
 	. = ..()
-	if(!. || !owner)
-		return
 
 	// organs_slot must ALWAYS be ordered in the same way as organ_process_order
 	// Otherwise life processing breaks down
@@ -25,7 +23,7 @@
 
 	STOP_PROCESSING(SSobj, src)
 
-/obj/item/organ/internal/Remove(mob/living/carbon/organ_owner, special = FALSE)
+/obj/item/organ/internal/on_mob_remove(mob/living/carbon/organ_owner, special = FALSE)
 	. = ..()
 
 	if(organ_owner)

@@ -39,13 +39,6 @@
 	/// Maximum skillchip slots available. Do not reference this var directly and instead call get_max_skillchip_slots()
 	var/max_skillchip_slots = 5
 
-/obj/item/organ/internal/brain/examine()
-	. = ..()
-	if(brain_size < 1)
-		. += span_notice("It is a bit on the smaller side...")
-	if(brain_size > 1)
-		. += span_notice("It is bigger than average...")
-
 /obj/item/organ/internal/brain/mob_insert(mob/living/carbon/brain_owner, special = FALSE, movement_flags)
 	. = ..()
 	if(!.)
@@ -517,6 +510,6 @@
 /// Brains REALLY like ghosting people. we need special tricks to avoid that, namely removing the old brain with no_id_transfer
 /obj/item/organ/internal/brain/replace_into(mob/living/carbon/new_owner)
 	var/obj/item/organ/internal/brain/old_brain = new_owner.get_organ_slot(ORGAN_SLOT_BRAIN)
-	old_brain.Remove(new_owner, special = TRUE, movement_flags = NO_ID_TRANSFER)
+	old_brain.mob_remove(new_owner, special = TRUE, movement_flags = NO_ID_TRANSFER)
 	qdel(old_brain)
 	return Insert(new_owner, special = TRUE, movement_flags = NO_ID_TRANSFER | DELETE_IF_REPLACED)
