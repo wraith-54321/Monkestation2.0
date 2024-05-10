@@ -380,9 +380,9 @@
 	if(!.)
 		return
 
-	if(old_real_name)
-		new_head_owner.real_name = old_real_name
-	real_name = new_head_owner.real_name
+	if(real_name)
+		new_head_owner.real_name = real_name
+	real_name = ""
 
 	//Handle dental implants
 	for(var/obj/item/reagent_containers/pill/pill in src)

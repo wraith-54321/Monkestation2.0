@@ -79,13 +79,14 @@
 	var/mutable_appearance/facial_gradient_overlay
 
 
-/obj/item/bodypart/head/Destroy()
+//monkestation temp removal
+/*/obj/item/bodypart/head/Destroy()
 	QDEL_NULL(worn_ears_offset)
 	QDEL_NULL(worn_glasses_offset)
 	QDEL_NULL(worn_mask_offset)
 	QDEL_NULL(worn_head_offset)
 	QDEL_NULL(worn_face_offset)
-	return ..()
+	return ..()*/
 
 /obj/item/bodypart/head/handle_atom_del(atom/head_atom)
 	if(head_atom == brain)
