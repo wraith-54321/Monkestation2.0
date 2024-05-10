@@ -15,7 +15,7 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 /// Prevents voluntary standing or staying up on its own.
 #define TRAIT_FLOORED "floored"
 ///Slows the user, with additional effects based on the source.
-#define TRAIT_DISORIENTED "disoriented"
+#define TRAIT_DISORIENTED "disoriented" //monkestation edit
 /// Forces user to stay standing
 #define TRAIT_FORCED_STANDING "forcedstanding"
 /// Prevents usage of manipulation appendages (picking, holding or using items, manipulating storage).
@@ -34,11 +34,11 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_PERFECT_ATTACKER "perfect_attacker"
 #define TRAIT_INCAPACITATED "incapacitated"
 ///User's stamina is over the STAMINA_EXHAUSTION_THRESHOLD
-#define TRAIT_EXHAUSTED "exhausted"
+#define TRAIT_EXHAUSTED "exhausted" //monkestation edit
 ///User is sprinting, full speed ahead
-#define TRAIT_SPRINTING "sprinting"
+#define TRAIT_SPRINTING "sprinting" //monkestation edit
 ///User cannot sprint
-#define TRAIT_NO_SPRINT "no_sprint"
+#define TRAIT_NO_SPRINT "no_sprint" //monkestation edit
 /// In some kind of critical condition. Is able to succumb.
 #define TRAIT_CRITICAL_CONDITION "critical-condition"
 /// Whitelist for mobs that can read or write
@@ -165,8 +165,6 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_TOXINLOVER "toxinlover"
 /// Doesn't get overlays from being in critical.
 #define TRAIT_NOCRITOVERLAY "no_crit_overlay"
-/// Gets a mood boost from being in the hideout.
-#define TRAIT_VAL_CORRIN_MEMBER "val_corrin_member"
 /// reduces the use time of syringes, pills, patches and medigels but only when using on someone
 #define TRAIT_FASTMED "fast_med_use"
 #define TRAIT_ANTIMAGIC "anti_magic"
@@ -252,7 +250,7 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_STRONG_GRABBER "strong_grabber"
 #define TRAIT_SOOTHED_THROAT "soothed-throat"
 #define TRAIT_BOOZE_SLIDER "booze-slider"
-#define TRAIT_MONKEYFRIEND 	"monkeyfriend"
+#define TRAIT_MONKEYFRIEND 	"monkeyfriend" //monkestation edit
 /// We place people into a fireman carry quicker than standard
 #define TRAIT_QUICK_CARRY "quick-carry"
 /// We place people into a fireman carry especially quickly compared to quick_carry
@@ -313,7 +311,7 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 /// Indicates if the mob is currently speaking with sign language
 #define TRAIT_SIGN_LANG "sign_language"
 /// The mob's nanites are sending a monitoring signal visible on diag HUD
-#define TRAIT_NANITE_MONITORING "nanite_monitoring"
+#define TRAIT_NANITE_MONITORING "nanite_monitoring" //monkestation edit
 /// This mob is able to use sign language over the radio.
 #define TRAIT_CAN_SIGN_ON_COMMS "can_sign_on_comms"
 /// nobody can use martial arts on this mob
@@ -630,7 +628,7 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_CLOWN_ENJOYER "clown_enjoyer"
 #define TRAIT_MIME_FAN "mime_fan"
 #define TRAIT_VORACIOUS "voracious"
-#define TRAIT_GOURMAND "gourmand"
+#define TRAIT_GOURMAND "gourmand" //monkestation edit
 #define TRAIT_SELF_AWARE "self_aware"
 #define TRAIT_FREERUNNING "freerunning"
 #define TRAIT_SKITTISH "skittish"
@@ -657,6 +655,7 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 ///if the atom has a sticker attached to it
 #define TRAIT_STICKERED "stickered"
 
+//monkestation edit start
 #define TRAIT_JAILBIRD			"jailbird"
 #define TRAIT_STOWAWAY			"stowaway"
 #define TRAIT_LOUD_ASS			"loud_ass"
@@ -668,6 +667,7 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_HIDDEN_IMAGE		"generic-hidden-image"
 #define TRAIT_HIDDEN_CLOWN		"clown_disbelief"
 #define TRAIT_MINING_CALLOUTS	"miner_callouts"
+//monkestation edit end
 
 /// Gives you the Shifty Eyes quirk, rarely making people who examine you think you examined them back even when you didn't
 #define TRAIT_SHIFTY_EYES "shifty_eyes"
@@ -676,7 +676,7 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_GAMER "gamer"
 
 /// Trait for the Extra-Sensory Paranoia quirk
-#define TRAIT_PARANOIA "paranoia"
+#define TRAIT_PARANOIA "paranoia" //monkestation edit
 
 ///Trait for dryable items
 #define TRAIT_DRYABLE "trait_dryable"
@@ -778,10 +778,6 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 /// Trait given to angelic constructs to let them purge cult runes
 #define TRAIT_ANGELIC "angelic"
 
-
-/// From [/datum/element/elevation] for purpose of registering/removing signals and detaching the elevation_core when the trait is absent.
-#define TRAIT_TURF_HAS_ELEVATED_OBJ(z) "turf_has_elevated_obj_[z]"
-
 ///generic atom traits
 /// Trait from [/datum/element/rust]. Its rusty and should be applying a special overlay to denote this.
 #define TRAIT_RUSTY "rust_trait"
@@ -799,15 +795,9 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_NO_MIRROR_REFLECTION "no_mirror_reflection"
 
 // unique trait sources, still defines
-#define CLONING_POD_TRAIT "cloning-pod" //monkestation edit
 /// changelings with this trait can no longer talk over the hivemind
 #define TRAIT_CHANGELING_HIVEMIND_MUTE "ling_mute"
 #define TRAIT_HULK "hulk"
-#define NANITES_TRAIT "nanites" //monkestation edit
-#define MADE_UNCLONEABLE "made-uncloneable" //monkestation edit
-#define TRAIT_VAULTING "vaulting" //monkestation edit: simian trait
-/// Pacifism trait given by stabilized light pink extracts.
-#define STABILIZED_LIGHT_PINK_TRAIT "stabilized_light_pink"
 /// Isn't attacked harmfully by blob structures
 #define TRAIT_BLOB_ALLY "blob_ally"
 
@@ -842,9 +832,6 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 
 /// This human wants to see the color of their glasses, for some reason
 #define TRAIT_SEE_GLASS_COLORS "see_glass_colors"
-
-/// this mob is under the effects of the power chord
-#define TRAIT_POWER_CHORD "power_chord"
 
 // Radiation defines
 
@@ -902,20 +889,19 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 
 // specific sources for TRAIT_SPEAKS_CLEARLY
 
-/// this object cannot have its export value be shown by export scanner (shows as unknown)
-#define TRAIT_HIDDEN_EXPORT_VALUE "hiddenexportvalue"
-
+//monkestation edit start
 ///FOOD TRAITS
 ///Trait for Fire Burps
 #define TRAIT_FOOD_FIRE_BURPS "food_buff_fire_burps"
 ///Traut for fast sliding
-#define FOOD_SLIDE "food_slide_buff"
+#define TRAIT_FOOD_SLIDE "food_slide_buff"
 ///Trait for hand picked crops to be of a higher stats (ignores cap)
-#define FOOD_JOB_BOTANIST "food_job_botanist"
+#define TRAIT_FOOD_JOB_BOTANIST "food_job_botanist"
 ///Trait for rocks to randomly drop ore
-#define FOOD_JOB_MINER "food_job_miner"
-#define GLUED_ITEM_TRAIT "glued-item"
+#define TRAIT_FOOD_JOB_MINER "food_job_miner"
+#define GLUED_ITEM_TRAIT "glued_item"
 #define TRAIT_BELT_SATCHEL "belt_satchel"
+//monkestation edit end
 
 /// Trait given to mobs that we do not want to mindswap
 #define TRAIT_NO_MINDSWAP "no_mindswap"

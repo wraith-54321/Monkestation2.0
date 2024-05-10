@@ -73,7 +73,9 @@ GLOBAL_LIST_EMPTY(dead_players_during_shift)
 	blood_volume = 0
 	return TRUE
 
+//monkestation edit start
 /mob/living/carbon/proc/makeUncloneable()
-	ADD_TRAIT(src, TRAIT_BADDNA, MADE_UNCLONEABLE)
+	ADD_TRAIT(src, TRAIT_BADDNA, MADE_UNCLONEABLE_TRAIT)
 	blood_volume = 0
 	return TRUE
+//monkestation edit end
