@@ -43,7 +43,7 @@
 	if(!old_owner)
 		return
 	message_admins("[ADMIN_LOOKUPFLW(old_owner)] was gibbed after their chest teleport to [ADMIN_VERBOSEJMP(loc)].")
-	old_owner.gib(FALSE, FAKSE, FALSE) //monkestation edit: replaced DROP_ALL_REMAINS with our standard args
+	old_owner.gib(FALSE, FALSE, FALSE) //monkestation edit: replaced DROP_ALL_REMAINS with our standard args
 
 /obj/item/bodypart/chest/can_dismember(obj/item/item)
 	if(owner.stat < HARD_CRIT || !contents.len)
@@ -249,7 +249,7 @@
 	can_be_disabled = FALSE
 	max_damage = 100
 	should_draw_greyscale = FALSE
-	appendage_noun = "scythe-like hand"
+//	appendage_noun = "scythe-like hand" //monkestation temp removal
 
 /obj/item/bodypart/arm/right
 	name = "right arm"
