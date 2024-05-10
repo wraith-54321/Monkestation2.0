@@ -58,8 +58,9 @@
 		object_copy = null
 	if(gone == toner_cartridge)
 		toner_cartridge = null
-	if(gone in paper_stack)
-		paper_stack -= gone
+//monkestation temp removal
+/*	if(gone in paper_stack)
+		paper_stack -= gone*/
 
 /obj/machinery/photocopier/Destroy()
 	// object_copy can be a traitor objective, don't qdel

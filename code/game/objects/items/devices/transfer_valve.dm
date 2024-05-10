@@ -124,13 +124,14 @@
 		J.transform = T
 		underlays = list(J)
 
-	if(wired)
+//monkestation temp removal
+/*	if(wired)
 		cable_overlay = mutable_appearance(icon, icon_state = "valve_cables", layer = layer + 0.05, appearance_flags = KEEP_TOGETHER)
 		add_overlay(cable_overlay)
 
 	else if(cable_overlay)
 		cut_overlay(cable_overlay, TRUE)
-		cable_overlay = null
+		cable_overlay = null*/
 
 	worn_icon_state = "[initial(worn_icon_state)][tank_two ? "l" : ""][tank_one ? "r" : ""]"
 	if(ishuman(loc)) //worn

@@ -44,10 +44,6 @@
 	if(!start_empty)
 		top_off(starting=TRUE)
 
-/obj/item/ammo_box/proc/remove_from_stored_ammo(atom/movable/gone)
-	stored_ammo -= gone
-	update_appearance()
-
 /obj/item/ammo_box/Exited(atom/movable/gone, direction)
 	. = ..()
 	if(gone in stored_ammo)

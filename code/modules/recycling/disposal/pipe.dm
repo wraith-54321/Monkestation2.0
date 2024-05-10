@@ -78,7 +78,7 @@
 	. = ..()
 	if(gone != stored || QDELETED(src))
 		return
-	spawn_pipe = FALSE
+//	spawn_pipe = FALSE //monkestation temp removal
 	stored = null
 	if(QDELETED(gone))
 		deconstruct(FALSE) //pipe has broken.
@@ -171,7 +171,8 @@
 /obj/structure/disposalpipe/deconstruct(disassembled = TRUE)
 	if(!(flags_1 & NODECONSTRUCT_1))
 		if(disassembled)
-			if(spawn_pipe)
+//monkestation temp removal
+/*			if(spawn_pipe)
 				var/obj/structure/disposalconstruct/construct = stored
 				if(!construct) // Don't have something? Make one now
 					construct = new /obj/structure/disposalconstruct(src, null, SOUTH, FALSE, src)
@@ -179,7 +180,7 @@
 				construct.forceMove(loc)
 				transfer_fingerprints_to(construct)
 				construct.setDir(dir)
-				spawn_pipe = FALSE
+				spawn_pipe = FALSE*/
 		else
 			var/turf/T = get_turf(src)
 			for(var/D in GLOB.cardinals)

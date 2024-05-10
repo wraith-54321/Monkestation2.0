@@ -86,14 +86,14 @@
 			if(bottle)
 				SSexplosions.low_mov_atom += bottle
 
-/obj/machinery/chem_master/handle_atom_del(atom/A)
-	..()
-	if(A == beaker)
+/obj/machinery/chem_master/Exited(atom/movable/gone, direction)
+	. = ..()
+	if(gone == beaker)
 		beaker = null
-		reagents.clear_reagents()
+		reagents.clear_reagents() //monkestation edit
 		update_appearance()
-	else if(A == bottle)
-		bottle = null
+	else if(gone == bottle) //monkestation edit
+		bottle = null //monkestation edit
 
 /obj/machinery/chem_master/update_icon_state()
 	icon_state = "[base_icon_state][beaker ? 1 : 0][(machine_stat & BROKEN) ? "_b" : (powered() ? null : "_nopower")]"

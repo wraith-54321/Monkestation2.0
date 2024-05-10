@@ -416,7 +416,7 @@
 		return
 	var/all_limb_flags
 	for(var/obj/item/bodypart/limb as anything in carbon_owner.bodyparts)
-		for(var/obj/item/organ/external/ext_organ as anything in limb.external_organs)
+		for(var/obj/item/organ/external/ext_organ as anything in limb.organs) //monkestation edit: replaces external_organs with organs
 			all_limb_flags = all_limb_flags | ext_organ.external_bodytypes
 		all_limb_flags = all_limb_flags | limb.bodytype
 
