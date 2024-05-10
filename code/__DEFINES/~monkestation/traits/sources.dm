@@ -11,3 +11,5 @@
 #define STABILIZED_LIGHT_PINK_TRAIT "stabilized_light_pink"
 
 #define MADE_UNCLONEABLE_TRAIT "made-uncloneable"
+
+#define GLUED_ITEM_TRAIT "glued_item"
