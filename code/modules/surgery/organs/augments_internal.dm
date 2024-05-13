@@ -3,8 +3,8 @@
 	name = "cybernetic implant"
 	desc = "A state-of-the-art implant that improves a baseline's functionality."
 	visual = FALSE
-	status = ORGAN_ROBOTIC
-	organ_flags = ORGAN_SYNTHETIC
+//	status = ORGAN_ROBOTIC //monkestation removal
+	organ_flags = ORGAN_ROBOTIC //replaces ORGAN_SYNTHETIC with ORGAN_ROBOTIC
 	var/implant_color = "#FFFFFF"
 	var/implant_overlay
 
@@ -114,13 +114,13 @@
 
 	var/stun_cap_amount = 40
 
-/obj/item/organ/internal/cyberimp/brain/anti_stun/on_remove(mob/living/carbon/implant_owner)
+/obj/item/organ/internal/cyberimp/brain/anti_stun/on_mob_remove(mob/living/carbon/organ_owner, special)
 	. = ..()
-	UnregisterSignal(implant_owner, signalCache)
+	UnregisterSignal(organ_owner, signalCache)
 
-/obj/item/organ/internal/cyberimp/brain/anti_stun/on_insert(mob/living/carbon/receiver)
+/obj/item/organ/internal/cyberimp/brain/anti_stun/on_mob_insert(mob/living/carbon/organ_owner, special, movement_flags)
 	. = ..()
-	RegisterSignals(receiver, signalCache, PROC_REF(on_signal))
+	RegisterSignals(organ_owner, signalCache, PROC_REF(on_signal))
 
 /obj/item/organ/internal/cyberimp/brain/anti_stun/proc/on_signal(datum/source, amount)
 	SIGNAL_HANDLER

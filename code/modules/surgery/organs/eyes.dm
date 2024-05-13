@@ -50,7 +50,7 @@
 	/// Native FOV that will be applied if a config is enabled
 	var/native_fov = FOV_90_DEGREES
 
-/obj/item/organ/internal/eyes/Insert(mob/living/carbon/eye_recipient, special = FALSE, drop_if_replaced = FALSE)
+/obj/item/organ/internal/eyes/Insert(mob/living/carbon/eye_recipient, special = FALSE, movement_flags = DELETE_IF_REPLACED)
 	. = ..()
 	if(!.)
 		return
@@ -152,7 +152,7 @@
 	eye_color_left = initial(eye_color_left)
 	eye_color_right = initial(eye_color_right)
 
-/obj/item/organ/internal/eyes/apply_organ_damage(damage_amount, maximum, required_organtype)
+/obj/item/organ/internal/eyes/apply_organ_damage(damage_amount, maximum, required_organ_flag)
 	. = ..()
 	if(!owner)
 		return
@@ -261,8 +261,7 @@
 	name = "robotic eyes"
 	icon_state = "cybernetic_eyeballs"
 	desc = "Your vision is augmented."
-	status = ORGAN_ROBOTIC
-	organ_flags = ORGAN_SYNTHETIC
+	organ_flags = ORGAN_ROBOTIC //monkestation edit: replaces ORGAN_SYNTHETIC
 
 /obj/item/organ/internal/eyes/robotic/emp_act(severity)
 	. = ..()
@@ -297,13 +296,13 @@
 	eye_color_right = "000"
 	sight_flags = SEE_MOBS | SEE_OBJS | SEE_TURFS
 
-/obj/item/organ/internal/eyes/robotic/xray/on_insert(mob/living/carbon/eye_owner)
+/obj/item/organ/internal/eyes/robotic/xray/on_mob_insert(mob/living/carbon/organ_owner, special, movement_flags)
 	. = ..()
-	ADD_TRAIT(eye_owner, TRAIT_XRAY_VISION, ORGAN_TRAIT)
+	ADD_TRAIT(organ_owner, TRAIT_XRAY_VISION, ORGAN_TRAIT)
 
-/obj/item/organ/internal/eyes/robotic/xray/on_remove(mob/living/carbon/eye_owner)
+/obj/item/organ/internal/eyes/robotic/xray/on_mob_remove(mob/living/carbon/organ_owner, special)
 	. = ..()
-	REMOVE_TRAIT(eye_owner, TRAIT_XRAY_VISION, ORGAN_TRAIT)
+	REMOVE_TRAIT(organ_owner, TRAIT_XRAY_VISION, ORGAN_TRAIT)
 
 /obj/item/organ/internal/eyes/robotic/thermals
 	name = "thermal eyes"
@@ -329,21 +328,21 @@
 /obj/item/organ/internal/eyes/robotic/flashlight/emp_act(severity)
 	return
 
-/obj/item/organ/internal/eyes/robotic/flashlight/on_insert(mob/living/carbon/victim)
+/obj/item/organ/internal/eyes/robotic/flashlight/on_mob_insert(mob/living/carbon/organ_owner, special, movement_flags)
 	. = ..()
 	if(!eye)
 		eye = new /obj/item/flashlight/eyelight()
 	eye.on = TRUE
-	eye.forceMove(victim)
-	eye.update_brightness(victim)
-	victim.become_blind(FLASHLIGHT_EYES)
+	eye.forceMove(organ_owner)
+	eye.update_brightness(organ_owner)
+	organ_owner.become_blind(FLASHLIGHT_EYES)
 
-/obj/item/organ/internal/eyes/robotic/flashlight/on_remove(mob/living/carbon/victim)
+/obj/item/organ/internal/eyes/robotic/flashlight/on_mob_remove(mob/living/carbon/organ_owner, special)
 	. = ..()
 	eye.on = FALSE
-	eye.update_brightness(victim)
+	eye.update_brightness(organ_owner)
 	eye.forceMove(src)
-	victim.cure_blind(FLASHLIGHT_EYES)
+	organ_owner.cure_blind(FLASHLIGHT_EYES)
 
 // Welding shield implant
 /obj/item/organ/internal/eyes/robotic/shield
@@ -399,18 +398,18 @@
 	deactivate(close_ui = TRUE)
 
 /// We have to do this here because on_insert gets called before refresh(), which we need to have been called for old_eye_color vars to be set
-/obj/item/organ/internal/eyes/robotic/glow/Insert(mob/living/carbon/eye_recipient, special = FALSE, drop_if_replaced = FALSE)
+/obj/item/organ/internal/eyes/robotic/glow/Insert(mob/living/carbon/eye_recipient, special = FALSE, movement_flags = DELETE_IF_REPLACED)
 	. = ..()
 	current_left_color_string = old_eye_color_left
 	current_right_color_string = old_eye_color_right
 
-/obj/item/organ/internal/eyes/robotic/glow/on_insert(mob/living/carbon/eye_recipient)
+/obj/item/organ/internal/eyes/robotic/glow/on_mob_insert(mob/living/carbon/organ_owner, special, movement_flags)
 	. = ..()
 	deactivate(close_ui = TRUE)
-	eye.forceMove(eye_recipient)
+	eye.forceMove(organ_owner)
 
-/obj/item/organ/internal/eyes/robotic/glow/on_remove(mob/living/carbon/eye_owner)
-	deactivate(eye_owner, close_ui = TRUE)
+/obj/item/organ/internal/eyes/robotic/glow/on_mob_remove(mob/living/carbon/organ_owner, special)
+	deactivate(organ_owner, close_ui = TRUE)
 	QDEL_NULL(eyes_overlay)
 	QDEL_NULL(eyes_overlay_left)
 	QDEL_NULL(eyes_overlay_right)
@@ -692,15 +691,15 @@
 	high_light_cutoff = list(30, 35, 50)
 	var/obj/item/flashlight/eyelight/adapted/adapt_light
 
-/obj/item/organ/internal/eyes/night_vision/maintenance_adapted/on_insert(mob/living/carbon/eye_owner)
+/obj/item/organ/internal/eyes/night_vision/maintenance_adapted/on_mob_insert(mob/living/carbon/organ_owner, special, movement_flags)
 	. = ..()
 	//add lighting
 	if(!adapt_light)
 		adapt_light = new /obj/item/flashlight/eyelight/adapted()
 	adapt_light.on = TRUE
-	adapt_light.forceMove(eye_owner)
-	adapt_light.update_brightness(eye_owner)
-	ADD_TRAIT(eye_owner, TRAIT_UNNATURAL_RED_GLOWY_EYES, ORGAN_TRAIT)
+	adapt_light.forceMove(organ_owner)
+	adapt_light.update_brightness(organ_owner)
+	ADD_TRAIT(organ_owner, TRAIT_UNNATURAL_RED_GLOWY_EYES, ORGAN_TRAIT)
 
 /obj/item/organ/internal/eyes/night_vision/maintenance_adapted/on_life(seconds_per_tick, times_fired)
 	if(!owner.is_blind() && isturf(owner.loc) && owner.has_light_nearby(light_amount=0.5)) //we allow a little more than usual so we can produce light from the adapted eyes

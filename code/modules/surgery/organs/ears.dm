@@ -68,7 +68,7 @@
 	visual = TRUE
 	damage_multiplier = 2
 
-/obj/item/organ/internal/ears/cat/on_insert(mob/living/carbon/human/ear_owner)
+/obj/item/organ/internal/ears/cat/on_mob_insert(mob/living/carbon/human/ear_owner)
 	. = ..()
 	if(istype(ear_owner) && ear_owner.dna)
 		color = ear_owner.hair_color
@@ -76,7 +76,7 @@
 		ear_owner.dna.update_uf_block(DNA_EARS_BLOCK)
 		ear_owner.update_body()
 
-/obj/item/organ/internal/ears/cat/on_remove(mob/living/carbon/human/ear_owner)
+/obj/item/organ/internal/ears/cat/on_mob_remove(mob/living/carbon/human/ear_owner)
 	. = ..()
 	if(istype(ear_owner) && ear_owner.dna)
 		color = ear_owner.hair_color
@@ -87,17 +87,17 @@
 	name = "penguin ears"
 	desc = "The source of a penguin's happy feet."
 
-/obj/item/organ/internal/ears/penguin/on_insert(mob/living/carbon/human/ear_owner)
+/obj/item/organ/internal/ears/penguin/on_mob_insert(mob/living/carbon/organ_owner, special, movement_flags)
 	. = ..()
-	if(istype(ear_owner))
-		to_chat(ear_owner, span_notice("You suddenly feel like you've lost your balance."))
-		ear_owner.AddElement(/datum/element/waddling)
+	if(istype(organ_owner))
+		to_chat(organ_owner, span_notice("You suddenly feel like you've lost your balance."))
+		organ_owner.AddElement(/datum/element/waddling)
 
-/obj/item/organ/internal/ears/penguin/on_remove(mob/living/carbon/human/ear_owner)
+/obj/item/organ/internal/ears/penguin/on_mob_remove(mob/living/carbon/organ_owner, special)
 	. = ..()
-	if(istype(ear_owner))
-		to_chat(ear_owner, span_notice("Your sense of balance comes back to you."))
-		ear_owner.RemoveElement(/datum/element/waddling)
+	if(istype(organ_owner))
+		to_chat(organ_owner, span_notice("Your sense of balance comes back to you."))
+		organ_owner.RemoveElement(/datum/element/waddling)
 
 /obj/item/organ/internal/ears/bronze
 	name = "tin ears"
@@ -110,7 +110,7 @@
 	icon_state = "ears-c"
 	desc = "A basic cybernetic organ designed to mimic the operation of ears."
 	damage_multiplier = 0.9
-	organ_flags = ORGAN_SYNTHETIC
+	organ_flags = ORGAN_ROBOTIC //monkestation edit: replaces ORGAN_SYNTHETIC with ORGAN_ROBOTIC
 
 /obj/item/organ/internal/ears/cybernetic/upgraded
 	name = "upgraded cybernetic ears"

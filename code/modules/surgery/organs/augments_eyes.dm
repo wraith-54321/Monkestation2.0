@@ -16,7 +16,7 @@
 	var/HUD_type = 0
 	var/HUD_trait = null
 	/// Whether the HUD implant is on or off
-	var/toggled_on = TRUE 
+	var/toggled_on = TRUE
 
 
 /obj/item/organ/internal/cyberimp/eyes/hud/proc/toggle_hud(mob/living/carbon/eye_owner)
@@ -31,7 +31,7 @@
 			hud.show_to(eye_owner)
 		toggled_on = TRUE
 
-/obj/item/organ/internal/cyberimp/eyes/hud/Insert(mob/living/carbon/eye_owner, special = FALSE, drop_if_replaced = TRUE)
+/obj/item/organ/internal/cyberimp/eyes/hud/Insert(mob/living/carbon/eye_owner, special = FALSE, movement_flags)
 	. = ..()
 	if(!.)
 		return
@@ -72,4 +72,4 @@
 /obj/item/organ/internal/cyberimp/eyes/hud/security/syndicate
 	name = "Contraband Security HUD Implant"
 	desc = "A Cybersun Industries brand Security HUD Implant. These illicit cybernetic eye implants will display a security HUD over everything you see."
-	organ_flags = ORGAN_SYNTHETIC | ORGAN_HIDDEN
+	organ_flags = ORGAN_ROBOTIC | ORGAN_HIDDEN //monkestation edit: replaces ORGAN_SYNTHETIC with ORGAN_ROBOTIC

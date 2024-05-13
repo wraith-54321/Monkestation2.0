@@ -38,7 +38,7 @@
 
 
 
-/obj/item/organ/internal/bladder/Insert(mob/living/carbon/receiver, special, drop_if_replaced)
+/obj/item/organ/internal/bladder/Insert(mob/living/carbon/receiver, special, movement_flags)
 	. = ..()
 	START_PROCESSING(SSobj, src)
 

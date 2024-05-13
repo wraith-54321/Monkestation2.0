@@ -48,19 +48,7 @@
 	if(restyle_flags)
 		RegisterSignal(src, COMSIG_ATOM_RESTYLE, PROC_REF(on_attempt_feature_restyle))
 
-/obj/item/organ/external/Destroy()
-	if(owner)
-		Remove(owner, special=TRUE)
-	else if(ownerlimb)
-		remove_from_limb()
-
-	return ..()
-
-/obj/item/organ/external/Insert(mob/living/carbon/receiver, special, movement_flags)
-	var/obj/item/bodypart/limb = receiver.get_bodypart(deprecise_zone(zone))
-
-	if(!limb)
-		return FALSE
+/obj/item/organ/external/mob_insert(mob/living/carbon/receiver, special, movement_flags)
 
 	. = ..()
 
@@ -72,55 +60,28 @@
 		bodypart_overlay.set_appearance_from_name(receiver.dna.features[bodypart_overlay.feature_key])
 		bodypart_overlay.imprint_on_next_insertion = FALSE
 
-	ownerlimb = limb
-	add_to_limb(ownerlimb)
-
 	if(external_bodytypes)
-		limb.synchronize_bodytypes(receiver)
+		receiver.synchronize_bodytypes(receiver)
 
 	receiver.update_body_parts()
 
-/obj/item/organ/external/Remove(mob/living/carbon/organ_owner, special, moving)
-	. = ..()
-
-	if(ownerlimb && !moving)
-		remove_from_limb()
-
-		if(use_mob_sprite_as_obj_sprite)
-			update_appearance(UPDATE_OVERLAYS)
-
-	if(organ_owner)
+/obj/item/organ/external/mob_remove(mob/living/carbon/organ_owner, special, movement_flags)
+	if(!special)
+		organ_owner.synchronize_bodytypes()
 		organ_owner.update_body_parts()
-
-
-/obj/item/organ/external/on_remove(mob/living/carbon/organ_owner, special)
-	. = ..()
-	color = bodypart_overlay.draw_color // so a pink felinid doesn't drop a gray tail
-
-///Transfers the organ to the limb, and to the limb's owner, if it has one.
-/obj/item/organ/external/transfer_to_limb(obj/item/bodypart/bodypart, mob/living/carbon/bodypart_owner)
-	if(owner)
-		Remove(owner, moving = TRUE)
-	else if(ownerlimb)
-		remove_from_limb()
-
-	if(bodypart_owner)
-		Insert(bodypart_owner, TRUE)
-	else
-		add_to_limb(bodypart)
-
-/obj/item/organ/external/add_to_limb(obj/item/bodypart/bodypart)
-	bodypart.external_organs += src
-	ownerlimb = bodypart
-	ownerlimb.add_bodypart_overlay(bodypart_overlay)
 	return ..()
 
-/obj/item/organ/external/remove_from_limb()
-	ownerlimb.external_organs -= src
-	ownerlimb.remove_bodypart_overlay(bodypart_overlay)
-	if(ownerlimb.owner && external_bodytypes)
-		ownerlimb.synchronize_bodytypes(ownerlimb.owner)
-	ownerlimb = null
+/obj/item/organ/external/on_bodypart_insert(obj/item/bodypart/bodypart)
+	bodypart.add_bodypart_overlay(bodypart_overlay)
+	return ..()
+
+/obj/item/organ/external/on_bodypart_remove(obj/item/bodypart/bodypart)
+	bodypart.remove_bodypart_overlay(bodypart_overlay)
+
+	if(use_mob_sprite_as_obj_sprite)
+		update_appearance(UPDATE_OVERLAYS)
+
+	color = bodypart_overlay.draw_color // so a pink felinid doesn't drop a gray tail
 	return ..()
 
 ///Update our features after something changed our appearance
@@ -268,7 +229,7 @@
 	///Store our old datum here for if our antennae are healed
 	var/original_sprite_datum
 
-/obj/item/organ/external/antennae/Insert(mob/living/carbon/receiver, special, drop_if_replaced)
+/obj/item/organ/external/antennae/Insert(mob/living/carbon/receiver, special, movement_flags)
 	. = ..()
 	if(!.)
 		return

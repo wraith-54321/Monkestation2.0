@@ -97,7 +97,7 @@
 
 	drop_items_to_ground(get_turf(user))
 
-/obj/item/organ/internal/brain/slime/Insert(mob/living/carbon/organ_owner, special = FALSE, drop_if_replaced, no_id_transfer)
+/obj/item/organ/internal/brain/slime/Insert(mob/living/carbon/organ_owner, special = FALSE, movement_flags, no_id_transfer)
 	. = ..()
 	if(!.)
 		return
