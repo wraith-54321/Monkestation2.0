@@ -3,16 +3,16 @@
 	/// Used so we don't take the slime faction away from someone who had it anyways
 	var/gave_faction = FALSE
 
-/obj/item/organ/internal/heart/gland/slime/on_insert(mob/living/carbon/gland_owner)
+/obj/item/organ/internal/heart/gland/slime/on_mob_insert(mob/living/carbon/organ_owner, special, movement_flags)
 	. = ..()
-	if(!(FACTION_SLIME in gland_owner.faction))
-		gland_owner.faction |= FACTION_SLIME
+	if(!(FACTION_SLIME in organ_owner.faction))
+		organ_owner.faction |= FACTION_SLIME
 		gave_faction = TRUE
 
-/obj/item/organ/internal/heart/gland/slime/on_remove(mob/living/carbon/gland_owner)
+/obj/item/organ/internal/heart/gland/slime/on_mob_remove(mob/living/carbon/organ_owner, special, movement_flags)
 	. = ..()
 	if(gave_faction)
-		gland_owner.faction -= FACTION_SLIME
+		organ_owner.faction -= FACTION_SLIME
 
 /obj/item/organ/internal/heart/gland/slime/activate()
 	owner.balloon_alert(owner, "you feel nauseous")

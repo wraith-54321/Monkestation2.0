@@ -42,7 +42,7 @@ GLOBAL_LIST_INIT(borer_second_name, world.file2list("monkestation/code/modules/a
 	return ..()
 
 //so if a person is debrained, the borer is removed
-/obj/item/organ/internal/brain/Remove(mob/living/carbon/target, special = 0, no_id_transfer = FALSE)
+/obj/item/organ/internal/brain/Remove(mob/living/carbon/target, special, movement_flags)
 	. = ..()
 	var/mob/living/basic/cortical_borer/cb_inside = target.has_borer()
 	if(cb_inside)
@@ -67,7 +67,7 @@ GLOBAL_LIST_INIT(borer_second_name, world.file2list("monkestation/code/modules/a
 	carbon_target.apply_status_effect(/datum/status_effect/grouped/screwy_hud/fake_healthy, type)
 
 //on removal, force the borer out
-/obj/item/organ/internal/borer_body/Remove(mob/living/carbon/carbon_target, special)
+///obj/item/organ/internal/borer_body/Remove(mob/living/carbon/carbon_target, special)
 	. = ..()
 	var/mob/living/basic/cortical_borer/cb_inside = carbon_target.has_borer()
 	for(var/datum/borer_focus/body_focus as anything in cb_inside.body_focuses)

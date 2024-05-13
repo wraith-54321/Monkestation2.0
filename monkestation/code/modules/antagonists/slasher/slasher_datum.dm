@@ -62,7 +62,7 @@
 
 	var/mob/living/carbon/carbon = current_mob
 	var/obj/item/organ/internal/eyes/shadow/shadow = new
-	shadow.Insert(carbon, drop_if_replaced = FALSE)
+	shadow.Insert(carbon, movement_flags = DELETE_IF_REPLACED)
 
 	RegisterSignal(current_mob, COMSIG_LIVING_LIFE, PROC_REF(LifeTick))
 

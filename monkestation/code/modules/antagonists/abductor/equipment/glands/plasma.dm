@@ -1,10 +1,10 @@
-/obj/item/organ/internal/heart/gland/plasma/on_insert(mob/living/carbon/organ_owner, special)
+/obj/item/organ/internal/heart/gland/plasma/on_mob_insert(mob/living/carbon/organ_owner, special, movement_flags)
 	. = ..()
 	var/obj/item/organ/internal/lungs/lungs = organ_owner.get_organ_slot(ORGAN_SLOT_LUNGS)
 	if(istype(lungs) && !QDELING(lungs))
 		lungs.safe_plasma_max = 0
 
-/obj/item/organ/internal/heart/gland/plasma/on_remove(mob/living/carbon/organ_owner, special)
+/obj/item/organ/internal/heart/gland/plasma/on_mob_remove(mob/living/carbon/organ_owner, special)
 	. = ..()
 	var/obj/item/organ/internal/lungs/lungs = organ_owner.get_organ_slot(ORGAN_SLOT_LUNGS)
 	if(istype(lungs) && !QDELING(lungs))

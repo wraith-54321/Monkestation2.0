@@ -1,8 +1,8 @@
-/obj/item/organ/internal/heart/gland/trauma/on_insert(mob/living/carbon/organ_owner, special)
+/obj/item/organ/internal/heart/gland/trauma/on_mob_insert(mob/living/carbon/organ_owner, special, movement_flags)
 	. = ..()
 	ADD_TRAIT(organ_owner, TRAIT_SPECIAL_TRAUMA_BOOST, ABDUCTOR_GLAND_TRAIT)
 
-/obj/item/organ/internal/heart/gland/trauma/on_remove(mob/living/carbon/organ_owner, special)
+/obj/item/organ/internal/heart/gland/trauma/on_mob_remove(mob/living/carbon/organ_owner, special)
 	. = ..()
 	REMOVE_TRAIT(organ_owner, TRAIT_SPECIAL_TRAUMA_BOOST, ABDUCTOR_GLAND_TRAIT)
 

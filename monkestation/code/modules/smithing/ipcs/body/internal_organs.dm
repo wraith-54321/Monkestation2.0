@@ -10,13 +10,13 @@
 	/// The last time (in ticks) a message about brain damage was sent. Don't touch.
 	var/last_message_time = 0
 
-/obj/item/organ/internal/brain/synth/on_insert(mob/living/carbon/brain_owner)
+/obj/item/organ/internal/brain/synth/on_mob_insert(mob/living/carbon/organ_owner, special, movement_flags)
 	. = ..()
 
-	if(brain_owner.stat != DEAD || !ishuman(brain_owner))
+	if(organ_owner.stat != DEAD || !ishuman(organ_owner))
 		return
 
-	var/mob/living/carbon/human/user_human = brain_owner
+	var/mob/living/carbon/human/user_human = organ_owner
 	if(HAS_TRAIT(user_human, TRAIT_REVIVES_BY_HEALING) && user_human.health > SYNTH_BRAIN_WAKE_THRESHOLD)
 		user_human.revive(FALSE)
 
@@ -133,10 +133,10 @@
 	switch(severity)
 		if(EMP_HEAVY)
 			to_chat(owner, span_warning("Alert:Severe electromagnetic interference clouds your optics with static. Error Code: I-CS6"))
-			apply_organ_damage(SYNTH_ORGAN_HEAVY_EMP_DAMAGE, maxHealth, required_organtype = ORGAN_ROBOTIC)
+			apply_organ_damage(SYNTH_ORGAN_HEAVY_EMP_DAMAGE, maxHealth, required_organ_flag = ORGAN_ROBOTIC)
 		if(EMP_LIGHT)
 			to_chat(owner, span_warning("Alert: Mild interference clouds your optics with static. Error Code: I-CS0"))
-			apply_organ_damage(SYNTH_ORGAN_LIGHT_EMP_DAMAGE, maxHealth, required_organtype = ORGAN_ROBOTIC)
+			apply_organ_damage(SYNTH_ORGAN_LIGHT_EMP_DAMAGE, maxHealth, required_organ_flag = ORGAN_ROBOTIC)
 
 /datum/design/synth_eyes
 	name = "Optical Sensors"
@@ -178,10 +178,10 @@
 	switch(severity)
 		if(EMP_HEAVY)
 			to_chat(owner, span_warning("Alert: Main hydraulic pump control has taken severe damage, seek maintenance immediately. Error code: HP300-10."))
-			apply_organ_damage(SYNTH_ORGAN_HEAVY_EMP_DAMAGE, maxHealth, required_organtype = ORGAN_ROBOTIC)
+			apply_organ_damage(SYNTH_ORGAN_HEAVY_EMP_DAMAGE, maxHealth, required_organ_flag = ORGAN_ROBOTIC)
 		if(EMP_LIGHT)
 			to_chat(owner, span_warning("Alert: Main hydraulic pump control has taken light damage, seek maintenance immediately. Error code: HP300-05."))
-			apply_organ_damage(SYNTH_ORGAN_LIGHT_EMP_DAMAGE, maxHealth, required_organtype = ORGAN_ROBOTIC)
+			apply_organ_damage(SYNTH_ORGAN_LIGHT_EMP_DAMAGE, maxHealth, required_organ_flag = ORGAN_ROBOTIC)
 
 /datum/design/synth_heart
 	name = "Hydraulic Pump Engine"
@@ -222,11 +222,11 @@
 	switch(severity)
 		if(EMP_HEAVY)
 			to_chat(owner, span_warning("Alert: Critical! Reagent processing unit failure, seek maintenance immediately. Error Code: DR-1k"))
-			apply_organ_damage(SYNTH_ORGAN_HEAVY_EMP_DAMAGE, maxHealth, required_organtype = ORGAN_ROBOTIC)
+			apply_organ_damage(SYNTH_ORGAN_HEAVY_EMP_DAMAGE, maxHealth, required_organ_flag = ORGAN_ROBOTIC)
 
 		if(EMP_LIGHT)
 			to_chat(owner, span_warning("Alert: Reagent processing unit failure, seek maintenance for diagnostic. Error Code: DR-0k"))
-			apply_organ_damage(SYNTH_ORGAN_LIGHT_EMP_DAMAGE, maxHealth, required_organtype = ORGAN_ROBOTIC)
+			apply_organ_damage(SYNTH_ORGAN_LIGHT_EMP_DAMAGE, maxHealth, required_organ_flag = ORGAN_ROBOTIC)
 
 /datum/design/synth_liver
 	name = "Reagent Processing Unit"
@@ -320,12 +320,12 @@
 	switch(severity)
 		if(EMP_HEAVY)
 			owner.nutrition = max(0, owner.nutrition - SYNTH_STOMACH_HEAVY_EMP_CHARGE_LOSS)
-			apply_organ_damage(SYNTH_ORGAN_HEAVY_EMP_DAMAGE, maxHealth, required_organtype = ORGAN_ROBOTIC)
+			apply_organ_damage(SYNTH_ORGAN_HEAVY_EMP_DAMAGE, maxHealth, required_organ_flag = ORGAN_ROBOTIC)
 			to_chat(owner, span_warning("Alert: Severe battery discharge!"))
 
 		if(EMP_LIGHT)
 			owner.nutrition = max(0, owner.nutrition - SYNTH_STOMACH_LIGHT_EMP_CHARGE_LOSS)
-			apply_organ_damage(SYNTH_ORGAN_LIGHT_EMP_DAMAGE, maxHealth, required_organtype = ORGAN_ROBOTIC)
+			apply_organ_damage(SYNTH_ORGAN_LIGHT_EMP_DAMAGE, maxHealth, required_organ_flag = ORGAN_ROBOTIC)
 			to_chat(owner, span_warning("Alert: Minor battery discharge!"))
 
 /datum/design/synth_stomach

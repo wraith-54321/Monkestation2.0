@@ -185,8 +185,8 @@
 
 	var/list/all_items = owner.current.get_all_contents()
 	var/heart_count = 0
-	for(var/obj/item/organ/internal/heart/current_hearts in all_items)
-		if(current_hearts.organ_flags & ORGAN_SYNTHETIC) // No robo-hearts allowed
+	for(var/obj/item/organ/internal/heart/current_heart in all_items)
+		if(IS_ROBOTIC_ORGAN(current_heart)) // No robo-hearts allowed
 			continue
 		heart_count++
 

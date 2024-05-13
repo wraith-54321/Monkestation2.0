@@ -16,25 +16,25 @@
 	medium_light_cutoff = list(35, 30, 0)
 	high_light_cutoff = list(50, 40, 0)
 
-/obj/item/organ/internal/eyes/night_vision/arachnid/on_insert(mob/living/carbon/tongue_owner)
+/obj/item/organ/internal/eyes/night_vision/arachnid/on_mob_insert(mob/living/carbon/organ_owner, special, movement_flags)
 	. = ..()
-	if(!ishuman(tongue_owner))
+	if(!ishuman(organ_owner))
 		return
-	var/mob/living/carbon/human/human_receiver = tongue_owner
+	var/mob/living/carbon/human/human_receiver = organ_owner
 	if(!human_receiver.can_mutate())
 		return
 	var/datum/species/rec_species = human_receiver.dna.species
-	rec_species.update_no_equip_flags(tongue_owner, rec_species.no_equip_flags | ITEM_SLOT_EYES)
+	rec_species.update_no_equip_flags(organ_owner, rec_species.no_equip_flags | ITEM_SLOT_EYES)
 
-/obj/item/organ/internal/eyes/night_vision/arachnid/on_remove(mob/living/carbon/tongue_owner)
+/obj/item/organ/internal/eyes/night_vision/arachnid/on_mob_remove(mob/living/carbon/organ_owner, special)
 	. = ..()
-	if(!ishuman(tongue_owner))
+	if(!ishuman(organ_owner))
 		return
-	var/mob/living/carbon/human/human_receiver = tongue_owner
+	var/mob/living/carbon/human/human_receiver = organ_owner
 	if(!human_receiver.can_mutate())
 		return
 	var/datum/species/rec_species = human_receiver.dna.species
-	rec_species.update_no_equip_flags(tongue_owner, initial(rec_species.no_equip_flags))
+	rec_species.update_no_equip_flags(organ_owner, initial(rec_species.no_equip_flags))
 
 /obj/item/organ/internal/eyes/floran
 	name = "phytoid eyes"

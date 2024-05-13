@@ -451,29 +451,33 @@ GLOBAL_LIST_INIT(disease_hivemind_users, list())
 	desc = "Causes the infected to oversynthesize stem cells engineered towards organ generation, causing damage to the host's organs in the process. Said generated organs are expelled from the body upon completion."
 	stage = 3
 	badness = EFFECT_DANGER_HARMFUL
+	var/static/list/possible_organ_types
 
 /datum/symptom/teratoma/activate(mob/living/carbon/mob)
-	var/fail_counter = 0
-	var/not_passed = TRUE
-	var/obj/item/organ/spawned_organ
-	while(not_passed && fail_counter <= 10)
-		var/organ_type = pick(typesof(/obj/item/organ/internal))
-		spawned_organ = new organ_type(get_turf(mob))
-		if(spawned_organ.status != ORGAN_ORGANIC)
-			qdel(spawned_organ)
-			fail_counter++
-			continue
-		not_passed = FALSE
+	if(!possible_organ_types)
+		build_possible_organs()
 
-	if(!not_passed)
-		if(ismouse(mob))
-			var/mob/living/basic/mouse/mouse = mob
-			mouse.splat() //tumors are bad for you, tumors equal to your body in size doubley so
-		if(ismonkey(mob)) //monkeys are smaller and thus have less space for human-organ sized tumors
-			mob.adjustBruteLoss(15)
-		if(mob.bruteloss <= 50)
-			mob.adjustBruteLoss(5)
-		mob.visible_message(span_warning("\A [spawned_organ.name] is extruded from \the [mob]'s body and falls to the ground!"),span_warning("\A [spawned_organ.name] is extruded from your body and falls to the ground!"))
+	if(!length(possible_organ_types))
+		CRASH("[src]([src.type]) possible_organ_types without length after attempting to build list.")
+
+	var/obj/item/organ/spawned_organ = pick(possible_organ_types)
+	new spawned_organ(get_turf(mob))
+	if(ismouse(mob))
+		var/mob/living/basic/mouse/mouse = mob
+		mouse.splat() //tumors are bad for you, tumors equal to your body in size doubley so
+	if(ismonkey(mob)) //monkeys are smaller and thus have less space for human-organ sized tumors
+		mob.adjustBruteLoss(15)
+	if(mob.bruteloss <= 50)
+		mob.adjustBruteLoss(5)
+	mob.visible_message(span_warning("\A [spawned_organ.name] is extruded from \the [mob]'s body and falls to the ground!"),span_warning("\A [spawned_organ.name] is extruded from your body and falls to the ground!"))
+
+/datum/symptom/teratoma/proc/build_possible_organs()
+	possible_organ_types = list()
+	for(var/obj/item/organ/internal/internal_organ as anything in subtypesof(/obj/item/organ/internal))
+		internal_organ = new internal_organ //we just need to access this organ and then qdel it so we dont care about where it spawns
+		if(IS_ORGANIC_ORGAN(internal_organ)) //only allow organ organs
+			possible_organ_types += internal_organ.type
+		qdel(internal_organ)
 
 /datum/symptom/damage_converter
 	name = "Toxic Compensation"

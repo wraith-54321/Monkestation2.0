@@ -43,13 +43,13 @@
 	if(surgery.type in loaded_surgeries)
 		return COMPONENT_FORCE_SURGERY
 
-/obj/item/organ/internal/cyberimp/brain/linked_surgery/on_insert(mob/living/carbon/organ_owner, special)
+/obj/item/organ/internal/cyberimp/brain/linked_surgery/on_mob_insert(mob/living/carbon/organ_owner, special, movement_flags)
 	. = ..()
 	update_surgeries(download_from_held = FALSE)
 	RegisterSignal(organ_owner, COMSIG_SURGERY_STARTING, PROC_REF(check_surgery))
 	RegisterSignal(organ_owner, COMSIG_MOB_SURGERY_STEP_SUCCESS, PROC_REF(on_step_completion))
 
-/obj/item/organ/internal/cyberimp/brain/linked_surgery/on_remove(mob/living/carbon/organ_owner, special)
+/obj/item/organ/internal/cyberimp/brain/linked_surgery/on_mob_remove(mob/living/carbon/organ_owner, special)
 	. = ..()
 	UnregisterSignal(organ_owner, list(COMSIG_SURGERY_STARTING, COMSIG_MOB_SURGERY_STEP_SUCCESS))
 
@@ -106,7 +106,7 @@
 /obj/item/organ/internal/cyberimp/brain/linked_surgery/perfect
 	name = "hacked surgical serverlink brain implant"
 	desc = "A brain implant with a bluespace technology that lets you perform any advanced surgery through hacked Nanotrasen servers."
-	organ_flags = ORGAN_SYNTHETIC | ORGAN_HIDDEN
+	organ_flags = ORGAN_ROBOTIC | ORGAN_HIDDEN
 	organ_traits = list(TRAIT_PERFECT_SURGEON)
 	actions_types = null
 	var/list/blocked_surgeries = list(

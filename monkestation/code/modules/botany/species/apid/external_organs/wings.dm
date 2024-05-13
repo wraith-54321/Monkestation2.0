@@ -8,11 +8,11 @@
 	bodypart_overlay = /datum/bodypart_overlay/mutant/wings/apid
 
 
-/obj/item/organ/external/wings/apid/on_insert(mob/living/carbon/receiver)
+/obj/item/organ/external/wings/apid/on_mob_insert(mob/living/carbon/organ_owner, special, movement_flags)
 	. = ..()
-	RegisterSignal(receiver, COMSIG_MOVABLE_PRE_MOVE, PROC_REF(update_float_move))
+	RegisterSignal(organ_owner, COMSIG_MOVABLE_PRE_MOVE, PROC_REF(update_float_move))
 
-/obj/item/organ/external/wings/apid/on_remove(mob/living/carbon/organ_owner)
+/obj/item/organ/external/wings/apid/on_mob_remove(mob/living/carbon/organ_owner, special, movement_flags)
 	. = ..()
 	UnregisterSignal(organ_owner, list(COMSIG_MOVABLE_PRE_MOVE))
 	REMOVE_TRAIT(organ_owner, TRAIT_FREE_FLOAT_MOVEMENT, REF(src))
