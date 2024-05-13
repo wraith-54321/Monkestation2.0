@@ -143,15 +143,6 @@ INITIALIZE_IMMEDIATE(/obj/item/organ)
 /obj/item/organ/proc/on_find(mob/living/finder)
 	return
 
-/**
- * Proc that gets called when the organ is surgically removed by someone, can be used for special effects
- * Currently only used so surplus organs can explode when surgically removed.
- */
-/obj/item/organ/proc/on_surgical_removal(mob/living/user, mob/living/carbon/old_owner, target_zone, obj/item/tool)
-	SHOULD_CALL_PARENT(TRUE)
-	SEND_SIGNAL(src, COMSIG_ORGAN_SURGICALLY_REMOVED, user, old_owner, target_zone, tool)
-	RemoveElement(/datum/element/decal/blood)
-
 /obj/item/organ/wash(clean_types)
 	. = ..()
 

@@ -23,6 +23,8 @@
 	var/failed = FALSE //to prevent constantly running failing code
 	var/operated = FALSE //whether the heart's been operated on to fix some of its damages
 
+	item_flags = NO_BLOOD_ON_ITEM //monkestation edit
+
 /obj/item/organ/internal/heart/update_icon_state()
 	icon_state = "[base_icon_state]-[beating ? "on" : "off"]"
 	return ..()
