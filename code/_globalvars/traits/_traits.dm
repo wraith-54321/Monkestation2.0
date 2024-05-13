@@ -526,7 +526,7 @@ GLOBAL_LIST_INIT(traits_by_type, list(
 	),
 	/obj/item/food = list(
 		"TRAIT_BAKEABLE" = TRAIT_BAKEABLE,
-	)
+	),
 /*	/obj/projectile = list(
 		"TRAIT_ALWAYS_HIT_ZONE" = TRAIT_ALWAYS_HIT_ZONE,
 	),*/ //monkestation temp removal: we dont have whatever this is from
