@@ -171,6 +171,10 @@
 /obj/structure/disposalpipe/deconstruct(disassembled = TRUE)
 	if(!(flags_1 & NODECONSTRUCT_1))
 		if(disassembled)
+			if(stored)
+				stored.forceMove(loc)
+				transfer_fingerprints_to(stored)
+				stored.setDir(dir)
 //monkestation temp removal
 /*			if(spawn_pipe)
 				var/obj/structure/disposalconstruct/construct = stored
