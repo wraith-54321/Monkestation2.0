@@ -6,6 +6,7 @@
 	hijack_speed = 0.5
 	antagpanel_category = "Gang"
 	antag_hud_name = "hud_gangster"
+	ui_name = "AntagInfoGang"
 	///Ref to our team
 	var/datum/team/gang/gang_team
 	///What is our rank
@@ -40,7 +41,7 @@
 	if(owner?.current)
 		add_team_hud(owner.current, /datum/antagonist/gang_member)
 	. = ..()
-	owner.current.playsound_local(get_turf(owner.current), 'sound/ambience/antag/tatoralert.ogg', 100, FALSE, pressure_affected = FALSE, use_reverb = FALSE)
+	owner.current.playsound_local(get_turf(owner.current), 'sound/ambience/antag/familieswork.ogg', 100, FALSE, pressure_affected = FALSE, use_reverb = FALSE)
 
 //might need to handle body transfer
 /datum/antagonist/gang_member/apply_innate_effects(mob/living/mob_override)

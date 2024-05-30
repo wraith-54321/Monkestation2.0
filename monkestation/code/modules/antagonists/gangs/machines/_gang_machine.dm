@@ -26,12 +26,12 @@ PROCESSING_SUBSYSTEM_DEF(gang_machines) //temp SS
 
 /obj/machinery/gang_machine/attackby(obj/item/weapon, mob/user, params)
 	var/area/our_area = get_area(src)
-	if(!setup && setup_tc_cost && istype(weapon, /obj/item/stack/telecrystal) && setup_checks(user, our_area))
+	if(!setup && setup_tc_cost && istype(weapon, /obj/item/stack/telecrystal) && setup_checks(user, our_area) && IS_GANGMEMBER(user))
 		var/obj/item/stack/telecrystal/tc = weapon
 		if(!tc.use(setup_tc_cost))
 			balloon_alert(user, "You need at least [setup_tc_cost] telecrystals to setup \the [src].")
 			return ..()
-		do_setup(our_area)
+		do_setup(our_area, user)
 		return
 	return ..()
 
@@ -54,5 +54,8 @@ PROCESSING_SUBSYSTEM_DEF(gang_machines) //temp SS
 	return TRUE
 
 ///Fully setup the machine
-/obj/machinery/gang_machine/proc/do_setup(area/passed_area)
+/obj/machinery/gang_machine/proc/do_setup(area/passed_area, mob/living/user)
 	setup = TRUE
+	if(!owner)
+		var/datum/antagonist/gang_member/antag_datum = IS_GANGMEMBER(user)
+		owner = antag_datum?.gang_team

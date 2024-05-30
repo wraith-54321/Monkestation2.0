@@ -114,7 +114,7 @@
 		var/datum/antagonist/gang_member/boss/boss_datum = boss_list[1]
 		if(boss_datum.owner?.current?.stat != DEAD)
 			return FALSE
-		boss_datum.change_rank(target.type) //already accessed so just handle this here as we pass by this point
+//		boss_datum.change_rank(target.type) //already accessed so just handle this here as we pass by this point
 	return TRUE
 
 /obj/item/implant/uplink/gang/lieutenant

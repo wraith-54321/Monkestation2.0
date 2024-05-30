@@ -55,7 +55,7 @@
 	created_machine.alpha = 0 //to hopefully avoid any flashing before coming down
 	created_machine.owner = user_datum.gang_team
 	created_machine.do_setup()
-	. = ..(user_datum, created_machine, our_turf) //thats right its a parent call with args, dont worry about it
+	. = ..(user_datum, created_machine, our_turf) //yes its a parent call with args, dont worry about it
 	created_machine.alpha = 255
 
 /obj/item/gang_device/object_beacon/gang_machine/credit_converter
