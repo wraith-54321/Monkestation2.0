@@ -127,7 +127,8 @@ const MainPage = (props: any, context: any) => {
                 be found in the &quot;Other info&quot; section. Additional
                 implants can be created in the gang fabrcator. Be warned that if
                 your implant is ever removed you will lose your gang
-                afilliation.
+                afilliation. People with mindshields are also immune to
+                induction.
               </span>
             </Stack.Item>
           </Stack>

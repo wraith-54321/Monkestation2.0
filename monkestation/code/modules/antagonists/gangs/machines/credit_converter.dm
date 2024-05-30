@@ -71,7 +71,7 @@
 			return ..()
 
 		stored_credits += weapon.get_item_credit_value()
-		balloon_alert("You insert \the [weapon] into [src].")
+		balloon_alert(user, "You insert \the [weapon] into [src].")
 		qdel(weapon)
 		if(stored_credits >= DESIRED_THREAT_PER_PROCESS * CREDITS_PER_THREAT)
 			begin_processing()
