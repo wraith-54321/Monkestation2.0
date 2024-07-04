@@ -54,6 +54,7 @@
 	if (flashed.stat == DEAD)
 		return
 
+
 	if (flashed.stat != CONSCIOUS)
 		flashed.balloon_alert(source, "unconscious!")
 		return
@@ -72,7 +73,7 @@
 		flashed.balloon_alert(source, "[flashed.p_theyre()] loyal to someone else!")
 		return
 
-	if (HAS_TRAIT(flashed, TRAIT_MINDSHIELD) || (flashed.mind.assigned_role?.departments_bitflags & DEPARTMENT_BITFLAG_SECURITY))
+	if (HAS_TRAIT(flashed, TRAIT_MINDSHIELD) || HAS_MIND_TRAIT(flashed, TRAIT_UNCONVERTABLE) || (flashed.mind.assigned_role?.departments_bitflags & DEPARTMENT_BITFLAG_SECURITY)) // monkestation edit: TRAIT_UNCONVERTABLE
 		flashed.balloon_alert(source, "[flashed.p_they()] resist!")
 		return
 
@@ -100,8 +101,8 @@
 /datum/antagonist/brother/antag_panel_data()
 	return "Conspirators : [get_brother_names()]"
 
-/datum/antagonist/brother/proc/get_base_preview_icon()
-	RETURN_TYPE(/icon)
+// monkestation start: refactor to use [get_base_preview_icon] for better midround polling images
+/datum/antagonist/brother/get_base_preview_icon()
 	var/mob/living/carbon/human/dummy/consistent/brother1 = new
 	var/mob/living/carbon/human/dummy/consistent/brother2 = new
 
@@ -130,8 +131,8 @@
 	return final_icon
 
 /datum/antagonist/brother/get_preview_icon()
-	RETURN_TYPE(/icon)
 	return finish_preview_icon(get_base_preview_icon())
+// monkestation end
 
 /datum/antagonist/brother/proc/get_brother_names()
 	var/list/brothers = team.members - owner

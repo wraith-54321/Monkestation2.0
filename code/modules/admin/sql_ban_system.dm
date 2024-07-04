@@ -371,6 +371,7 @@
 				ROLE_TRAITOR,
 				ROLE_VAMPIRICACCIDENT, //monkestation edit
 				ROLE_WIZARD,
+				BAN_OPFOR,
 			),
 		)
 		for(var/department in long_job_lists)
