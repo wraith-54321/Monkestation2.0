@@ -8,9 +8,13 @@
 
 /datum/uplink_handler/gang/complete_objective(datum/traitor_objective/to_remove)
 	. = ..()
-	if(!.)
+	if(to_remove.objective_state != OBJECTIVE_STATE_COMPLETED)
 		return
-	//the macro has a ?. check on the datum so we can just directly input it without checking
-	var/datum/antagonist/gang_member/boss_datum = owner.has_antag_datum(/datum/antagonist/gang_member)
-	if(to_remove.objective_state == OBJECTIVE_STATE_COMPLETED && MEETS_GANG_RANK(boss_datum, GANG_RANK_BOSS))
-		owning_gang.unallocated_tc += to_remove.telecrystal_reward
+	owning_gang.completed_objectives += to_remove
+
+/datum/uplink_handler/gang/take_objective(mob/user, datum/traitor_objective/to_take)
+	. = ..()
+	if(!. || !owning_gang)
+		return
+
+	owning_gang.track_objective(to_take)

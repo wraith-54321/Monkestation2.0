@@ -1,4 +1,4 @@
-///Assoc list of gang controlled area types with values of the gang that controls them
+///Assoc list of gang controlled areas with values of the gang that controls them
 GLOBAL_LIST_EMPTY(gang_controlled_areas)
 //might be possible to combine this with double assoc stuff
 ///Assoc list of all tag decals keyed to the area they are in
@@ -67,7 +67,7 @@ GLOBAL_LIST_EMPTY(gang_controlled_areas)
 		balloon_alert(user, "This area is not valid to take control of.")
 		return FALSE
 
-	var/datum/team/gang/controlling_gang = GLOB.gang_controlled_areas[target_area.type]
+	var/datum/team/gang/controlling_gang = GLOB.gang_controlled_areas[target_area]
 	if(controlling_gang == antag_datum.gang_team)
 		balloon_alert(user, "We already control this area.")
 		return FALSE
@@ -81,6 +81,7 @@ GLOBAL_LIST_EMPTY(gang_controlled_areas)
 		return FALSE
 
 	if(controlling_tag)
+		controlling_tag.overridden = TRUE
 		qdel(controlling_tag)
 
 	var/obj/effect/decal/cleanable/crayon/gang/created_tag = new(target, paint_color, antag_datum.gang_team?.gang_tag, "[antag_datum.gang_team?.gang_tag] tag", \
@@ -123,19 +124,27 @@ GLOBAL_LIST_EMPTY(gang_controlled_areas)
 	var/resistant = FALSE
 	///how close to being cleaned off are we
 	var/cleaning_progress = 0
+	///are we being overidden by a new gang spray, used to save on some clean up code already being handled by take_area()
+	var/overriden = FALSE
 	///ref to the gang that owns us
-	var/datum/team/gang/gang_owner //might not be needed
+	var/datum/team/gang/gang_owner
 
 /obj/effect/decal/cleanable/crayon/gang/Initialize(mapload, main, type, e_name, graf_rot, alt_icon, datum/team/gang/passed_gang)
 	. = ..()
 	if(passed_gang)
 		var/area/our_area = get_area(src)
 		if(our_area)
-			GLOB.gang_controlled_areas[our_area.type] = passed_gang
+			passed_gang.take_area(our_area) //need to move this to be a check
 
 /obj/effect/decal/cleanable/crayon/gang/Destroy()
+	if(overridden)
+		return ..()
+
 	var/area/our_area = get_area(src)
-	GLOB.gang_controlled_areas -= our_area?.type
+	if(gang_owner)
+		gang_owner.lose_area(our_area, passed_owner = gang_owner)
+	else //dont know how this happened but lets still clear the area just to be safe
+		GLOB.gang_controlled_areas -= our_area
 	return ..()
 
 /obj/effect/decal/cleanable/crayon/gang/wash(clean_types)

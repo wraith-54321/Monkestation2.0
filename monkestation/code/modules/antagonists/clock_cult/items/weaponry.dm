@@ -268,7 +268,7 @@
 /obj/item/gun/ballistic/bow/clockwork/Initialize(mapload)
 	. = ..()
 	update_icon_state()
-	AddElement(/datum/element/extra_examine/clockwork_description, "Firing from brass tiles will halve the time that it takes to recharge a bolt.")
+	AddElement(/datum/element/clockwork_description, "Firing from brass tiles will halve the time that it takes to recharge a bolt.")
 	AddElement(/datum/element/clockwork_pickup)
 	AddComponent(/datum/component/turf_checker, GLOB.clock_turf_types, COMSIG_CHECK_TURF_CLOCKWORK)
 

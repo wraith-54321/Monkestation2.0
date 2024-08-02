@@ -74,6 +74,20 @@
 	var/datum/mind/owner_ref = owner //we need to keep a temp ref of this to use after on_removal()
 	on_removal(implant)
 	owner_ref?.add_antag_datum(new_datum, gang_team)
+	var/active_length = length(handler.active_objectives)
+	while(active_length && handler.maximum_active_objectives < active_length) //our handler is the same so we can just access it locally
+		var/datum/traitor_objective/objective = handler.active_objectives[active_length]
+		objective.fail_objective() //penalty is unset so it will just count as invalid
+		handler.complete_objective(objective)
+		active_length = length(handler.active_objectives)
+
+	var/potential_length = length(handler.potential_objectives)
+	while(potential_length && handler.maximum_potential_objectives < potential_length)
+		var/datum/traitor_objective/objective = handler.potential_objectives[potential_length]
+		objective.handle_cleanup()
+		potential_length = length(handler.potential_objectives)
+
+	handler.on_update() //im gonna say its cheaper to just always run this rather than set up some kind of janky check for it
 	if(implant)
 		new_datum.RegisterSignal(implant, COMSIG_PRE_IMPLANT_REMOVED, TYPE_PROC_REF(/datum/antagonist/gang_member, handle_pre_implant_removal))
 		new_datum.RegisterSignal(implant, COMSIG_IMPLANT_REMOVED, TYPE_PROC_REF(/datum/antagonist/gang_member, handle_implant_removal))

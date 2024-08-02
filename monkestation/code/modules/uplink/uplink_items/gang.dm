@@ -54,3 +54,10 @@
 	item = /obj/item/gang_device/object_beacon/gang_machine/fabricator
 	cost = 15
 	purchasable_from = UPLINK_GANGS
+
+/datum/uplink_item/device_tools/gang_machine_converter
+	name = "Machine Hacking Device"
+	desc = "A small device that can be used to convert the ownership of a machine owned by another gang to that of your own."
+	item = /obj/item/gang_device/machine_converter
+	cost = 5
+	purchasable_from = UPLINK_GANGS

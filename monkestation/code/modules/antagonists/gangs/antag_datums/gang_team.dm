@@ -37,8 +37,12 @@ GLOBAL_LIST_EMPTY(all_gangs_by_tag)
 	)
 	///Assoc list of member antag datums keyed to their rank
 	var/list/member_datums_by_rank = list()
+	///Same as gang_controlled_areas but generally things in here cannot change ownership
+	var/static/list/permanently_claimed_areas = list()
 	///List of all implants that are theoretically owned by us
 	var/list/implants = list()
+	///The list of objectives our members have completed, used for the round end screen
+	var/list/completed_objectives = list()
 
 /datum/team/gang/New(starting_members)
 	. = ..()
@@ -87,6 +91,16 @@ GLOBAL_LIST_EMPTY(all_gangs_by_tag)
 	implants -= untracked_implant
 	UnregisterSignal(untracked_implant, list(COMSIG_QDELETING, COMSIG_IMPLANT_IMPLANTED))
 
+/datum/team/gang/proc/track_objective(datum/traitor_objective/tracked_objective)
+	RegisterSignals(tracked_objective, list(COMSIG_TRAITOR_OBJECTIVE_FAILED, COMSIG_TRAITOR_OBJECTIVE_COMPLETED), PROC_REF(handle_tracked_objective))
+
+/datum/team/gang/proc/handle_tracked_objective(datum/traitor_objective/tracked_objective)
+	SIGNAL_HANDLER
+	if(tracked_objective.objective_state == OBJECTIVE_STATE_COMPLETED)
+		unallocated_tc += tracked_objective.telecrystal_reward
+		threat += tracked_objective.progression_reward
+	UnregisterSignal(tracked_objective, list(COMSIG_TRAITOR_OBJECTIVE_FAILED, COMSIG_TRAITOR_OBJECTIVE_COMPLETED))
+
 /datum/team/gang/proc/on_tracked_qdel(datum/source, force)
 	SIGNAL_HANDLER
 	stop_tracking_implant(source)
@@ -96,6 +110,30 @@ GLOBAL_LIST_EMPTY(all_gangs_by_tag)
 	if(IS_IN_GANG(user, src)) //if user is one of our members then we would just be tracking the implant again right away
 		return
 	stop_tracking_implant(source)
+
+///Take control of an area
+/datum/team/gang/proc/take_area(area/taken_area, forced)
+	if(!taken_area)
+		CRASH("[src] calling take_area() without a passed taken_area.")
+
+	var/datum/team/gang/area_owner = GLOB.gang_controlled_areas[taken_area]
+	if(area_owner == src || (area_owner && !area_owner.lose_area(taken_area, forced, area_owner)))
+		return FALSE
+
+	SEND_SIGNAL(src, COMSIG_GANG_TOOK_AREA, taken_area)
+	GLOB.gang_controlled_areas[taken_area] = src
+
+///Cause a gang to lose control of an area, passed_owner is for if we have already found the owner of the passed area
+/datum/team/gang/proc/lose_area(area/lost_area, forced, passed_owner)
+	if(!lost_area)
+		CRASH("[src] calling lose_area() without a passed lost_area.")
+
+	var/datum/team/gang/area_owner = passed_owner || GLOB.gang_controlled_areas[lost_area]
+	if(area_owner != src || (!forced && (lost_area in permanently_claimed_areas)))
+		return FALSE
+
+	SEND_SIGNAL(src, COMSIG_GANG_LOST_AREA, lost_area)
+	GLOB.gang_controlled_areas -= lost_area
 
 ///set up all our stuff for our gang_data, if there is already another gang then we wont pick from their blacklisted types for our data. forced_type will just set our data to whats passed
 /*/datum/team/gang/proc/set_gang_info(datum/gang_data/forced_type)
