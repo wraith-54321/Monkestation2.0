@@ -15,8 +15,8 @@ type Info = {
   objectives: Objective[];
 };
 
-const ObjectivePrintout = (props: any, context: any) => {
-  const { data } = useBackend<Info>(context);
+const ObjectivePrintout = (props: any) => {
+  const { data } = useBackend<Info>();
   const { objectives } = data;
   return (
     <Stack vertical>
@@ -33,8 +33,8 @@ const ObjectivePrintout = (props: any, context: any) => {
   );
 };
 
-export const AntagInfoGang = (props: any, context: any) => {
-  const [tab, setTab] = useLocalState(context, 'tab', 1);
+export const AntagInfoGang = (props: any) => {
+  const [tab, setTab] = useLocalState('tab', 1);
   return (
     <Window width={620} height={580} theme="syndicate">
       <Window.Content>
@@ -43,28 +43,32 @@ export const AntagInfoGang = (props: any, context: any) => {
             icon="list"
             lineHeight="23px"
             selected={tab === 1}
-            onClick={() => setTab(1)}>
+            onClick={() => setTab(1)}
+          >
             Introduction
           </Tabs.Tab>
           <Tabs.Tab
             icon="list"
             lineHeight="23px"
             selected={tab === 2}
-            onClick={() => setTab(2)}>
+            onClick={() => setTab(2)}
+          >
             Lieutenants
           </Tabs.Tab>
           <Tabs.Tab
             icon="list"
             lineHeight="23px"
             selected={tab === 3}
-            onClick={() => setTab(3)}>
+            onClick={() => setTab(3)}
+          >
             Gang Bosses
           </Tabs.Tab>
           <Tabs.Tab
             icon="list"
             lineHeight="23px"
             selected={tab === 4}
-            onClick={() => setTab(4)}>
+            onClick={() => setTab(4)}
+          >
             Other info
           </Tabs.Tab>
         </Tabs>
@@ -77,8 +81,8 @@ export const AntagInfoGang = (props: any, context: any) => {
   );
 };
 
-const MainPage = (props: any, context: any) => {
-  const { data } = useBackend<Info>(context);
+const MainPage = (props: any) => {
+  const { data } = useBackend<Info>();
   return (
     <Stack vertical fill>
       <Stack.Item minHeight="14rem">

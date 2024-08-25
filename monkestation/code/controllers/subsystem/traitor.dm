@@ -1,6 +1,6 @@
 //due to the fact we tick more then once per minute this value is not directly given but we instead use some math to get the desired overall amount per minute
 #define DESIRED_AREAS_PER_TC_PER_MINUTE 9
-#define DESIRED_AREA_PER_THREAT_PER_MINUTE 2
+#define DESIRED_AREAS_PER_THREAT_PER_MINUTE 2
 /datum/controller/subsystem/traitor
 	///assoc list of areas with values of amounts to multiply their rewards by
 	var/list/gang_area_multipliers
@@ -19,11 +19,11 @@
 			given_rewards[area_owner] = rewards
 		//note these values assume we are running on time
 		rewards["tc"] += area_mult / DESIRED_AREAS_PER_TC_PER_MINUTE
-		rewards["threat"] += area_mult / DESIRED_AREA_PER_THREAT_PER_MINUTE
+		rewards["threat"] += area_mult / DESIRED_AREAS_PER_THREAT_PER_MINUTE
 
 	for(var/datum/team/gang/gang_team in given_rewards)
 		gang_team.unallocated_tc += round(given_rewards[gang_team]["tc"], 0.01)
-		gang_team.threat += round(given_rewards[gang_team]["threat"], 0.1) MINUTES //threat is given in minutes
+		gang_team.threat += round(given_rewards[gang_team]["threat"], 0.1)
 		gang_team.update_handlers()
 
 ///Returns an assoc list of areas with what their value multipliers are, if something is not in this list its value will be multiplied by 1
@@ -41,4 +41,4 @@
 	return area_multipliers
 
 #undef DESIRED_AREAS_PER_TC_PER_MINUTE
-#undef DESIRED_AREA_PER_THREAT_PER_MINUTE
+#undef DESIRED_AREAS_PER_THREAT_PER_MINUTE

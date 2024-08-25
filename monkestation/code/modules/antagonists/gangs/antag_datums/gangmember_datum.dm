@@ -31,6 +31,10 @@
 	member_list += src
 
 	objectives += gang_team.objectives
+	if(!handler.primary_objectives)
+		handler.primary_objectives = objectives.Copy()
+	else
+		handler.primary_objectives |= objectives
 	handler.can_take_objectives = !!rank //return it as a bool
 	handler.maximum_active_objectives = 1 * rank //this actually just works, but if you for some reason ever mess with ranks this will break
 	handler.maximum_potential_objectives = 3 * rank
@@ -62,6 +66,20 @@
 /datum/antagonist/gang_member/remove_innate_effects(mob/living/mob_override)
 	. = ..()
 	owner?.current?.faction -= "[REF(gang_team)]"
+
+/datum/antagonist/gang_member/admin_add(datum/mind/new_owner, mob/admin)
+	message_admins("[key_name_admin(admin)] made [key_name_admin(new_owner)] into [name].")
+	log_admin("[key_name(admin)] made [key_name(new_owner)] into [name].")
+	var/static/list/implant_types_to_give
+	if(!implant_types_to_give)
+		implant_types_to_give = list()
+		for(var/obj/item/implant/uplink/gang/implant as anything in typesof(/obj/item/implant/uplink/gang))
+			implant_types_to_give[initial(implant.antag_type)] = implant
+
+	var/datum/team/gang/selected_gang = tgui_input_list(admin, "What gang would you like them to be a part of?", "Select Gang", GLOB.all_gangs_by_tag + "New Gang")
+	var/created_type = implant_types_to_give[src.type]
+	var/obj/item/implant/uplink/gang/given_implant = new created_type(new_owner.current)
+	given_implant.implant(new_owner.current, force = TRUE, forced_gang = (istype(selected_gang, /datum/team/gang)))
 
 ///Change our datum type to a different one
 /datum/antagonist/gang_member/proc/change_rank(datum/antagonist/gang_member/new_datum)
@@ -112,9 +130,13 @@
 	rank = GANG_RANK_BOSS
 	///Our TC allocation ability
 	var/datum/action/innate/allocate_gang_tc/allocate
+	///Do we give them the starting equipment box
+	var/give_equipment_box = FALSE
 
 /datum/antagonist/gang_member/boss/on_gain()
 	allocate = new
+	if(given_equipment_box)
+		return
 	return ..()
 
 /datum/antagonist/gang_member/boss/on_removal(obj/item/implant/uplink/gang/implant)

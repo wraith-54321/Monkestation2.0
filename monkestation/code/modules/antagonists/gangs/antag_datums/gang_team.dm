@@ -37,7 +37,9 @@ GLOBAL_LIST_EMPTY(all_gangs_by_tag)
 	)
 	///Assoc list of member antag datums keyed to their rank
 	var/list/member_datums_by_rank = list()
-	///Same as gang_controlled_areas but generally things in here cannot change ownership
+	///List of area types owned by this gang, used to make some checks cheaper
+	var/list/claimed_areas = list()
+	///List of gang claimed area types that generally cannot change ownership
 	var/static/list/permanently_claimed_areas = list()
 	///List of all implants that are theoretically owned by us
 	var/list/implants = list()
@@ -71,9 +73,10 @@ GLOBAL_LIST_EMPTY(all_gangs_by_tag)
 
 ///Update the amount of threat local to each of our uplinks and then call their UI update
 /datum/team/gang/proc/update_handlers()
+	var/set_threat = threat * 600 //so it displays correctly in the uplink UI
 	for(var/mind in handlers)
 		var/datum/uplink_handler/handler = handlers[mind]
-		handler.progression_points = threat
+		handler.progression_points = set_threat
 		handler.on_update()
 
 ///Setup our team objectives
@@ -122,6 +125,8 @@ GLOBAL_LIST_EMPTY(all_gangs_by_tag)
 
 	SEND_SIGNAL(src, COMSIG_GANG_TOOK_AREA, taken_area)
 	GLOB.gang_controlled_areas[taken_area] = src
+	claimed_areas += taken_area.type
+	return TRUE
 
 ///Cause a gang to lose control of an area, passed_owner is for if we have already found the owner of the passed area
 /datum/team/gang/proc/lose_area(area/lost_area, forced, passed_owner)
@@ -129,11 +134,13 @@ GLOBAL_LIST_EMPTY(all_gangs_by_tag)
 		CRASH("[src] calling lose_area() without a passed lost_area.")
 
 	var/datum/team/gang/area_owner = passed_owner || GLOB.gang_controlled_areas[lost_area]
-	if(area_owner != src || (!forced && (lost_area in permanently_claimed_areas)))
+	if(area_owner != src || (!forced && (lost_area.type in permanently_claimed_areas)))
 		return FALSE
 
 	SEND_SIGNAL(src, COMSIG_GANG_LOST_AREA, lost_area)
 	GLOB.gang_controlled_areas -= lost_area
+	claimed_areas -= lost_area.type
+	return TRUE
 
 ///set up all our stuff for our gang_data, if there is already another gang then we wont pick from their blacklisted types for our data. forced_type will just set our data to whats passed
 /*/datum/team/gang/proc/set_gang_info(datum/gang_data/forced_type)

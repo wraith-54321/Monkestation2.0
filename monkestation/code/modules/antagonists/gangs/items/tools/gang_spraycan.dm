@@ -80,12 +80,16 @@ GLOBAL_LIST_EMPTY(gang_controlled_areas)
 		balloon_alert(user, "It looks like \the [controlling_tag] has a resistant coating and can only be removed by your own resistant paint!") //dont think too hard about it
 		return FALSE
 
+	if(!antag_datum.gang_team.take_area(target_area))
+		balloon_alert(user, "Something is making it impossible to take this area.")
+		return FALSE
+
 	if(controlling_tag)
 		controlling_tag.overridden = TRUE
 		qdel(controlling_tag)
 
 	var/obj/effect/decal/cleanable/crayon/gang/created_tag = new(target, paint_color, antag_datum.gang_team?.gang_tag, "[antag_datum.gang_team?.gang_tag] tag", \
-																null, null, antag_datum.gang_team)
+																null, null, antag_datum.gang_team, target_area, TRUE)
 	if(resistant_coating_charges)
 		resistant_coating_charges--
 		created_tag.resistant = TRUE
@@ -125,14 +129,18 @@ GLOBAL_LIST_EMPTY(gang_controlled_areas)
 	///how close to being cleaned off are we
 	var/cleaning_progress = 0
 	///are we being overidden by a new gang spray, used to save on some clean up code already being handled by take_area()
-	var/overriden = FALSE
+	var/overridden = FALSE
 	///ref to the gang that owns us
 	var/datum/team/gang/gang_owner
 
-/obj/effect/decal/cleanable/crayon/gang/Initialize(mapload, main, type, e_name, graf_rot, alt_icon, datum/team/gang/passed_gang)
+/obj/effect/decal/cleanable/crayon/gang/Initialize(mapload, main, type, e_name, graf_rot, alt_icon, datum/team/gang/passed_gang, area/passed_area, already_taken)
 	. = ..()
 	if(passed_gang)
-		var/area/our_area = get_area(src)
+		gang_owner = passed_gang
+		if(already_taken)
+			return
+
+		var/area/our_area = passed_area || get_area(src)
 		if(our_area)
 			passed_gang.take_area(our_area) //need to move this to be a check
 

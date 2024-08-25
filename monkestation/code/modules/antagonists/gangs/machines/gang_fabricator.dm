@@ -57,7 +57,7 @@
 		return
 
 	selected_design = designs_by_name[selected_design]
-	var/cost = selected_design.get_cost(src)
+	var/cost = selected_design.get_cost(owner)
 	var/input = tgui_alert(user, "Are you sure you want to fabricate [selected_design.name] for [cost] Telecrystal[cost == 1 ? "" : "s"]?", "Fabricator", list("Yes", "No"))
 	if(input == "Yes")
 		if(stored_tc >= cost)
@@ -89,29 +89,32 @@
 	///Type of object to create, can also be a list
 	var/fabrication_type
 
-/datum/gang_fabricator_design/proc/get_cost(obj/machinery/gang_machine/fabricator/passed_fabricator)
+/datum/gang_fabricator_design/proc/get_cost(datum/team/gang/owner)
 	return cost
 
-/datum/gang_fabricator_design/proc/fabricate(obj/machinery/gang_machine/fabricator/create_at, real_cost = get_cost())
+/datum/gang_fabricator_design/proc/fabricate(obj/machinery/gang_machine/fabricator/create_at, datum/team/gang/created_for, real_cost = get_cost(created_for))
 	if(fabrication_type && create_at)
 		var/turf/creation_turf = get_turf(create_at)
 		if(islist(fabrication_type))
 			for(var/type in fabrication_type)
-				new type(creation_turf)
+				create_item(type, creation_turf)
 			return
-		new fabrication_type(creation_turf)
+		create_item(fabrication_type, creation_turf)
+
+/datum/gang_fabricator_design/proc/create_item(created_type, turf/create_at, datum/team/gang/created_for)
+	return new created_type(create_at)
 
 /datum/gang_fabricator_design/gang_implant
 	name = "Gangmember Implant"
 	cost = 4
 	fabrication_type = list(/obj/item/toy/crayon/spraycan/gang, /obj/item/implanter/uplink/gang)
 
-/datum/gang_fabricator_design/gang_implant/get_cost(obj/machinery/gang_machine/fabricator/passed_fabricator)
-	if(!passed_fabricator?.owner || length(passed_fabricator.owner.members) <= cost)
+/datum/gang_fabricator_design/gang_implant/get_cost(datum/team/gang/owner)
+	if(!owner || length(owner.members) <= cost)
 		return cost
 
 	var/calculated_cost = 0
-	for(var/datum/mind/member_mind in passed_fabricator.owner.members)
+	for(var/datum/mind/member_mind in owner.members)
 		if(!member_mind.current)
 			continue
 
@@ -120,6 +123,10 @@
 			continue
 		calculated_cost++
 	return max(cost, trunc(calculated_cost)) //each living member increases cost by 1 TC and each dead member by 0.5, cost only starts to scale after you have more members then base cost
+
+/datum/gang_fabricator_design/gang_implant/create_item(created_type, turf/create_at, datum/team/gang/created_for)
+	var/obj/item/implanter/uplink/gang/implant = ..()
+	created_for?.track_implant(implant)
 
 /datum/gang_fabricator_design/boss_implant
 	name = "Boss Implant"

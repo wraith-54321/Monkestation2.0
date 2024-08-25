@@ -11,9 +11,8 @@
 	///Ref to our gang communicator action, if we have one
 	var/datum/action/innate/gang_communicate/communicate
 
-/obj/item/implant/uplink/gang/Initialize(mapload, uplink_handler, datum/team/gang/tracking_gang)
+/obj/item/implant/uplink/gang/Initialize(mapload)
 	. = ..()
-	tracking_gang?.track_implant(src)
 	if(initial(antag_type.rank) >= GANG_RANK_LIEUTENANT) //leaders always get a communicator
 		add_communicator()
 
@@ -30,7 +29,7 @@
 	if(!ishuman(target) || HAS_TRAIT(target, TRAIT_MINDSHIELD) || IS_TRAITOR(target) || IS_NUKE_OP(target)) //mindshields work the same way as cultists
 		return FALSE
 
-/obj/item/implant/uplink/gang/implant(mob/living/carbon/target, mob/user, silent, force = debug)
+/obj/item/implant/uplink/gang/implant(mob/living/carbon/target, mob/user, silent, force = debug, datum/team/gang/forced_gang)
 	if(!target.mind) //implanting a mindless mob wont work and will runtime, so override force
 		to_chat(user, span_warning("\The [src] rejects [target]."))
 		return FALSE
@@ -53,14 +52,14 @@
 		qdel(src)
 		return TRUE
 
-	var/datum/uplink_handler/gang/handler = gang_user?.gang_team.handlers[target.mind]
+	var/datum/team/gang/given_gang = forced_gang || gang_user?.gang_team
+	var/datum/uplink_handler/gang/handler = given_gang?.handlers[target.mind]
 	var/qdel_handler_on_fail = FALSE //we only want to qdel the handler if its new
-	if(!handler)
+	if(!handler) //might be able to simply make this after we call ..()
 		handler = new
 		qdel_handler_on_fail = TRUE
 		handler.owner = target.mind
 		handler.telecrystals = starting_tc //if we override handler then starting_tc does not get used
-		handler.owning_gang = gang_user?.gang_team
 		handler.uplink_flag = UPLINK_GANGS
 	uplink_handler = handler
 
@@ -72,7 +71,8 @@
 
 	var/datum/antagonist/gang_member/new_member_datum = new antag_type
 	new_member_datum.handler = handler
-	target.mind.add_antag_datum(new_member_datum, gang_user?.gang_team)
+	target.mind.add_antag_datum(new_member_datum, given_gang)
+	handler.owning_gang ||= new_member_datum.gang_team
 	new_member_datum.RegisterSignal(src, COMSIG_PRE_IMPLANT_REMOVED, TYPE_PROC_REF(/datum/antagonist/gang_member, handle_pre_implant_removal))
 	new_member_datum.RegisterSignal(src, COMSIG_IMPLANT_REMOVED, TYPE_PROC_REF(/datum/antagonist/gang_member, handle_implant_removal))
 	communicate?.Grant(target)
@@ -147,7 +147,7 @@
 	///What should we set the state of our implant's promotion_only to on init
 	var/fabricated = FALSE
 
-/obj/item/implanter/uplink/gang/Initialize(mapload, uplink_handler)
+/obj/item/implanter/uplink/gang/Initialize(mapload)
 	. = ..()
 	var/obj/item/implant/uplink/gang/implant = imp
 	implant.debug = debug_implant
