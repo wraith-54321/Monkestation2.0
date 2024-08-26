@@ -10,6 +10,8 @@
 	var/debug = FALSE
 	///Ref to our gang communicator action, if we have one
 	var/datum/action/innate/gang_communicate/communicate
+	///Do we let them get their given_gear_type
+	var/give_gear = FALSE
 
 /obj/item/implant/uplink/gang/Initialize(mapload)
 	. = ..()
@@ -69,8 +71,11 @@
 			qdel(handler)
 		return
 
-	var/datum/antagonist/gang_member/new_member_datum = new antag_type
+	var/datum/antagonist/gang_member/new_member_datum = new antag_type //might want to create this on Init instead so it can be accessed by things better
 	new_member_datum.handler = handler
+	if(!give_gear)
+		new_member_datum.given_gear_type = null
+
 	target.mind.add_antag_datum(new_member_datum, given_gang)
 	handler.owning_gang ||= new_member_datum.gang_team
 	new_member_datum.RegisterSignal(src, COMSIG_PRE_IMPLANT_REMOVED, TYPE_PROC_REF(/datum/antagonist/gang_member, handle_pre_implant_removal))

@@ -13,6 +13,8 @@
 	var/rank = GANG_RANK_MEMBER
 	///Ref to our uplink handler
 	var/datum/uplink_handler/gang/handler
+	///Typepath of item to give on_gain(), set to null to give nothing
+	var/given_gear_type = /obj/item/toy/crayon/spraycan/gang
 
 /datum/antagonist/gang_member/create_team(datum/team/team)
 	if(!team)
@@ -44,6 +46,11 @@
 	hud_keys = gang_team.gang_tag
 	if(owner?.current)
 		add_team_hud(owner.current, /datum/antagonist/gang_member)
+		if(given_gear_type)
+			var/obj/item/given_item = new given_gear_type(get_turf(owner.current))
+			var/mob/living/carbon/carbon_current = (iscarbon(owner.current) ? owner.current : null)
+			if(!carbon_current?.equip_in_one_of_slots(given_item, list("backpack" = ITEM_SLOT_BACKPACK)))
+				owner.current.put_in_hands(given_item)
 	. = ..()
 	owner.current.playsound_local(get_turf(owner.current), 'sound/ambience/antag/familieswork.ogg', 100, FALSE, pressure_affected = FALSE, use_reverb = FALSE)
 
@@ -79,6 +86,7 @@
 	var/datum/team/gang/selected_gang = tgui_input_list(admin, "What gang would you like them to be a part of?", "Select Gang", GLOB.all_gangs_by_tag + "New Gang")
 	var/created_type = implant_types_to_give[src.type]
 	var/obj/item/implant/uplink/gang/given_implant = new created_type(new_owner.current)
+	given_implant.give_gear = TRUE
 	given_implant.implant(new_owner.current, force = TRUE, forced_gang = (istype(selected_gang, /datum/team/gang)))
 
 ///Change our datum type to a different one
@@ -128,21 +136,16 @@
 	show_to_ghosts = TRUE
 	antag_hud_name = "gang_boss"
 	rank = GANG_RANK_BOSS
+	given_gear_type = /obj/item/storage/box/syndicate/gang_boss_kit
 	///Our TC allocation ability
-	var/datum/action/innate/allocate_gang_tc/allocate
+	var/datum/action/innate/allocate_gang_tc/allocate = new
 	///Do we give them the starting equipment box
 	var/give_equipment_box = FALSE
 
-/datum/antagonist/gang_member/boss/on_gain()
-	allocate = new
-	if(given_equipment_box)
-		return
-	return ..()
-
 /datum/antagonist/gang_member/boss/on_removal(obj/item/implant/uplink/gang/implant)
-	. = ..()
 	if(!QDELETED(allocate))
 		QDEL_NULL(allocate)
+	return ..()
 
 /datum/antagonist/gang_member/boss/apply_innate_effects(mob/living/mob_override)
 	. = ..()

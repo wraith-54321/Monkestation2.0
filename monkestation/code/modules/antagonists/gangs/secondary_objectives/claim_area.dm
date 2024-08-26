@@ -38,6 +38,8 @@
 	///How long has our gang met needed_area_count
 	var/time_fulfilled = 0
 
+/datum/traitor_objective/gang/claim_areas
+
 /datum/traitor_objective/gang/claim_areas/can_generate_objective(datum/mind/generating_for, list/possible_duplicates)
 	if(!..() || picked_count == 0 || !length(valid_areas))
 		return FALSE
@@ -96,9 +98,11 @@
 	var/i = 0
 	while(i < pre_picked_count)
 		i++
-		picked_areas += pick_n_take(valid_areas)
+		var/list/temp = list()
+		var/picked = pick_n_take(valid_areas)
+		picked_areas += pick(valid_areas - picked_areas) //might be better to manually take and store the picked areas and just add them back when done
 
-	picked_areas = typecacheof(picked_areas, root_path_only, include_roots)
+	picked_areas = typecacheof(picked_areas + valid_areas, root_path_only, include_roots) //check that just adding valid_areas here works
 	//im somewhat guessing here but it should be overall cheaper to run through the longer list once rather than compare it
 	var/picked_is_longer = length(picked_areas) > length(GLOB.the_station_areas)
 	for(var/area/area as anything in (picked_is_longer ? picked_areas : GLOB.the_station_areas))
@@ -169,6 +173,15 @@
 	. = ..()
 	var/area_key = valid_areas[1]
 	replace_in_name("%DEPARTMENT%", "[valid_areas[area_key]]")
+
+/datum/traitor_objective/gang/claim_areas/department/generate_objective(datum/mind/generating_for, list/possible_duplicates)
+	for(var/datum/traitor_objective/gang/claim_areas/objective in possible_duplicates)
+		var/area/objective_selected_area = objective.valid_areas[1]
+		valid_areas -= objective_selected_area.type
+
+	if(!length(valid_areas)) //somehow still generating even with no length
+		return FALSE
+	return ..()
 
 /datum/traitor_objective/gang/claim_areas/department/high_risk
 	progression_maximum = 45 MINUTES

@@ -23,7 +23,7 @@
 
 	for(var/datum/team/gang/gang_team in given_rewards)
 		gang_team.unallocated_tc += round(given_rewards[gang_team]["tc"], 0.01)
-		gang_team.threat += round(given_rewards[gang_team]["threat"], 0.1)
+		gang_team.threat += round(given_rewards[gang_team]["threat"], 0.1) //this does technically give gangs one extra area worth of threat each tick, no good way to handle that
 		gang_team.update_handlers()
 
 ///Returns an assoc list of areas with what their value multipliers are, if something is not in this list its value will be multiplied by 1
