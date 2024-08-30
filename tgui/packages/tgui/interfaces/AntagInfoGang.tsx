@@ -175,10 +175,9 @@ const GangBosses = () => {
           <Stack vertical>
             <Stack.Item>
               <span>
-                As a boss you act as the commander and chief of your gang,
-                everyone within your gang must listen and obey you, you are also
-                the only one able to allocate telecrystals gained from
-                controlled areas.
+                As a boss you act as the leader of your gang, everyone within
+                your gang must listen and obey you, you are also the only one
+                able to allocate telecrystals gained from controlled areas.
               </span>
             </Stack.Item>
           </Stack>

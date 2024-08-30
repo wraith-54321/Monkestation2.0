@@ -7,8 +7,8 @@ GLOBAL_LIST_EMPTY(all_gangs_by_tag)
 	var/datum/gang_data/our_gang_type = /datum/gang_data
 	///Temp for while I decide if I want to use gang_data or not
 	var/gang_tag = "Error"
-	///Assoc list of uplink handlers for our gang leaders, keyed to the mind that owns the handler
-	var/list/handlers = list()
+	///Assoc list of uplink handlers for our gang members, keyed to the mind that owns the handler
+	var/list/datum/uplink_handler/handlers = list()
 	///How much threat does the gang have
 	var/threat = 0
 	///How much TC does the gang boss have left to allocate
@@ -43,6 +43,8 @@ GLOBAL_LIST_EMPTY(all_gangs_by_tag)
 	var/static/list/permanently_claimed_areas = list()
 	///List of all implants that are theoretically owned by us
 	var/list/implants = list()
+	///Replacement for uplink handlers local version of this var
+	var/list/potential_duplicate_objectives = list()
 	///The list of objectives our members have completed, used for the round end screen
 	var/list/completed_objectives = list()
 
@@ -72,12 +74,18 @@ GLOBAL_LIST_EMPTY(all_gangs_by_tag)
 ///datum/team/gang/process(seconds_per_tick)
 
 ///Update the amount of threat local to each of our uplinks and then call their UI update
-/datum/team/gang/proc/update_handlers()
-	var/set_threat = threat * 600 //so it displays correctly in the uplink UI
-	for(var/mind in handlers)
-		var/datum/uplink_handler/handler = handlers[mind]
-		handler.progression_points = set_threat
+/datum/team/gang/proc/update_handler_threat()
+	for(var/datum/uplink_handler/handler as anything in handlers)
+		handler = handlers[handler]
+		handler.progression_points = threat
+		if(handler.maximum_potential_objectives > handler.potential_objectives + handler.active_objectives)
+			handler.generate_objectives()
 		handler.on_update()
+
+///Update the duplicate objectives for all our handlers
+/datum/team/gang/proc/update_duplicate_objectives()
+	for(var/datum/uplink_handler/handler as anything in handlers)
+		handlers[handler].potential_duplicate_objectives = potential_duplicate_objectives
 
 ///Setup our team objectives
 /datum/team/gang/proc/setup_objectives()

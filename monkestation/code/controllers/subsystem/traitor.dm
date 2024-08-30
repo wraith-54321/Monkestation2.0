@@ -1,6 +1,6 @@
 //due to the fact we tick more then once per minute this value is not directly given but we instead use some math to get the desired overall amount per minute
 #define DESIRED_AREAS_PER_TC_PER_MINUTE 9
-#define DESIRED_AREAS_PER_THREAT_PER_MINUTE 2
+#define DESIRED_AREAS_PER_THREAT_PER_MINUTE 4
 /datum/controller/subsystem/traitor
 	///assoc list of areas with values of amounts to multiply their rewards by
 	var/list/gang_area_multipliers
@@ -21,10 +21,18 @@
 		rewards["tc"] += area_mult / DESIRED_AREAS_PER_TC_PER_MINUTE
 		rewards["threat"] += area_mult / DESIRED_AREAS_PER_THREAT_PER_MINUTE
 
+	var/static/list/cached_extra_threat
+	if(!cached_extra_threat)
+		cached_extra_threat = list()
+
 	for(var/datum/team/gang/gang_team in given_rewards)
+		var/threat_value = given_rewards[gang_team]["threat"] + (cached_extra_threat[gang_team] || 0)
+		var/rounded_threat_value = round(threat_value, 0.1)
+		cached_extra_threat[gang_team] = threat_value - rounded_threat_value
+
 		gang_team.unallocated_tc += round(given_rewards[gang_team]["tc"], 0.01)
-		gang_team.threat += round(given_rewards[gang_team]["threat"], 0.1) //this does technically give gangs one extra area worth of threat each tick, no good way to handle that
-		gang_team.update_handlers()
+		gang_team.threat += round(given_rewards[gang_team]["threat"], 0.1)
+		gang_team.update_handler_threat()
 
 ///Returns an assoc list of areas with what their value multipliers are, if something is not in this list its value will be multiplied by 1
 /datum/controller/subsystem/traitor/proc/build_gang_area_values()
