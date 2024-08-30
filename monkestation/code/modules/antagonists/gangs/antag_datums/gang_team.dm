@@ -103,13 +103,17 @@ GLOBAL_LIST_EMPTY(all_gangs_by_tag)
 	UnregisterSignal(untracked_implant, list(COMSIG_QDELETING, COMSIG_IMPLANT_IMPLANTED))
 
 /datum/team/gang/proc/track_objective(datum/traitor_objective/tracked_objective)
-	RegisterSignals(tracked_objective, list(COMSIG_TRAITOR_OBJECTIVE_FAILED, COMSIG_TRAITOR_OBJECTIVE_COMPLETED), PROC_REF(handle_tracked_objective))
+	RegisterSignal(tracked_objective, COMSIG_TRAITOR_OBJECTIVE_FAILED, PROC_REF(handle_tracked_objective))
+	RegisterSignal(tracked_objective, COMSIG_TRAITOR_OBJECTIVE_COMPLETED, PROC_REF(handle_completed_objective))
+
+/datum/team/gang/proc/handle_completed_objective(datum/traitor_objective/tracked_objective)
+	SIGNAL_HANDLER
+	unallocated_tc += tracked_objective.telecrystal_reward
+	threat += tracked_objective.progression_reward
+	handle_tracked_objective(tracked_objective)
 
 /datum/team/gang/proc/handle_tracked_objective(datum/traitor_objective/tracked_objective)
 	SIGNAL_HANDLER
-	if(tracked_objective.objective_state == OBJECTIVE_STATE_COMPLETED)
-		unallocated_tc += tracked_objective.telecrystal_reward
-		threat += tracked_objective.progression_reward
 	UnregisterSignal(tracked_objective, list(COMSIG_TRAITOR_OBJECTIVE_FAILED, COMSIG_TRAITOR_OBJECTIVE_COMPLETED))
 
 /datum/team/gang/proc/on_tracked_qdel(datum/source, force)

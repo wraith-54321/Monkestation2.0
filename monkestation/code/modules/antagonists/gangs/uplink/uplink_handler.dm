@@ -16,7 +16,6 @@
 	. = ..()
 	if(!. || !owning_gang)
 		return
-
 	owning_gang.track_objective(to_take)
 
 //yes I know its near copypasta but the other options are much less performant
