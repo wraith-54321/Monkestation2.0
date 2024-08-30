@@ -18,5 +18,3 @@
 
 	owner = antag_datum.gang_team
 	return ..()
-
-///NEED TO MAKE DUPLICATES BE SHARED BETWEEN ALL HANDLERS

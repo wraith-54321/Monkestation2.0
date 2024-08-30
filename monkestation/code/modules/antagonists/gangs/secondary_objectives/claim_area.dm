@@ -42,7 +42,7 @@
 	return TRUE
 
 /datum/traitor_objective/gang/claim_areas/generate_objective(datum/mind/generating_for, list/possible_duplicates)
-	if(!get_picked_areas())
+	if(!owner || !get_picked_areas())
 		return FALSE
 
 	var/list/names = list()
