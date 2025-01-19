@@ -351,7 +351,7 @@
 				. = TRUE
 		if("select_stencil")
 			var/stencil = params["item"]
-			if(stencil in all_drawables + randoms + formatted_additional_drawables) //monkestation edit: adds additional_drawables
+			if(stencil in (all_drawables + randoms + formatted_additional_drawables)) //monkestation edit: adds additional_drawables
 				drawtype = stencil
 				. = TRUE
 				text_buffer = ""
@@ -441,7 +441,7 @@
 		temp = "symbol"
 	else if(drawing in drawings)
 		temp = "drawing"
-	else if(drawing in graffiti|oriented)
+	else if(drawing in (graffiti|oriented))
 		temp = "graffiti"
 
 	var/graf_rot

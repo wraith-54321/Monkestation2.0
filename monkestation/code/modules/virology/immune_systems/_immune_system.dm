@@ -19,7 +19,7 @@
 		ANTIGEN_Z	= 0,
 		)
 
-/datum/immune_system/Destroy()
+/datum/immune_system/Destroy(force)
 	host = null
 	antibodies = null
 	return ..()
@@ -41,7 +41,7 @@
 			antibodies[antibody] = rand(10, 30) * boost
 		if(antibody in GLOB.blood_antigens)
 			antibodies[antibody] = rand(10, 20) * boost
-			var/blood_type = host.has_dna()?.blood_type
+			var/blood_type = host.has_dna()?.human_blood_type
 			if(blood_type)
 				switch(antibody)
 					if(ANTIGEN_O)

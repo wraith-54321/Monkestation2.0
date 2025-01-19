@@ -56,6 +56,7 @@
 /obj/item/ammo_casing/energy/trap
 	projectile_type = /obj/projectile/energy/trap
 	select_name = "snare"
+	e_cost = 200 //monkestation addition
 	harmful = FALSE
 
 /obj/item/ammo_casing/energy/tesla_cannon
@@ -65,7 +66,7 @@
 	projectile_type = /obj/projectile/energy/tesla_cannon
 
 /obj/item/ammo_casing/energy/shrink
-	projectile_type = /obj/projectile/beam/shrink
+	projectile_type = /obj/projectile/magic/shrink/alien
 	select_name = "shrink ray"
 	e_cost = 200
 

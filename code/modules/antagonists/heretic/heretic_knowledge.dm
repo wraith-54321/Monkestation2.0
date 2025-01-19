@@ -232,7 +232,7 @@
 	/// A list of weakrefs to all items we've created.
 	var/list/datum/weakref/created_items
 
-/datum/heretic_knowledge/limited_amount/Destroy(force, ...)
+/datum/heretic_knowledge/limited_amount/Destroy(force)
 	LAZYCLEARLIST(created_items)
 	return ..()
 
@@ -343,7 +343,7 @@
 	if(!istype(mark))
 		return FALSE
 
-	mark.on_effect()
+	mark.on_effect(source) // monkestation edit: add "activator" arg to /datum/status_effect/eldritch/proc/on_effect()
 	return TRUE
 
 /**
@@ -576,8 +576,10 @@
 	var/datum/antagonist/heretic_monster/heretic_monster = summoned.mind.add_antag_datum(/datum/antagonist/heretic_monster)
 	heretic_monster.set_owner(user.mind)
 
+	/* monkestation removal: heretic refactoring
 	var/datum/objective/heretic_summon/summon_objective = locate() in user.mind.get_all_objectives()
 	summon_objective?.num_summoned++
+	monkestation end */
 
 	return TRUE
 
@@ -688,6 +690,14 @@
 	cost = 2
 	priority = MAX_KNOWLEDGE_PRIORITY + 1 // Yes, the final ritual should be ABOVE the max priority.
 	required_atoms = list(/mob/living/carbon/human = 3)
+	/// The typepath of the achievement to grant upon successful ascension.
+	var/datum/award/achievement/misc/ascension_achievement
+	/// The text of the ascension announcement.
+	/// %NAME% is replaced with the heretic's real name,
+	/// and %SPOOKY% is replaced with output from [generate_heretic_text]
+	var/announcement_text
+	/// The sound that's played for the ascension announcement.
+	var/announcement_sound
 
 /datum/heretic_knowledge/ultimate/on_research(mob/user, datum/antagonist/heretic/our_heretic)
 	. = ..()
@@ -750,6 +760,15 @@
 		header = "A Heretic is Ascending!",
 		notify_flags = NOTIFY_CATEGORY_DEFAULT,
 	)
+	priority_announce(
+		text = replacetext(replacetext(announcement_text, "%NAME%", user.real_name), "%SPOOKY%", GLOBAL_PROC_REF(generate_heretic_text)),
+		title = generate_heretic_text(),
+		sound = announcement_sound,
+		color_override = "pink",
+	)
+
+	if(!isnull(ascension_achievement))
+		user.client?.give_award(ascension_achievement, user)
 	return TRUE
 
 /datum/heretic_knowledge/ultimate/cleanup_atoms(list/selected_atoms)

@@ -208,13 +208,22 @@
 	new /obj/item/ammo_box/advanced/s12gauge(src)
 
 
-/obj/item/storage/box/syndie_kit/surplus_smg_bundle
+/obj/item/storage/box/syndie_kit/shit_smg_bundle
 	desc = "A box containing a surplus space soviet Plastikov and two magazines. Perfect for henchmen."
 
-/obj/item/storage/box/syndie_kit/surplus_smg_bundle/PopulateContents()
+/obj/item/storage/box/syndie_kit/shit_smg_bundle/PopulateContents()
 	new /obj/item/gun/ballistic/automatic/plastikov(src)
 	new /obj/item/ammo_box/magazine/plastikov9mm(src)
-	new /obj/item/ammo_box/magazine/plastikov9mm(src)
+
+/obj/item/storage/box/syndie_kit/khan_package
+	name = "Tunel Khans Khare Paccage"
+	desc = "It's a syndicate box written all over with gray crayon."
+	icon_state = "syndiebox"
+	illustration = "writing_syndie"
+
+/obj/item/storage/box/syndie_kit/khan_package/PopulateContents()
+	new /obj/item/book/granter/martial/the_tunnel_arts(src)
+	new /obj/item/clothing/suit/jacket/det_suit/khan(src)
 
 #undef KIT_ITEM_CATEGORY_SUPPORT
 #undef KIT_ITEM_CATEGORY_WEAPONS

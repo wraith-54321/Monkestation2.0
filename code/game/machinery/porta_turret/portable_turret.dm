@@ -466,7 +466,7 @@ DEFINE_BITFIELD(turret_flags, list(
 		else if(iscarbon(A))
 			var/mob/living/carbon/C = A
 			//If not emagged, only target carbons that can use items
-			if(mode != TURRET_LETHAL && (C.stat || C.handcuffed || !(C.mobility_flags & MOBILITY_USE)))
+			if(mode != TURRET_LETHAL && (!(C.mobility_flags & MOBILITY_USE) || HAS_TRAIT(C, TRAIT_INCAPACITATED)))
 				continue
 
 			//If emagged, target all but dead carbons
@@ -708,13 +708,13 @@ DEFINE_BITFIELD(turret_flags, list(
 	remote_controller = null
 	return TRUE
 
-/obj/machinery/porta_turret/proc/InterceptClickOn(mob/living/caller, params, atom/A)
+/obj/machinery/porta_turret/proc/InterceptClickOn(mob/living/user, params, atom/A)
 	if(!manual_control)
 		return FALSE
-	if(!can_interact(caller))
+	if(!can_interact(user))
 		remove_control()
 		return FALSE
-	log_combat(caller,A,"fired with manual turret control at")
+	log_combat(user,A,"fired with manual turret control at")
 	target(A)
 	return TRUE
 
@@ -753,7 +753,7 @@ DEFINE_BITFIELD(turret_flags, list(
 	stun_projectile = /obj/projectile/energy/electrode
 	stun_projectile_sound = 'sound/weapons/taser.ogg'
 	lethal_projectile = /obj/projectile/beam/laser
-	lethal_projectile_sound = 'sound/weapons/laser.ogg'
+	lethal_projectile_sound = 'monkestation/sound/weapons/gun/energy/Laser1.ogg'
 	desc = "An energy blaster auto-turret."
 	armor_type = /datum/armor/syndicate_turret
 
@@ -777,7 +777,7 @@ DEFINE_BITFIELD(turret_flags, list(
 
 /obj/machinery/porta_turret/syndicate/energy/raven
 	stun_projectile = /obj/projectile/beam/laser
-	stun_projectile_sound = 'sound/weapons/laser.ogg'
+	stun_projectile_sound = 'monkestation/sound/weapons/gun/energy/Laser1.ogg'
 	faction = list(FACTION_NEUTRAL,FACTION_SILICON,FACTION_TURRET)
 
 /obj/machinery/porta_turret/syndicate/pod

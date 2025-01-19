@@ -16,6 +16,15 @@
 	item = /obj/item/storage/box/syndie_kit/imp_hard_spear/max
 	cost = 40
 
+/datum/uplink_item/stealthy_weapons/martialarts/advanced
+	name = "Blood-stained Martial Arts Scroll"
+	desc = "A scroll penned by the infamous Awakened Dragon, penned with the blood of their \
+			disciples, it appears to have clues towards true enlightenment in the path of the Sleeping Carp."
+	cost = 20
+	item = /obj/item/book/granter/martial/carp/true
+	lock_other_purchases = TRUE
+	purchasable_from = ~(UPLINK_CLOWN_OPS | UPLINK_NUKE_OPS)
+
 /datum/uplink_item/dangerous/laser_musket
 	name = "Syndicate Laser Musket"
 	desc = "An exprimental 'rifle' designed by Aetherofusion. This laser(probably) uses alien technology to fit 4 high energy capacitors \
@@ -80,8 +89,8 @@
 	item = /obj/item/storage/box/syndie_kit/shotgun_revolver
 	cost = 8
 
-/datum/uplink_item/dangerous/surplus_smg
-	name = "Surplus Smg henchmen Bundle"
+/datum/uplink_item/dangerous/shit_smg
+	name = "Surplus Smg Bundle"
 	desc = "A single surplus Plastikov SMG and two extra magazines. A terrible weapon, perfect for henchmen."
-	item = /obj/item/storage/box/syndie_kit/surplus_smg_bundle
-	cost = 3
+	item = /obj/item/storage/box/syndie_kit/shit_smg_bundle
+	cost = 4

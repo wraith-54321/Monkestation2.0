@@ -29,6 +29,7 @@
 		"Artist",
 		"Off-Duty Staff",
 		"Off-Duty Crew",
+		"Test Subject",
 	)
 
 /datum/job/atmospheric_technician
@@ -66,6 +67,7 @@
 		"Herbalist",
 		"Florist",
 		"Rancher",
+		"Druid",
 	)
 
 /datum/job/brig_physician
@@ -85,6 +87,7 @@
 		"Commanding Officer",
 		"Site Manager",
 		"Criminally Underpaid Babysitter",
+		"Princess",
 	)
 
 /datum/job/cargo_technician
@@ -177,6 +180,7 @@
 		"Forensic Technician",
 		"Private Investigator",
 		"Forensic Scientist",
+		"Paranormal Investigator",
 	)
 
 /datum/job/doctor
@@ -291,6 +295,7 @@
 		"Biorobotics Director",
 		"Research Supervisor",
 		"Chief Science Officer",
+		"Chief Artificer",
 	)
 
 /datum/job/roboticist
@@ -299,6 +304,7 @@
 		"Biomechanical Engineer",
 		"Mechatronic Engineer",
 		"Apprentice Roboticist",
+		"Ripperdoc",
 	)
 
 /datum/job/science_guard //See orderly
@@ -317,6 +323,8 @@
 		"Xenoarchaeologist",
 		"Research Assistant",
 		"Graduate Student",
+		"Artificer",
+		"Cryptozoologist",
 	)
 
 /datum/job/security_officer
@@ -364,4 +372,14 @@
 		"Dispatch Officer",
 		"Brig Governor",
 		"Jailer",
+	)
+
+/datum/job/blueshield
+	alt_titles = list(
+		"Blueshield",
+		"Corporate Henchman",
+		"Bodyguard",
+		"Revolutionary Repellent",
+		"Heavily Armed Butler",
+		"Honor Guard",
 	)
