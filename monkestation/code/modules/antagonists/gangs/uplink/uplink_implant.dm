@@ -31,7 +31,11 @@
 	if(!ishuman(target) || HAS_TRAIT(target, TRAIT_MINDSHIELD) || IS_TRAITOR(target) || IS_NUKE_OP(target)) //mindshields work the same way as cultists
 		return FALSE
 
-/obj/item/implant/uplink/gang/implant(mob/living/carbon/target, mob/user, silent, force = debug, datum/team/gang/forced_gang)
+/obj/item/implant/uplink/gang/implant(mob/living/carbon/target, mob/user, silent, force = debug, datum/team/gang/forced_gang, transferring)
+	if(transferring)
+		communicate?.Grant(target)
+		return ..()
+
 	if(!target.mind) //implanting a mindless mob wont work and will runtime, so override force
 		to_chat(user, span_warning("\The [src] rejects [target]."))
 		return FALSE
@@ -159,13 +163,6 @@
 	implant.promotion_only = fabricated
 	if(fabricated)
 		AddElement(/datum/element/extra_examine/gang, span_syndradio("This one seems to unable to induct new members and can only be used to promote exsisting gang members."))
-
-/obj/item/implanter/uplink/gang/debug
-	item_flags = ABSTRACT //this is to prevent a few things from trying to spawn this, slightly janky but this is for debug anyway so it should be fine
-	debug_implant = TRUE
-
-/obj/item/implanter/uplink/gang/debug/boss
-	imp_type = /obj/item/implant/uplink/gang/boss
 
 /obj/item/implanter/uplink/gang/lieutenant
 	name = "implanter (gang lieutenant uplink)"

@@ -61,7 +61,7 @@
 	var/input = tgui_alert(user, "Are you sure you want to fabricate [selected_design.name] for [cost] Telecrystal[cost == 1 ? "" : "s"]?", "Fabricator", list("Yes", "No"))
 	if(input == "Yes")
 		if(stored_tc >= cost)
-			selected_design.fabricate(src, cost)
+			selected_design.fabricate(src, owner, cost)
 			stored_tc -= cost
 			balloon_alert(user, "Fabricated [selected_design.name].")
 			return

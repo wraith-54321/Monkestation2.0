@@ -59,7 +59,7 @@
 		threat_to_give = desired_threat
 		credits_to_pay = round(desired_threat * CREDITS_PER_THREAT, 0.1)
 
-	owner.threat += threat_to_give MINUTES //for now im just gonna leave updating the UI for this to the traitor SS loop as I need to check how expensive it is
+	owner.threat += threat_to_give //for now im just gonna leave updating the UI for this to the traitor SS loop as I need to check how expensive it is
 	stored_credits -= credits_to_pay
 	if(stored_credits < min_cost)
 		end_processing()

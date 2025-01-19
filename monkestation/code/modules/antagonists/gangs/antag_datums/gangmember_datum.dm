@@ -54,10 +54,23 @@
 	. = ..()
 	owner.current.playsound_local(get_turf(owner.current), 'sound/ambience/antag/familieswork.ogg', 100, FALSE, pressure_affected = FALSE, use_reverb = FALSE)
 
+/datum/antagonist/gang_member/on_body_transfer(mob/living/old_body, mob/living/new_body)
+	var/obj/item/implant/uplink/gang/implant = locate() in old_body.implants
+	if(!implant)
+		return ..()
+
+	implant.removed(old_body, special = TRUE, forced = TRUE)
+	implant.implant(new_body, transferring = TRUE)
+	return ..()
+
 //might need to handle body transfer
 /datum/antagonist/gang_member/apply_innate_effects(mob/living/mob_override)
 	. = ..()
 	owner?.current?.faction += "[REF(gang_team)]"
+
+/datum/antagonist/gang_member/remove_innate_effects(mob/living/mob_override)
+	. = ..()
+	owner?.current?.faction -= "[REF(gang_team)]"
 
 /datum/antagonist/gang_member/on_removal(obj/item/implant/uplink/gang/implant)
 	handler = null
@@ -69,10 +82,6 @@
 	if(implant)
 		UnregisterSignal(implant, list(COMSIG_IMPLANT_REMOVED, COMSIG_PRE_IMPLANT_REMOVED))
 		gang_team.implants -= implant
-
-/datum/antagonist/gang_member/remove_innate_effects(mob/living/mob_override)
-	. = ..()
-	owner?.current?.faction -= "[REF(gang_team)]"
 
 /datum/antagonist/gang_member/admin_add(datum/mind/new_owner, mob/admin)
 	message_admins("[key_name_admin(admin)] made [key_name_admin(new_owner)] into [name].")
@@ -87,7 +96,7 @@
 	var/created_type = implant_types_to_give[src.type]
 	var/obj/item/implant/uplink/gang/given_implant = new created_type(new_owner.current)
 	given_implant.give_gear = TRUE
-	given_implant.implant(new_owner.current, force = TRUE, forced_gang = (istype(selected_gang, /datum/team/gang)))
+	given_implant.implant(new_owner.current, force = TRUE, forced_gang = GLOB.all_gangs_by_tag[selected_gang])
 
 ///Change our datum type to a different one
 /datum/antagonist/gang_member/proc/change_rank(datum/antagonist/gang_member/new_datum)
@@ -100,7 +109,7 @@
 	var/datum/mind/owner_ref = owner //we need to keep a temp ref of this to use after on_removal()
 	on_removal(implant)
 	owner_ref?.add_antag_datum(new_datum, gang_team)
-	var/active_length = length(handler.active_objectives)
+	var/active_length = length(handler.active_objectives)  //SOMEHOW HANDLER IS NULL HERE
 	while(active_length && handler.maximum_active_objectives < active_length) //our handler is the same so we can just access it locally
 		var/datum/traitor_objective/objective = handler.active_objectives[active_length]
 		objective.fail_objective() //penalty is unset so it will just count as invalid
@@ -128,6 +137,9 @@
 
 /datum/antagonist/gang_member/proc/handle_implant_removal(datum/source, mob/living/mob_source, silent, special)
 	SIGNAL_HANDLER
+	if(special) //we use special as the flag to check for being tranferred
+		return
+
 	on_removal(source)
 
 /datum/antagonist/gang_member/boss
@@ -155,7 +167,7 @@
 /datum/antagonist/gang_member/boss/remove_innate_effects(mob/living/mob_override)
 	. = ..()
 	if(owner?.current)
-		allocate.Remove(owner.current)
+		allocate?.Remove(owner.current)
 
 /datum/antagonist/gang_member/lieutenant
 	name = "\improper Syndicate Gang Lieutenant"
