@@ -6,7 +6,7 @@
 
 /obj/item/gang_device/communicator_upgrade/afterattack(atom/target, mob/user, proximity_flag, click_parameters)
 	var/obj/item/implant/uplink/gang/implant = locate(/obj/item/implant/uplink/gang) in target.contents
-	if(!implant)
+	if(!implant || !IS_GANGMEMBER(user))
 		return ..()
 
 	if(implant.communicate)
