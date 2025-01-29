@@ -6465,6 +6465,7 @@
 #include "monkestation\code\modules\antagonists\gangs\items\tools\machine_converter.dm"
 #include "monkestation\code\modules\antagonists\gangs\items\tools\mobroach_beacon.dm"
 #include "monkestation\code\modules\antagonists\gangs\items\tools\object_beacon.dm"
+#include "monkestation\code\modules\antagonists\gangs\items\tools\promoter.dm"
 #include "monkestation\code\modules\antagonists\gangs\items\weapons\gang_turret.dm"
 #include "monkestation\code\modules\antagonists\gangs\machines\_gang_machine.dm"
 #include "monkestation\code\modules\antagonists\gangs\machines\credit_converter.dm"

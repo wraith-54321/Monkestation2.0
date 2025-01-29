@@ -6,23 +6,37 @@ GLOBAL_LIST_EMPTY(gang_controlled_areas)
 
 #define TIMES_CLEANED_TO_REMOVE 5
 #define ALPHA_TO_REMOVE_WHEN_CLEANED 50
-/obj/item/toy/crayon
-	///list of additonal drawables that are drawable by this spraycan
-	var/list/additional_drawables = list()
-	///list of additional_drawables by static_additional_drawables
-	var/list/formatted_additional_drawables = list()
-
 /obj/item/toy/crayon/spraycan/gang
+	///Will we try to tag instead of our normal function if used by a gang member
+	var/tagging_mode = TRUE
 	///How many charges of resistant coating do we have
 	var/resistant_coating_charges = 0
+	///A ref to our action for toggling our tagging mode, we handle this ourselves as we dont want non gang members to see this
+	var/datum/action/item_action/toggle_tagging/toggle_action
 
 /obj/item/toy/crayon/spraycan/gang/Initialize(mapload)
 	. = ..()
-	RegisterSignal(src, COMSIG_ITEM_PICKUP, PROC_REF(on_pickup))
+	toggle_action = new(src)
 
 /obj/item/toy/crayon/spraycan/gang/Destroy(force)
-	UnregisterSignal(src, COMSIG_ITEM_PICKUP)
+	QDEL_NULL(toggle_action)
 	return ..()
+
+/obj/item/toy/crayon/spraycan/gang/pickup(mob/user)
+	. = ..()
+	if(IS_GANGMEMBER(user))
+		toggle_action.Grant(user)
+
+/obj/item/toy/crayon/spraycan/gang/dropped(mob/user, silent)
+	. = ..()
+	toggle_action.Remove(user)
+
+/obj/item/toy/crayon/spraycan/gang/ui_action_click(mob/user, actiontype)
+	if(!IS_GANGMEMBER(user) || (SEND_SIGNAL(src, COMSIG_ITEM_UI_ACTION_CLICK, user, actiontype) & COMPONENT_ACTION_HANDLED))
+		return
+
+	tagging_mode = !tagging_mode
+	to_chat(user, span_notice("[src] will now [tagging_mode ? "tag areas" : "act as a normal spray can"]."))
 
 //cant just use the element due to charges changing
 /obj/item/toy/crayon/spraycan/gang/examine(mob/user)
@@ -33,15 +47,11 @@ GLOBAL_LIST_EMPTY(gang_controlled_areas)
 			. += span_syndradio("It has [resistant_coating_charges] sprays worth of resistant coating left.")
 
 /obj/item/toy/crayon/spraycan/gang/use_on(atom/target, mob/user, params)
-	if(drawtype in additional_drawables)
+	if(tagging_mode)
 		var/datum/antagonist/gang_member/gang_datum = IS_GANGMEMBER(user)
 		if(gang_datum)
 			return snowflake_graffiti_creation(target, user, gang_datum)
-		else
-			to_chat(user, "You dont know how to draw this!")
-			return FALSE
-	else
-		return ..()
+	return ..()
 
 ///We do a bunch of different stuff for our gang graffiti creation but still want normal function for the spraycan so im just cramming all our stuff into this proc instead of use_on()
 /obj/item/toy/crayon/spraycan/gang/proc/snowflake_graffiti_creation(atom/target, mob/user, datum/antagonist/gang_member/antag_datum)
@@ -102,23 +112,11 @@ GLOBAL_LIST_EMPTY(gang_controlled_areas)
 
 /obj/item/toy/crayon/spraycan/gang/proc/creation_checks(atom/target, mob/user, datum/antagonist/gang_member/antag_datum)
 
-/obj/item/toy/crayon/spraycan/gang/proc/on_pickup(datum/source, mob/taker)
-	SIGNAL_HANDLER
-
-	var/datum/antagonist/gang_member/gang_datum = IS_GANGMEMBER(taker)
-	if(gang_datum?.gang_team)
-		if(!(gang_datum.gang_team.gang_tag in additional_drawables))
-			additional_drawables = list(gang_datum.gang_team.gang_tag)
-			formatted_additional_drawables = list(list("name" = "Gang", "items" = list(list("item" = gang_datum.gang_team.gang_tag))))
-			drawtype = gang_datum.gang_team.gang_tag
-		return
-
-	if(drawtype in additional_drawables)
-		drawtype = "Random Anything"
-	additional_drawables = list()
-
 /obj/item/toy/crayon/spraycan/gang/resistant
 	resistant_coating_charges = 5
+
+/datum/action/item_action/toggle_tagging
+	name = "Toggle Tagging"
 
 /obj/effect/decal/cleanable/crayon/gang
 	mergeable_decal = FALSE

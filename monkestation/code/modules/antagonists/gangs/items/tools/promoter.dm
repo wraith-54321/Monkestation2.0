@@ -7,7 +7,7 @@
 	var/datum/antagonist/gang_member/promoted_to = /datum/antagonist/gang_member/lieutenant
 
 /obj/item/gang_device/promoter/Initialize(mapload)
-	replacetext(gang_examine, "%RANK%", initial(promoted_to.name))
+	gang_examine = replacetext(gang_examine, "%RANK%", initial(promoted_to.name))
 	. = ..()
 
 /obj/item/gang_device/promoter/afterattack(mob/living/target, mob/user, proximity_flag, click_parameters)
@@ -15,7 +15,7 @@
 		return ..()
 
 	var/datum/antagonist/gang_member/user_datum = IS_GANGMEMBER(user)
-	var/datum/antagonist/gang_member/target_datum = IS_GANGMEMBER(target_datum)
+	var/datum/antagonist/gang_member/target_datum = IS_GANGMEMBER(target)
 	if(!user_datum || user_datum.rank < GANG_RANK_LIEUTENANT || !target_datum || !target_datum.rank < initial(promoted_to.rank))
 		to_chat(user, span_notice("You cannot promote [target]"))
 		return ..()

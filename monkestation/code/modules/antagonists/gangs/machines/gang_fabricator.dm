@@ -128,12 +128,12 @@
 	var/obj/item/implanter/uplink/gang/implant = ..()
 	created_for?.track_implant(implant)
 
-/datum/gang_fabricator_design/boss_implant
-	name = "Boss Implant"
+/datum/gang_fabricator_design/boss_promoter
+	name = "Boss Promoter"
 	cost = 20
-	fabrication_type = /obj/item/implanter/uplink/gang/boss/fabricated
+	fabrication_type = /obj/item/gang_device/promoter/boss
 
-/datum/gang_fabricator_design/lieutenant_implant
-	name = "Lieutenant Implant"
+/datum/gang_fabricator_design/lieutenant_promoter
+	name = "Lieutenant Portmoter"
 	cost = 10
-	fabrication_type = /obj/item/implanter/uplink/gang/lieutenant/fabricated
+	fabrication_type = /obj/item/gang_device/promoter
