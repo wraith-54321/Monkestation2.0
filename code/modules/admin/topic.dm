@@ -212,18 +212,28 @@
 			if(!check_if_greater_rights_than(M.client))
 				to_chat(usr, span_danger("Error: They have more rights than you do."), confidential = TRUE)
 				return
+			/* //MONKESTATION EDIT START - Change this tgui alert to a regular alert
 			if(tgui_alert(usr, "Kick [key_name(M)]?", "Confirm", list("Yes", "No")) != "Yes")
 				return
+			*/ //MONKESTATION EDIT ORIGINAL
+			if(alert(usr, "Kick [key_name(M)]?", "Confirm", "Yes", "No") != "Yes")
+				return
+			//MONKESTATION EDIT END
 			if(!M)
 				to_chat(usr, span_danger("Error: [M] no longer exists!"), confidential = TRUE)
 				return
 			if(!M.client)
 				to_chat(usr, span_danger("Error: [M] no longer has a client!"), confidential = TRUE)
 				return
+			//MONKESTATION EDIT START - Kicking players has been moved to a proc
+			/*
 			to_chat(M, span_danger("You have been kicked from the server by [usr.client.holder.fakekey ? "an Administrator" : "[usr.client.key]"]."), confidential = TRUE)
 			log_admin("[key_name(usr)] kicked [key_name(M)].")
 			message_admins(span_adminnotice("[key_name_admin(usr)] kicked [key_name_admin(M)]."))
 			qdel(M.client)
+			*/ //MONKESTATION EDIT ORIGINAL
+			kick_client(M.client)
+			//MONKESTATION EDIT END
 
 	else if(href_list["addmessage"])
 		if(!check_rights(R_ADMIN))
@@ -715,7 +725,9 @@
 
 	else if(href_list["adminplayeropts"])
 		var/mob/M = locate(href_list["adminplayeropts"])
-		show_player_panel(M)
+		usr.client.VUAP_selected_mob = M
+		usr.client.selectedPlayerCkey = M.ckey
+		usr.client.holder.vuap_open()
 
 	else if(href_list["ppbyckey"])
 		var/target_ckey = href_list["ppbyckey"]
@@ -730,7 +742,9 @@
 			return
 
 		to_chat(usr, span_notice("Jumping to [target_ckey]'s new mob: [target_mob]!"))
-		show_player_panel(target_mob)
+		usr.client.VUAP_selected_mob = target_mob
+		usr.client.selectedPlayerCkey = target_mob.ckey
+		usr.client.holder.vuap_open()
 
 	else if(href_list["adminopendemo"])
 		usr.client << link("http://viewer.monkestation.com/?roundid=[GLOB.round_id]&password=[CONFIG_GET(string/replay_password)]#[world.time]") //opens current round at current time
@@ -845,7 +859,7 @@
 		exportable_text += "[special_role_description]<br>"
 		exportable_text += ADMIN_FULLMONTY_NONAME(subject)
 
-		to_chat(src.owner, examine_block(exportable_text), confidential = TRUE)
+		to_chat(src.owner, boxed_message(exportable_text), confidential = TRUE)
 
 	else if(href_list["addjobslot"])
 		if(!check_rights(R_ADMIN))
@@ -1441,7 +1455,7 @@
 			if(response.body == "[]")
 				dat += "<center><b>0 bans detected for [ckey]</b></center>"
 			else
-				bans = json_decode(response["body"])
+				bans = json_decode(response.body)
 
 				//Ignore bans from non-whitelisted sources, if a whitelist exists
 				var/list/valid_sources
@@ -1729,6 +1743,7 @@
 			return
 		return usr.client?.mark_datum(datum_to_mark)
 
+#ifndef DISABLE_DREAMLUAU
 	else if(href_list["lua_state"])
 		if(!check_rights(R_DEBUG))
 			return
@@ -1745,6 +1760,7 @@
 				editor.force_view_chunk = log_entry["chunk"]
 				editor.force_modal = "viewChunk"
 		editor.ui_interact(usr)
+#endif
 
 	else if(href_list["show_paper"])
 		if(!check_rights(R_ADMIN))
@@ -1771,8 +1787,12 @@
 		if(!IS_CLIENT_OR_MOCK(target))
 			return
 		var/client/user_client = target
-		user_client.client_token_holder.approve_antag_token()
-		log_admin("[user_client]'s token has been approved by [owner].")
+		var/datum/meta_token_holder/token_holder = user_client?.client_token_holder
+		if(!token_holder?.in_queue)
+			return
+		token_holder.approve_antag_token()
+		message_admins("[key_name_admin(owner)] approved a [token_holder.in_queue] token from [ADMIN_LOOKUPFLW(user_client)]")
+		log_admin("[user_client]'s [token_holder.in_queue] token has been approved by [owner].")
 
 	else if(href_list["reject_antag_token"])
 		if(!check_rights(R_ADMIN))
@@ -1781,8 +1801,12 @@
 		if(!IS_CLIENT_OR_MOCK(target))
 			return
 		var/client/user_client = target
-		user_client.client_token_holder.reject_antag_token()
-		log_admin("[user_client]'s token has been rejected by [owner].")
+		var/datum/meta_token_holder/token_holder = user_client?.client_token_holder
+		if(!token_holder?.in_queue)
+			return
+		token_holder.reject_antag_token()
+		message_admins("[key_name_admin(owner)] rejected a [token_holder.in_queue] token from [ADMIN_LOOKUPFLW(user_client)]")
+		log_admin("[user_client]'s [token_holder.in_queue] token has been rejected by [owner].")
 
 	else if(href_list["open_music_review"])
 		if(!check_rights(R_ADMIN))
@@ -1800,8 +1824,12 @@
 		if(!IS_CLIENT_OR_MOCK(target))
 			return
 		var/client/user_client = target
-		user_client.client_token_holder.approve_token_event()
-		log_admin("[user_client]'s token event has been approved by [owner].")
+		var/datum/meta_token_holder/token_holder = user_client?.client_token_holder
+		if(!token_holder?.queued_token_event)
+			return
+		token_holder.approve_token_event()
+		message_admins("[key_name_admin(owner)] approved a [token_holder.queued_token_event.event_name] event token from [ADMIN_LOOKUPFLW(user_client)]")
+		log_admin("[user_client]'s [token_holder.queued_token_event.event_name] event token has been approved by [owner].")
 
 	else if(href_list["reject_token_event"])
 		if(!check_rights(R_ADMIN))
@@ -1810,6 +1838,10 @@
 		if(!IS_CLIENT_OR_MOCK(target))
 			return
 		var/client/user_client = target
-		user_client.client_token_holder.reject_token_event()
-		log_admin("[user_client]'s token event has been rejected by [owner].")
+		var/datum/meta_token_holder/token_holder = user_client?.client_token_holder
+		if(!token_holder?.queued_token_event)
+			return
+		token_holder.reject_token_event()
+		message_admins("[key_name_admin(owner)] rejected a [token_holder.queued_token_event.event_name] event token from [ADMIN_LOOKUPFLW(user_client)]")
+		log_admin("[user_client]'s [token_holder.queued_token_event.event_name] event token has been rejected by [owner].")
 //monkestation edit end

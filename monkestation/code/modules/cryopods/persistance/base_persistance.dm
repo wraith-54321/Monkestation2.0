@@ -6,7 +6,7 @@ GLOBAL_LIST_INIT(modular_persistence_ignored_vars, list(
 	"tgui_shared_states",
 	"gc_destroyed",
 	"_active_timers",
-	"status_traits",
+	"_status_traits",
 	"_signal_procs",
 	"cached_ref",
 	"weak_reference",
@@ -69,13 +69,19 @@ GLOBAL_LIST_INIT(modular_persistence_ignored_vars, list(
 	if(!owner.owner)
 		CRASH("Tried to load modular persistence on a brain with no owner! How did this happen?! (\ref[brain], [brain.brainmob?.ckey], [brain])")
 
-/datum/modular_persistence/Destroy(force, ...)
+	var/mob/living/carbon/human/human = owner.owner
+	human.load_nif_data(src)
+
+/datum/modular_persistence/Destroy(force)
 	owner = null
 	return ..()
 
 // On a base datum, this should be empty, at a glance.
 /datum/modular_persistence/proc/serialize_contents_to_list()
 	var/list/returned_list = list()
+
+	var/mob/living/carbon/human/human = owner.owner
+	human.save_nif_data(src)
 
 	for(var/var_name in vars)
 		if(var_name in GLOB.modular_persistence_ignored_vars)
@@ -107,7 +113,7 @@ GLOBAL_LIST_INIT(modular_persistence_ignored_vars, list(
 	WRITE_FILE(json_file, json_encode(json))
 
 /// Saves the persistence data for the owner.
-/mob/living/carbon/human/proc/save_individual_persistence(var/ckey)
+/mob/living/carbon/human/proc/save_individual_persistence(ckey)
 	var/obj/item/organ/internal/brain/brain = get_organ_slot(ORGAN_SLOT_BRAIN)
 
-	return brain?.modular_persistence?.save_data(ckey)
+	return brain?.modular_persistence?.save_data(ckey || src.ckey || brain?.brainmob?.ckey || ckey(mind?.key) || mind?.get_ghost(TRUE)?.ckey)

@@ -35,6 +35,7 @@ GLOBAL_VAR(dj_booth)
 
 /obj/machinery/cassette/dj_station/Initialize(mapload)
 	. = ..()
+	REGISTER_REQUIRED_MAP_ITEM(1, INFINITY)
 	GLOB.dj_booth = src
 	register_context()
 
@@ -182,8 +183,9 @@ GLOBAL_VAR(dj_booth)
 
 	var/list/viable_z = SSmapping.levels_by_any_trait(list(ZTRAIT_STATION, ZTRAIT_MINING, ZTRAIT_CENTCOM, ZTRAIT_RESERVED))
 	for(var/mob/person as anything in GLOB.player_list)
-		if(isAI(person) || isobserver(person) || isaicamera(person) || iscyborg(person))
+		if(issilicon(person) || isobserver(person) || isaicamera(person) || isbot(person))
 			active_listeners |=	person.client
+			continue
 		if(iscarbon(person))
 			var/mob/living/carbon/anything = person
 			if(!(anything in people_with_signals))
@@ -280,7 +282,7 @@ GLOBAL_VAR(dj_booth)
 			///scrubbing the input before putting it in the shell
 			var/shell_scrubbed_input = shell_url_scrub(web_sound_input)
 			///putting it in the shell
-			var/list/output = world.shelleo("[ytdl] --geo-bypass --format \"bestaudio\[ext=mp3]/best\[ext=mp4]\[height <= 360]/bestaudio\[ext=m4a]/bestaudio\[ext=aac]\" --dump-single-json --no-playlist -- \"[shell_scrubbed_input]\"")
+			var/list/output = world.shelleo("[ytdl] --geo-bypass --format \"bestaudio\[ext=mp3]/best\[ext=mp4]\[height <= 360]/bestaudio\[ext=m4a]/bestaudio\[ext=aac]\" --dump-single-json --no-playlist --extractor-args \"youtube:lang=en\" -- \"[shell_scrubbed_input]\"")
 			///any errors
 			var/errorlevel = output[SHELLEO_ERRORLEVEL]
 			///the standard output

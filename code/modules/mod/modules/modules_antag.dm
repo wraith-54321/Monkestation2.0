@@ -148,9 +148,9 @@
 	icon_state = "battlemage_shield"
 	idle_power_cost = DEFAULT_CHARGE_DRAIN * 0 //magic
 	use_power_cost = DEFAULT_CHARGE_DRAIN * 0 //magic too
-	max_charges = 15
-	recharge_start_delay = 0 SECONDS
-	charge_recovery = 12 //monkestation edit: from 8 to 12
+	max_charges = 25 //monkestation edit: from 15 to 25
+	recharge_start_delay = 1 MINUTES //monkestation edit: from 0 SECONDS to 1 MINUTES
+	charge_recovery = 25 //monkestation edit: from 8 to 25
 	shield_icon_file = 'icons/effects/magic.dmi'
 	shield_icon = "mageshield"
 	recharge_path = /obj/item/wizard_armour_charge
@@ -354,6 +354,7 @@
 		return
 	mod.wearer.do_attack_animation(target, ATTACK_EFFECT_SMASH)
 
+/* monkestation removal: overwritten in [monkestation\code\modules\mod\modules\modules_antag.dm], to fix bugs
 ///Chameleon - lets the suit disguise as any item that would fit on that slot.
 /obj/item/mod/module/chameleon
 	name = "MOD chameleon module"
@@ -384,9 +385,6 @@
 	possible_disguises = null
 
 /obj/item/mod/module/chameleon/on_use()
-	if(mod.active || mod.activating)
-		balloon_alert(mod.wearer, "suit active!")
-		return
 	. = ..()
 	if(!.)
 		return
@@ -428,6 +426,7 @@
 	mod.wearer.update_clothing(mod.slot_flags)
 	current_disguise = null
 	UnregisterSignal(mod, COMSIG_MOD_ACTIVATE)
+monkestation end */
 
 ///Plate Compression - Compresses the suit to normal size
 /obj/item/mod/module/plate_compression
@@ -485,10 +484,10 @@
 	incompatible_modules = list(/obj/item/mod/module/infiltrator, /obj/item/mod/module/armor_booster, /obj/item/mod/module/welding)
 
 /obj/item/mod/module/infiltrator/on_install()
-	mod.item_flags |= EXAMINE_SKIP
+	ADD_TRAIT(mod, TRAIT_EXAMINE_SKIP, REF(src))
 
 /obj/item/mod/module/infiltrator/on_uninstall(deleting = FALSE)
-	mod.item_flags &= ~EXAMINE_SKIP
+	REMOVE_TRAIT(mod, TRAIT_EXAMINE_SKIP, REF(src))
 
 /obj/item/mod/module/infiltrator/on_suit_activation()
 	mod.wearer.add_traits(list(TRAIT_SILENT_FOOTSTEPS, TRAIT_UNKNOWN), MOD_TRAIT)

@@ -79,7 +79,7 @@
 	. = ..()
 	var/pre_light_range = 0
 	var/pre_light_power = 0
-	var/pre_light_color = ""
+	var/pre_light_color = NONSENSICAL_VALUE // avoid issues if we somehow don't set a pre_light_color
 	var/lights_overlay = ""
 
 	var/frame_state
@@ -275,7 +275,7 @@
 	icon = 'monkestation/code/modules/aesthetics/airlock/icons/airlocks/station/security.dmi'
 
 /obj/machinery/door/airlock/security/old
-	icon = 'monkestation/code/modules/aesthetics/airlock/icons/airlocks/station/security2.dmi'
+	icon = 'monkestation/code/modules/aesthetics/airlock/icons/airlocks/station/security.dmi'
 	assemblytype = /obj/structure/door_assembly/door_assembly_sec/old
 
 /obj/machinery/door/airlock/security/old/glass

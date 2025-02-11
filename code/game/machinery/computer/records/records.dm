@@ -22,6 +22,7 @@
 	. = ..()
 	if(.)
 		return
+	var/mob/user = ui.user
 
 	var/datum/record/crew/target
 	if(params["crew_ref"])
@@ -34,8 +35,9 @@
 			if(!field || !(field in target?.vars))
 				return FALSE
 
-			var/value = trim(params["value"], MAX_BROADCAST_LEN)
-			target.vars[field] = value || "Unknown"
+			var/value = reject_bad_name(params["value"], allow_numbers = TRUE, max_length = MAX_BROADCAST_LEN, strict = TRUE, cap_after_symbols = FALSE) || "Unknown"
+			investigate_log("[key_name(user)] changed the field: \"[field]\" with value: \"[target.vars[field]]\" to new value: \"[value]\"", INVESTIGATE_RECORDS)
+			target.vars[field] = value
 
 			return TRUE
 
@@ -44,24 +46,47 @@
 				return FALSE
 			// Don't let people off station futz with the station network.
 			if(!is_station_level(z))
-				balloon_alert(usr, "out of range!")
+				balloon_alert(user, "out of range!")
 				return TRUE
 
 			expunge_record_info(target)
-			balloon_alert(usr, "record expunged")
+			balloon_alert(user, "record expunged")
 			playsound(src, 'sound/machines/terminal_eject.ogg', 70, TRUE)
-			investigate_log("[key_name(usr)] expunged the record of [target.name].", INVESTIGATE_RECORDS)
+			investigate_log("[key_name(user)] expunged the record of [target.name].", INVESTIGATE_RECORDS)
 
 			return TRUE
 
 		if("login")
-			authenticated = secure_login(usr)
+			authenticated = secure_login(user)
+			investigate_log("[key_name(user)] [authenticated ? "successfully logged" : "failed to log"] into the [src].", INVESTIGATE_RECORDS)
 			return TRUE
 
 		if("logout")
-			balloon_alert(usr, "logged out")
+			balloon_alert(user, "logged out")
 			playsound(src, 'sound/machines/terminal_off.ogg', 70, TRUE)
 			authenticated = FALSE
+
+			return TRUE
+
+		if("purge_records")
+			// Don't let people off station futz with the station network.
+			if(!is_station_level(z))
+				balloon_alert(user, "out of range!")
+				return TRUE
+
+			ui.close()
+			balloon_alert(user, "purging records...")
+			playsound(src, 'sound/machines/terminal_alert.ogg', 70, TRUE)
+
+			if(do_after(user, 5 SECONDS))
+				for(var/datum/record/crew/entry in GLOB.manifest.general)
+					expunge_record_info(entry)
+
+				balloon_alert(user, "records purged")
+				playsound(src, 'sound/machines/terminal_off.ogg', 70, TRUE)
+				investigate_log("[key_name(user)] purged all records.", INVESTIGATE_RECORDS)
+			else
+				balloon_alert(user, "interrupted!")
 
 			return TRUE
 
@@ -70,7 +95,7 @@
 				return FALSE
 
 			playsound(src, "sound/machines/terminal_button0[rand(1, 8)].ogg", 50, TRUE)
-			update_preview(usr, params["assigned_view"], target)
+			update_preview(user, params["assigned_view"], target)
 			return TRUE
 
 	return FALSE

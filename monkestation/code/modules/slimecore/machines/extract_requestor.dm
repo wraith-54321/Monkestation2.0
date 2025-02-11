@@ -6,8 +6,8 @@
 	base_icon_state = "civilian_pad"
 	density = TRUE
 	use_power = IDLE_POWER_USE
-	idle_power_usage = 10
-	active_power_usage = 2000
+	idle_power_usage = BASE_MACHINE_IDLE_CONSUMPTION
+	active_power_usage = BASE_MACHINE_ACTIVE_CONSUMPTION
 	circuit = /obj/item/circuitboard/machine/slime_extract_requestor
 	var/obj/machinery/computer/slime_market/console
 	var/list/current_requests = list()
@@ -28,6 +28,12 @@
 			extracts |= list("[new_extract.name]" = image(icon = new_extract.icon, icon_state = new_extract.icon_state))
 			name_to_path |= list("[new_extract.name]" = new_extract.type)
 			qdel(new_extract)
+
+/obj/machinery/slime_extract_requestor/Destroy()
+	if(console?.request_pad == src)
+		console.request_pad = null
+	console = null
+	return ..()
 
 /obj/machinery/slime_extract_requestor/attack_hand(mob/living/user, list/modifiers)
 	. = ..()
@@ -140,7 +146,7 @@
 /datum/extract_request_data/proc/on_creation()
 	RegisterSignal(host_card, COMSIG_QDELETING, PROC_REF(end_request_qdeleted))
 
-/datum/extract_request_data/Destroy(force, ...)
+/datum/extract_request_data/Destroy(force)
 	UnregisterSignal(host_card, COMSIG_QDELETING)
 	host_card = null
 	linked_console = null

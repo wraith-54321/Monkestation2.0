@@ -74,7 +74,8 @@
 		/obj/item/weldingtool,
 		/obj/item/wirecutters,
 		/obj/item/wrench,
-		/obj/item/melee/sickly_blade/knock,
+		/obj/item/spess_knife,
+		/obj/item/melee/sickly_blade/knock, //monkestation edit(maybe)
 		/obj/item/clockwork/replica_fabricator, //monkestation edit
 		/obj/item/clockwork/clockwork_slab, //monkestation edit
 	))
@@ -247,6 +248,7 @@
 		/obj/item/reagent_containers/dropper,
 		/obj/item/reagent_containers/cup/beaker,
 		/obj/item/reagent_containers/cup/bottle,
+		/obj/item/reagent_containers/cup/tube,
 		/obj/item/reagent_containers/hypospray,
 		/obj/item/reagent_containers/medigel,
 		/obj/item/reagent_containers/pill,
@@ -268,6 +270,10 @@
 	))
 
 /obj/item/storage/belt/medical/paramedic
+	name = "EMT belt"
+	icon_state = "emt"
+	inhand_icon_state = "security"
+	worn_icon_state = "emt"
 	preload = TRUE
 
 /obj/item/storage/belt/medical/paramedic/PopulateContents()
@@ -292,6 +298,9 @@
 	return to_preload
 
 /obj/item/storage/belt/medical/ert
+	icon_state = "emt"
+	inhand_icon_state = "security"
+	worn_icon_state = "emt"
 	preload = TRUE
 
 /obj/item/storage/belt/medical/ert/PopulateContents()
@@ -334,6 +343,7 @@
 		/obj/item/clothing/glasses,
 		/obj/item/clothing/gloves,
 		/obj/item/flashlight/seclite,
+		/obj/item/citationinator, //monkestation edit
 		/obj/item/food/donut,
 		/obj/item/food/spaghetti/security, //monkestation change: tactical belt spaghetti
 		/obj/item/grenade,
@@ -362,7 +372,7 @@
 	inhand_icon_state = "securitywebbing"
 	worn_icon_state = "securitywebbing"
 	content_overlays = FALSE
-	custom_premium_price = PAYCHECK_COMMAND * 3
+	custom_premium_price = PAYCHECK_COMMAND * 2 //monkestation edit: 3 to 2
 
 /obj/item/storage/belt/security/webbing/Initialize(mapload)
 	. = ..()
@@ -420,6 +430,7 @@
 		/obj/item/wirecutters,
 		/obj/item/wrench,
 		/obj/item/wormhole_jaunter,
+		/obj/item/cargo_teleporter, //monkestation edit
 	))
 
 
@@ -568,9 +579,9 @@
 /obj/item/storage/belt/military/army
 	name = "army belt"
 	desc = "A belt used by military forces."
-	icon_state = "grenadebeltold"
+	icon_state = "military"
 	inhand_icon_state = "security"
-	worn_icon_state = "grenadebeltold"
+	worn_icon_state = "military"
 
 /obj/item/storage/belt/military/assault
 	name = "assault belt"
@@ -637,7 +648,7 @@
 
 /obj/item/storage/belt/wands/Initialize(mapload)
 	. = ..()
-	atom_storage.max_slots = 6
+	atom_storage.max_slots = 7
 	atom_storage.set_holdable(list(
 		/obj/item/gun/magic/wand,
 	))
@@ -649,6 +660,7 @@
 	new /obj/item/gun/magic/wand/teleport(src)
 	new /obj/item/gun/magic/wand/door(src)
 	new /obj/item/gun/magic/wand/fireball(src)
+	new /obj/item/gun/magic/wand/shrink(src)
 
 	for(var/obj/item/gun/magic/wand/W in contents) //All wands in this pack come in the best possible condition
 		W.max_charges = initial(W.max_charges)
@@ -831,9 +843,9 @@
 
 /obj/item/storage/belt/plant
 	name = "botanical belt"
-	desc = "A belt used to hold most hydroponics supplies. Suprisingly, not green."
+	desc = "A sturdy leather belt used to hold most hydroponics supplies."
 	icon_state = "plantbelt"
-	inhand_icon_state = "championbelt"
+	inhand_icon_state = "utility"
 	worn_icon_state = "plantbelt"
 	content_overlays = TRUE
 
@@ -850,6 +862,7 @@
 		/obj/item/plant_analyzer,
 		/obj/item/reagent_containers/cup/beaker,
 		/obj/item/reagent_containers/cup/bottle,
+		/obj/item/reagent_containers/cup/tube,
 		/obj/item/reagent_containers/spray/pestspray,
 		/obj/item/reagent_containers/spray/plantbgone,
 		/obj/item/secateurs,

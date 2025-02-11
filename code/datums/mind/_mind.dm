@@ -66,7 +66,7 @@
 	var/datum/weakref/enslaved_to
 
 	var/datum/language_holder/language_holder
-	var/unconvertable = FALSE
+	/* var/unconvertable = FALSE */ // monkestation edit: replace with mind trait
 	var/late_joiner = FALSE
 	/// has this mind ever been an AI
 	var/has_ever_been_ai = FALSE
@@ -105,6 +105,8 @@
 	var/list/failed_special_equipment
 	/// A list to keep track of which books a person has read (to prevent people from reading the same book again and again for positive mood events)
 	var/list/book_titles_read
+	/// Variable that lets the event picker see if someones getting chosen or not
+	var/picking = FALSE
 
 /datum/mind/New(_key)
 	key = _key
@@ -166,7 +168,8 @@
 	SIGNAL_HANDLER
 	set_current(null)
 
-/datum/mind/proc/get_language_holder()
+/datum/mind/proc/get_language_holder() as /datum/language_holder
+	RETURN_TYPE(/datum/language_holder)
 	if(!language_holder)
 		language_holder = new (src)
 	return language_holder
@@ -519,7 +522,8 @@
 		return martial_art
 	return FALSE
 
-/datum/mind/proc/get_ghost(even_if_they_cant_reenter, ghosts_with_clients)
+/datum/mind/proc/get_ghost(even_if_they_cant_reenter, ghosts_with_clients) as /mob/dead/observer
+	RETURN_TYPE(/mob/dead/observer)
 	for(var/mob/dead/observer/G in (ghosts_with_clients ? GLOB.player_list : GLOB.dead_mob_list))
 		if(G.mind == src)
 			if(G.can_reenter_corpse || even_if_they_cant_reenter)

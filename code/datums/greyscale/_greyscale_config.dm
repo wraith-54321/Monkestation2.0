@@ -57,15 +57,13 @@
 	if(!json_config)
 		stack_trace("Greyscale config object [DebugName()] is missing a json configuration, make sure `json_config` has been assigned a value.")
 	string_json_config = "[json_config]"
-	if(findtext(string_json_config, "greyscale/json_configs/") == 0)
-		stack_trace("All greyscale json configuration files should be located within '/greyscale/json_configs/'")
 	if(!icon_file)
 		stack_trace("Greyscale config object [DebugName()] is missing an icon file, make sure `icon_file` has been assigned a value.")
 	string_icon_file = "[icon_file]"
 	if(!name)
 		stack_trace("Greyscale config object [DebugName()] is missing a name, make sure `name` has been assigned a value.")
 
-/datum/greyscale_config/Destroy(force, ...)
+/datum/greyscale_config/Destroy(force)
 	if(!force)
 		return QDEL_HINT_LETMELIVE
 	return ..()
@@ -278,8 +276,9 @@
 	for(var/datum/greyscale_layer/layer as anything in group)
 		var/icon/layer_icon
 		if(islist(layer))
+			var/list/layer_list = layer
 			layer_icon = GenerateLayerGroup(colors, layer, render_steps, new_icon || last_external_icon)
-			layer = layer[1] // When there are multiple layers in a group like this we use the first one's blend mode
+			layer = layer_list[1] // When there are multiple layers in a group like this we use the first one's blend mode
 		else
 			layer_icon = layer.Generate(colors, render_steps, new_icon || last_external_icon)
 

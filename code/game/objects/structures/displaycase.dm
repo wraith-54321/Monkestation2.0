@@ -288,7 +288,8 @@
 //The lab cage and captain's display case do not spawn with electronics, which is why req_access is needed.
 /obj/structure/displaycase/captain
 	start_showpiece_type = /obj/item/gun/energy/laser/captain
-	req_access = list(ACCESS_CAPTAIN) //Monkestation Edit
+	req_access = list(ACCESS_CENT_SPECOPS) //this was intentional, presumably to make it slightly harder for caps to grab their gun roundstart
+
 
 /obj/structure/displaycase/labcage
 	name = "lab cage"
@@ -374,8 +375,10 @@
 	data["max_length"] = MAX_PLAQUE_LEN
 	data["has_showpiece"] = showpiece ? TRUE : FALSE
 	if(showpiece)
-		data["showpiece_name"] = capitalize(format_text(showpiece.name))
-		data["showpiece_description"] = trophy_message ? format_text(trophy_message) : null
+		// monkestation start: fix double-encoded trophy info
+		data["showpiece_name"] = capitalize(html_decode(format_text(showpiece.name)))
+		data["showpiece_description"] = trophy_message ? html_decode(format_text(trophy_message)) : null
+		// monkestation end
 	return data
 
 /obj/structure/displaycase/trophy/ui_static_data(mob/user)

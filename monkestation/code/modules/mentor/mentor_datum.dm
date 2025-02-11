@@ -15,12 +15,12 @@ GLOBAL_PROTECT(mentor_href_token)
 	var/mob/following
 	/// Are we a Contributor?
 	var/is_contributor = FALSE
+	var/not_active = FALSE
 
 /datum/mentors/New(ckey)
 	if(!ckey)
 		QDEL_IN(src, 0)
-		throw EXCEPTION("Mentor datum created without a ckey")
-		return
+		CRASH("Mentor datum created without a ckey")
 	target = ckey(ckey)
 	name = "[ckey]'s mentor datum"
 	href_token = GenerateToken()

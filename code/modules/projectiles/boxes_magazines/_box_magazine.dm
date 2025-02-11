@@ -35,6 +35,8 @@
 	var/list/bullet_cost
 	///cost of the materials in the magazine/box itself
 	var/list/base_cost
+	///Whether the sprite updates if it has ammunition, monke var
+	var/spriteshift = TRUE
 
 /obj/item/ammo_box/Initialize(mapload)
 	. = ..()
@@ -43,6 +45,7 @@
 		bullet_cost = SSmaterials.FindOrCreateMaterialCombo(custom_materials, 0.9 / max_ammo)
 	if(!start_empty)
 		top_off(starting=TRUE)
+	update_icon_state()
 
 /obj/item/ammo_box/add_weapon_description()
 	AddElement(/datum/element/weapon_description, attached_proc = PROC_REF(add_notes_box))
@@ -172,12 +175,13 @@
 	desc = "[initial(desc)] There [(shells_left == 1) ? "is" : "are"] [shells_left] shell\s left!"
 
 /obj/item/ammo_box/update_icon_state()
-	var/shells_left = LAZYLEN(stored_ammo)
-	switch(multiple_sprites)
-		if(AMMO_BOX_PER_BULLET)
-			icon_state = "[multiple_sprite_use_base ? base_icon_state : initial(icon_state)]-[shells_left]"
-		if(AMMO_BOX_FULL_EMPTY)
-			icon_state = "[multiple_sprite_use_base ? base_icon_state : initial(icon_state)]-[shells_left ? "full" : "empty"]"
+	if(spriteshift == TRUE)                         ///this if loop is monke edit
+		var/shells_left = LAZYLEN(stored_ammo)
+		switch(multiple_sprites)
+			if(AMMO_BOX_PER_BULLET)
+				icon_state = "[multiple_sprite_use_base ? base_icon_state : initial(icon_state)]-[shells_left]"
+			if(AMMO_BOX_FULL_EMPTY)
+				icon_state = "[multiple_sprite_use_base ? base_icon_state : initial(icon_state)]-[shells_left ? "full" : "empty"]"
 	return ..()
 
 /// Updates the amount of material in this ammo box according to how many bullets are left in it.

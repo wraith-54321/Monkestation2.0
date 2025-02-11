@@ -4,7 +4,6 @@
 
 
 /datum/world_topic/status_webhook/Run(list/input)
-	. = ..()
 	var/datum/discord_embed/embed = new()
 
 	embed.title = "Status"
@@ -61,22 +60,41 @@
 
 /datum/world_topic/reply_mentor/Run(list/input)
 	var/id = input["ID"]
+	logger.Log(LOG_CATEGORY_DEBUG, "ID: [id]", input)
 	if(!id)
+		logger.Log(LOG_CATEGORY_DEBUG, "NO MENTOR REPLY ID", input)
 		return
-	var/datum/request/retrieved = GLOB.mentor_requests.requests_by_id[text2num(id)]
+
+	var/datum/request_manager/mentor/mentor = GLOB.mentor_requests
+	var/datum/request/retrieved = !id ? null : mentor.requests_by_id[id]
+
 	if(!retrieved)
+		logger.Log(LOG_CATEGORY_DEBUG, "NO MENTOR DATUM FOUND", input)
 		return
 	var/mob/M = retrieved.owner?.mob
 	webhook_mentor_pm(M, input["from"], id, input["reply_contents"])
 
 /datum/world_topic/reply_mentor/proc/webhook_mentor_pm(mob/reply, from, id, msg)
 	if(!reply)
+		logger.Log(LOG_CATEGORY_DEBUG, "NO REPLIER FOUND")
 		return
 	var/client/chosen_client = reply.client
 	if(!chosen_client)
+		logger.Log(LOG_CATEGORY_DEBUG, "NO REPLY CLIENT FOUND")
 		return
 
-	to_chat(chosen_client, "<font color='purple'>Mentor PM from-<b>[key_name_mentor(from, chosen_client, TRUE, FALSE, FALSE)]</b>: [msg]</font>")
+	chosen_client << 'sound/items/bikehorn.ogg'
+	to_chat(chosen_client,
+		type = MESSAGE_TYPE_MODCHAT,
+		html = "<font color='purple'>Mentor PM from-<b>[key_name_mentor(from, chosen_client, TRUE, FALSE, FALSE)]</b>: [msg]</font>",
+		confidential = TRUE)
+	for(var/client/honked_clients in GLOB.mentors | GLOB.admins)
+		/// Check client/honked_clients is an Mentor and isn't the Sender/Recipient
+		if(honked_clients.key!=chosen_client.key)
+			to_chat(honked_clients,
+				type = MESSAGE_TYPE_MODCHAT,
+				html = "<B><font color='green'>Mentor PM: [key_name_mentor(from, honked_clients, FALSE, FALSE)]-&gt;[key_name_mentor(chosen_client, honked_clients, FALSE, FALSE)]:</B> <font color = #5c00e6> <span class='message linkify'>[msg]</span></font>",
+				confidential = TRUE)
 
 	var/regular_webhook_url = CONFIG_GET(string/regular_mentorhelp_webhook_url)
 	if(regular_webhook_url)

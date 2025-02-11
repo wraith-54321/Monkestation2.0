@@ -17,7 +17,7 @@
 	mind_traits = list(TRAIT_NAIVE)
 	liver_traits = list(TRAIT_COMEDY_METABOLISM)
 
-	display_order = JOB_DISPLAY_ORDER_ASSISTANT
+	display_order = JOB_DISPLAY_ORDER_CLOWN
 	departments_list = list(
 		/datum/job_department/spooktober,
 		)
@@ -55,6 +55,13 @@
 		QDEL_NULL(bladder)
 		bladder = new/obj/item/organ/internal/bladder/clown
 		bladder.Insert(spawned)
+
+	if(HAS_TRAIT(SSstation, STATION_TRAIT_CLOWN_BRIDGE))
+		var/obj/item/card/id/card = spawned.get_idcard(hand_first = FALSE)
+		if(card)
+			card.add_access(list(ACCESS_COMMAND), mode = FORCE_ADD_ALL)
+			card.desc += "\n<b>You can see the word \"<span class='honk'>BRIDGE</span>\" hastily scribbled over it in crayon, and nobody knows why the system recognizes this as valid.</b>"
+			to_chat(player_client, span_boldnotice("The <span class='honk'>Clown Planet</span> has given all clowns access to a specific weakness in airlock ID scanners, resulting in all clowns having <b>bridge access</b>! Honk!"))
 
 /datum/outfit/job/yellowclown
 	name = "Yellow Clown"

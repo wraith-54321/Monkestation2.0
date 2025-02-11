@@ -35,11 +35,23 @@
 
 	/// If FALSE, this will not be cleared when calling /client/clear_screen()
 	var/clear_with_screen = TRUE
+	/// If TRUE, clicking the screen element will fall through and perform a default "Click" call
+	/// Obviously this requires your Click override, if any, to call parent on their own.
+	/// This is set to FALSE to default to dissade you from doing this.
+	/// Generally we don't want default Click stuff, which results in bugs like using Telekinesis on a screen element
+	/// or trying to point your gun at your screen.
+	var/default_click = FALSE
 
 /atom/movable/screen/Destroy()
 	master = null
 	hud = null
 	return ..()
+
+/atom/movable/screen/Click(location, control, params)
+	if(flags_1 & INITIALIZED_1)
+		SEND_SIGNAL(src, COMSIG_SCREEN_ELEMENT_CLICK, location, control, params, usr)
+	if(default_click)
+		return ..()
 
 /atom/movable/screen/examine(mob/user)
 	return list()
@@ -61,6 +73,7 @@
 /atom/movable/screen/swap_hand
 	plane = HUD_PLANE
 	name = "swap hand"
+	mouse_over_pointer = MOUSE_HAND_POINTER
 
 /atom/movable/screen/swap_hand/Click()
 	// At this point in client Click() code we have passed the 1/10 sec check and little else
@@ -81,6 +94,7 @@
 	icon = 'icons/hud/screen_midnight.dmi'
 	icon_state = "navigate"
 	screen_loc = ui_navigate_menu
+	mouse_over_pointer = MOUSE_HAND_POINTER
 
 /atom/movable/screen/navigate/Click()
 	if(!isliving(usr))
@@ -99,6 +113,7 @@
 	icon = 'icons/hud/screen_midnight.dmi'
 	icon_state = "area_edit"
 	screen_loc = ui_building
+	mouse_over_pointer = MOUSE_HAND_POINTER
 
 /atom/movable/screen/area_creator/Click()
 	if(usr.incapacitated() || (isobserver(usr) && !isAdminGhostAI(usr)))
@@ -114,6 +129,7 @@
 	icon = 'icons/hud/screen_midnight.dmi'
 	icon_state = "talk_wheel"
 	screen_loc = ui_language_menu
+	mouse_over_pointer = MOUSE_HAND_POINTER
 
 /atom/movable/screen/language_menu/Click()
 	var/mob/M = usr
@@ -243,6 +259,7 @@
 	name = "close"
 	plane = ABOVE_HUD_PLANE
 	icon_state = "backpack_close"
+	mouse_over_pointer = MOUSE_HAND_POINTER
 
 /atom/movable/screen/close/Initialize(mapload, new_master)
 	. = ..()
@@ -258,6 +275,7 @@
 	icon = 'icons/hud/screen_midnight.dmi'
 	icon_state = "act_drop"
 	plane = HUD_PLANE
+	mouse_over_pointer = MOUSE_HAND_POINTER
 
 /atom/movable/screen/drop/Click()
 	if(usr.stat == CONSCIOUS)
@@ -268,6 +286,7 @@
 	icon = 'icons/hud/screen_midnight.dmi'
 	icon_state = "combat_off"
 	screen_loc = ui_combat_toggle
+	mouse_over_pointer = MOUSE_HAND_POINTER
 	var/datum/interaction_mode/combat_mode/combat_mode
 
 /atom/movable/screen/combattoggle/Initialize(mapload)
@@ -318,6 +337,7 @@
 	name = "intent"
 	icon_state = "help"
 	screen_loc = ui_acti
+	mouse_over_pointer = MOUSE_HAND_POINTER
 	var/datum/interaction_mode/intents3/intents
 
 /atom/movable/screen/act_intent3/Click(location, control, params)
@@ -344,6 +364,7 @@
 	name = "run/walk toggle"
 	icon = 'icons/hud/screen_midnight.dmi'
 	icon_state = "running"
+	mouse_over_pointer = MOUSE_HAND_POINTER
 
 /atom/movable/screen/mov_intent/Click()
 	toggle(usr)
@@ -371,6 +392,7 @@
 	icon = 'icons/hud/screen_midnight.dmi'
 	icon_state = "pull"
 	base_icon_state = "pull"
+	mouse_over_pointer = MOUSE_HAND_POINTER
 
 /atom/movable/screen/pull/Click()
 	if(isobserver(usr))
@@ -386,6 +408,7 @@
 	icon = 'icons/hud/screen_midnight.dmi'
 	icon_state = "act_resist"
 	plane = HUD_PLANE
+	mouse_over_pointer = MOUSE_HAND_POINTER
 
 /atom/movable/screen/resist/Click()
 	if(isliving(usr))
@@ -398,6 +421,7 @@
 	icon_state = "act_rest"
 	base_icon_state = "act_rest"
 	plane = HUD_PLANE
+	mouse_over_pointer = MOUSE_HAND_POINTER
 
 /atom/movable/screen/rest/Click()
 	if(isliving(usr))
@@ -443,6 +467,7 @@
 	name = "throw/catch"
 	icon = 'icons/hud/screen_midnight.dmi'
 	icon_state = "act_throw_off"
+	mouse_over_pointer = MOUSE_HAND_POINTER
 
 /atom/movable/screen/throw_catch/Click()
 	if(iscarbon(usr))
@@ -453,6 +478,7 @@
 	name = "damage zone"
 	icon_state = "zone_sel"
 	screen_loc = ui_zonesel
+	mouse_over_pointer = MOUSE_HAND_POINTER
 	var/overlay_icon = 'icons/hud/screen_gen.dmi'
 	var/static/list/hover_overlays_cache = list()
 	var/hovering
@@ -630,6 +656,7 @@
 /atom/movable/screen/healthdoll
 	name = "health doll"
 	screen_loc = ui_healthdoll
+	mouse_over_pointer = MOUSE_HAND_POINTER
 
 /atom/movable/screen/healthdoll/Click()
 	if (iscarbon(usr))
@@ -645,9 +672,7 @@
 	name = "mood"
 	icon_state = "mood5"
 	screen_loc = ui_mood
-
-/atom/movable/screen/mood/attack_tk()
-	return
+	mouse_over_pointer = MOUSE_HAND_POINTER
 
 /atom/movable/screen/splash
 	icon = 'icons/blanks/blank_title.png'
@@ -697,6 +722,7 @@ INITIALIZE_IMMEDIATE(/atom/movable/screen/splash)
 
 
 /atom/movable/screen/component_button
+	mouse_over_pointer = MOUSE_HAND_POINTER
 	var/atom/movable/screen/parent
 
 /atom/movable/screen/component_button/Initialize(mapload, atom/movable/screen/parent)

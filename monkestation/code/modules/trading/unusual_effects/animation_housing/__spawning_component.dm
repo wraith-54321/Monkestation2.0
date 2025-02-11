@@ -6,6 +6,8 @@
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 	icon = 'monkestation/code/modules/trading/icons/particles.dmi'
 	icon_state = "none"
+	underlays = null
+	overlays = null
 
 /datum/component/particle_spewer
 	var/atom/source_object
@@ -48,6 +50,8 @@
 	var/processes = TRUE
 	///the blend type we use for particles
 	var/particle_blending = BLEND_DEFAULT
+	/// our animate_holder
+	var/datum/animate_holder/animate_holder
 
 /datum/component/particle_spewer/Initialize(duration = 0, spawn_interval = 0, offset_x = 0, offset_y = 0, icon_file, particle_state, equipped_offset = 0, burst_amount = 0, lifetime = 0, random_bursts = 0)
 	. = ..()
@@ -73,15 +77,19 @@
 		src.random_bursts = random_bursts
 	source_object = parent
 
+	animate_holder = new()
+	animate_holder.animates_self = FALSE
+	adjust_animate_steps()
+
 	if(processes)
 		START_PROCESSING(SSactualfastprocess, src)
 	RegisterSignal(source_object, COMSIG_ITEM_EQUIPPED, PROC_REF(handle_equip_offsets))
 	RegisterSignal(source_object, COMSIG_ITEM_POST_UNEQUIP, PROC_REF(reset_offsets))
 
 	if(lifetime)
-		addtimer(CALLBACK(src, PROC_REF(kill_it_with_fire)), lifetime)
+		QDEL_IN(src, lifetime)
 
-/datum/component/particle_spewer/Destroy(force, silent)
+/datum/component/particle_spewer/Destroy(force)
 	. = ..()
 	UnregisterSignal(source_object, list(
 		COMSIG_ITEM_EQUIPPED,
@@ -89,11 +97,10 @@
 	))
 
 	STOP_PROCESSING(SSactualfastprocess, src)
-	for(var/atom/listed_atom as anything in living_particles + dead_particles)
-		qdel(listed_atom)
-	living_particles = null
-	dead_particles = null
+	QDEL_LIST(living_particles)
+	QDEL_LIST(dead_particles)
 	source_object = null
+	QDEL_NULL(animate_holder)
 
 /datum/component/particle_spewer/process(seconds_per_tick)
 	if(spawn_interval != 1)
@@ -110,7 +117,8 @@
 
 	for(var/i = 0 to burstees)
 		//create and assign particle its stuff
-		var/obj/effect/abstract/particle/spawned = new(get_turf(source_object))
+		var/obj/effect/abstract/particle/spawned
+		spawned = new(get_turf(source_object))
 		if(offsets)
 			spawned.pixel_x = offset_x
 			spawned.pixel_y = offset_y
@@ -120,21 +128,22 @@
 
 		living_particles |= spawned
 
+		RegisterSignal(spawned, COMSIG_QDELETING, PROC_REF(particle_qdeleting))
 		animate_particle(spawned)
 
 ///this is the proc that gets overridden when we create new particle spewers that control its movements
 //example is animating upwards over duration and deleting
 /datum/component/particle_spewer/proc/animate_particle(obj/effect/abstract/particle/spawned)
-	animate(spawned, alpha = 75, time = duration)
-	animate(spawned, pixel_y = offset_y + 64, time = duration)
-	addtimer(CALLBACK(src, PROC_REF(delete_particle), spawned), duration)
+	animate_holder?.animate_object(spawned)
+	QDEL_IN(spawned, duration)
 
-/datum/component/particle_spewer/proc/delete_particle(obj/effect/abstract/particle/spawned)
+/datum/component/particle_spewer/proc/adjust_animate_steps()
+	animate_holder.add_animation_step(list(alpha = 75, time = duration))
+	animate_holder.add_animation_step(list(pixel_y = offset_y + 64, time = duration))
+
+/datum/component/particle_spewer/proc/particle_qdeleting(obj/effect/abstract/particle/spawned)
 	living_particles -= spawned
-	qdel(spawned)
-
-/datum/component/particle_spewer/proc/kill_it_with_fire()
-	qdel(src)
+	UnregisterSignal(spawned, COMSIG_QDELETING)
 
 /datum/component/particle_spewer/proc/handle_equip_offsets(datum/source, mob/equipper, slot)
 	SIGNAL_HANDLER
@@ -166,3 +175,13 @@
 /obj/item/debug_particle_holder/Initialize(mapload)
 	. = ..()
 	AddComponent(/datum/component/particle_spewer, 2 SECONDS)
+
+/datum/component/particle_spewer/vv_get_dropdown()
+	. = ..()
+	VV_DROPDOWN_OPTION("", "---------")
+	VV_DROPDOWN_OPTION(VV_HK_ADJUST_ANIMATIONS, "Adjust Animations")
+
+/datum/component/particle_spewer/vv_do_topic(list/href_list)
+	. = ..()
+	if(href_list[VV_HK_ADJUST_ANIMATIONS] && check_rights(R_VAREDIT))
+		animate_holder.ui_interact(usr)

@@ -175,7 +175,7 @@
 	template_access = list(
 		ACCESS_CAPTAIN,
 		ACCESS_CHANGE_IDS,
-		ACCESS_QM,
+		ACCESS_HOP,
 	)
 	job = /datum/job/bitrunner
 
@@ -324,6 +324,7 @@
 		ACCESS_MINISAT,
 		ACCESS_RC_ANNOUNCE,
 		ACCESS_TCOMMS,
+		ACCESS_TCOMMS_ADMIN, // MONKESTATION ADDITION -- NTSL
 		ACCESS_TECH_STORAGE,
 		)
 	minimal_wildcard_access = list(
@@ -482,7 +483,7 @@
 	assignment = "Geneticist"
 	trim_state = "trim_geneticist"
 	department_color = COLOR_SCIENCE_PINK
-	subdepartment_color = COLOR_SCIENCE_PINK
+	subdepartment_color = COLOR_MEDICAL_BLUE
 	sechud_icon_state = SECHUD_GENETICIST
 	minimal_access = list(
 		ACCESS_GENETICS,
@@ -543,6 +544,13 @@
 		ACCESS_TELEPORTER,
 		ACCESS_THEATRE,
 		ACCESS_WEAPONS,
+		//monkestation addition start: If the QM isn't a head, then these are part of HoP's responsibility
+		ACCESS_VAULT,
+		ACCESS_MINING,
+		ACCESS_MINING_STATION,
+		ACCESS_MECH_MINING,
+		ACCESS_QM,
+		//monkestation addition end
 		)
 	minimal_wildcard_access = list(
 		ACCESS_HOP,
@@ -593,6 +601,7 @@
 		ACCESS_SERVICE,
 		ACCESS_SHIPPING,
 		ACCESS_WEAPONS,
+		ACCESS_PERMABRIG, // monkestation edit: add permabrig-only access
 		)
 	minimal_wildcard_access = list(
 		ACCESS_HOS,
@@ -939,6 +948,7 @@
 		ACCESS_MINERAL_STOREROOM,
 		ACCESS_SECURITY,
 		ACCESS_WEAPONS,
+		ACCESS_PERMABRIG, // monkestation edit: add permabrig-only access
 		)
 	extra_access = list(
 		ACCESS_DETECTIVE,
@@ -1123,6 +1133,7 @@
 		ACCESS_MEDICAL,
 		ACCESS_MINERAL_STOREROOM,
 		ACCESS_VIROLOGY,
+		ACCESS_PHARMACY, // MONKESTATION EDIT: Pathologists now have access to pharmacy due to their need for chems. Hopefully doesn't get abused too much and MDs have this too.
 		)
 	extra_access = list(
 		ACCESS_PLUMBING,
@@ -1151,6 +1162,7 @@
 		ACCESS_MINERAL_STOREROOM,
 		ACCESS_SECURITY,
 		ACCESS_WEAPONS,
+		ACCESS_PERMABRIG, // monkestation edit: add permabrig-only access
 		) // See /datum/job/warden/get_access()
 	extra_access = list(
 		ACCESS_DETECTIVE,

@@ -16,6 +16,8 @@
 	var/last_progress = 0
 	///Variable to ensure smooth visual stacking on multiple progress bars.
 	var/listindex = 0
+	///The type of our last value for bar_loc, for debugging
+	var/location_type
 	///border image
 	var/image/border
 	///shown image
@@ -37,7 +39,9 @@
 /datum/progressbar/New(mob/User, goal_number, atom/target, border_look = "border", border_look_accessory, bar_look = "prog_bar", old_format = FALSE, active_color = "#6699FF", finish_color = "#FFEE8C", fail_color = "#FF0033" , mutable_appearance/additional_image)
 	. = ..()
 	if (!istype(target))
-		EXCEPTION("Invalid target given")
+		stack_trace("Invalid target [target] passed in")
+		qdel(src)
+		return
 	if(QDELETED(User) || !istype(User))
 		stack_trace("/datum/progressbar created with [isnull(User) ? "null" : "invalid"] user")
 		qdel(src)
@@ -47,6 +51,7 @@
 		qdel(src)
 		return
 	goal = goal_number
+	src.location_type = target.type
 	src.old_format = old_format
 	src.active_color = active_color
 	src.fail_color = fail_color
@@ -96,7 +101,6 @@
 				continue
 			progress_bar.listindex--
 
-			progress_bar.bar.pixel_y = 32 + (PROGRESSBAR_HEIGHT * (progress_bar.listindex - 1))
 			var/dist_to_travel = 32 + (PROGRESSBAR_HEIGHT * (progress_bar.listindex - 1)) - PROGRESSBAR_HEIGHT
 			animate(progress_bar.bar, pixel_y = dist_to_travel, time = PROGRESSBAR_ANIMATION_TIME, easing = SINE_EASING)
 			animate(progress_bar.border, pixel_y = dist_to_travel, time = PROGRESSBAR_ANIMATION_TIME, easing = SINE_EASING)
@@ -210,6 +214,13 @@
 		animate(border_look_accessory, alpha = 0, time = PROGRESSBAR_ANIMATION_TIME)
 		QDEL_IN(border_look_accessory, PROGRESSBAR_ANIMATION_TIME * 2) //for garbage collection safety
 
+///Progress bars are very generic, and what hangs a ref to them depends heavily on the context in which they're used
+///So let's make hunting harddels easier yeah?
+/datum/progressbar/dump_harddel_info()
+	if(harddel_deets_dumped)
+		return
+	harddel_deets_dumped = TRUE
+	return "Owner's type: [location_type]"
 
 /obj/effect/world_progressbar
 	///The progress bar visual element.

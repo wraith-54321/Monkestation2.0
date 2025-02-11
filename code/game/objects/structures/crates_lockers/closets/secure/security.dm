@@ -44,6 +44,7 @@
 	new /obj/item/circuitboard/machine/techfab/department/service(src)
 	new /obj/item/storage/photo_album/hop(src)
 	new /obj/item/storage/lockbox/medal/hop(src)
+	new /obj/item/clothing/suit/space/hardsuit/hop(src) //monkestation addition
 
 /obj/structure/closet/secure_closet/hos
 	name = "head of security's locker"
@@ -65,14 +66,14 @@
 	new /obj/item/storage/belt/security/full(src)
 	new /obj/item/circuitboard/machine/techfab/department/security(src)
 	new /obj/item/storage/photo_album/hos(src)
-	new /obj/item/gun/ballistic/automatic/pistol/paco(src) //monkestation edit: paco sec
 	new /obj/item/ammo_box/magazine/m35(src) //monkestation edit: paco sec
+	new /obj/item/bodycam_upgrade(src) //monkestation edit: Security Liability Act
 
 /obj/structure/closet/secure_closet/hos/populate_contents_immediate()
 	. = ..()
 
 	// Traitor steal objectives
-	//new /obj/item/gun/energy/e_gun/hos(src) monkestation removal
+	new /obj/item/choice_beacon/hos(src) //monkestation edit
 	new /obj/item/pinpointer/nuke(src)
 
 /obj/structure/closet/secure_closet/warden
@@ -100,6 +101,10 @@
 	new /obj/item/flashlight/seclite(src)
 	new /obj/item/clothing/gloves/krav_maga/sec(src)
 	new /obj/item/door_remote/head_of_security(src)
+	new /obj/item/storage/box/bodycamera(src) //monkestation edit: Security Liability Act
+	new /obj/item/gun/ballistic/shotgun/automatic/combat/compact(src) //undoing ancient removal
+	new /obj/item/ammo_box/advanced/s12gauge/rubber(src) //he can have some rubber ammo too
+
 
 /obj/structure/closet/secure_closet/security
 	name = "security officer's locker"
@@ -115,7 +120,8 @@
 	new /obj/item/radio/headset/headset_sec/alt(src)
 	new /obj/item/clothing/glasses/hud/security/sunglasses(src)
 	new /obj/item/flashlight/seclite(src)
-	new /obj/item/ammo_box/magazine/m35/rubber(src) //monkestation edit: Paco sec
+	new /obj/item/clothing/mask/russian_balaclava(src) //monkestation edit
+	new /obj/item/bodycam_upgrade(src) //monkestation edit: Security Liability Act
 
 /obj/structure/closet/secure_closet/security/sec
 
@@ -175,6 +181,7 @@
 	new /obj/item/binoculars(src)
 	new /obj/item/storage/box/rxglasses/spyglasskit(src)
 	new /obj/item/clothing/head/fedora/inspector_hat(src)
+	new /obj/item/bodycam_upgrade(src) //monkestation edit: Security Liability Act
 
 /obj/structure/closet/secure_closet/injection
 	name = "lethal injections locker"
@@ -324,7 +331,7 @@
 
 /obj/structure/closet/secure_closet/tac
 	name = "armory tac locker"
-	req_access = list(ACCESS_ARMORY)
+	req_access = list(ACCESS_CENT_GENERAL)
 	icon_state = "tac"
 
 /obj/structure/closet/secure_closet/tac/PopulateContents()

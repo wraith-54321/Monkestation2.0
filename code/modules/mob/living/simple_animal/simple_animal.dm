@@ -58,10 +58,8 @@
 	///How much stamina the mob recovers per second
 	var/stamina_recovery = 5
 
-	///Minimal body temperature without receiving damage
-	var/minbodytemp = NPC_DEFAULT_MIN_TEMP
-	///Maximal body temperature without receiving damage
-	var/maxbodytemp = NPC_DEFAULT_MAX_TEMP
+	bodytemp_cold_damage_limit = NPC_DEFAULT_MIN_TEMP
+	bodytemp_heat_damage_limit = NPC_DEFAULT_MAX_TEMP
 	///This damage is taken when the body temp is too cold.
 	var/unsuitable_cold_damage
 	///This damage is taken when the body temp is too hot.
@@ -78,9 +76,6 @@
 	var/list/atmos_requirements = list("min_oxy" = 5, "max_oxy" = 0, "min_plas" = 0, "max_plas" = 1, "min_co2" = 0, "max_co2" = 5, "min_n2" = 0, "max_n2" = 0)
 	///This damage is taken when atmos doesn't fit all the requirements above.
 	var/unsuitable_atmos_damage = 1
-
-	///How fast the mob's temperature normalizes. The greater the value, the slower their temperature normalizes. Should always be greater than 0.
-	var/temperature_normalization_speed = 5
 
 	//Defaults to zero so Ian can still be cuddly. Moved up the tree to living! This allows us to bypass some hardcoded stuff.
 	melee_damage_lower = 0
@@ -136,7 +131,7 @@
 	///Played when someone punches the creature.
 	var/attacked_sound = SFX_PUNCH
 
-	///The Status of our AI, can be set to AI_ON (On, usual processing), AI_IDLE (Will not process, but will return to AI_ON if an enemy comes near), AI_OFF (Off, Not processing ever), AI_Z_OFF (Temporarily off due to nonpresence of players).
+	///The Status of our AI, can be set to AI_ON (On, usual processing), AI_IDLE (Will not process, but will return to AI_ON if an enemy comes near), AI_OFF (Off, Not processing ever).
 	var/AIStatus = AI_ON
 	///once we have become sentient, we can never go back.
 	var/can_have_ai = TRUE
@@ -211,16 +206,12 @@
 	GLOB.simple_animals[AIStatus] -= src
 	SSnpcpool.currentrun -= src
 
-	var/turf/T = get_turf(src)
-	if (T && AIStatus == AI_Z_OFF)
-		SSidlenpcpool.idle_mobs_by_zlevel[T.z] -= src
-
 	return ..()
 
 /mob/living/simple_animal/examine(mob/user)
 	. = ..()
 	if(stat == DEAD)
-		if(HAS_TRAIT(user, TRAIT_NAIVE))
+		if(HAS_MIND_TRAIT(user, TRAIT_NAIVE))
 			. += span_deadsay("Upon closer examination, [p_they()] appear[p_s()] to be asleep.")
 		else
 			. += span_deadsay("Upon closer examination, [p_they()] appear[p_s()] to be dead.")
@@ -228,7 +219,7 @@
 		. += "There appears to be [icon2html(access_card, user)] \a [access_card] pinned to [p_them()]."
 
 /mob/living/simple_animal/update_stat()
-	if(status_flags & GODMODE)
+	if(HAS_TRAIT(src, TRAIT_GODMODE))
 		return
 	if(stat != DEAD)
 		if(health <= 0)
@@ -347,20 +338,11 @@
 /mob/living/simple_animal/proc/environment_temperature_is_safe(datum/gas_mixture/environment)
 	. = TRUE
 	var/areatemp = get_temperature(environment)
-	if((areatemp < minbodytemp) || (areatemp > maxbodytemp))
+	if((areatemp < bodytemp_cold_damage_limit) || (areatemp > bodytemp_heat_damage_limit))
 		. = FALSE
 
 /mob/living/simple_animal/handle_environment(datum/gas_mixture/environment, seconds_per_tick, times_fired)
-	var/atom/A = loc
-	if(isturf(A))
-		var/areatemp = get_temperature(environment)
-		var/temp_delta = areatemp - bodytemperature
-		if(abs(temp_delta) > 5)
-			if(temp_delta < 0)
-				if(!on_fire)
-					adjust_bodytemperature(clamp(temp_delta * seconds_per_tick / temperature_normalization_speed, temp_delta, 0))
-			else
-				adjust_bodytemperature(clamp(temp_delta * seconds_per_tick / temperature_normalization_speed, 0, temp_delta))
+	. = ..()
 
 	if(!environment_air_is_safe() && unsuitable_atmos_damage)
 		adjustHealth(unsuitable_atmos_damage * seconds_per_tick)
@@ -369,12 +351,16 @@
 	else
 		clear_alert(ALERT_NOT_ENOUGH_OXYGEN)
 
-	handle_temperature_damage(seconds_per_tick, times_fired)
 
-/mob/living/simple_animal/proc/handle_temperature_damage(seconds_per_tick, times_fired)
-	. = FALSE
-	if((bodytemperature < minbodytemp) && unsuitable_cold_damage)
+/mob/living/simple_animal/body_temperature_damage(datum/gas_mixture/environment, seconds_per_tick, times_fired)
+	if((bodytemperature < bodytemp_cold_damage_limit) && unsuitable_cold_damage)
 		adjustHealth(unsuitable_cold_damage * seconds_per_tick)
+
+	if((bodytemperature > bodytemp_heat_damage_limit) && unsuitable_heat_damage)
+		adjustHealth(unsuitable_heat_damage * seconds_per_tick)
+
+/mob/living/simple_animal/body_temperature_alerts()
+	if((bodytemperature < bodytemp_cold_damage_limit) && unsuitable_cold_damage)
 		switch(unsuitable_cold_damage)
 			if(1 to 5)
 				throw_alert(ALERT_TEMPERATURE, /atom/movable/screen/alert/cold, 1)
@@ -384,8 +370,7 @@
 				throw_alert(ALERT_TEMPERATURE, /atom/movable/screen/alert/cold, 3)
 		. = TRUE
 
-	if((bodytemperature > maxbodytemp) && unsuitable_heat_damage)
-		adjustHealth(unsuitable_heat_damage * seconds_per_tick)
+	if((bodytemperature > bodytemp_heat_damage_limit) && unsuitable_heat_damage)
 		switch(unsuitable_heat_damage)
 			if(1 to 5)
 				throw_alert(ALERT_TEMPERATURE, /atom/movable/screen/alert/hot, 1)
@@ -398,7 +383,7 @@
 	if(!.)
 		clear_alert(ALERT_TEMPERATURE)
 
-/mob/living/simple_animal/gib()
+/mob/living/simple_animal/gib(no_brain, no_organs, no_bodyparts, safe_gib = TRUE)
 	if(butcher_results || guaranteed_butcher_results)
 		var/list/butcher = list()
 		if(butcher_results)
@@ -460,7 +445,7 @@
 		return FALSE
 	if(ismob(the_target))
 		var/mob/M = the_target
-		if(M.status_flags & GODMODE)
+		if(HAS_TRAIT(M, TRAIT_GODMODE))
 			return FALSE
 	if (isliving(the_target))
 		var/mob/living/L = the_target
@@ -580,28 +565,11 @@
 		return
 	if (AIStatus != togglestatus)
 		if (togglestatus > 0 && togglestatus < 5)
-			if (togglestatus == AI_Z_OFF || AIStatus == AI_Z_OFF)
-				var/turf/T = get_turf(src)
-				if (T)
-					if (AIStatus == AI_Z_OFF)
-						SSidlenpcpool.idle_mobs_by_zlevel[T.z] -= src
-					else
-						SSidlenpcpool.idle_mobs_by_zlevel[T.z] += src
 			GLOB.simple_animals[AIStatus] -= src
 			GLOB.simple_animals[togglestatus] += src
 			AIStatus = togglestatus
 		else
 			stack_trace("Something attempted to set simple animals AI to an invalid state: [togglestatus]")
-
-/mob/living/simple_animal/proc/consider_wakeup()
-	if (pulledby || shouldwakeup)
-		toggle_ai(AI_ON)
-
-/mob/living/simple_animal/on_changed_z_level(turf/old_turf, turf/new_turf, same_z_layer, notify_contents)
-	..()
-	if (old_turf && AIStatus == AI_Z_OFF)
-		SSidlenpcpool.idle_mobs_by_zlevel[old_turf.z] -= src
-		toggle_ai(initial(AIStatus))
 
 ///This proc is used for adding the swabbale element to mobs so that they are able to be biopsied and making sure holograpic and butter-based creatures don't yield viable cells samples.
 /mob/living/simple_animal/proc/add_cell_sample()

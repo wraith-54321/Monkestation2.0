@@ -75,7 +75,6 @@ GLOBAL_PROTECT(href_token)
 		activate()
 	else
 		deactivate()
-	plane_debug = new(src)
 
 /datum/admins/Destroy()
 	if(IsAdminAdvancedProcCall())
@@ -94,7 +93,9 @@ GLOBAL_PROTECT(href_token)
 	GLOB.deadmins -= target
 	GLOB.admin_datums[target] = src
 	deadmined = FALSE
-	QDEL_NULL(plane_debug)
+	if(owner)
+		rementor(owner)
+	plane_debug = new(src)
 	if (GLOB.directory[target])
 		associate(GLOB.directory[target]) //find the client for a ckey if they are connected and associate them with us
 
@@ -107,6 +108,10 @@ GLOBAL_PROTECT(href_token)
 		return
 	GLOB.deadmins[target] = src
 	GLOB.admin_datums -= target
+	QDEL_NULL(plane_debug)
+
+	if(owner)
+		dementor(owner)
 	deadmined = TRUE
 
 	var/client/client = owner || GLOB.directory[target]
@@ -162,6 +167,7 @@ GLOBAL_PROTECT(href_token)
 		owner.mentor_datum_set()
 
 	try_give_profiling()
+	try_give_devtools()
 
 /datum/admins/proc/disassociate()
 	if(IsAdminAdvancedProcCall())
@@ -174,7 +180,7 @@ GLOBAL_PROTECT(href_token)
 		owner.remove_admin_verbs()
 		owner.holder = null
 		GLOB.mentors -= owner
-		owner.mentor_datum.owner = null
+		owner.mentor_datum?.owner = null
 		owner.mentor_datum = null
 		owner = null
 
@@ -189,7 +195,7 @@ GLOBAL_PROTECT(href_token)
 		return cached_feedback_link
 
 	if (!SSdbcore.IsConnected())
-		return FALSE
+		return null
 
 	var/datum/db_query/feedback_query = SSdbcore.NewQuery("SELECT feedback FROM [format_table_name("admin")] WHERE ckey = '[owner.ckey]'")
 
@@ -200,7 +206,8 @@ GLOBAL_PROTECT(href_token)
 
 	if(!feedback_query.NextRow())
 		qdel(feedback_query)
-		return FALSE // no feedback link exists
+		cached_feedback_link = NO_FEEDBACK_LINK // monkestation edit: fallback to prevent issues
+		return null // no feedback link exists
 
 	cached_feedback_link = feedback_query.item[1] || NO_FEEDBACK_LINK
 	qdel(feedback_query)
@@ -396,6 +403,11 @@ GLOBAL_PROTECT(href_token)
 		combined_flags |= rank.can_edit_rights
 
 	return combined_flags
+
+/datum/admins/proc/try_give_devtools()
+	if(!(rank_flags() & R_DEBUG) || owner.byond_version < 516)
+		return
+	winset(owner, null, "browser-options=byondstorage,find,refresh,devtools")
 
 /datum/admins/proc/try_give_profiling()
 	if (CONFIG_GET(flag/forbid_admin_profiling))

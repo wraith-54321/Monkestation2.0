@@ -17,6 +17,7 @@
 	inhand_icon_state = "" //no inhands
 	slot_flags = NONE
 	w_class = WEIGHT_CLASS_SMALL
+	item_flags = NOBLUDGEON
 	/// Whether or not the accessory displays through suits and the like.
 	var/above_suit = TRUE
 	/// TRUE if shown as a small icon in corner, FALSE if overlayed
@@ -44,6 +45,11 @@
 	if(attachment_slot && !(attach_to.body_parts_covered & attachment_slot))
 		if(user)
 			attach_to.balloon_alert(user, "can't attach there!")
+		return FALSE
+
+	if(length(attach_to.attached_accessories) >= attach_to.max_number_of_accessories)
+		if(user)
+			attach_to.balloon_alert(user, "too many accessories!")
 		return FALSE
 
 	return TRUE
@@ -135,7 +141,10 @@
 	SIGNAL_HANDLER
 
 	accessory_dropped(source, user)
-	user.update_clothing(ITEM_SLOT_ICLOTHING|ITEM_SLOT_OCLOTHING)
+	// MONKESTATION EDIT START
+	//	user.update_clothing(ITEM_SLOT_ICLOTHING|ITEM_SLOT_OCLOTHING) - original
+	user.update_clothing(ITEM_SLOT_ICLOTHING|ITEM_SLOT_OCLOTHING|ITEM_SLOT_NECK)
+	// MONKESTATION EDIT END
 
 /// Called when the uniform this accessory is pinned to is equipped in a valid slot
 /obj/item/clothing/accessory/proc/accessory_equipped(obj/item/clothing/under/clothes, mob/living/user)

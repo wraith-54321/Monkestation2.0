@@ -13,7 +13,7 @@
 	current_cycle++
 	if(length(reagent_removal_skip_list))
 		return
-	holder.remove_reagent(type, metabolization_rate * seconds_per_tick / affected_mob.metabolism_efficiency) //medicine reagents stay longer if you have a better metabolism
+	holder?.remove_reagent(type, metabolization_rate * seconds_per_tick / affected_mob.metabolism_efficiency) //medicine reagents stay longer if you have a better metabolism
 
 /datum/reagent/medicine/leporazine
 	name = "Leporazine"
@@ -22,19 +22,14 @@
 	color = "#DB90C6"
 	chemical_flags = REAGENT_CAN_BE_SYNTHESIZED
 
-/datum/reagent/medicine/leporazine/on_mob_life(mob/living/carbon/affected_mob, seconds_per_tick, times_fired)
-	var/target_temp = affected_mob.get_body_temp_normal(apply_change = FALSE)
-	if(affected_mob.bodytemperature > target_temp)
-		affected_mob.adjust_bodytemperature(-40 * TEMPERATURE_DAMAGE_COEFFICIENT * REM * seconds_per_tick, target_temp)
-	else if(affected_mob.bodytemperature < (target_temp + 1))
-		affected_mob.adjust_bodytemperature(40 * TEMPERATURE_DAMAGE_COEFFICIENT * REM * seconds_per_tick, 0, target_temp)
-	if(ishuman(affected_mob))
-		var/mob/living/carbon/human/affected_human = affected_mob
-		if(affected_human.coretemperature > target_temp)
-			affected_human.adjust_coretemperature(-40 * TEMPERATURE_DAMAGE_COEFFICIENT * REM * seconds_per_tick, target_temp)
-		else if(affected_human.coretemperature < (target_temp + 1))
-			affected_human.adjust_coretemperature(40 * TEMPERATURE_DAMAGE_COEFFICIENT * REM * seconds_per_tick, 0, target_temp)
-	..()
+/datum/reagent/medicine/leporazine/on_mob_metabolize(mob/living/carbon/user)
+	. = ..()
+	user.add_homeostasis_level(type, user.standard_body_temperature, 10 KELVIN)
+
+/datum/reagent/medicine/leporazine/on_mob_end_metabolize(mob/living/carbon/user)
+	. = ..()
+	user.remove_homeostasis_level(type)
+
 
 /datum/reagent/medicine/adminordrazine //An OP chemical for admins
 	name = "Adminordrazine"
@@ -46,6 +41,7 @@
 	/// Flags to fullheal every metabolism tick
 	var/full_heal_flags = ~(HEAL_BRUTE|HEAL_BURN|HEAL_TOX|HEAL_RESTRAINTS|HEAL_REFRESH_ORGANS)
 
+/*
 // The best stuff there is. For testing/debugging.
 /datum/reagent/medicine/adminordrazine/on_hydroponics_apply(obj/item/seeds/myseed, datum/reagents/chems, obj/machinery/hydroponics/mytray, mob/user)
 	. = ..()
@@ -65,6 +61,7 @@
 			else
 				if(prob(20))
 					mytray.visible_message(span_warning("Nothing happens..."))
+*/
 
 /datum/reagent/medicine/adminordrazine/on_mob_life(mob/living/carbon/affected_mob, seconds_per_tick, times_fired)
 	affected_mob.heal_bodypart_damage(5 * REM * seconds_per_tick, 5 * REM * seconds_per_tick, 0, FALSE, affected_bodytype)
@@ -147,13 +144,6 @@
 	REMOVE_TRAIT(affected_mob, TRAIT_DISFIGURED, TRAIT_GENERIC) //fixes common causes for disfiguration
 	..()
 	return TRUE
-
-// Healing
-/datum/reagent/medicine/cryoxadone/on_hydroponics_apply(obj/item/seeds/myseed, datum/reagents/chems, obj/machinery/hydroponics/mytray, mob/user)
-	. = ..()
-	if(chems.has_reagent(src.type, 1))
-		mytray.adjust_plant_health(round(chems.get_reagent_amount(type) * 3))
-		mytray.adjust_toxic(-round(chems.get_reagent_amount(type) * 3))
 
 /datum/reagent/medicine/clonexadone
 	name = "Clonexadone"
@@ -245,6 +235,14 @@
 	metabolization_rate = 0.1 * REAGENTS_METABOLISM
 	ph = 8.1
 	chemical_flags = REAGENT_CAN_BE_SYNTHESIZED
+
+/datum/reagent/medicine/spaceacillin/on_mob_metabolize(mob/living/L)
+	. = ..()
+	ADD_TRAIT(L, TRAIT_VIRUS_RESISTANCE, type)
+
+/datum/reagent/medicine/spaceacillin/on_mob_end_metabolize(mob/living/L)
+	. = ..()
+	REMOVE_TRAIT(L, TRAIT_VIRUS_RESISTANCE, type)
 
 //Goon Chems. Ported mainly from Goonstation. Easily mixable (or not so easily) and provide a variety of effects.
 
@@ -600,7 +598,7 @@
 	holder.remove_reagent(/datum/reagent/toxin/histamine, 3 * REM * seconds_per_tick)
 	..()
 
-/datum/reagent/medicine/morphine
+/datum/reagent/medicine/painkiller/morphine
 	name = "Morphine"
 	description = "A painkiller that allows the patient to move at full speed even when injured. Causes drowsiness and eventually unconsciousness in high doses. Overdose will cause a variety of effects, ranging from minor to lethal."
 	reagent_state = LIQUID
@@ -612,28 +610,20 @@
 	addiction_types = list(/datum/addiction/opioids = 10)
 	metabolized_traits = list(TRAIT_ANALGESIA)
 
-/datum/reagent/medicine/morphine/on_mob_metabolize(mob/living/affected_mob)
+/datum/reagent/medicine/painkiller/morphine/on_mob_metabolize(mob/living/affected_mob)
 	..()
 	affected_mob.add_movespeed_mod_immunities(type, /datum/movespeed_modifier/damage_slowdown)
 
-/datum/reagent/medicine/morphine/on_mob_end_metabolize(mob/living/affected_mob)
+/datum/reagent/medicine/painkiller/morphine/on_mob_end_metabolize(mob/living/affected_mob)
 	affected_mob.remove_movespeed_mod_immunities(type, /datum/movespeed_modifier/damage_slowdown)
 	..()
 
-/datum/reagent/medicine/morphine/on_mob_life(mob/living/carbon/affected_mob, seconds_per_tick, times_fired)
+/datum/reagent/medicine/painkiller/morphine/on_mob_life(mob/living/carbon/affected_mob, seconds_per_tick, times_fired)
 	if(current_cycle >= 5)
 		affected_mob.add_mood_event("numb", /datum/mood_event/narcotic_medium, name)
-	switch(current_cycle)
-		if(11)
-			to_chat(affected_mob, span_warning("You start to feel tired...") )
-		if(12 to 24)
-			affected_mob.adjust_drowsiness(2 SECONDS * REM * seconds_per_tick)
-		if(24 to INFINITY)
-			affected_mob.Sleeping(40 * REM * seconds_per_tick)
-			. = TRUE
 	..()
 
-/datum/reagent/medicine/morphine/overdose_process(mob/living/affected_mob, seconds_per_tick, times_fired)
+/datum/reagent/medicine/painkiller/morphine/overdose_process(mob/living/affected_mob, seconds_per_tick, times_fired)
 	if(SPT_PROB(18, seconds_per_tick))
 		affected_mob.drop_all_held_items()
 		affected_mob.set_dizzy_if_lower(4 SECONDS)
@@ -883,11 +873,13 @@
 	var/expected_amount_to_full_heal = round(max_health / healing_per_reagent_unit, DAMAGE_PRECISION) / excess_healing_ratio
 	return amount_needed_to_revive + expected_amount_to_full_heal
 
+/*
 // FEED ME SEYMOUR
 /datum/reagent/medicine/strange_reagent/on_hydroponics_apply(obj/item/seeds/myseed, datum/reagents/chems, obj/machinery/hydroponics/mytray, mob/user)
 	. = ..()
 	if(chems.has_reagent(src.type, 1))
 		mytray.spawnplant()
+*/
 
 /datum/reagent/medicine/strange_reagent/expose_mob(mob/living/exposed_mob, methods=TOUCH, reac_volume)
 	if(exposed_mob.stat != DEAD || !(exposed_mob.mob_biotypes & MOB_ORGANIC))
@@ -1193,14 +1185,6 @@
 	addiction_types = list(/datum/addiction/hallucinogens = 14)
 	metabolized_traits = list(TRAIT_PACIFISM)
 
-/datum/reagent/medicine/earthsblood/on_hydroponics_apply(obj/item/seeds/myseed, datum/reagents/chems, obj/machinery/hydroponics/mytray, mob/user)
-	. = ..()
-	if(chems.has_reagent(src.type, 1))
-		if(!mytray.self_sustaining)
-			mytray.increase_sustaining(round(chems.get_reagent_amount(type)))
-		else
-			mytray.lastcycle += 2.5 SECONDS /// makes trays roughly 25% faster
-
 /// Returns a hippie-esque string for the person affected by the reagent to say.
 /datum/reagent/medicine/earthsblood/proc/return_hippie_line()
 	var/static/list/earthsblood_lines = list(
@@ -1277,13 +1261,14 @@
 	..()
 	return TRUE
 
-//used for changeling's adrenaline power
+/* MONKESTATION REMOVAL START (moved to status effect)
 /datum/reagent/medicine/changelingadrenaline
 	name = "Changeling Adrenaline"
 	description = "Reduces the duration of unconciousness, knockdown and stuns. Restores stamina, but deals toxin damage when overdosed."
 	color = "#C1151D"
 	overdose_threshold = 30
 	chemical_flags = REAGENT_CAN_BE_SYNTHESIZED|REAGENT_NO_RANDOM_RECIPE
+	metabolized_traits = list(TRAIT_SLEEPIMMUNE, TRAIT_BATON_RESISTANCE, TRAIT_CANT_STAMCRIT)
 
 /datum/reagent/medicine/changelingadrenaline/on_mob_life(mob/living/carbon/metabolizer, seconds_per_tick, times_fired)
 	..()
@@ -1293,17 +1278,16 @@
 	metabolizer.set_jitter_if_lower(20 SECONDS * REM * seconds_per_tick)
 	metabolizer.set_dizzy_if_lower(20 SECONDS * REM * seconds_per_tick)
 	return TRUE
+MONKESTATION REMOVAL END */
 
 /datum/reagent/medicine/changelingadrenaline/on_mob_metabolize(mob/living/affected_mob)
-	..()
-	affected_mob.add_traits(list(TRAIT_SLEEPIMMUNE, TRAIT_BATON_RESISTANCE, TRAIT_CANT_STAMCRIT), type)
+	. = ..()
 	affected_mob.add_movespeed_mod_immunities(type, /datum/movespeed_modifier/damage_slowdown)
 
 /datum/reagent/medicine/changelingadrenaline/on_mob_end_metabolize(mob/living/affected_mob)
-	..()
-	affected_mob.remove_traits(list(TRAIT_SLEEPIMMUNE, TRAIT_BATON_RESISTANCE, TRAIT_CANT_STAMCRIT), type)
+	. = ..()
 	affected_mob.remove_movespeed_mod_immunities(type, /datum/movespeed_modifier/damage_slowdown)
-	affected_mob.remove_status_effect(/datum/status_effect/dizziness)
+	//affected_mob.remove_status_effect(/datum/status_effect/dizziness) MONKESTATION REMOVAL
 	affected_mob.remove_status_effect(/datum/status_effect/jitter)
 
 /datum/reagent/medicine/changelingadrenaline/overdose_process(mob/living/metabolizer, seconds_per_tick, times_fired)
@@ -1320,10 +1304,10 @@
 
 /datum/reagent/medicine/changelinghaste/on_mob_metabolize(mob/living/affected_mob)
 	..()
-	affected_mob.add_movespeed_modifier(/datum/movespeed_modifier/reagent/changelinghaste)
+	affected_mob.add_movespeed_modifier(/datum/movespeed_modifier/changeling_adrenaline) // monkestation edit
 
 /datum/reagent/medicine/changelinghaste/on_mob_end_metabolize(mob/living/affected_mob)
-	affected_mob.remove_movespeed_modifier(/datum/movespeed_modifier/reagent/changelinghaste)
+	affected_mob.remove_movespeed_modifier(/datum/movespeed_modifier/changeling_adrenaline) // monkestation edit
 	..()
 
 /datum/reagent/medicine/changelinghaste/on_mob_life(mob/living/carbon/metabolizer, seconds_per_tick, times_fired)
@@ -1571,7 +1555,7 @@
 
 /datum/reagent/medicine/coagulant/on_mob_life(mob/living/carbon/affected_mob, seconds_per_tick, times_fired)
 	. = ..()
-	if(!affected_mob.blood_volume || !affected_mob.all_wounds)
+	if(HAS_TRAIT(affected_mob, TRAIT_NOBLOOD) || !LAZYLEN(affected_mob.all_wounds))
 		return
 
 	var/datum/wound/bloodiest_wound
@@ -1592,7 +1576,7 @@
 
 /datum/reagent/medicine/coagulant/overdose_process(mob/living/affected_mob, seconds_per_tick, times_fired)
 	. = ..()
-	if(!affected_mob.blood_volume)
+	if(!HAS_TRAIT(affected_mob, TRAIT_NOBLOOD))
 		return
 
 	if(SPT_PROB(7.5, seconds_per_tick))

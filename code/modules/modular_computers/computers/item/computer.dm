@@ -1,5 +1,3 @@
-GLOBAL_LIST_EMPTY(TabletMessengers) // a list of all active messengers, similar to GLOB.PDAs (used primarily with ntmessenger.dm)
-
 // This is the base type of computer
 // Other types expand it - tablets and laptops are subtypes
 // consoles use "procssor" item that is held inside it.
@@ -12,7 +10,7 @@ GLOBAL_LIST_EMPTY(TabletMessengers) // a list of all active messengers, similar 
 	integrity_failure = 0.5
 	max_integrity = 100
 	armor_type = /datum/armor/item_modular_computer
-	light_system = MOVABLE_LIGHT_DIRECTIONAL
+	light_system = OVERLAY_LIGHT_DIRECTIONAL
 
 	///The ID currently stored in the computer.
 	var/obj/item/card/id/computer_id_slot
@@ -135,10 +133,9 @@ GLOBAL_LIST_EMPTY(TabletMessengers) // a list of all active messengers, similar 
 	if(internal_cell)
 		internal_cell = new internal_cell(src)
 
-	update_appearance()
-	register_context()
-	Add_Messenger()
 	install_default_programs()
+	register_context()
+	update_appearance()
 
 /obj/item/modular_computer/proc/install_default_programs()
 	SHOULD_CALL_PARENT(FALSE)
@@ -152,7 +149,6 @@ GLOBAL_LIST_EMPTY(TabletMessengers) // a list of all active messengers, similar 
 	//Some components will actually try and interact with this, so let's do it later
 	QDEL_NULL(soundloop)
 	QDEL_LIST(stored_files)
-	Remove_Messenger()
 
 	if(istype(inserted_disk))
 		QDEL_NULL(inserted_disk)
@@ -281,16 +277,15 @@ GLOBAL_LIST_EMPTY(TabletMessengers) // a list of all active messengers, similar 
 	if(crew_manifest_update)
 		GLOB.manifest.modify(computer_id_slot.registered_name, computer_id_slot.assignment, computer_id_slot.get_trim_assignment())
 
-	if(user)
-		if(!issilicon(user) && in_range(src, user))
-			user.put_in_hands(computer_id_slot)
-		balloon_alert(user, "removed ID")
-		to_chat(user, span_notice("You remove the card from the card slot."))
+	if(user && !issilicon(user) && in_range(src, user))
+		user.put_in_hands(computer_id_slot)
 	else
 		computer_id_slot.forceMove(drop_location())
 
 	computer_id_slot = null
 	playsound(src, 'sound/machines/terminal_insert_disc.ogg', 50, FALSE)
+	balloon_alert(user, "removed ID")
+	to_chat(user, span_notice("You remove the card from the card slot."))
 
 	if(ishuman(loc))
 		var/mob/living/carbon/human/human_wearer = loc
@@ -501,18 +496,21 @@ GLOBAL_LIST_EMPTY(TabletMessengers) // a list of all active messengers, similar 
  * The program calling this proc.
  * The message that the program wishes to display.
  */
-/obj/item/modular_computer/proc/alert_call(datum/computer_file/program/caller, alerttext, sound = 'sound/machines/twobeep_high.ogg')
-	if(!caller || !caller.alert_able || caller.alert_silenced || !alerttext) //Yeah, we're checking alert_able. No, you don't get to make alerts that the user can't silence.
+/obj/item/modular_computer/proc/alert_call(datum/computer_file/program/origin, alerttext, sound = 'sound/machines/twobeep_high.ogg', vision_distance = DEFAULT_MESSAGE_RANGE)
+	if(QDELETED(loc) || QDELETED(origin) || !origin.alert_able || origin.alert_silenced || !alerttext) //Yeah, we're checking alert_able. No, you don't get to make alerts that the user can't silence.
 		return FALSE
 	playsound(src, sound, 50, TRUE)
-	loc.visible_message(span_notice("[icon2html(src)] [span_notice("The [src] displays a [caller.filedesc] notification: [alerttext]")]"))
+	loc.visible_message(span_notice("<img class='icon' src='\ref[src]'> \The [src] displays a [origin.filedesc] notification: [html_encode(alerttext)]"), vision_distance = vision_distance, push_appearance = src)
 
-/obj/item/modular_computer/proc/ring(ringtone) // bring bring
+/obj/item/modular_computer/proc/ring(ringtone, list/balloon_alertees) // bring bring
 	if(HAS_TRAIT(SSstation, STATION_TRAIT_PDA_GLITCHED))
 		playsound(src, pick('sound/machines/twobeep_voice1.ogg', 'sound/machines/twobeep_voice2.ogg'), 50, TRUE)
 	else
 		playsound(src, 'sound/machines/twobeep_high.ogg', 50, TRUE)
-	audible_message("*[ringtone]*")
+	ringtone = "*[ringtone]*"
+	audible_message(ringtone)
+	for(var/mob/living/alertee in balloon_alertees)
+		alertee.balloon_alert(alertee, ringtone)
 
 /obj/item/modular_computer/proc/send_sound()
 	playsound(src, 'sound/machines/terminal_success.ogg', 15, TRUE)
@@ -649,6 +647,21 @@ GLOBAL_LIST_EMPTY(TabletMessengers) // a list of all active messengers, similar 
 	enabled = FALSE
 	update_appearance()
 
+///Imprints name and job into the modular computer, and calls back to necessary functions.
+///Acts as a replacement to directly setting the imprints fields. All fields are optional, the proc will try to fill in missing gaps.
+/obj/item/modular_computer/proc/imprint_id(name = null, job_name = null)
+	saved_identification = name || computer_id_slot?.registered_name || saved_identification
+	saved_job = job_name || computer_id_slot?.assignment || saved_job
+	SEND_SIGNAL(src, COMSIG_MODULAR_PDA_IMPRINT_UPDATED, saved_identification, saved_job)
+	UpdateDisplay()
+
+///Resets the imprinted name and job back to null.
+/obj/item/modular_computer/proc/reset_imprint()
+	saved_identification = null
+	saved_job = null
+	SEND_SIGNAL(src, COMSIG_MODULAR_PDA_IMPRINT_RESET)
+	UpdateDisplay()
+
 /obj/item/modular_computer/ui_action_click(mob/user, actiontype)
 	if(istype(actiontype, /datum/action/item_action/toggle_computer_light))
 		toggle_flashlight()
@@ -722,6 +735,14 @@ GLOBAL_LIST_EMPTY(TabletMessengers) // a list of all active messengers, similar 
 			return
 		internal_cell = attacking_item
 		to_chat(user, span_notice("You plug \the [attacking_item] to \the [src]."))
+		return
+
+	if(istype(attacking_item, /obj/item/photo))
+		var/obj/item/photo/attacking_photo = attacking_item
+		if(store_file(new /datum/computer_file/picture(attacking_photo.picture)))
+			balloon_alert(user, "photo scanned")
+		else
+			balloon_alert(user, "no space!")
 		return
 
 	// Check if any Applications need it
@@ -825,8 +846,6 @@ GLOBAL_LIST_EMPTY(TabletMessengers) // a list of all active messengers, similar 
 		return physical.Adjacent(neighbor)
 	return ..()
 
-/obj/item/modular_computer/proc/Add_Messenger()
-	GLOB.TabletMessengers += src
-
-/obj/item/modular_computer/proc/Remove_Messenger()
-	GLOB.TabletMessengers -= src
+///Returns a string of what to send at the end of messenger's messages.
+/obj/item/modular_computer/proc/get_messenger_ending()
+	return "Sent from my PDA"

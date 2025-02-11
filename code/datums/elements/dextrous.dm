@@ -10,6 +10,10 @@
 		return ELEMENT_INCOMPATIBLE // Incompatible with the carbon typepath because that already has its own hand handling and doesn't need hand holding
 
 	var/mob/living/mob_parent = target
+	if(isbasicmob(mob_parent))
+		var/mob/living/basic/basic = target
+		basic.dexterous = TRUE
+
 	set_available_hands(mob_parent, hands_count)
 	mob_parent.set_hud_used(new hud_type(target))
 	mob_parent.hud_used.show_hud(mob_parent.hud_used.hud_version)
@@ -21,6 +25,10 @@
 /datum/element/dextrous/Detach(datum/source)
 	. = ..()
 	var/mob/living/mob_parent = source
+	if(isbasicmob(mob_parent))
+		var/mob/living/basic/basic = mob_parent
+		basic.dexterous = FALSE
+
 	set_available_hands(mob_parent, initial(mob_parent.default_num_hands))
 	var/initial_hud = initial(mob_parent.hud_type)
 	mob_parent.set_hud_used(new initial_hud(source))
@@ -67,7 +75,7 @@
 /datum/element/dextrous/proc/on_examined(mob/living/examined, mob/user, list/examine_list)
 	SIGNAL_HANDLER
 	for(var/obj/item/held_item in examined.held_items)
-		if(held_item.item_flags & (ABSTRACT|EXAMINE_SKIP|HAND_ITEM))
+		if((held_item.item_flags & (ABSTRACT|HAND_ITEM)) || HAS_TRAIT(held_item, TRAIT_EXAMINE_SKIP))
 			continue
 		examine_list += span_info("[examined.p_They()] [examined.p_have()] [held_item.get_examine_string(user)] in [examined.p_their()] \
 			[examined.get_held_index_name(examined.get_held_index_of_item(held_item))].")

@@ -66,7 +66,7 @@
 /obj/effect/turf_decal/siding/wood/corner{
 	dir = 1
 	},
-/obj/effect/decal/cleanable/dirt/dust,
+/obj/effect/decal/cleanable/dirt,
 /turf/open/floor/iron/grimy,
 /area/ruin/space/has_grav/powered/hilbertresearchfacility)
 "cE" = (
@@ -199,7 +199,7 @@
 /area/ruin/space/has_grav/powered/hilbertresearchfacility)
 "fv" = (
 /obj/machinery/door/window/left/directional/south,
-/obj/effect/decal/cleanable/dirt/dust,
+/obj/effect/decal/cleanable/dirt,
 /turf/open/floor/wood,
 /area/ruin/space/has_grav/powered/hilbertresearchfacility)
 "fQ" = (
@@ -244,12 +244,6 @@
 "gU" = (
 /obj/effect/turf_decal/stripes/corner,
 /turf/open/floor/mineral/titanium/tiled/yellow,
-/area/ruin/space/has_grav/powered/hilbertresearchfacility)
-"ha" = (
-/obj/structure/statue/bone/rib{
-	dir = 1
-	},
-/turf/open/floor/cult,
 /area/ruin/space/has_grav/powered/hilbertresearchfacility)
 "hk" = (
 /obj/structure/fluff/tram_rail{
@@ -303,7 +297,7 @@
 /turf/open/floor/mineral/titanium/tiled/purple,
 /area/ruin/space/has_grav/powered/hilbertresearchfacility)
 "hT" = (
-/obj/effect/decal/cleanable/dirt/dust,
+/obj/effect/decal/cleanable/dirt,
 /obj/structure/sign/warning/biohazard/directional/north,
 /turf/open/floor/wood,
 /area/ruin/space/has_grav/powered/hilbertresearchfacility)
@@ -604,6 +598,12 @@
 /obj/structure/frame/computer,
 /turf/open/floor/mineral/titanium/tiled/yellow,
 /area/ruin/space/has_grav/powered/hilbertresearchfacility)
+"oW" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
+/turf/closed/indestructible/riveted/plastinum/nodiagonal,
+/area/ruin/space/has_grav/powered/hilbertresearchfacility)
 "pq" = (
 /obj/effect/turf_decal/siding/wood{
 	dir = 8
@@ -618,7 +618,7 @@
 /area/ruin/space/has_grav/powered/hilbertresearchfacility)
 "pI" = (
 /obj/structure/chair/stool/bar/directional/south,
-/obj/effect/decal/cleanable/dirt/dust,
+/obj/effect/decal/cleanable/dirt,
 /turf/open/floor/iron/grimy,
 /area/ruin/space/has_grav/powered/hilbertresearchfacility)
 "pY" = (
@@ -708,7 +708,7 @@
 /area/ruin/space/has_grav/powered/hilbertresearchfacility)
 "rW" = (
 /obj/machinery/light/cold/directional/east,
-/obj/effect/decal/cleanable/dirt/dust,
+/obj/effect/decal/cleanable/dirt,
 /obj/structure/sign/warning/directional/east,
 /turf/open/floor/mineral/titanium/tiled/purple,
 /area/ruin/space/has_grav/powered/hilbertresearchfacility)
@@ -878,7 +878,7 @@
 /area/ruin/space/has_grav/powered/hilbertresearchfacility)
 "wh" = (
 /obj/structure/chair/office,
-/obj/effect/decal/cleanable/dirt/dust,
+/obj/effect/decal/cleanable/dirt,
 /turf/open/floor/wood,
 /area/ruin/space/has_grav/powered/hilbertresearchfacility)
 "wo" = (
@@ -1156,6 +1156,12 @@
 "Bo" = (
 /turf/closed/indestructible/riveted/plastinum,
 /area/ruin/space/has_grav/powered/hilbertresearchfacility)
+"Bz" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
+/turf/closed/indestructible/riveted/plastinum/nodiagonal,
+/area/ruin/space/has_grav/powered/hilbertresearchfacility)
 "BA" = (
 /obj/machinery/door/airlock/science{
 	name = "Hilbert's Office"
@@ -1187,7 +1193,7 @@
 "BL" = (
 /obj/structure/table/wood,
 /obj/item/folder/white,
-/obj/item/stamp/rd,
+/obj/item/stamp/head/rd,
 /turf/open/floor/iron/grimy,
 /area/ruin/space/has_grav/powered/hilbertresearchfacility)
 "BM" = (
@@ -1237,10 +1243,6 @@
 /obj/machinery/light/cold/directional/north,
 /obj/effect/turf_decal/stripes/red/corner,
 /turf/open/floor/mineral/titanium/tiled/white,
-/area/ruin/space/has_grav/powered/hilbertresearchfacility)
-"CZ" = (
-/obj/effect/decal/cleanable/dirt/dust,
-/turf/open/floor/mineral/titanium/tiled/purple,
 /area/ruin/space/has_grav/powered/hilbertresearchfacility)
 "Dh" = (
 /obj/machinery/chem_heater/withbuffer,
@@ -1388,7 +1390,7 @@
 /turf/open/floor/mineral/plastitanium,
 /area/ruin/space/has_grav/powered/hilbertresearchfacility)
 "FF" = (
-/obj/effect/decal/cleanable/dirt/dust,
+/obj/effect/decal/cleanable/dirt,
 /obj/machinery/light/warm/directional/west,
 /turf/open/floor/wood,
 /area/ruin/space/has_grav/powered/hilbertresearchfacility)
@@ -1624,7 +1626,7 @@
 /area/ruin/space/has_grav/powered/hilbertresearchfacility)
 "KL" = (
 /obj/structure/chair/stool/bar/directional/north,
-/obj/effect/decal/cleanable/dirt/dust,
+/obj/effect/decal/cleanable/dirt,
 /turf/open/floor/iron/grimy,
 /area/ruin/space/has_grav/powered/hilbertresearchfacility)
 "KS" = (
@@ -1727,7 +1729,7 @@
 /obj/effect/turf_decal/siding/wood{
 	dir = 8
 	},
-/obj/effect/decal/cleanable/dirt/dust,
+/obj/effect/decal/cleanable/dirt,
 /turf/open/floor/iron/grimy,
 /area/ruin/space/has_grav/powered/hilbertresearchfacility)
 "Ny" = (
@@ -1893,7 +1895,7 @@
 /turf/open/floor/plating,
 /area/ruin/space/has_grav/powered/hilbertresearchfacility)
 "Rj" = (
-/obj/machinery/hydroponics,
+/obj/machinery/growing,
 /turf/open/floor/mineral/titanium/white,
 /area/ruin/space/has_grav/powered/hilbertresearchfacility)
 "Rk" = (
@@ -2086,7 +2088,7 @@
 /turf/open/floor/glass,
 /area/ruin/space/has_grav/powered/hilbertresearchfacility)
 "Ui" = (
-/obj/effect/decal/cleanable/dirt/dust,
+/obj/effect/decal/cleanable/dirt,
 /turf/open/floor/iron/grimy,
 /area/ruin/space/has_grav/powered/hilbertresearchfacility)
 "Un" = (
@@ -2203,7 +2205,7 @@
 /obj/effect/turf_decal/siding/wood{
 	dir = 1
 	},
-/obj/effect/decal/cleanable/dirt/dust,
+/obj/effect/decal/cleanable/dirt,
 /turf/open/floor/iron/grimy,
 /area/ruin/space/has_grav/powered/hilbertresearchfacility)
 "WQ" = (
@@ -3068,9 +3070,9 @@ Xw
 YG
 PG
 Sg
-CZ
+lY
 DR
-CZ
+lY
 hQ
 sU
 ev
@@ -3715,7 +3717,7 @@ wo
 Wt
 yO
 HK
-ha
+wo
 iO
 MX
 ow
@@ -3793,7 +3795,7 @@ La
 eE
 dA
 MX
-iO
+KC
 wo
 MX
 ow
@@ -5059,8 +5061,8 @@ KC
 KC
 PR
 KC
-KC
 PR
+Ok
 Ok
 Ok
 Dk
@@ -5099,8 +5101,8 @@ Ba
 Ba
 Ba
 Ba
-Ba
-Ba
+Bz
+Bz
 Ok
 Bo
 Iy
@@ -5177,8 +5179,8 @@ vr
 vr
 vr
 vr
-vr
-vr
+oW
+oW
 Ok
 Bo
 Iy
@@ -5215,8 +5217,8 @@ KC
 KC
 PR
 KC
-KC
 PR
+Ok
 Ok
 Ok
 Dk

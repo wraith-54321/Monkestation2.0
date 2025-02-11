@@ -1,12 +1,14 @@
-
 /mob/living/carbon/human/dummy
 	real_name = "Test Dummy"
-	status_flags = GODMODE|CANPUSH
 	mouse_drag_pointer = MOUSE_INACTIVE_POINTER
 	visual_only_organs = TRUE
 	var/in_use = FALSE
 
 INITIALIZE_IMMEDIATE(/mob/living/carbon/human/dummy)
+
+/mob/living/carbon/human/dummy/Initialize(mapload)
+	. = ..()
+	ADD_TRAIT(src, TRAIT_GODMODE, INNATE_TRAIT)
 
 /mob/living/carbon/human/dummy/Destroy()
 	in_use = FALSE
@@ -22,10 +24,29 @@ INITIALIZE_IMMEDIATE(/mob/living/carbon/human/dummy)
 	harvest_organs()
 	return ..()
 
+/*
+	MONKESTATION EDIT START
+	This causes a problem with tall players as some of their overlays will go outside of the 32x32 range which the mob's icon is restricted to
+// To speed up the preference menu, we apply 1 filter to the entire mob
+/mob/living/carbon/human/dummy/regenerate_icons()
+	. = ..()
+	apply_height_filters(src, only_apply_in_prefs = TRUE)
+
+/mob/living/carbon/human/dummy/apply_height_filters(image/appearance, only_apply_in_prefs = FALSE)
+	if(only_apply_in_prefs)
+		return ..()
+
+// Not necessary with above
+/mob/living/carbon/human/dummy/apply_height_offsets(image/appearance, upper_torso)
+	return
+
+	MONKESTATION EDIT END
+ */
+
 ///Let's extract our dummies organs and limbs for storage, to reduce the cache missed that spamming a dummy cause
 /mob/living/carbon/human/dummy/proc/harvest_organs()
 	for(var/slot in list(ORGAN_SLOT_BRAIN, ORGAN_SLOT_HEART, ORGAN_SLOT_LUNGS, ORGAN_SLOT_APPENDIX, \
-		ORGAN_SLOT_EYES, ORGAN_SLOT_EARS, ORGAN_SLOT_TONGUE, ORGAN_SLOT_LIVER, ORGAN_SLOT_STOMACH))
+		ORGAN_SLOT_EYES, ORGAN_SLOT_EARS, ORGAN_SLOT_TONGUE, ORGAN_SLOT_LIVER, ORGAN_SLOT_SPLEEN, ORGAN_SLOT_STOMACH))
 		var/obj/item/organ/current_organ = get_organ_slot(slot) //Time to cache it lads
 		if(current_organ)
 			current_organ.Remove(src, special = TRUE) //Please don't somehow kill our dummy
@@ -83,14 +104,11 @@ INITIALIZE_IMMEDIATE(/mob/living/carbon/human/dummy)
 	return
 
 /proc/create_consistent_human_dna(mob/living/carbon/human/target)
-	target.dna.initialize_dna(skip_index = TRUE)
+	target.dna.initialize_dna(/datum/blood_type/crew/human/o_plus, skip_index = TRUE)
 	target.dna.features["body_markings"] = "None"
 	target.dna.features["ears"] = "None"
-	target.dna.features["ethcolor"] = COLOR_WHITE
 	target.dna.features["frills"] = "None"
 	target.dna.features["horns"] = "None"
-	target.dna.features["mcolor"] = COLOR_VIBRANT_LIME
-	target.dna.features["mcolor_secondary"] = COLOR_VIBRANT_LIME
 	target.dna.features["moth_antennae"] = "Plain"
 	target.dna.features["moth_markings"] = "None"
 	target.dna.features["moth_wings"] = "Plain"
@@ -98,8 +116,11 @@ INITIALIZE_IMMEDIATE(/mob/living/carbon/human/dummy)
 	target.dna.features["spines"] = "None"
 	target.dna.features["tail_cat"] = "None"
 	target.dna.features["tail_lizard"] = "Smooth"
-	target.dna.features["tail_monkey"] = "Chimp" //Monkestation Addition
+	target.dna.features["tail_monkey"] = "Monkey"
 	target.dna.features["pod_hair"] = "Ivy"
+	target.dna.features["fur"] = COLOR_MONKEY_BROWN //Monkestation Addition
+	target.dna.features["ethereal_horns"] = "None" //Monkestation Addition
+	target.dna.features["ethereal_tail"] = "None" //Monkestation Addition
 	target.dna.features["ipc_screen"] = "BSOD" //Monkestation Addition
 	target.dna.features["ipc_chassis"] = "Bishop Cyberkinetics" //Monkestation Addition
 	target.dna.features["ipc_antenna"] = "None" //Monkestation Addition
@@ -110,6 +131,17 @@ INITIALIZE_IMMEDIATE(/mob/living/carbon/human/dummy)
 	target.dna.features["arachnid_chelicerae"] = "Basic" //Monkestation Addition
 	target.dna.features["goblin_ears"] = "Normal" //Monkestation Addition
 	target.dna.features["floran_leaves"] = "Furnivour" //Monkestation Addition
+	target.dna.features["satyr_fluff"] = "Normal" //Monkestation Addition
+	target.dna.features["satyr_tail"] = "Short" //Monkestation Addition
+	target.dna.features["satyr_horns"] = "Back" //Monkestation Addition
+	target.dna.features["arm_wings"] = "Monochrome" //Monkestation Addition
+	target.dna.features["ears_avian"] = "Hermes" //Monkestation Addition
+	target.dna.features["tail_avian"] = "Eagle" //Monkestation Addition
+
+	var/datum/color_palette/generic_colors/palette = target.dna.color_palettes[/datum/color_palette/generic_colors]
+	palette.mutant_color = COLOR_VIBRANT_LIME
+	palette.mutant_color_secondary = COLOR_VIBRANT_LIME
+	palette.ethereal_color = COLOR_WHITE
 
 /// Provides a dummy that is consistently bald, white, naked, etc.
 /mob/living/carbon/human/dummy/consistent
@@ -197,3 +229,7 @@ GLOBAL_LIST_EMPTY(dummy_mob_list)
 	bound_height = 64
 
 	var/list/extra_bodyparts = list()
+
+/mob/living/carbon/human/dummy/extra_tall/Destroy()
+	. = ..()
+	extra_bodyparts = null

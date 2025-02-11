@@ -93,16 +93,14 @@
 	dir = 10;
 	network = list("ss13","engine","engineering")
 	},
-/obj/structure/sign/delamination_counter/directional/south,
 /turf/open/floor/engine,
 /area/station/engineering/supermatter)
 "fo" = (
 /obj/effect/turf_decal/stripes/line,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/cyan/visible,
 /obj/machinery/meter,
-/obj/machinery/airalarm/engine{
-	pixel_y = -24
-	},
+/obj/machinery/airalarm/directional/south,
+/obj/effect/mapping_helpers/airalarm/engine_access,
 /obj/effect/turf_decal/trimline/yellow/arrow_ccw{
 	dir = 1
 	},
@@ -114,9 +112,7 @@
 /turf/closed/wall/r_wall,
 /area/station/engineering/supermatter/room)
 "fL" = (
-/obj/structure/window/reinforced/plasma{
-	dir = 4
-	},
+/obj/structure/window/reinforced/plasma/spawner/directional/east,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/general/visible,
 /obj/machinery/power/energy_accumulator/grounding_rod/anchored,
 /obj/effect/turf_decal/trimline/yellow/corner{
@@ -216,9 +212,7 @@
 /turf/open/floor/iron/dark,
 /area/station/engineering/supermatter/room)
 "iM" = (
-/obj/structure/window/reinforced/plasma{
-	dir = 8
-	},
+/obj/structure/window/reinforced/plasma/spawner/directional/west,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/general/visible,
 /obj/machinery/power/energy_accumulator/tesla_coil/anchored,
 /obj/effect/turf_decal/trimline/yellow/line{
@@ -319,6 +313,7 @@
 /obj/machinery/atmospherics/components/binary/pump{
 	name = "Gas to Chamber"
 	},
+/obj/machinery/incident_display/delam/directional/south,
 /turf/open/floor/engine,
 /area/station/engineering/supermatter)
 "lv" = (
@@ -811,6 +806,11 @@
 /area/station/engineering/supermatter/room)
 "Fs" = (
 /obj/effect/turf_decal/bot,
+/obj/structure/bed/dogbed{
+	anchored = 1;
+	name = "Poppy's bed"
+	},
+/mob/living/basic/pet/poppy,
 /turf/open/floor/engine,
 /area/station/engineering/supermatter/room)
 "FF" = (
@@ -831,9 +831,7 @@
 /turf/open/floor/iron/dark,
 /area/station/engineering/supermatter/room)
 "GF" = (
-/obj/structure/window/reinforced/plasma{
-	dir = 4
-	},
+/obj/structure/window/reinforced/plasma/spawner/directional/east,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/general/visible,
 /obj/machinery/power/energy_accumulator/tesla_coil/anchored,
 /obj/effect/turf_decal/trimline/yellow/line{
@@ -1251,9 +1249,7 @@
 /turf/open/space/basic,
 /area/space/nearstation)
 "Zk" = (
-/obj/structure/window/reinforced/plasma{
-	dir = 8
-	},
+/obj/structure/window/reinforced/plasma/spawner/directional/west,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/general/visible,
 /obj/machinery/power/energy_accumulator/grounding_rod/anchored,
 /obj/effect/turf_decal/trimline/yellow/corner{

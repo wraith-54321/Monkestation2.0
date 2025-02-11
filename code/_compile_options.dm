@@ -46,7 +46,7 @@
 // Displays static object lighting updates
 // Also enables some debug vars on sslighting that can be used to modify
 // How extensively we prune lighting corners to update
-#define VISUALIZE_LIGHT_UPDATES
+// #define VISUALIZE_LIGHT_UPDATES
 
 #define VISUALIZE_ACTIVE_TURFS //Highlights atmos active turfs in green
 #define TRACK_MAX_SHARE //Allows max share tracking, for use in the atmos debugging ui
@@ -65,7 +65,8 @@
 // If this is uncommented, we do a single run though of the game setup and tear down process with unit tests in between
 // #define UNIT_TESTS
 
-// If this is uncommented, will attempt to load and initialize prof.dll/libprof.so.
+// If this is uncommented, will attempt to load and initialize prof.dll/libprof.so by default.
+// Even if it's not defined, you can pass "tracy" via -params in order to try to load it.
 // We do not ship byond-tracy. Build it yourself here: https://github.com/mafemergency/byond-tracy/
 // #define USE_BYOND_TRACY
 
@@ -83,6 +84,16 @@
 /// If this is uncommented, will profile mapload atom initializations
 // #define PROFILE_MAPLOAD_INIT_ATOM
 
+/// If uncommented, Dreamluau will be fully disabled.
+// #define DISABLE_DREAMLUAU
+
+// OpenDream currently doesn't support byondapi, so automatically disable it on OD,
+// unless CIBUILDING is defined - we still want to lint dreamluau-related code.
+// Get rid of this whenever it does have support.
+#if defined(OPENDREAM) && !defined(SPACEMAN_DMM) && !defined(CIBUILDING)
+#define DISABLE_DREAMLUAU
+#endif
+
 /// If this is uncommented, force our verb processing into just the 2% of a tick
 /// We normally reserve for it
 /// NEVER run this on live, it's for simulating highpop only
@@ -98,7 +109,7 @@
 #endif
 
 #ifndef PRELOAD_RSC //set to:
-#define PRELOAD_RSC 2 // 0 to allow using external resources or on-demand behaviour;
+#define PRELOAD_RSC 1 // 0 to allow using external resources or on-demand behaviour;
 #endif // 1 to use the default behaviour;
 								// 2 for preloading absolutely everything;
 

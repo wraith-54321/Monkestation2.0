@@ -44,6 +44,13 @@
 	affected_mob.adjustBruteLoss(-thou_shall_heal * REM * seconds_per_tick, FALSE, required_bodytype = affected_bodytype)
 
 	if(good_kind_of_healing && !reaping && SPT_PROB(0.00005, seconds_per_tick)) //janken with the grim reaper!
+		notify_ghosts(
+			"[affected_mob] has entered a game of rock-paper-scissors with death!",
+			source = affected_mob,
+			action = NOTIFY_ORBIT,
+			header = "Who Will Win?",
+			notify_flags = NOTIFY_CATEGORY_DEFAULT,
+		)
 		reaping = TRUE
 		if(affected_mob.apply_status_effect(/datum/status_effect/necropolis_curse, CURSE_BLINDING))
 			helbent = TRUE
@@ -197,34 +204,30 @@
 	chemical_flags = REAGENT_CAN_BE_SYNTHESIZED
 
 /datum/reagent/medicine/c2/hercuri/on_mob_life(mob/living/carbon/affected_mob, seconds_per_tick, times_fired)
+	. = ..()
+	var/fireheal = -1.25
 	if(affected_mob.getFireLoss() > 50)
-		affected_mob.adjustFireLoss(-2 * REM * seconds_per_tick * normalise_creation_purity(), FALSE, required_bodytype = affected_bodytype)
-	else
-		affected_mob.adjustFireLoss(-1.25 * REM * seconds_per_tick * normalise_creation_purity(), FALSE, required_bodytype = affected_bodytype)
-	affected_mob.adjust_bodytemperature(rand(-25,-5) * TEMPERATURE_DAMAGE_COEFFICIENT * REM * seconds_per_tick, 50)
-	if(ishuman(affected_mob))
-		var/mob/living/carbon/human/humi = affected_mob
-		humi.adjust_coretemperature(rand(-25,-5) * TEMPERATURE_DAMAGE_COEFFICIENT * REM * seconds_per_tick, 50)
-	affected_mob.reagents?.chem_temp += (-10 * REM * seconds_per_tick)
+		fireheal = -2
+	if(affected_mob.adjustFireLoss(fireheal * REM * seconds_per_tick * normalise_creation_purity(), updating_health = FALSE, required_bodytype = affected_bodytype))
+		. = TRUE
+
+	var/cooling = -1 KELVIN / rand(1, 5)
+	affected_mob.adjust_bodytemperature(cooling * REM * seconds_per_tick, min_temp = HYPOTHERMIA - 7 CELCIUS)
+	affected_mob.reagents?.expose_temperature(affected_mob.reagents.chem_temp - (10 * REM * seconds_per_tick))
 	affected_mob.adjust_fire_stacks(-1 * REM * seconds_per_tick)
-	..()
-	. = TRUE
 
 /datum/reagent/medicine/c2/hercuri/expose_mob(mob/living/carbon/exposed_mob, methods=VAPOR, reac_volume)
 	. = ..()
 	if(!(methods & VAPOR))
 		return
 
-	exposed_mob.adjust_bodytemperature(-reac_volume * TEMPERATURE_DAMAGE_COEFFICIENT, 50)
+	exposed_mob.adjust_bodytemperature(-reac_volume * -0.33 KELVIN, min_temp = HYPOTHERMIA - 7 CELCIUS, use_insulation = TRUE)
 	exposed_mob.adjust_fire_stacks(reac_volume / -2)
 	if(reac_volume >= metabolization_rate)
 		exposed_mob.extinguish_mob()
 
 /datum/reagent/medicine/c2/hercuri/overdose_process(mob/living/carbon/affected_mob, seconds_per_tick, times_fired)
-	affected_mob.adjust_bodytemperature(-10 * TEMPERATURE_DAMAGE_COEFFICIENT * REM * seconds_per_tick, 50) //chilly chilly
-	if(ishuman(affected_mob))
-		var/mob/living/carbon/human/humi = affected_mob
-		humi.adjust_coretemperature(-10 * TEMPERATURE_DAMAGE_COEFFICIENT * REM * seconds_per_tick, 50)
+	affected_mob.adjust_bodytemperature(-0.5 KELVIN * REM * seconds_per_tick, min_temp = HYPOTHERMIA - 7 CELCIUS) //chilly chilly
 	..()
 
 
@@ -362,12 +365,6 @@
 		affected_mob.reagents.remove_reagent(the_reagent2.type, amount2purge * REM * seconds_per_tick)
 	..()
 	return TRUE
-
-// Antitoxin binds plants pretty well. So the tox goes significantly down
-/datum/reagent/medicine/c2/multiver/on_hydroponics_apply(obj/item/seeds/myseed, datum/reagents/chems, obj/machinery/hydroponics/mytray, mob/user)
-	. = ..()
-	if(chems.has_reagent(src.type, 1))
-		mytray.adjust_toxic(-round(chems.get_reagent_amount(src.type) * 2))
 
 #define issyrinormusc(A) (istype(A,/datum/reagent/medicine/c2/syriniver) || istype(A,/datum/reagent/medicine/c2/musiver)) //musc is metab of syrin so let's make sure we're not purging either
 

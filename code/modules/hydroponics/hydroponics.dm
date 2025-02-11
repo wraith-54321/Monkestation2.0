@@ -480,7 +480,6 @@
 
 /obj/machinery/hydroponics/proc/update_plant_overlay()
 	var/mutable_appearance/plant_overlay = mutable_appearance(myseed.growing_icon, layer = OBJ_LAYER + 0.01)
-	plant_overlay.pixel_y = myseed.seed_offset
 	switch(plant_status)
 		if(HYDROTRAY_PLANT_DEAD)
 			plant_overlay.icon_state = myseed.icon_dead
@@ -656,7 +655,7 @@
 		if(8 to 9)
 			new_seed = new /obj/item/seeds/chanter(src)
 		if(6 to 7)
-			new_seed = new /obj/item/seeds/tower(src)
+			new_seed = new /obj/item/seeds/tree(src)
 		if(4 to 5)
 			new_seed = new /obj/item/seeds/plump(src)
 		else
@@ -795,16 +794,16 @@
 
 /obj/machinery/hydroponics/attackby(obj/item/O, mob/user, params)
 	//Called when mob user "attacks" it with object O
-	if(istype(O, /obj/item/bio_cube))
+	if(istype(O, /obj/item/stack/biocube))
 		if(bio_boosted)
 			to_chat(user, span_notice("This tray is already bio-boosted please wait until its no longer bio-boosted to apply it again"))
 			return
-		var/obj/item/bio_cube/attacked_cube = O
+		var/obj/item/stack/biocube/attacked_cube = O
 		bio_boosted = TRUE
-		addtimer(CALLBACK(src, PROC_REF(end_boost)), attacked_cube.total_duration)
-		to_chat(user, span_notice("The [attacked_cube.name] dissolves boosting the growth of plants for [attacked_cube.total_duration * 0.1] seconds."))
+		var/boost_time = attacked_cube.boost_time()
+		addtimer(CALLBACK(src, PROC_REF(end_boost)), boost_time)
+		to_chat(user, span_notice("\The [attacked_cube] dissolves boosting the growth of plants for [DisplayTimeText(boost_time)]."))
 		qdel(attacked_cube)
-
 	if(IS_EDIBLE(O) || is_reagent_container(O))  // Syringe stuff (and other reagent containers now too)
 		var/obj/item/reagent_containers/reagent_source = O
 
@@ -1344,7 +1343,7 @@
 
 /// Tray Setters - The following procs adjust the tray or plants variables, and make sure that the stat doesn't go out of bounds.///
 /obj/machinery/hydroponics/proc/adjust_plant_nutriments(adjustamt)
-	reagents.remove_any(adjustamt)
+	reagents.remove_all(adjustamt)
 
 /obj/machinery/hydroponics/proc/increase_sustaining(amount)
 	sustaining_precent += amount

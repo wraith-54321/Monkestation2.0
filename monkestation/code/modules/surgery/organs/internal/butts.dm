@@ -16,6 +16,7 @@
 	var/atmos_gas = "miasma=0.25;TEMP=310.15" //310.15 is body temperature
 	var/fart_instability = 1 //Percent chance to lose your rear each fart.
 	var/cooling_down = FALSE
+	var/superfart_armed = FALSE
 
 //ADMIN ONLY ATOMIC ASS
 /obj/item/organ/internal/butt/atomic
@@ -147,6 +148,9 @@
 	var/volume = 40
 	var/true_instability = fart_instability
 
+	if(istype(Location, /turf/open/floor/iron/kitchen_coldroom) || istype(Location, /turf/open/floor/iron/freezer))
+		new /obj/item/stack/sheet/mineral/frozen_fart(Location)
+
 	//TRAIT CHECKS
 	if(Person.has_quirk(/datum/quirk/loud_ass))
 		volume = volume*2
@@ -157,7 +161,7 @@
 
 	//BIBLEFART
 	//This goes above all else because it's an instagib.
-	for(var/obj/item/storage/book/bible/Holy in Location)
+	for(var/obj/item/book/bible/Holy in Location)
 		if(Holy)
 			cooling_down = TRUE
 			var/turf/T = get_step(get_step(Person, NORTH), NORTH)
@@ -200,6 +204,10 @@
 	if(!hit_target)
 		user.audible_message("[pick(world.file2list("strings/farts.txt"))]", audible_message_flags = list(CHATMESSAGE_EMOTE = TRUE))
 
+	if(superfart_armed)
+		to_chat(user, span_notice("You decide to disarm your ass by farting slowly. Thank god."))
+		Person.clear_mood_event("superfart_armed")
+		superfart_armed = FALSE
 
 	//SOUND HANDLING
 	playsound(user, pick(sound_effect), volume , use_reverb = TRUE, pressure_affected = FALSE, mixer_channel = CHANNEL_PRUDE)
@@ -296,7 +304,7 @@
 		butt.atmos_spawn_air("miasma=5;TEMP=310.15")
 		playsound(src, pick('sound/misc/fart1.ogg', 'monkestation/sound/effects/fart2.ogg', 'monkestation/sound/effects/fart3.ogg', 'monkestation/sound/effects/fart4.ogg'), 100 ,use_reverb = TRUE, mixer_channel = CHANNEL_PRUDE)
 
-/mob/living/simple_animal/bot/buttbot/Hear(message, atom/movable/speaker, datum/language/message_language, raw_message, radio_freq, list/spans, list/message_mods)
+/mob/living/simple_animal/bot/buttbot/Hear(message, atom/movable/speaker, datum/language/message_language, raw_message, radio_freq, list/spans, list/message_mods, message_range)
 	. = ..()
 	if(!cooling_down && prob(listen_probability) && ishuman(speaker))
 		cooling_down = TRUE

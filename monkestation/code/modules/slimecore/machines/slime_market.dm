@@ -6,24 +6,11 @@
 	base_icon_state = "market_pad"
 	density = TRUE
 	use_power = IDLE_POWER_USE
-	idle_power_usage = 10
-	active_power_usage = 2000
+	interaction_flags_machine = INTERACT_MACHINE_OPEN|INTERACT_MACHINE_ALLOW_SILICON|INTERACT_MACHINE_OFFLINE|INTERACT_MACHINE_OPEN_SILICON|INTERACT_MACHINE_SET_MACHINE|INTERACT_MACHINE_WIRES_IF_OPEN
+	idle_power_usage = BASE_MACHINE_IDLE_CONSUMPTION
+	active_power_usage = BASE_MACHINE_ACTIVE_CONSUMPTION
 	circuit = /obj/item/circuitboard/machine/slime_market_pad
 	var/obj/machinery/computer/slime_market/console
-
-/obj/machinery/slime_market_pad/attackby(obj/item/I, mob/user, params)
-	if(default_deconstruction_screwdriver(user, icon_state, icon_state, I))
-		user.visible_message(span_notice("\The [user] [panel_open ? "opens" : "closes"] the hatch on \the [src]."), span_notice("You [panel_open ? "open" : "close"] the hatch on \the [src]."))
-		update_appearance()
-		return TRUE
-
-	if(default_unfasten_wrench(user, I))
-		return TRUE
-
-	if(default_deconstruction_crowbar(I))
-		return TRUE
-
-	. = ..()
 
 /obj/machinery/slime_market_pad/examine(mob/user)
 	. = ..()
@@ -39,8 +26,17 @@
 	. = ..()
 	link_console()
 
+/obj/machinery/slime_market_pad/Destroy()
+	var/consoles_market_pad = console?.market_pad
+	if(consoles_market_pad == src)
+		console.market_pad = null
+	console = null
+	return ..()
+
 /obj/machinery/slime_market_pad/AltClick(mob/user)
 	. = ..()
+	if(!.)
+		return
 	link_console()
 
 /obj/machinery/slime_market_pad/proc/link_console()
@@ -53,31 +49,42 @@
 			console.link_market_pad()
 			break
 
-/obj/machinery/slime_market_pad/attackby(obj/item/I, mob/living/user, params)
-	. = ..()
-	if(!console)
+/obj/machinery/slime_market_pad/attackby(obj/item/item, mob/living/user, params)
+	if(HAS_TRAIT(user, TRAIT_CANT_ATTACK) || !can_interact(user))
+		return ..() // Little wasteful to call HAS_TRAIT twice here and parent but the parent will apply damage if we call it
+	if(default_deconstruction_screwdriver(user, icon_state, icon_state, item))
+		user.visible_message(span_notice("\The [user] [panel_open ? "opens" : "closes"] the hatch on \the [src]."))
+		update_appearance()
+		return TRUE
+	if(default_unfasten_wrench(user, item) || default_deconstruction_crowbar(item))
+		return TRUE
+	if(machine_stat & (NOPOWER|BROKEN))
+		return ..()
+	if(QDELETED(console))
 		to_chat(user, span_warning("[src] does not have a console linked to it!"))
 		return
-
-	if(istype(I, /obj/item/slime_extract))
-		var/obj/item/slime_extract/extract = I
+	if(istype(item, /obj/item/slime_extract))
+		var/obj/item/slime_extract/extract = item
 		if(extract.tier == 0)
 			to_chat(user, span_warning("[src] doesn't seem to accept this extract!"))
 			return
 		flick("[base_icon_state]_vend", src)
 		sell_extract(extract)
 		return
-
-	else if(istype(I, /obj/item/storage/bag/xeno))
-		if(tgui_alert(user, "Are you sure you want to sell all extracts from [I]?", "<3?", list("Yes", "No")) != "Yes")
+	else if(istype(item, /obj/item/storage/bag/xeno))
+		if(tgui_alert(user, "Are you sure you want to sell all extracts from [item]?", "<3?", list("Yes", "No")) != "Yes")
 			return
-
 		flick("[base_icon_state]_vend", src)
-		for(var/obj/item/slime_extract/extract in I)
+		var/sold_extracts = 0
+		for(var/obj/item/slime_extract/extract in item)
 			if(extract.tier == 0)
 				continue
 			sell_extract(extract)
-		return
+			sold_extracts++
+		if(sold_extracts > 0)
+			user.balloon_alert_to_viewers("sold [sold_extracts] extracts")
+		return TRUE
+	return ..()
 
 /obj/machinery/slime_market_pad/proc/sell_extract(obj/item/slime_extract/extract)
 	SSresearch.xenobio_points += round(SSresearch.slime_core_prices[extract.type])
@@ -97,23 +104,38 @@
 		SSresearch.slime_core_prices[core_type] = (1 + price_mod * price_limiter) * SSresearch.slime_core_prices[core_type]
 	qdel(extract)
 
-/obj/machinery/slime_market_pad/attackby_secondary(obj/item/weapon, mob/user, params)
-	if(!console)
+/obj/machinery/slime_market_pad/attackby_secondary(obj/item/item, mob/user, params)
+	. = ..()
+	if(. == SECONDARY_ATTACK_CANCEL_ATTACK_CHAIN || !can_interact(user))
+		return
+	if(QDELETED(console))
 		to_chat(user, span_warning("[src] does not have a console linked to it!"))
-		return
+		return SECONDARY_ATTACK_CANCEL_ATTACK_CHAIN
 
-	if(!console.request_pad)
+	if(istype(item, /obj/item/storage/bag/xeno))
+		flick("[base_icon_state]_vend", src)
+		var/sold_extracts = 0
+		for(var/obj/item/slime_extract/extract in item)
+			if(extract.tier == 0)
+				continue
+			sell_extract(extract)
+			sold_extracts++
+		if(sold_extracts > 0)
+			user.balloon_alert_to_viewers("sold [sold_extracts] extracts")
+		return SECONDARY_ATTACK_CANCEL_ATTACK_CHAIN
+
+	if(QDELETED(console.request_pad))
 		to_chat(user, span_warning("[console] does not have a request_pad linked to it!"))
-		return
+		return SECONDARY_ATTACK_CANCEL_ATTACK_CHAIN
 
 	if(!length(console.request_pad.current_requests))
 		to_chat(user, span_warning("There are no current extract requests!"))
-		return
+		return SECONDARY_ATTACK_CANCEL_ATTACK_CHAIN
 
-	if(istype(weapon, /obj/item/slime_extract))
+	if(istype(item, /obj/item/slime_extract))
 		var/list/radial_choices = list()
 		var/list/choice_to_request = list()
-		var/obj/item/slime_extract/extract = weapon
+		var/obj/item/slime_extract/extract = item
 		for(var/datum/extract_request_data/current as anything in console.request_pad.current_requests)
 			if((current.extract_path != extract.type) || current.ready_for_pickup)
 				continue
@@ -134,4 +156,4 @@
 		flick("[base_icon_state]_vend", src)
 		qdel(extract)
 
-		return
+		return SECONDARY_ATTACK_CANCEL_ATTACK_CHAIN

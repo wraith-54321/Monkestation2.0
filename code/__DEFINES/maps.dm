@@ -61,7 +61,13 @@ Always compile, always use that verb, and always make sure that it works for wha
 #define MAP_MAXZ 6
 
 /// Path for the next_map.json file, if someone, for some messed up reason, wants to change it.
+// monkestation start: messed up cat here, i changed it (added world.port to it if there's no debugger attached)
+#ifdef UNIT_TESTS
 #define PATH_TO_NEXT_MAP_JSON "data/next_map.json"
+#else
+#define PATH_TO_NEXT_MAP_JSON (world.GetConfig("env", "AUXTOOLS_DEBUG_DLL") ? "data/next_map.json" : "data/next_map.[world.port].json")
+#endif
+// monkestation end
 
 /// List of directories we can load map .json files from
 #define MAP_DIRECTORY_MAPS "_maps"
@@ -178,11 +184,13 @@ Always compile, always use that verb, and always make sure that it works for wha
 
 #define BIOME_LOW_HEAT "low_heat"
 #define BIOME_LOWMEDIUM_HEAT "lowmedium_heat"
+#define BIOME_MEDIUM_HEAT "medium_heat"
 #define BIOME_HIGHMEDIUM_HEAT "highmedium_heat"
 #define BIOME_HIGH_HEAT "high_heat"
 
 #define BIOME_LOW_HUMIDITY "low_humidity"
 #define BIOME_LOWMEDIUM_HUMIDITY "lowmedium_humidity"
+#define BIOME_MEDIUM_HUMIDITY "medium_humidity"
 #define BIOME_HIGHMEDIUM_HUMIDITY "highmedium_humidity"
 #define BIOME_HIGH_HUMIDITY "high_humidity"
 
@@ -223,6 +231,8 @@ Always compile, always use that verb, and always make sure that it works for wha
 //monkestation start
 #define ZTRAIT_OSHAN "OshanTrait"
 
+#define ZTRAIT_ECLIPSE "Eclipse"
+
 ///Z level traits for Lavaland
 #define ZTRAITS_TRENCH list(\
 	ZTRAIT_GRAVITY = TRUE, \
@@ -235,8 +245,34 @@ Always compile, always use that verb, and always make sure that it works for wha
 #define WEATHER_MESSAGE_DELAY 30 SECONDS
 #define ZTRAIT_DAYCYCLE "Daycycle"
 #define ZTRAIT_STARLIGHT "Starlight"
+#define ZTRAIT_JUSTWEATHER "WeatherOnly"
 #define PARTICLEWEATHER_RAIN "weather_rain"
 #define PARTICLEWEATHER_SNOW "weather_snow"
 #define PARTICLEWEATHER_DUST "weather_dust"
 #define PARTICLEWEATHER_RADS "weather_rads"
 //monkestation end
+
+#define ZTRAITS_ECLIPSE list(\
+	list(\
+		ZTRAIT_LINKAGE = CROSSLINKED, \
+		ZTRAIT_UP = TRUE, \
+		ZTRAIT_GRAVITY = TRUE, \
+		ZTRAIT_MINING = TRUE, \
+		ZTRAIT_NOPARALLAX = TRUE, \
+		ZTRAIT_DAYCYCLE = TRUE, \
+		ZTRAIT_BOMBCAP_MULTIPLIER = 2, \
+		ZTRAIT_BASETURF = /turf/open/misc/dirt/forest, \
+		ZTRAIT_ECLIPSE = TRUE, \
+	), \
+	list(\
+		ZTRAIT_LINKAGE = CROSSLINKED, \
+		ZTRAIT_DOWN = TRUE, \
+		ZTRAIT_GRAVITY = TRUE, \
+		ZTRAIT_MINING = TRUE, \
+		ZTRAIT_NOPARALLAX = TRUE, \
+		ZTRAIT_DAYCYCLE = TRUE, \
+		ZTRAIT_BOMBCAP_MULTIPLIER = 2, \
+		ZTRAIT_BASETURF = /turf/open/openspace/forest, \
+		ZTRAIT_ECLIPSE = TRUE, \
+	)\
+)

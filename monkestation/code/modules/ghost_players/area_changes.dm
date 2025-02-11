@@ -26,13 +26,17 @@
 	area_flags = UNIQUE_AREA | NOTELEPORT
 
 /area/centcom/central_command_areas/supply
-	area_flags = UNIQUE_AREA | NOTELEPORT | GHOST_AREA | PASSIVE_AREA | NO_GHOSTS_DURING_ROUND
+	area_flags = UNIQUE_AREA | NOTELEPORT | PASSIVE_AREA | GHOST_AREA | NO_GHOSTS_DURING_ROUND
 
 /area/centcom/central_command_areas/borbop
 	name = "Borbop's Bar"
 	icon = 'monkestation/icons/area/areas_centcom.dmi'
 	icon_state = "borbop"
 	area_flags = UNIQUE_AREA | NOTELEPORT | GHOST_AREA | PASSIVE_AREA
+
+/area/centcom/central_command_areas/adminroom
+	name = "Private Admin Room"
+	area_flags = UNIQUE_AREA | NOTELEPORT
 
 /area/centcom/central_command_areas/kitchen
 	name = "Papa's Pizzeria"
@@ -62,14 +66,14 @@
 	name = "Admin Hangout"
 	icon = 'monkestation/icons/area/areas_centcom.dmi'
 	icon_state = "centcom_hangout"
-	area_flags = UNIQUE_AREA | NOTELEPORT | GHOST_AREA | PASSIVE_AREA | NO_GHOSTS_DURING_ROUND
+	area_flags = UNIQUE_AREA | NOTELEPORT | PASSIVE_AREA | GHOST_AREA | NO_GHOSTS_DURING_ROUND
 
 /area/centcom/central_command_areas/ghost_blocker
 	name = "During Round Ghost Blocker"
 	area_flags = NOTELEPORT | GHOST_AREA | PASSIVE_AREA | NO_GHOSTS_DURING_ROUND
 
 /area/centcom/central_command_areas/evacuation
-	area_flags = NOTELEPORT | GHOST_AREA | NO_GHOSTS_DURING_ROUND
+	area_flags = NOTELEPORT
 
 /area/centcom/central_command_areas/admin
 	area_flags = NOTELEPORT | GHOST_AREA | NO_GHOSTS_DURING_ROUND
@@ -117,15 +121,12 @@
 /area/Entered(atom/movable/thing)
 	. = ..()
 
-	if(istype(thing, /mob/living/carbon/human/ghost))
-		// If this is a ghost, run the teleport checks
-		teleport_ghost_mob_if_needed(thing)
-	else
-		// Else, loop through this thing's contents...
-		for(var/atom/movable/atom_inside in thing.get_all_contents())
-			if(istype(atom_inside, /mob/living/carbon/human/ghost))
-				// ...and for any ghosts, run the checks
-				teleport_ghost_mob_if_needed(atom_inside)
+	// For the atom that just entered this area, as well as each of its contents...
+	for(var/atom/movable/atom_inside as anything in thing.get_all_contents())
+		// ...check if any of them are a ghost player mob...
+		if(istype(atom_inside, /mob/living/carbon/human/ghost))
+			// ...and if so, run the checks.
+			teleport_ghost_mob_if_needed(atom_inside)
 
 // Teleports a ghost's mob to ghostspawn, if this area does not meet certain requirements.
 /area/proc/teleport_ghost_mob_if_needed(mob/living/carbon/human/ghost/ghost)
@@ -135,8 +136,6 @@
 	should_teleport |= (!(area_flags & GHOST_AREA))
 	// ...this is an area ghosts are prohibited to inhabit during a round, and the round is ongoing
 	should_teleport |= ((area_flags & NO_GHOSTS_DURING_ROUND) && SSticker.current_state != GAME_STATE_FINISHED)
-	// Note: I realize the above bits seem sort of like the same thing. But in refactoring this, I
-	// decided to leave both checks in.
 
 	if(should_teleport)
 		ghost.move_to_ghostspawn()

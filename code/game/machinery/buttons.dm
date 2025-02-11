@@ -5,6 +5,7 @@
 	icon_state = "doorctrl"
 	var/skin = "doorctrl"
 	power_channel = AREA_USAGE_ENVIRON
+	mouse_over_pointer = MOUSE_HAND_POINTER
 	var/obj/item/assembly/device
 	var/obj/item/electronics/airlock/board
 	var/device_type = null
@@ -206,19 +207,22 @@
 		return
 
 	if(device && device.next_activate > world.time)
+		playsound(src, SFX_BUTTON_FAIL, vol = 45, vary = FALSE, extrarange = SHORT_RANGE_SOUND_EXTRARANGE, mixer_channel = CHANNEL_MACHINERY) // monkestation edit: button sounds
 		return
 
 	if(!allowed(user))
 		to_chat(user, span_alert("Access Denied."))
 		flick("[skin]-denied", src)
+		playsound(src, SFX_BUTTON_FAIL, vol = 45, vary = FALSE, extrarange = SHORT_RANGE_SOUND_EXTRARANGE, mixer_channel = CHANNEL_MACHINERY) // monkestation edit: button sounds
 		return
 
+	playsound(src, SFX_BUTTON_CLICK, vol = 45, vary = FALSE, extrarange = SHORT_RANGE_SOUND_EXTRARANGE, mixer_channel = CHANNEL_MACHINERY) // monkestation edit: button sounds
 	use_power(5)
 	icon_state = "[skin]1"
 
 	if(device)
 		device.pulsed(user)
-	SEND_GLOBAL_SIGNAL(COMSIG_GLOB_BUTTON_PRESSED,src)
+	SEND_GLOBAL_SIGNAL(COMSIG_GLOB_BUTTON_PRESSED, src)
 
 	addtimer(CALLBACK(src, TYPE_PROC_REF(/atom/, update_appearance)), 15)
 

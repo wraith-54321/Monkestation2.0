@@ -19,13 +19,29 @@
 	mood_change = -1
 	timeout = 2 MINUTES
 
+/datum/mood_event/chilly
+	description = "I'm feeling a bit chilly."
+	mood_change = -2
+
 /datum/mood_event/cold
-	description = "It's way too cold in here."
-	mood_change = -5
+	description = "It's way too cold."
+	mood_change = -3
+
+/datum/mood_event/freezing
+	description = "It's freezing cold!"
+	mood_change = -6
+
+/datum/mood_event/warm
+	description = "I'm feeling a bit warm."
+	mood_change = -2
 
 /datum/mood_event/hot
-	description = "It's getting hot in here."
-	mood_change = -5
+	description = "It's way too hot."
+	mood_change = -3
+
+/datum/mood_event/overhot
+	description = "It's scorching hot!"
+	mood_change = -6
 
 /datum/mood_event/creampie
 	description = "I've been creamed. Tastes like pie flavor."
@@ -430,6 +446,16 @@
 /datum/mood_event/unsatisfied_nomad
 	description = "I've been here too long! I want to go out and explore space!"
 	mood_change = -3
+
+/datum/mood_event/moon_insanity
+	description = "THE MOON JUDGES AND FINDS ME WANTING!!!"
+	mood_change = -3
+	timeout = 5 MINUTES
+
+/datum/mood_event/amulette_insanity
+	description = "I sEe THe LiGHt, It mUsT BE stOPPed"
+	mood_change = -6
+	timeout = 5 MINUTES
 
 ///Wizard cheesy grand finale - what everyone but the wizard gets
 /datum/mood_event/madness_despair

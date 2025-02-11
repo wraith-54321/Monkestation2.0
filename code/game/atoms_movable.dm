@@ -4,6 +4,8 @@
 	appearance_flags = TILE_BOUND|PIXEL_SCALE|LONG_GLIDE
 
 	var/last_move = null
+	/// A list containing arguments for Moved().
+	VAR_PRIVATE/tmp/list/active_movement
 	var/anchored = FALSE
 	var/move_resist = MOVE_RESIST_DEFAULT
 	var/move_force = MOVE_FORCE_DEFAULT
@@ -171,9 +173,9 @@
 	if(opacity)
 		AddElement(/datum/element/light_blocking)
 	switch(light_system)
-		if(MOVABLE_LIGHT)
+		if(OVERLAY_LIGHT)
 			AddComponent(/datum/component/overlay_lighting)
-		if(MOVABLE_LIGHT_DIRECTIONAL)
+		if(OVERLAY_LIGHT_DIRECTIONAL)
 			AddComponent(/datum/component/overlay_lighting, is_directional = TRUE)
 		if(MOVABLE_LIGHT_BEAM)
 			AddComponent(/datum/component/overlay_lighting, is_directional = TRUE, is_beam = TRUE)
@@ -211,9 +213,15 @@
 		move_packet = null
 
 	if(spatial_grid_key)
-		SSspatial_grid.force_remove_from_cell(src)
+		SSspatial_grid.force_remove_from_grid(src)
 
-	LAZYCLEARLIST(client_mobs_in_contents)
+	LAZYNULL(client_mobs_in_contents)
+
+#ifndef DISABLE_DREAMLUAU
+	// These lists cease existing when src does, so we need to clear any lua refs to them that exist.
+	DREAMLUAU_CLEAR_REF_USERDATA(vis_contents)
+	DREAMLUAU_CLEAR_REF_USERDATA(vis_locs)
+#endif
 
 	. = ..()
 
@@ -225,7 +233,7 @@
 	//This absolutely must be after moveToNullspace()
 	//We rely on Entered and Exited to manage this list, and the copy of this list that is on any /atom/movable "Containers"
 	//If we clear this before the nullspace move, a ref to this object will be hung in any of its movable containers
-	LAZYCLEARLIST(important_recursive_contents)
+	LAZYNULL(important_recursive_contents)
 
 
 	vis_locs = null //clears this atom out of all viscontents
@@ -594,6 +602,7 @@
  * most of the time you want forceMove()
  */
 /atom/movable/proc/abstract_move(atom/new_loc)
+	RESOLVE_ACTIVE_MOVEMENT // This should NEVER happen, but, just in case...
 	var/atom/old_loc = loc
 	var/direction = get_dir(old_loc, new_loc)
 	loc = new_loc
@@ -607,6 +616,9 @@
 	. = FALSE
 	if(!newloc || newloc == loc)
 		return
+
+	// A mid-movement... movement... occured, resolve that first.
+	RESOLVE_ACTIVE_MOVEMENT
 
 	if(!direction)
 		direction = get_dir(src, newloc)
@@ -657,6 +669,7 @@
 	var/area/oldarea = get_area(oldloc)
 	var/area/newarea = get_area(newloc)
 
+	SET_ACTIVE_MOVEMENT(oldloc, direction, FALSE, old_locs)
 	loc = newloc
 
 	. = TRUE
@@ -677,7 +690,7 @@
 	if(oldarea != newarea)
 		newarea.Entered(src, oldarea)
 
-	Moved(oldloc, direction, FALSE, old_locs)
+	RESOLVE_ACTIVE_MOVEMENT
 
 ////////////////////////////////////////
 
@@ -774,7 +787,6 @@
 				if(target_turf != current_turf || (moving_diagonally != SECOND_DIAG_STEP && ISDIAGONALDIR(pull_dir)) || get_dist(src, pulling) > 1)
 					pulling.move_from_pull(src, target_turf, glide_size)
 			check_pulling()
-
 
 	//glide_size strangely enough can change mid movement animation and update correctly while the animation is playing
 	//This means that if you don't override it late like this, it will just be set back by the movement update that's called when you move turfs.
@@ -1097,8 +1109,13 @@
 
 /atom/movable/proc/doMove(atom/destination)
 	. = FALSE
+	RESOLVE_ACTIVE_MOVEMENT
+
 	var/atom/oldloc = loc
 	var/is_multi_tile = bound_width > world.icon_size || bound_height > world.icon_size
+
+	SET_ACTIVE_MOVEMENT(oldloc, NONE, TRUE, null)
+
 	if(destination)
 		///zMove already handles whether a pull from another movable should be broken.
 		if(pulledby && !currently_z_moving)
@@ -1160,7 +1177,7 @@
 			if(old_area)
 				old_area.Exited(src, NONE)
 
-	Moved(oldloc, NONE, TRUE)
+	RESOLVE_ACTIVE_MOVEMENT
 
 /**
  * Called when a movable changes z-levels.
@@ -1470,7 +1487,8 @@
 */
 
 /// Gets or creates the relevant language holder. For mindless atoms, gets the local one. For atom with mind, gets the mind one.
-/atom/movable/proc/get_language_holder(get_minds = TRUE)
+/atom/movable/proc/get_language_holder(get_minds = TRUE) as /datum/language_holder
+	RETURN_TYPE(/datum/language_holder)
 	if(!language_holder)
 		language_holder = new initial_language_holder(src)
 	return language_holder

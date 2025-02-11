@@ -5,7 +5,7 @@
 	icon_state = "tube"
 	desc = "A lighting fixture."
 	layer = WALL_OBJ_LAYER
-	plane = GAME_PLANE_UPPER
+	//plane = GAME_PLANE_UPPER
 	max_integrity = 100
 	use_power = ACTIVE_POWER_USE
 	idle_power_usage = BASE_MACHINE_IDLE_CONSUMPTION * 0.02
@@ -196,10 +196,10 @@
 
 /obj/machinery/light/proc/handle_fire(area/source, new_fire)
 	SIGNAL_HANDLER
-	update()
+	update(dont_burn_out = TRUE)
 
 // update the icon_state and luminosity of the light depending on its state
-/obj/machinery/light/proc/update(trigger = TRUE)
+/obj/machinery/light/proc/update(trigger = TRUE, dont_burn_out = FALSE)
 	switch(status)
 		if(LIGHT_BROKEN,LIGHT_BURNED,LIGHT_EMPTY)
 			on = FALSE
@@ -230,11 +230,13 @@
 			brightness_set = bulb_outer_range * bulb_major_emergency_brightness_mul
 		var/matching = light && brightness_set == light.light_outer_range && power_set == light.light_power && color_set == light.light_color && FC == light.light_falloff_curve && IR == light.light_inner_range
 		if(!matching)
-			switchcount++
-			if( prob( min(60, (switchcount**2)*0.01) ) )
-				if(trigger)
+			var/should_set = TRUE
+			if(!dont_burn_out)
+				switchcount++
+				if(trigger && prob(min(60, (switchcount ** 2) * 0.01)))
 					burn_out()
-			else
+					should_set = FALSE
+			if(should_set)
 				use_power = ACTIVE_POWER_USE
 				set_light(
 					l_outer_range = brightness_set,
@@ -242,7 +244,7 @@
 					l_power = power_set,
 					l_falloff_curve = FC,
 					l_color = color_set
-					)
+				)
 	else if(has_emergency_power(LIGHT_EMERGENCY_POWER_USE) && !turned_off())
 		use_power = IDLE_POWER_USE
 		low_power_mode = TRUE
@@ -281,11 +283,17 @@
 		var/delay = rand(BROKEN_SPARKS_MIN, BROKEN_SPARKS_MAX)
 		addtimer(CALLBACK(src, PROC_REF(broken_sparks)), delay, TIMER_UNIQUE | TIMER_NO_HASH_WAIT)
 
+/obj/machinery/light/proc/is_full_charge()
+	if(cell)
+		return cell.charge == cell.maxcharge
+	return TRUE
+
 /obj/machinery/light/process(seconds_per_tick)
-	if(has_power()) //If the light is being powered by the station.
+	if(has_power())
+		// If the cell is done mooching station power, and reagents don't need processing, stop processing
+		if(is_full_charge() && !reagents)
+			return PROCESS_KILL
 		if(cell)
-			if(cell.charge == cell.maxcharge && !reagents) //If the cell is done mooching station power, and reagents don't need processing, stop processing
-				return PROCESS_KILL
 			cell.charge = min(cell.maxcharge, cell.charge + LIGHT_EMERGENCY_POWER_USE) //Recharge emergency power automatically while not using it
 	if(reagents) //with most reagents coming out at 300, and with most meaningful reactions coming at 370+, this rate gives a few seconds of time to place it in and get out of dodge regardless of input.
 		reagents.adjust_thermal_energy(8 * reagents.total_volume * SPECIFIC_HEAT_DEFAULT * seconds_per_tick)
@@ -387,6 +395,11 @@
 		do_sparks(3, TRUE, src)
 		if (prob(75))
 			electrocute_mob(user, get_area(src), src, (rand(7,10) * 0.1), TRUE)
+
+/obj/machinery/light/hitby(atom/movable/AM, skipcatch, hitpush, blocked, datum/thrownthing/throwingdatum)
+	if(isliving(throwingdatum.thrownthing) && (HAS_TRAIT_FROM(throwingdatum.thrownthing, VACPACK_THROW, "vacpack"))) // For now. If gentle doesnt cause issue with lights just remove these checks and switch.
+		return
+	..()
 
 /obj/machinery/light/deconstruct(disassembled = TRUE)
 	if(flags_1 & NODECONSTRUCT_1)
@@ -563,7 +576,7 @@
 
 			if(user.gloves)
 				var/obj/item/clothing/gloves/electrician_gloves = user.gloves
-				if(electrician_gloves.max_heat_protection_temperature && electrician_gloves.max_heat_protection_temperature > 360)
+				if(electrician_gloves.max_heat_protection_temperature > 360)
 					protected = TRUE
 		else
 			protected = TRUE

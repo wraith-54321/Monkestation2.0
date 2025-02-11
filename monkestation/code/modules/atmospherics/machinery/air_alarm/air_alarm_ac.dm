@@ -32,9 +32,14 @@
 	if(air_conditioning)
 		SSair.start_processing_machine(src)
 
+/obj/machinery/airalarm/Destroy()
+	SSair.stop_processing_machine(src)
+	return ..()
+
 /obj/machinery/airalarm/examine(mob/user)
 	. = ..()
-	. += span_notice("A small light indicates that the air conditioning is [span_bold(air_conditioning ? (ac_active ? "active" : "idle") : "disabled")].")
+	var/status = air_conditioning ? (ac_active ? "active" : "idle") : "disabled"
+	. += span_notice("A small light indicates that the air conditioning is [span_bold(status)].")
 
 /obj/machinery/airalarm/ui_data(mob/user)
 	. = ..()

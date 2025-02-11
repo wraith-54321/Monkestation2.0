@@ -257,6 +257,9 @@
 		return
 	var/kiss_type = /obj/item/hand_item/kisser
 
+	if(HAS_TRAIT(user, TRAIT_SYNDIE_KISS))
+		kiss_type = /obj/item/hand_item/kisser/syndie
+
 	if(HAS_TRAIT(user, TRAIT_KISS_OF_DEATH))
 		kiss_type = /obj/item/hand_item/kisser/death
 
@@ -280,15 +283,18 @@
 	return ..() && user.can_speak(allow_mimes = TRUE)
 
 // MonkeStation Edit Start
-/datum/emote/living/laugh/get_sound(mob/living/carbon/human/user)
-	if(!istype(user))
-		return
+/datum/emote/living/laugh/get_sound(mob/living/user)
+	if(isbasicmob(user))
+		var/mob/living/basic/mob = user
+		. = mob.get_laugh_sound()
+	if(ishuman(user))
+		var/mob/living/carbon/human/human_user = user
+		// Alternative Laugh Hook
+		if(human_user.alternative_laughs.len)
+			return pick(human_user.alternative_laughs)
 
-	// Alternative Laugh Hook
-	if(user.alternative_laughs.len)
-		return pick(user.alternative_laughs)
-
-	return user.dna.species.get_laugh_sound(user)
+		var/obj/item/organ/internal/tongue/tongue = human_user.get_organ_slot(ORGAN_SLOT_TONGUE)
+		return tongue?.get_laugh_sound(human_user)
 // MonkeStation Edit End
 
 /datum/emote/living/look
@@ -388,12 +394,12 @@ monkestation edit end */
 	message_mime = "acts out an exaggerated silent sigh."
 	emote_type = EMOTE_VISIBLE | EMOTE_AUDIBLE
 
-/datum/emote/living/sigh/run_emote(mob/living/user, params, type_override, intentional)
+/datum/emote/living/sigh/run_emote(mob/living/carbon/human/user, params, type_override, intentional)
 	. = ..()
 	if(!ishuman(user))
 		return
 	var/image/emote_animation = image('icons/mob/species/human/emote_visuals.dmi', user, "sigh")
-	flick_overlay_global(emote_animation, GLOB.clients, 2.0 SECONDS)
+	flick_overlay_global(user.apply_height_offsets(emote_animation, UPPER_BODY), GLOB.clients, 2.0 SECONDS)
 
 /datum/emote/living/sit
 	key = "sit"
@@ -636,7 +642,7 @@ monkestation edit end */
 	var/custom_emote_type
 	if(!can_run_emote(user, TRUE, intentional))
 		return FALSE
-	if(is_banned_from(user.ckey, "Emote"))
+	if(!isnull(user.ckey) && is_banned_from(user.ckey, "Emote"))
 		to_chat(user, span_boldwarning("You cannot send custom emotes (banned)."))
 		return FALSE
 	else if(QDELETED(user))

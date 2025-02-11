@@ -69,6 +69,21 @@
 		user = WEAKREF(usr)
 
 /**
+ * Qdel a callback datum
+ * This is not allowed and will stack trace. callback datums are structs, if they are referenced they exist
+ *
+ * Arguments
+ * * force set to true to force the deletion to be allowed.
+ * * ... an optional list of extra arguments to pass to the proc
+ */
+/datum/callback/Destroy(force = FALSE)
+	SHOULD_CALL_PARENT(FALSE)
+	if (force)
+		return ..()
+	stack_trace("Callbacks can not be qdeleted. If they are referenced, they must exist. ([object == GLOBAL_PROC ? GLOBAL_PROC : object.type] [delegate])")
+	return QDEL_HINT_LETMELIVE
+
+/**
  * Invoke this callback
  *
  * Calls the registered proc on the registered object, if the user ref
@@ -96,7 +111,7 @@
 		else
 			calling_arguments = args
 	if(datum_flags & DF_VAR_EDITED)
-		if(usr != GLOB.AdminProcCallHandler && !usr?.client?.ckey) //This happens when a timer or the MC invokes a callback
+		if(usr != GLOB.AdminProcCallHandler && !(usr && usr?.client?.ckey)) //This happens when a timer or the MC invokes a callback
 			return HandleUserlessProcCall(usr, object, delegate, calling_arguments)
 		return WrapAdminProcCall(object, delegate, calling_arguments)
 	if (object == GLOBAL_PROC)

@@ -22,7 +22,7 @@ SUBSYSTEM_DEF(ticker)
 
 	var/datum/game_mode/mode = null
 
-	var/login_music //music played in pregame lobby
+	var/login_music_done = FALSE // monkestation edit: : fix-lobby-music
 	var/round_end_sound //music/jingle played when the world reboots
 	var/round_end_sound_sent = TRUE //If all clients have loaded it
 
@@ -39,7 +39,7 @@ SUBSYSTEM_DEF(ticker)
 	var/start_at
 
 	var/gametime_offset = 432000 //Deciseconds to add to world.time for station time.
-	var/station_time_rate_multiplier = 12 //factor of station time progressal vs real time.
+	var/station_time_rate_multiplier = 128 //factor of station time progressal vs real time.
 
 	/// Num of players, used for pregame stats on statpanel
 	var/totalPlayers = 0
@@ -63,6 +63,8 @@ SUBSYSTEM_DEF(ticker)
 	var/mode_result = "undefined"
 	var/end_state = "undefined"
 
+	var/end_station_state
+
 	/// People who have been commended and will receive a heart
 	var/list/hearts
 
@@ -74,7 +76,31 @@ SUBSYSTEM_DEF(ticker)
 	///add jobs to this that should get rewarded monkecoins, example: JOB_SECURITY_OFFICER
 	var/list/jobs_to_reward = list(JOB_JANITOR,)
 
+	var/list/popcount
+
+	/// (monkestation addition) The station integrity at roundend.
+	var/roundend_station_integrity
+
 /datum/controller/subsystem/ticker/Initialize()
+	// monkestation start: fix-lobby-music
+	var/old_login_music = trim(file2text("data/last_round_lobby_music.txt"))
+
+	var/base_provisional_music_path = "[global.config.directory]/title_music/sounds/"
+	var/list/provisional_title_music = flist(base_provisional_music_path)
+	for(var/S in provisional_title_music)
+		var/fullpath = base_provisional_music_path + S
+		if (fexists(fullpath))
+			try
+				var/list/json = json_decode(file2text(fullpath))
+				if (json["url"] != old_login_music)
+					GLOB.jukebox_track_files += fullpath
+			catch
+				if (S == "exclude") continue
+				log_runtime("Failed to parse [fullpath], likely an invalid file.")
+	login_music_done = TRUE
+	// monkestation end
+
+	/* //monkestation removal start: fix-lobby-music
 	var/list/byond_sound_formats = list(
 		"mid" = TRUE,
 		"midi" = TRUE,
@@ -129,6 +155,7 @@ SUBSYSTEM_DEF(ticker)
 		login_music = pick(music)
 	else
 		login_music = "[global.config.directory]/title_music/sounds/[pick(music)]"
+	*/ // monkestation removal end
 
 
 	if(!GLOB.syndicate_code_phrase)
@@ -167,7 +194,10 @@ SUBSYSTEM_DEF(ticker)
 			send2chat(new /datum/tgs_message_content("New round starting on [SSmapping.config.map_name]!"), CONFIG_GET(string/channel_announce_new_game))
 			current_state = GAME_STATE_PREGAME
 			SEND_SIGNAL(src, COMSIG_TICKER_ENTER_PREGAME)
-
+			// MONKESTATION EDIT START - lobby notices
+			if (length(config.lobby_notices))
+				config.ShowLobbyNotices(world)
+			// MONKESTATION END
 			fire()
 		if(GAME_STATE_PREGAME)
 				//lobby stats for statpanels
@@ -221,7 +251,11 @@ SUBSYSTEM_DEF(ticker)
 				declare_completion(force_ending)
 				check_maprotate()
 				Master.SetRunLevel(RUNLEVEL_POSTGAME)
-
+//MONKESTATION ADDITION START
+				if(SSmapping.map_voted || SSmapping.map_force_chosen == TRUE)
+					return
+				SSmapping.mapvote()
+//MONKESTATION ADDITION END
 
 /datum/controller/subsystem/ticker/proc/setup()
 	to_chat(world, span_boldannounce("Starting game..."))
@@ -285,12 +319,9 @@ SUBSYSTEM_DEF(ticker)
 	INVOKE_ASYNC(SSdbcore, TYPE_PROC_REF(/datum/controller/subsystem/dbcore,SetRoundStart))
 
 	to_chat(world, span_notice("<B>Welcome to [station_name()], enjoy your stay!</B>"))
-	
-	for(var/mob/M as anything in GLOB.player_list)
-		if(!M.client)
-			SEND_SOUND(M, sound(SSstation.announcer.get_rand_welcome_sound(), volume = 100))
-		else if("[CHANNEL_VOX]" in M.client.prefs.channel_volume)
-			SEND_SOUND(M, sound(SSstation.announcer.get_rand_welcome_sound(), volume = M.client.prefs.channel_volume["[CHANNEL_VOX]"] * (M.client.prefs.channel_volume["[CHANNEL_MASTER_VOLUME]"] * 0.01)))
+
+	for(var/mob/player as anything in GLOB.player_list)
+		welcome_player(player)
 
 	current_state = GAME_STATE_PLAYING
 	Master.SetRunLevel(RUNLEVEL_GAME)
@@ -302,13 +333,22 @@ SUBSYSTEM_DEF(ticker)
 			to_chat(world, span_info(holiday.greet()))
 
 	PostSetup()
+	INVOKE_ASYNC(world, TYPE_PROC_REF(/world, flush_byond_tracy)) // monkestation edit: byond-tracy
 
 	return TRUE
 
+/datum/controller/subsystem/ticker/proc/welcome_player(mob/player)
+	var/client/client = player.client
+	var/list/channel_volume = client?.prefs?.channel_volume?.Copy()
+	if(!client)
+		SEND_SOUND(player, sound(SSstation.announcer.get_rand_welcome_sound(), volume = 100))
+	else if("[CHANNEL_VOX]" in channel_volume)
+		SEND_SOUND(player, sound(SSstation.announcer.get_rand_welcome_sound(), volume = channel_volume["[CHANNEL_VOX]"] * (channel_volume["[CHANNEL_MASTER_VOLUME]"] * 0.01)))
+
 /datum/controller/subsystem/ticker/proc/PostSetup()
 	set waitfor = FALSE
-	SSgamemode.storyteller.process(STORYTELLER_WAIT_TIME * 0.1) // we want this asap
-	SSgamemode.storyteller.round_started = TRUE
+	SSgamemode.current_storyteller.process(STORYTELLER_WAIT_TIME * 0.1) // we want this asap
+	SSgamemode.current_storyteller.round_started = TRUE
 	mode.post_setup()
 	GLOB.start_state = new /datum/station_state()
 	GLOB.start_state.count()
@@ -333,6 +373,7 @@ SUBSYSTEM_DEF(ticker)
 
 		iter_human.increment_scar_slot()
 		iter_human.load_persistent_scars()
+		SSpersistence.load_modular_persistence(iter_human.get_organ_slot(ORGAN_SLOT_BRAIN))
 
 		if(!iter_human.hardcore_survival_score)
 			continue
@@ -360,15 +401,22 @@ SUBSYSTEM_DEF(ticker)
 		qdel(bomb)
 
 /datum/controller/subsystem/ticker/proc/create_characters()
-	for(var/i in GLOB.new_player_list)
-		var/mob/dead/new_player/player = i
-		if(player.ready == PLAYER_READY_TO_PLAY && player.mind)
-			GLOB.joined_player_list += player.ckey
-			var/atom/destination = player.mind.assigned_role.get_roundstart_spawn_point()
-			if(!destination) // Failed to fetch a proper roundstart location, won't be going anywhere.
-				continue
-			player.create_character(destination)
+	for(var/player in GLOB.new_player_list)
+		create_character(player)
 		CHECK_TICK
+
+/datum/controller/subsystem/ticker/proc/create_character(mob/dead/new_player/player)
+	if(player.ready == PLAYER_READY_TO_PLAY && player.mind)
+		if(interview_safety(player, "readied up"))
+			player.ready = PLAYER_NOT_READY
+			QDEL_IN(player.client, 0)
+			return
+		GLOB.joined_player_list += player.ckey
+		var/chosen_title = player.client?.prefs.alt_job_titles[player.mind.assigned_role.title] || player.mind.assigned_role.title
+		var/atom/destination = player.mind.assigned_role.get_roundstart_spawn_point(chosen_title)
+		if(!destination) // Failed to fetch a proper roundstart location, won't be going anywhere.
+			return
+		player.create_character(destination)
 
 /datum/controller/subsystem/ticker/proc/collect_minds()
 	for(var/i in GLOB.new_player_list)
@@ -444,9 +492,8 @@ SUBSYSTEM_DEF(ticker)
 					continue
 				item.post_equip_item(new_player_mob.client?.prefs, new_player_living)
 
-		if(new_player_mob.client.readied_store)
-			if(new_player_mob.client.readied_store.bought_item)
-				new_player_mob.client.readied_store.finalize_purchase_spawn(new_player_mob, new_player_living)
+		if(new_player_mob.client?.readied_store?.bought_item)
+			new_player_mob.client.readied_store.finalize_purchase_spawn(new_player_mob, new_player_living)
 
 		CHECK_TICK
 
@@ -483,28 +530,33 @@ SUBSYSTEM_DEF(ticker)
 
 	return output
 
+/datum/controller/subsystem/ticker/proc/transfer_single_character(mob/dead/new_player/player)
+	var/mob/living = player.transfer_character()
+	if(!living)
+		return
+	qdel(player)
+	ADD_TRAIT(living, TRAIT_NO_TRANSFORM, SS_TICKER_TRAIT)
+	if(living.client)
+		var/atom/movable/screen/splash/splash = new(null, living.client, TRUE)
+		splash.Fade(TRUE)
+		living.client?.init_verbs()
+	. = living
+	var/datum/player_details/details = get_player_details(living)
+	if(details)
+		SSchallenges.apply_challenges(details)
+		for(var/processing_reward_bitflags in bitflags_to_reward)//you really should use department bitflags if possible
+			if(living.mind.assigned_role.departments_bitflags & processing_reward_bitflags)
+				details.roundend_monkecoin_bonus += 150
+		for(var/processing_reward_jobs in jobs_to_reward)//just in case you really only want to reward a specific job
+			if(living.job == processing_reward_jobs)
+				details.roundend_monkecoin_bonus += 150
+
 /datum/controller/subsystem/ticker/proc/transfer_characters()
 	var/list/livings = list()
-	for(var/i in GLOB.new_player_list)
-		var/mob/dead/new_player/player = i
-		var/mob/living = player.transfer_character()
-		if(living)
-			qdel(player)
-			ADD_TRAIT(living, TRAIT_NO_TRANSFORM, SS_TICKER_TRAIT)
-			if(living.client)
-				var/atom/movable/screen/splash/S = new(null, living.client, TRUE)
-				S.Fade(TRUE)
-				living.client.init_verbs()
-			livings += living
-			if(living.client && length(living.client?.active_challenges))
-				SSchallenges.apply_challenges(living.client)
-			for(var/processing_reward_bitflags in bitflags_to_reward)//you really should use department bitflags if possible
-				if(living.mind.assigned_role.departments_bitflags & processing_reward_bitflags)
-					living.client.reward_this_person += 150
-			for(var/processing_reward_jobs in jobs_to_reward)//just in case you really only want to reward a specific job
-				if(living.job == processing_reward_jobs)
-					living.client.reward_this_person += 150
-	if(livings.len)
+	for(var/mob/dead/new_player/player as anything in GLOB.new_player_list)
+		livings += transfer_single_character(player)
+	list_clear_nulls(livings)
+	if(length(livings))
 		addtimer(CALLBACK(src, PROC_REF(release_characters), livings), 3 SECONDS, TIMER_CLIENT_TIME)
 
 /datum/controller/subsystem/ticker/proc/release_characters(list/livings)
@@ -518,7 +570,7 @@ SUBSYSTEM_DEF(ticker)
 	if(!hard_popcap)
 		list_clear_nulls(queued_players)
 		for (var/mob/dead/new_player/new_player in queued_players)
-			to_chat(new_player, span_userdanger("The alive players limit has been released!<br><a href='?src=[REF(new_player)];late_join=override'>[html_encode(">>Join Game<<")]</a>"))
+			to_chat(new_player, span_userdanger("The alive players limit has been released!<br><a href='byond://?src=[REF(new_player)];late_join=override'>[html_encode(">>Join Game<<")]</a>"))
 			SEND_SOUND(new_player, sound('sound/misc/notice1.ogg'))
 			GLOB.latejoin_menu.ui_interact(new_player)
 		queued_players.len = 0
@@ -533,7 +585,7 @@ SUBSYSTEM_DEF(ticker)
 			list_clear_nulls(queued_players)
 			if(living_player_count() < hard_popcap)
 				if(next_in_line?.client)
-					to_chat(next_in_line, span_userdanger("A slot has opened! You have approximately 20 seconds to join. <a href='?src=[REF(next_in_line)];late_join=override'>\>\>Join Game\<\<</a>"))
+					to_chat(next_in_line, span_userdanger("A slot has opened! You have approximately 20 seconds to join. <a href='byond://?src=[REF(next_in_line)];late_join=override'>\>\>Join Game\<\<</a>"))
 					SEND_SOUND(next_in_line, sound('sound/misc/notice1.ogg'))
 					next_in_line.ui_interact(next_in_line)
 					return
@@ -562,7 +614,9 @@ SUBSYSTEM_DEF(ticker)
 	force_ending = SSticker.force_ending
 	mode = SSticker.mode
 
-	login_music = SSticker.login_music
+	//monkestation removal start: fix-lobby-music
+	// login_music = SSticker.login_music
+	//monkestation removal end
 	round_end_sound = SSticker.round_end_sound
 
 	minds = SSticker.minds
@@ -761,8 +815,9 @@ SUBSYSTEM_DEF(ticker)
 		if(M.client.prefs.read_preference(/datum/preference/toggle/sound_endofround))
 			SEND_SOUND(M.client, end_of_round_sound_ref)
 
-	text2file(login_music, "data/last_round_lobby_music.txt")
-
+	// monkestation removal start: fix-lobby-music
+	// text2file(login_music, "data/last_round_lobby_music.txt")
+	// monkestation removal end
 /datum/controller/subsystem/ticker/proc/choose_round_end_song()
 	var/list/reboot_sounds = flist("[global.config.directory]/reboot_themes/")
 	var/list/possible_themes = list()

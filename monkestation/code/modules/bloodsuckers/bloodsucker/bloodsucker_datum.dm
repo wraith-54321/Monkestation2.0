@@ -23,6 +23,8 @@
 	COOLDOWN_DECLARE(bloodsucker_spam_sol_burn)
 	///Timer between alerts for Healing messages
 	COOLDOWN_DECLARE(bloodsucker_spam_healing)
+	/// Cooldown for bloodsuckers going into Frenzy.
+	COOLDOWN_DECLARE(bloodsucker_frenzy_cooldown)
 
 	///Used for assigning your name
 	var/bloodsucker_name
@@ -41,6 +43,8 @@
 	var/frenzy_threshold = FRENZY_THRESHOLD_ENTER
 	///If we are currently in a Frenzy
 	var/frenzied = FALSE
+	/// Whether the death handling code is active or not.
+	var/handling_death = FALSE
 
 	///ALL Powers currently owned
 	var/list/datum/action/cooldown/bloodsucker/powers = list()
@@ -87,15 +91,31 @@
 		TRAIT_RADIMMUNE,
 		TRAIT_GENELESS,
 		TRAIT_STABLEHEART,
+		TRAIT_STABLELIVER,
 		TRAIT_NOSOFTCRIT,
 		TRAIT_NOHARDCRIT,
 		TRAIT_AGEUSIA,
-		TRAIT_COLDBLOODED,
+		TRAIT_COLD_BLOODED,
 		TRAIT_VIRUSIMMUNE,
 		TRAIT_TOXIMMUNE,
 		TRAIT_HARDLY_WOUNDED,
-		TRAIT_NO_MIRROR_REFLECTION
+		TRAIT_NO_MIRROR_REFLECTION,
+		TRAIT_ETHEREAL_NO_OVERCHARGE,
+		TRAIT_OOZELING_NO_CANNIBALIZE,
 	)
+	/// Traits applied during Torpor.
+	var/static/list/torpor_traits = list(
+		TRAIT_DEATHCOMA,
+		TRAIT_FAKEDEATH,
+		TRAIT_NODEATH,
+		TRAIT_RESISTHIGHPRESSURE,
+		TRAIT_RESISTLOWPRESSURE,
+	)
+	/// A typecache of organs we'll expel during Torpor.
+	var/static/list/yucky_organ_typecache = typecacheof(list(
+		/obj/item/organ/internal/body_egg,
+		/obj/item/organ/internal/zombie_infection,
+	))
 
 /**
  * Apply innate effects is everything given to the mob
@@ -110,11 +130,15 @@
 	RegisterSignal(current_mob, COMSIG_LIVING_DEATH, PROC_REF(on_death))
 	handle_clown_mutation(current_mob, mob_override ? null : "As a vampiric clown, you are no longer a danger to yourself. Your clownish nature has been subdued by your thirst for blood.")
 	add_team_hud(current_mob)
+	current_mob.clear_mood_event("vampcandle")
 
 	if(current_mob.hud_used)
 		on_hud_created()
 	else
 		RegisterSignal(current_mob, COMSIG_MOB_HUD_CREATED, PROC_REF(on_hud_created))
+
+	ensure_brain_nonvital(current_mob)
+
 #ifdef BLOODSUCKER_TESTING
 	var/turf/user_loc = get_turf(current_mob)
 	new /obj/structure/closet/crate/coffin(user_loc)
@@ -208,6 +232,13 @@
 	clear_powers_and_stats()
 	check_cancel_sunlight() //check if sunlight should end
 	owner.special_role = null
+	if(!iscarbon(owner.current))
+		return
+	var/mob/living/carbon/carbon_owner = owner.current
+	var/obj/item/organ/internal/brain/not_vamp_brain = carbon_owner.get_organ_slot(ORGAN_SLOT_BRAIN)
+	if(not_vamp_brain && (not_vamp_brain.decoy_override != initial(not_vamp_brain.decoy_override)))
+		not_vamp_brain.organ_flags |= ORGAN_VITAL
+		not_vamp_brain.decoy_override = FALSE
 	return ..()
 
 /datum/antagonist/bloodsucker/on_body_transfer(mob/living/old_body, mob/living/new_body)
@@ -225,7 +256,7 @@
 	if(old_body && ishuman(old_body))
 		var/mob/living/carbon/human/old_user = old_body
 		var/datum/species/old_species = old_user.dna.species
-		old_species.species_traits -= DRINKSBLOOD
+		old_species.inherent_traits -= TRAIT_DRINKS_BLOOD
 		//Keep track of what they were
 		old_left_arm_unarmed_damage_low = old_left_arm.unarmed_damage_low
 		old_left_arm_unarmed_damage_high = old_left_arm.unarmed_damage_high
@@ -239,7 +270,7 @@
 	if(ishuman(new_body))
 		var/mob/living/carbon/human/new_user = new_body
 		var/datum/species/new_species = new_user.dna.species
-		new_species.species_traits += DRINKSBLOOD
+		new_species.inherent_traits += TRAIT_DRINKS_BLOOD
 		var/obj/item/bodypart/new_left_arm
 		var/obj/item/bodypart/new_right_arm
 		//Give old punch damage values
@@ -251,8 +282,7 @@
 		new_right_arm.unarmed_damage_high = old_right_arm_unarmed_damage_high
 
 	//Give Bloodsucker Traits
-	if(old_body)
-		old_body.remove_traits(bloodsucker_traits, BLOODSUCKER_TRAIT)
+	old_body?.remove_traits(bloodsucker_traits, BLOODSUCKER_TRAIT)
 	new_body.add_traits(bloodsucker_traits, BLOODSUCKER_TRAIT)
 
 /datum/antagonist/bloodsucker/greet()
@@ -341,7 +371,7 @@
 
 	// Default Report
 	var/objectives_complete = TRUE
-	if(objectives.len)
+	if(length(objectives))
 		report += printobjectives(objectives)
 		for(var/datum/objective/objective in objectives)
 			if(objective.objective_name == "Optional Objective")
@@ -351,10 +381,10 @@
 				break
 
 	// Now list their vassals
-	if(vassals.len)
-		report += "<span class='header'>Their Vassals were...</span>"
+	if(length(vassals))
+		report +=  span_header("Their Vassals were...")
 		for(var/datum/antagonist/vassal/all_vassals as anything in vassals)
-			if(!all_vassals.owner)
+			if(QDELETED(all_vassals?.owner))
 				continue
 			var/list/vassal_report = list()
 			vassal_report += "<b>[all_vassals.owner.name]</b>"
@@ -367,12 +397,25 @@
 				vassal_report += " and was the <b>Revenge Vassal</b>"
 			report += vassal_report.Join()
 
-	if(objectives.len == 0 || objectives_complete)
+	if(!length(objectives) || objectives_complete)
 		report += "<span class='greentext big'>The [name] was successful!</span>"
 	else
 		report += "<span class='redtext big'>The [name] has failed!</span>"
 
 	return report.Join("<br>")
+
+/// "Oh, well, that's step one. What about two through ten?"
+/// Beheading bloodsuckers is kinda buggy and results in them being dead-dead without actually being final deathed, which is NOT something that's desired.
+/// Just stake them. No shortcuts.
+/datum/antagonist/bloodsucker/proc/ensure_brain_nonvital(mob/living/mob_override)
+	var/mob/living/carbon/carbon_owner = mob_override || owner.current
+	if(!iscarbon(carbon_owner) || isoozeling(carbon_owner))
+		return
+	var/obj/item/organ/internal/brain/brain = carbon_owner.get_organ_slot(ORGAN_SLOT_BRAIN)
+	if(QDELETED(brain))
+		return
+	brain.organ_flags &= ~ORGAN_VITAL
+	brain.decoy_override = TRUE
 
 /datum/antagonist/bloodsucker/proc/give_starting_powers()
 	for(var/datum/action/cooldown/bloodsucker/all_powers as anything in all_bloodsucker_powers)
@@ -387,7 +430,7 @@
 		var/datum/species/user_species = user.dna.species
 		var/obj/item/bodypart/user_left_arm = user.get_bodypart(BODY_ZONE_L_ARM)
 		var/obj/item/bodypart/user_right_arm = user.get_bodypart(BODY_ZONE_R_ARM)
-		user_species.species_traits += DRINKSBLOOD
+		user_species.inherent_traits += TRAIT_DRINKS_BLOOD
 		user.dna?.remove_all_mutations()
 		user_left_arm.unarmed_damage_low += 1 //lowest possible punch damage - 0
 		user_left_arm.unarmed_damage_high += 1 //highest possible punch damage - 9
@@ -429,7 +472,7 @@
 	if(ishuman(owner.current))
 		var/mob/living/carbon/human/user = owner.current
 		var/datum/species/user_species = user.dna.species
-		user_species.species_traits -= DRINKSBLOOD
+		user_species.inherent_traits -= TRAIT_DRINKS_BLOOD
 	// Remove all bloodsucker traits
 	owner.current.remove_traits(bloodsucker_traits, BLOODSUCKER_TRAIT)
 	// Update Health

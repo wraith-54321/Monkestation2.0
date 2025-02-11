@@ -269,6 +269,7 @@
 	desc = "This module can create mirage grenades at the user's liking. These grenades create holographic copies of the user."
 	icon_state = "mirage_grenade"
 	cooldown_time = 20 SECONDS
+	allow_flags = MODULE_ALLOW_INACTIVE
 	overlay_state_inactive = "module_mirage_grenade"
 	dispense_type = /obj/item/grenade/mirage
 
@@ -364,8 +365,8 @@
 		Its loud ping is much harder to hide in an indoor station than in the outdoor operations it was designed for."
 	icon_state = "active_sonar"
 	module_type = MODULE_USABLE
-	use_power_cost = DEFAULT_CHARGE_DRAIN * 5
-	complexity = 3
+	use_power_cost = DEFAULT_CHARGE_DRAIN * 4
+	complexity = 2
 	incompatible_modules = list(/obj/item/mod/module/active_sonar)
 	cooldown_time = 25 SECONDS
 

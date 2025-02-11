@@ -4,8 +4,10 @@
 	typepath = /datum/round_event/antagonist/solo/wizard
 	antag_flag = ROLE_WIZARD
 	antag_datum = /datum/antagonist/wizard
+	shared_occurence_type = SHARED_HIGH_THREAT
 	restricted_roles = list(
 		JOB_CAPTAIN,
+		JOB_BLUESHIELD,
 		JOB_HEAD_OF_SECURITY,
 	) // Just to be sure that a wizard getting picked won't ever imply a Captain or HoS not getting drafted
 	maximum_antags = 1
@@ -24,6 +26,7 @@
 	weight = 2
 	min_players = 35
 	max_occurrences = 1
+	event_icon_state = "wizard"
 
 /datum/round_event_control/antagonist/solo/wizard/can_spawn_event(players_amt, allow_magic = FALSE, fake_check = FALSE)
 	. = ..()

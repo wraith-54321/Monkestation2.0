@@ -52,6 +52,7 @@ em						{font-style: normal;	font-weight: bold;}
 .syndradio				{color: #6d3f40;}
 .centcomradio			{color: #686868;}
 .aiprivradio			{color: #ff00ff;}
+.enteradio				{color: #00ff99;}
 .redteamradio			{color: #ff0000;}
 .blueteamradio			{color: #0000ff;}
 .greenteamradio			{color: #00ff00;}
@@ -135,6 +136,7 @@ h1.alert, h2.alert		{color: #000000;}
 .robot					{font-family: "Courier New", cursive, sans-serif;}
 
 .command_headset		{font-weight: bold;	font-size: 3;}
+.soapbox 				{font-weight: bold; font-size: 2;}
 .small					{font-size: 1;}
 .big					{font-size: 3;}
 .reallybig				{font-size: 4;}
@@ -171,6 +173,8 @@ h1.alert, h2.alert		{color: #000000;}
 .monkey					{color: #975032;}
 .swarmer				{color: #2C75FF;}
 .resonate				{color: #298F85;}
+
+.upside_down			{display: inline; -moz-transform: scale(-1, -1); -webkit-transform: scale(-1, -1); -o-transform: scale(-1, -1); -ms-transform: scale(-1, -1); transform: scale(-1, -1);}
 
 //MONKESTATION ADDITION START
 .brass {
@@ -234,5 +238,6 @@ h1.alert, h2.alert		{color: #000000;}
 .orange 				{color: #b8761a;}
 .yellow					{color: #c7b72c;}
 .cyan					{color: #0ea1e6;}
+.uncommonradio			{color: #78a1b1;}
 // MONKESTATION ADDITION END
 </style>"}

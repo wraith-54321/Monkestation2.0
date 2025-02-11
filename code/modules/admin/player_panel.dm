@@ -2,7 +2,7 @@
 	if(!check_rights())
 		return
 	log_admin("[key_name(usr)] checked the player panel.")
-	var/dat = "<html><head><meta http-equiv='X-UA-Compatible' content='IE=edge; charset=UTF-8'/><title>Player Panel</title></head>"
+	var/dat = "<html><head><meta http-equiv='X-UA-Compatible' content='IE=edge' charset='UTF-8'/><title>Player Panel</title></head>"
 
 	//javascript, the part that does most of the work~
 	dat += {"
@@ -231,10 +231,10 @@
 			if(isliving(M))
 
 				if(iscarbon(M)) //Carbon stuff
-					if(ismonkey(M))
-						M_job = "Monkey"
-					else if(ishuman(M))
+					if(ishuman(M) && M.job)
 						M_job = M.job
+					else if(ismonkey(M))
+						M_job = "Monkey"
 					else if(isalien(M)) //aliens
 						if(islarva(M))
 							M_job = "Alien larva"

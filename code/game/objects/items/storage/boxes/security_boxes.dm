@@ -10,6 +10,18 @@
 	for(var/i in 1 to 7)
 		new /obj/item/grenade/flashbang(src)
 
+//MONKESTATION EDIT START
+/obj/item/storage/box/sec_smokebomb
+	name = "box of smoke grenades (WARNING)"
+	desc = "The rest of the warning label is torn off..."
+	icon_state = "secbox"
+	illustration = "grenade"
+
+/obj/item/storage/box/sec_smokebomb/PopulateContents()
+	for(var/i in 1 to 7)
+		new /obj/item/grenade/smokebomb/security(src)
+//MONKESTATION EDIT STOP
+
 /obj/item/storage/box/stingbangs
 	name = "box of stingbangs (WARNING)"
 	desc = "<B>WARNING: These devices are extremely dangerous and can cause severe injuries or death in repeated use.</B>"
@@ -237,6 +249,16 @@
 /obj/item/storage/box/beanbag/PopulateContents()
 	for(var/i in 1 to 6)
 		new /obj/item/ammo_casing/shotgun/beanbag(src)
+
+/obj/item/storage/box/breacherslug
+	name = "box of breaching shotgun shells"
+	desc = "A box full of breaching slugs, designed for rapid entry, not very effective against anything else."
+	icon_state = "breacher_box"
+	illustration = null
+
+/obj/item/storage/box/breacherslug/PopulateContents()
+	for(var/i in 1 to 7)
+		new /obj/item/ammo_casing/shotgun/breacher(src)
 
 /obj/item/storage/box/emptysandbags
 	name = "box of empty sandbags"

@@ -78,8 +78,8 @@
 		return COMPONENT_INCOMPATIBLE
 
 	var/atom/movable/movable_parent = parent
-	if(movable_parent.light_system != MOVABLE_LIGHT && movable_parent.light_system != MOVABLE_LIGHT_DIRECTIONAL && movable_parent.light_system != MOVABLE_LIGHT_BEAM)
-		stack_trace("[type] added to [parent], with [movable_parent.light_system] value for the light_system var. Use [MOVABLE_LIGHT], [MOVABLE_LIGHT_DIRECTIONAL] or [MOVABLE_LIGHT_BEAM] instead.")
+	if(movable_parent.light_system != OVERLAY_LIGHT && movable_parent.light_system != OVERLAY_LIGHT_DIRECTIONAL && movable_parent.light_system != MOVABLE_LIGHT_BEAM)
+		stack_trace("[type] added to [parent], with [movable_parent.light_system] value for the light_system var. Use [OVERLAY_LIGHT], [OVERLAY_LIGHT_DIRECTIONAL] or [MOVABLE_LIGHT_BEAM] instead.")
 		return COMPONENT_INCOMPATIBLE
 
 	. = ..()
@@ -168,9 +168,10 @@
 
 ///Clears the affected_turfs lazylist, removing from its contents the effects of being near the light.
 /datum/component/overlay_lighting/proc/clean_old_turfs()
+	var/list/marked_turfs = SSdemo.marked_turfs
 	for(var/turf/lit_turf as anything in affected_turfs)
+		marked_turfs?[lit_turf] = TRUE
 		lit_turf.dynamic_lumcount -= lum_power
-		SSdemo.mark_turf(lit_turf) //Monkestation Edit: REPLAYS
 	affected_turfs = null
 
 
@@ -179,9 +180,10 @@
 	if(!current_holder)
 		return
 	. = list()
+	var/list/marked_turfs = SSdemo.marked_turfs
 	for(var/turf/lit_turf in view(lumcount_range, get_turf(current_holder)))
 		lit_turf.dynamic_lumcount += lum_power
-		SSdemo.mark_turf(lit_turf) //Monkestation Edit: REPLAYS
+		marked_turfs?[lit_turf] = TRUE
 		. += lit_turf
 	if(length(.))
 		affected_turfs = .
@@ -371,7 +373,7 @@
 	if(directional)
 		if(beam)
 			cast_range = max(round(new_range * 0.5), 1)
-		else 
+		else
 			cast_range = clamp(round(new_range * 0.5), 1, 3)
 	if(overlay_lighting_flags & LIGHTING_ON)
 		make_luminosity_update()

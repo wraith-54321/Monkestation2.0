@@ -1,14 +1,32 @@
 import { classes } from 'common/react';
 import { sendAct, useBackend, useLocalState } from '../../backend';
-import { Box, Button, Flex, LabeledList, Popper, Stack, TrackOutsideClicks, FitText, Input, Icon } from '../../components';
-import { createSetPreference, PreferencesMenuData, RandomSetting } from './data';
+import {
+  Box,
+  Button,
+  Flex,
+  LabeledList,
+  Popper,
+  Stack,
+  TrackOutsideClicks,
+  FitText,
+  Input,
+  Icon,
+} from '../../components';
+import {
+  createSetPreference,
+  PreferencesMenuData,
+  RandomSetting,
+} from './data';
 import { CharacterPreview } from '../common/CharacterPreview';
 import { RandomizationButton } from './RandomizationButton';
 import { ServerPreferencesFetcher } from './ServerPreferencesFetcher';
 import { MultiNameInput, NameInput } from './names';
 import { Gender, GENDERS } from './preferences/gender';
 import features from './preferences/features';
-import { FeatureChoicedServerData, FeatureValueInput } from './preferences/features/base';
+import {
+  FeatureChoicedServerData,
+  FeatureValueInput,
+} from './preferences/features/base';
 import { filterMap, sortBy } from 'common/collections';
 import { useRandomToggleState } from './useRandomToggleState';
 import { createSearch } from 'common/string';
@@ -61,26 +79,23 @@ const CharacterControls = (props: {
   );
 };
 
-const ChoicedSelection = (
-  props: {
-    name: string;
-    catalog: FeatureChoicedServerData;
-    selected: string;
-    supplementalFeature?: string;
-    supplementalValue?: unknown;
-    onClose: () => void;
-    onSelect: (value: string) => void;
-    searchText: string;
-    setSearchText: (value: string) => void;
-  },
-  context
-) => {
-  const { act } = useBackend<PreferencesMenuData>(context);
+const ChoicedSelection = (props: {
+  name: string;
+  catalog: FeatureChoicedServerData;
+  selected: string;
+  supplementalFeatures?: string[]; // Now an array of features
+  supplementalValues?: unknown[]; // Now an array of values
+  onClose: () => void;
+  onSelect: (value: string) => void;
+  searchText: string;
+  setSearchText: (value: string) => void;
+}) => {
+  const { act } = useBackend<PreferencesMenuData>();
 
   const {
     catalog,
-    supplementalFeature,
-    supplementalValue,
+    supplementalFeatures = [],
+    supplementalValues = [],
     searchText,
     setSearchText,
   } = props;
@@ -93,10 +108,6 @@ const ChoicedSelection = (
     return name;
   });
 
-  const use_small_supplemental =
-    supplementalFeature &&
-    (features[supplementalFeature].small_supplemental === true ||
-      features[supplementalFeature].small_supplemental === undefined);
   return (
     <Box
       className="theme-generic"
@@ -105,27 +116,35 @@ const ChoicedSelection = (
           CLOTHING_SELECTION_CELL_SIZE * CLOTHING_SELECTION_MULTIPLIER
         }px`,
         width: `${CLOTHING_SELECTION_CELL_SIZE * CLOTHING_SELECTION_WIDTH}px`,
-      }}>
+      }}
+    >
       <Box
         className="PopupWindow"
-        style={{ 'padding': '5px' }}
+        style={{ padding: '5px' }}
         width="100%"
-        height="100%">
+        height="100%"
+      >
         <Stack vertical fill>
           <Stack.Item>
             <Stack fill>
-              {supplementalFeature && use_small_supplemental && (
-                <Stack.Item>
-                  <FeatureValueInput
-                    act={act}
-                    feature={features[supplementalFeature]}
-                    featureId={supplementalFeature}
-                    shrink
-                    value={supplementalValue}
-                  />
-                </Stack.Item>
-              )}
-
+              {/* Handle small supplemental features */}
+              {supplementalFeatures.map((feature, index) => {
+                const use_small_supplemental =
+                  features[feature]?.small_supplemental ?? true;
+                return (
+                  use_small_supplemental && (
+                    <Stack.Item key={index}>
+                      <FeatureValueInput
+                        act={act}
+                        feature={features[feature]}
+                        featureId={feature}
+                        shrink
+                        value={supplementalValues[index]}
+                      />
+                    </Stack.Item>
+                  )
+                );
+              })}
               <Stack.Item grow>
                 <Box
                   style={{
@@ -133,7 +152,8 @@ const ChoicedSelection = (
                     'font-weight': 'bold',
                     'font-size': '14px',
                     'text-align': 'center',
-                  }}>
+                  }}
+                >
                   Select {props.name}
                 </Box>
               </Stack.Item>
@@ -167,7 +187,8 @@ const ChoicedSelection = (
             overflowX="hidden"
             overflowY="auto"
             grow
-            className="section-background">
+            className="section-background"
+          >
             <Flex wrap>
               {Object.entries(catalog.icons)
                 .filter(([n, _]) => searchText?.length < 1 || search(n))
@@ -178,7 +199,8 @@ const ChoicedSelection = (
                       basis={`${CLOTHING_SELECTION_CELL_SIZE}px`}
                       style={{
                         padding: '5px',
-                      }}>
+                      }}
+                    >
                       <Button
                         onClick={() => {
                           props.onSelect(name);
@@ -187,7 +209,8 @@ const ChoicedSelection = (
                         style={{
                           height: `${CLOTHING_SELECTION_CELL_SIZE}px`,
                           width: `${CLOTHING_SELECTION_CELL_SIZE}px`,
-                        }}>
+                        }}
+                      >
                         <Box
                           className={classes([
                             'preferences32x32',
@@ -203,7 +226,8 @@ const ChoicedSelection = (
                       <Box textAlign="center">
                         <FitText
                           maxWidth={CLOTHING_SELECTION_CELL_SIZE}
-                          maxFontSize={12}>
+                          maxFontSize={12}
+                        >
                           {name}
                         </FitText>
                       </Box>
@@ -212,48 +236,52 @@ const ChoicedSelection = (
                 })}
             </Flex>
           </Stack.Item>
-          {supplementalFeature && !use_small_supplemental && (
-            <>
-              <Stack.Item mt={0.25}>
-                <Box
-                  pb={0.25}
-                  style={{
-                    'border-bottom': '1px solid rgba(255, 255, 255, 0.1)',
-                    'font-weight': 'bold',
-                    'font-size': '14px',
-                    'text-align': 'center',
-                  }}>
-                  Select {features[supplementalFeature].name}
+          {/* Handle larger supplemental features */}
+          {supplementalFeatures.map((feature, index) => {
+            const use_small_supplemental =
+              features[feature]?.small_supplemental ?? true;
+            return (
+              !use_small_supplemental && (
+                <Box key={index}>
+                  <Stack.Item mt={0.25}>
+                    <Box
+                      pb={0.25}
+                      style={{
+                        'border-bottom': '1px solid rgba(255, 255, 255, 0.1)',
+                        'font-weight': 'bold',
+                        'font-size': '14px',
+                        'text-align': 'center',
+                      }}
+                    >
+                      Select {features[feature].name}
+                    </Box>
+                  </Stack.Item>
+                  <Stack.Item shrink mt={0.5}>
+                    <FeatureValueInput
+                      act={act}
+                      feature={features[feature]}
+                      featureId={feature}
+                      shrink
+                      value={supplementalValues[index]}
+                    />
+                  </Stack.Item>
                 </Box>
-              </Stack.Item>
-              <Stack.Item shrink mt={0.5}>
-                <FeatureValueInput
-                  act={act}
-                  feature={features[supplementalFeature]}
-                  featureId={supplementalFeature}
-                  shrink
-                  value={supplementalValue}
-                />
-              </Stack.Item>
-            </>
-          )}
+              )
+            );
+          })}
         </Stack>
       </Box>
     </Box>
   );
 };
 
-const GenderButton = (
-  props: {
-    handleSetGender: (gender: Gender) => void;
-    gender: Gender;
-  },
-  context
-) => {
+const GenderButton = (props: {
+  handleSetGender: (gender: Gender) => void;
+  gender: Gender;
+}) => {
   const [genderMenuOpen, setGenderMenuOpen] = useLocalState(
-    context,
     'genderMenuOpen',
-    false
+    false,
   );
 
   return (
@@ -283,7 +311,8 @@ const GenderButton = (
             })}
           </Stack>
         )
-      }>
+      }
+    >
       <Button
         onClick={() => {
           setGenderMenuOpen(!genderMenuOpen);
@@ -297,23 +326,20 @@ const GenderButton = (
   );
 };
 
-const MainFeature = (
-  props: {
-    catalog: FeatureChoicedServerData & {
-      name: string;
-      supplemental_feature?: string;
-    };
-    currentValue: string;
-    isOpen: boolean;
-    handleClose: () => void;
-    handleOpen: () => void;
-    handleSelect: (newClothing: string) => void;
-    randomization?: RandomSetting;
-    setRandomization: (newSetting: RandomSetting) => void;
-  },
-  context
-) => {
-  const { act, data } = useBackend<PreferencesMenuData>(context);
+const MainFeature = (props: {
+  catalog: FeatureChoicedServerData & {
+    name: string;
+    supplemental_feature?: string | string[]; // Allow string or array of strings
+  };
+  currentValue: string;
+  isOpen: boolean;
+  handleClose: () => void;
+  handleOpen: () => void;
+  handleSelect: (newClothing: string) => void;
+  randomization?: RandomSetting;
+  setRandomization: (newSetting: RandomSetting) => void;
+}) => {
+  const { act, data } = useBackend<PreferencesMenuData>();
 
   const {
     catalog,
@@ -326,12 +352,24 @@ const MainFeature = (
     setRandomization,
   } = props;
 
-  const supplementalFeature = catalog.supplemental_feature;
-  let [searchText, setSearchText] = useLocalState(
-    context,
-    catalog.name + '_choiced_search',
-    ''
+  // Normalize supplementalFeature to always be an array
+  const supplementalFeatures = Array.isArray(catalog.supplemental_feature)
+    ? catalog.supplemental_feature
+    : catalog.supplemental_feature
+      ? [catalog.supplemental_feature]
+      : [];
+
+  const supplementalValues = supplementalFeatures.map((feature) =>
+    feature
+      ? data.character_preferences.supplemental_features[feature]
+      : undefined,
   );
+
+  let [searchText, setSearchText] = useLocalState(
+    catalog.name + '_choiced_search',
+    '',
+  );
+
   const handleCloseInternal = () => {
     handleClose();
     setSearchText('');
@@ -349,13 +387,8 @@ const MainFeature = (
               name={catalog.name}
               catalog={catalog}
               selected={currentValue}
-              supplementalFeature={supplementalFeature}
-              supplementalValue={
-                supplementalFeature &&
-                data.character_preferences.supplemental_features[
-                  supplementalFeature
-                ]
-              }
+              supplementalFeatures={supplementalFeatures} // Pass array of features
+              supplementalValues={supplementalValues} // Pass array of values
               onClose={handleCloseInternal}
               onSelect={handleSelect}
               searchText={searchText}
@@ -363,7 +396,8 @@ const MainFeature = (
             />
           </TrackOutsideClicks>
         )
-      }>
+      }
+    >
       <Button
         onClick={() => {
           if (isOpen) {
@@ -378,7 +412,8 @@ const MainFeature = (
         }}
         position="relative"
         tooltip={catalog.name}
-        tooltipPosition="right">
+        tooltipPosition="right"
+      >
         <Box
           className={classes([
             'preferences32x32',
@@ -400,7 +435,6 @@ const MainFeature = (
                 position: 'absolute',
                 right: '1px',
               },
-
               onOpen: (event) => {
                 // We're a button inside a button.
                 // Did you know that's against the W3C standard? :)
@@ -444,7 +478,8 @@ const PreferenceList = (props: {
         padding: '4px',
       }}
       overflowX="hidden"
-      overflowY="scroll">
+      overflowY="scroll"
+    >
       <LabeledList>
         {sortPreferences(Object.entries(props.preferences)).map(
           ([featureId, value]) => {
@@ -463,7 +498,8 @@ const PreferenceList = (props: {
               <LabeledList.Item
                 key={featureId}
                 label={feature.name}
-                verticalAlign="middle">
+                verticalAlign="middle"
+              >
                 <Stack fill>
                   {randomSetting && (
                     <Stack.Item>
@@ -485,29 +521,23 @@ const PreferenceList = (props: {
                 </Stack>
               </LabeledList.Item>
             );
-          }
+          },
         )}
       </LabeledList>
     </Stack.Item>
   );
 };
 
-export const MainPage = (
-  props: {
-    openSpecies: () => void;
-  },
-  context
-) => {
-  const { act, data } = useBackend<PreferencesMenuData>(context);
+export const MainPage = (props: { openSpecies: () => void }) => {
+  const { act, data } = useBackend<PreferencesMenuData>();
   const [currentClothingMenu, setCurrentClothingMenu] = useLocalState<
     string | null
-  >(context, 'currentClothingMenu', null);
+  >('currentClothingMenu', null);
   const [multiNameInputOpen, setMultiNameInputOpen] = useLocalState(
-    context,
     'multiNameInputOpen',
-    false
+    false,
   );
-  const [randomToggleEnabled] = useRandomToggleState(context);
+  const [randomToggleEnabled] = useRandomToggleState();
 
   return (
     <ServerPreferencesFetcher
@@ -530,7 +560,7 @@ export const MainPage = (
               return (
                 currentSpeciesData.enabled_features.indexOf(featureName) !== -1
               );
-            }
+            },
           ),
         ];
 
@@ -539,7 +569,7 @@ export const MainPage = (
             RandomSetting.Disabled || randomToggleEnabled;
 
         const getRandomization = (
-          preferences: Record<string, unknown>
+          preferences: Record<string, unknown>,
         ): Record<string, RandomSetting> => {
           if (!serverData) {
             return {};
@@ -562,12 +592,12 @@ export const MainPage = (
                 data.character_preferences.randomization[preferenceKey] ||
                   RandomSetting.Disabled,
               ];
-            })
+            }),
           );
         };
 
         const randomizationOfMainFeatures = getRandomization(
-          Object.fromEntries(mainFeatures)
+          Object.fromEntries(mainFeatures),
         );
 
         const nonContextualPreferences = {
@@ -632,7 +662,7 @@ export const MainPage = (
                       name={data.character_preferences.names[data.name_to_use]}
                       handleUpdateName={createSetPreference(
                         act,
-                        data.name_to_use
+                        data.name_to_use,
                       )}
                       openMultiNameInput={() => {
                         setMultiNameInputOpen(true);
@@ -670,7 +700,7 @@ export const MainPage = (
                             }
                             setRandomization={createSetRandomization(
                               act,
-                              clothingKey
+                              clothingKey,
                             )}
                           />
                         </Stack.Item>

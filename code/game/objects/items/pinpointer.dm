@@ -82,7 +82,7 @@
 
 ///Called by update_icon after sanity. There is a target
 /obj/item/pinpointer/proc/get_direction_icon(here, there)
-	if(get_dist_euclidian(here,there) <= minimum_range)
+	if(get_dist_euclidean(here,there) <= minimum_range)
 		return "pinon[alert ? "alert" : ""]direct[icon_suffix]"
 	else
 		setDir(get_dir(here, there))
@@ -176,15 +176,19 @@
 /obj/item/pinpointer/pair
 	name = "pair pinpointer"
 	desc = "A handheld tracking device that locks onto its other half of the matching pair."
-	var/other_pair
+	var/obj/item/pinpointer/pair/other_pair //monkestation edit
 
 /obj/item/pinpointer/pair/Destroy()
 	other_pair = null
 	. = ..()
 
 /obj/item/pinpointer/pair/scan_for_target()
-	target = other_pair
-
+//monkestation edit start
+	if(other_pair.active)
+		target = other_pair
+	else
+		target = null
+//monkestation edit stop
 /obj/item/pinpointer/pair/examine(mob/user)
 	. = ..()
 	if(!active || !target)
@@ -196,6 +200,7 @@
 
 /obj/item/storage/box/pinpointer_pairs
 	name = "pinpointer pair box"
+	custom_premium_price = PAYCHECK_COMMAND * 3.5 //monkestation edit
 
 /obj/item/storage/box/pinpointer_pairs/PopulateContents()
 	var/obj/item/pinpointer/pair/A = new(src)

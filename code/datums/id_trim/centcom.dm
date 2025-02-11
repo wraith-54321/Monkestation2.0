@@ -46,7 +46,7 @@
 
 /// Trim for Bounty Hunters hired by centcom.
 /datum/id_trim/centcom/bounty_hunter
-	access = list(ACCESS_CENT_GENERAL)
+	access = list(ACCESS_CENT_GENERAL, ACCESS_BOUNTY_HUNTER)
 	assignment = "Bounty Hunter"
 
 /// Trim for Centcom Bartenders.
@@ -173,7 +173,7 @@
 /// Trim for generic ERT janitors. No universal ID card changing access.
 /datum/id_trim/centcom/ert/janitor
 	assignment = JOB_ERT_JANITOR
-	trim_state = "trim_ert_janitor"
+	trim_state = "trim_janitor"
 	subdepartment_color = COLOR_SERVICE_LIME
 	sechud_icon_state = SECHUD_JANITORIAL_RESPONSE_OFFICER
 

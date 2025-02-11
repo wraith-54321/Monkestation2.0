@@ -25,23 +25,29 @@
 		return 0
 	var/protection = 100
 	var/list/covering_clothing = list(head, wear_mask, wear_suit, w_uniform, back, gloves, shoes, belt, s_store, glasses, ears, wear_id, wear_neck) //Everything but pockets. Pockets are l_store and r_store. (if pockets were allowed, putting something armored, gloves or hats for example, would double up on the armor)
+	var/inherent_armor_rating = src.armor?.get_rating(damage_type) //monkestation edit, exists for debugger
 	for(var/obj/item/clothing/clothing_item in covering_clothing)
 		if(clothing_item.body_parts_covered & def_zone.body_part)
-			protection *= (100 - min(clothing_item.get_armor_rating(damage_type), 100)) * 0.01
-	protection *= (100 - min(physiology.armor.get_rating(damage_type), 100)) * 0.01
+			protection *= (100 - min(clothing_item.get_armor_rating(damage_type), 100)) / 100
+	protection *= (100 - min(physiology.armor.get_rating(damage_type), 100)) / 100
+	//monkestation edit start
+	if(!isnull(inherent_armor_rating))
+		protection *= (100 - inherent_armor_rating) / 100
+
+	//end monkeststation edit: now checks src.armor so you can give characters inherent armor without targeting physiology or generating clothing
+	//you can use this with "target.set_armor" and it will work on live creatures
 	return 100 - protection
 
 ///Get all the clothing on a specific body part
-/mob/living/carbon/human/proc/get_clothing_on_part(obj/item/bodypart/def_zone)
+/mob/living/carbon/human/proc/get_clothing_on_part(def_zone)
+	if(istype(def_zone, /obj/item/bodypart))
+		var/obj/item/bodypart/def_bodypart = def_zone
+		def_zone = def_bodypart.body_part
 	var/list/covering_part = list()
 	var/list/body_parts = list(head, wear_mask, wear_suit, w_uniform, back, gloves, shoes, belt, s_store, glasses, ears, wear_id, wear_neck) //Everything but pockets. Pockets are l_store and r_store. (if pockets were allowed, putting something armored, gloves or hats for example, would double up on the armor)
-	for(var/bp in body_parts)
-		if(!bp)
-			continue
-		if(bp && istype(bp , /obj/item/clothing))
-			var/obj/item/clothing/C = bp
-			if(C.body_parts_covered & def_zone.body_part)
-				covering_part += C
+	for(var/obj/item/clothing/worn in body_parts)
+		if(worn.body_parts_covered & def_zone)
+			covering_part += worn
 	return covering_part
 
 /mob/living/carbon/human/bullet_act(obj/projectile/P, def_zone, piercing_hit = FALSE)
@@ -172,8 +178,10 @@
 
 	SEND_SIGNAL(I, COMSIG_ITEM_ATTACK_ZONE, src, user, affecting)
 	I.disease_contact(src, check_zone(user.zone_selected))
-	SSblackbox.record_feedback("nested tally", "item_used_for_combat", 1, list("[I.force]", "[I.type]"))
+	SSblackbox.record_feedback("nested tally", "item_used_for_combat", 1, list("[I.force]", "[initial(I.name)]"))
 	SSblackbox.record_feedback("tally", "zone_targeted", 1, target_area)
+	if(I.pain_damage)
+		cause_pain(target_area, I.pain_damage, I.damtype)
 
 	// the attacked_by code varies among species
 	return dna.species.spec_attacked_by(I, user, affecting, src)
@@ -195,12 +203,24 @@
 	to_chat(user, span_danger("You [hulk_verb] [src]!"))
 	apply_damage(15, BRUTE, wound_bonus=10)
 
-/mob/living/carbon/human/attack_hand(mob/user, list/modifiers)
+/mob/living/carbon/human/attack_hand(mob/living/user, list/modifiers)
 	if(..()) //to allow surgery to return properly.
 		return
 	if(ishuman(user))
 		var/mob/living/carbon/human/H = user
 		dna.species.spec_attack_hand(H, src, null, modifiers)
+
+
+	var/touch_zone = zone_selected
+	var/used_bodypart = HANDS
+	var/block = 0
+	var/bleeding = 0
+	// biting causes the check to consider that both sides are bleeding, allowing for blood-only disease transmission through biting.
+	if ((user.check_contact_sterility(used_bodypart)) || check_contact_sterility(touch_zone))//only one side has to wear protective clothing to prevent contact infection
+		block = 1
+	if ((user.check_bodypart_bleeding(used_bodypart)) && (check_bodypart_bleeding(touch_zone)))//both sides have to be bleeding to allow for blood infections
+		bleeding = 1
+	share_contact_diseases(user,block,bleeding)
 
 /mob/living/carbon/human/attack_paw(mob/living/carbon/human/user, list/modifiers)
 	var/dam_zone = pick(BODY_ZONE_CHEST, BODY_ZONE_PRECISE_L_HAND, BODY_ZONE_PRECISE_R_HAND, BODY_ZONE_L_LEG, BODY_ZONE_R_LEG)
@@ -252,6 +272,7 @@
 				apply_damage(damage, BRUTE, affecting, run_armor_check(affecting, MELEE))
 		return TRUE
 
+/*
 /mob/living/carbon/human/attack_alien(mob/living/carbon/alien/adult/user, list/modifiers)
 	if(check_shields(user, 0, "the [user.name]"))
 		visible_message(span_danger("[user] attempts to touch [src]!"), \
@@ -306,7 +327,7 @@
 		if(!dismembering_strike(user, user.zone_selected)) //Dismemberment successful
 			return TRUE
 		apply_damage(damage, BRUTE, affecting, armor_block)
-
+*/
 
 
 
@@ -767,7 +788,7 @@
 	if(quirks.len)
 		combined_msg += span_notice("You have these quirks: [get_quirk_string(FALSE, CAT_QUIRK_ALL)].")
 
-	to_chat(src, examine_block(combined_msg.Join("\n")))
+	to_chat(src, boxed_message(combined_msg.Join("\n")))
 
 /mob/living/carbon/human/damage_clothes(damage_amount, damage_type = BRUTE, damage_flag = 0, def_zone)
 	if(damage_type != BRUTE && damage_type != BURN)
@@ -886,9 +907,19 @@
 		burning.fire_act((stacks * 25 * seconds_per_tick)) //damage taken is reduced to 2% of this value by fire_act()
 
 /mob/living/carbon/human/on_fire_stack(seconds_per_tick, times_fired, datum/status_effect/fire_handler/fire_stacks/fire_handler)
-	SEND_SIGNAL(src, COMSIG_HUMAN_BURNING)
-	burn_clothing(seconds_per_tick, times_fired, fire_handler.stacks)
-	var/no_protection = FALSE
-	if(dna && dna.species)
-		no_protection = dna.species.handle_fire(src, seconds_per_tick, times_fired, no_protection)
-	fire_handler.harm_human(seconds_per_tick, times_fired, no_protection)
+	var/sigreturn = SEND_SIGNAL(src, COMSIG_HUMAN_BURNING)
+	if(sigreturn & BURNING_HANDLED)
+		return 0
+
+	burn_clothing(seconds_per_tick, fire_handler.stacks)
+	if(!(sigreturn & BURNING_SKIP_PROTECTION))
+		if(get_insulation(FIRE_IMMUNITY_MAX_TEMP_PROTECT) >= 0.9)
+			return 0
+		if(get_insulation(FIRE_SUIT_MAX_TEMP_PROTECT) >= 0.9)
+			return adjust_bodytemperature(HEAT_PER_FIRE_STACK * 0.2 * fire_handler.stacks * seconds_per_tick)
+
+	. = ..()
+	if(. && !HAS_TRAIT(src, TRAIT_RESISTHEAT))
+		add_mood_event("on_fire", /datum/mood_event/on_fire)
+		add_mob_memory(/datum/memory/was_burning)
+	return .

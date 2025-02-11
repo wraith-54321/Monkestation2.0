@@ -33,6 +33,7 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark)
 	var/jobspawn_override = FALSE
 	var/delete_after_roundstart = TRUE
 	var/used = FALSE
+	var/required_jobtitle
 
 /obj/effect/landmark/start/proc/after_round_start()
 	if(delete_after_roundstart)
@@ -702,3 +703,14 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark/start/new_player)
 
 /obj/effect/landmark/navigate_destination/disposals
 	location = "Disposals"
+
+//Monke edit
+/obj/effect/landmark/navigate_destination/servicehallway
+	location = "Service Hallway"
+
+/obj/effect/landmark/navigate_destination/cryo
+	location = "Cryogentic Crew Storage"
+
+/obj/effect/landmark/navigate_destination/virology
+	location = "Virology"
+//End of monke edit

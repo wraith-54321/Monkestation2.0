@@ -155,6 +155,14 @@
 /turf/open/floor/noslip/MakeSlippery(wet_setting, min_wet_time, wet_time_to_add, max_wet_time, permanent)
 	return
 
+/turf/open/floor/noslip/tram/Initialize(mapload)
+	. = ..()
+	var/current_holiday_color = request_holiday_colors(src, PATTERN_VERTICAL_STRIPE)
+	if(current_holiday_color)
+		color = current_holiday_color
+	else
+		color = "#EFB341"
+
 /turf/open/floor/oldshuttle
 	icon = 'icons/turf/shuttleold.dmi'
 	icon_state = "floor"
@@ -263,6 +271,7 @@
 		out of. It only makes sense in the context of space because you're trying to keep a freezing vacuum out. Is anyone following me on this? \
 		The idea of a \"rudimentary\" iron wall makes no sense at all! Is anything i'm even saying here true? Someone's gotta fact check this!"
 	icon_state = "stone_floor"
+	floor_tile = /obj/item/stack/tile/stone // MONKESTATION EDIT: Add a floor tile so xenobio doesn't get screwed by crowbars.
 
 /turf/open/floor/vault
 	name = "strange floor"

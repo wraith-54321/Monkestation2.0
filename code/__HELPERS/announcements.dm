@@ -29,7 +29,7 @@
 	sound_override = 'sound/ai/default/attention.ogg',
 	sender_override = "Server Admin Announcement",
 	encode_title = TRUE,
-	encode_text = TRUE,
+	encode_text = FALSE, //Monkeystation Edit: Admin abuse is mandatory
 	color_override = "grey",
 )
 	if(isnull(text))
@@ -47,6 +47,8 @@
 		announcement_strings += span_announcement_header(generate_unique_announcement_header(title, sender_override))
 		announcement_strings += span_major_announcement_text(text)
 		var/finalized_announcement = create_announcement_div(jointext(announcement_strings, ""), color_override)
+
+		SSdemo.write_chat_global(finalized_announcement)
 
 		if(islist(players))
 			for(var/mob/target in players)

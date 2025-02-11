@@ -77,15 +77,12 @@
 #define CANUNCONSCIOUS (1<<2)
 /// If set, this mob can be grabbed or pushed when bumped into
 #define CANPUSH (1<<3)
-/// Mob godmode. Prevents most statuses and damage from being taken, but is more often than not a crapshoot. Use with caution.
-#define GODMODE (1<<4)
 
 DEFINE_BITFIELD(status_flags, list(
 	"CAN STUN" = CANSTUN,
 	"CAN KNOCKDOWN" = CANKNOCKDOWN,
 	"CAN UNCONSCIOUS" = CANUNCONSCIOUS,
 	"CAN PUSH" = CANPUSH,
-	"GOD MODE" = GODMODE,
 ))
 
 //Health Defines
@@ -272,6 +269,8 @@ GLOBAL_LIST_INIT(shove_disarming_types, typecacheof(list(
 #define BODY_ZONE_R_ARM "r_arm"
 #define BODY_ZONE_L_LEG "l_leg"
 #define BODY_ZONE_R_LEG "r_leg"
+
+#define TOTAL_BODYPART_COUNT 6
 
 GLOBAL_LIST_INIT(arm_zones, list(BODY_ZONE_L_ARM, BODY_ZONE_R_ARM))
 

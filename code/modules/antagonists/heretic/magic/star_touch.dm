@@ -116,7 +116,7 @@
 
 /datum/status_effect/cosmic_beam
 	id = "cosmic_beam"
-	tick_interval = 0.1 SECONDS
+	tick_interval = 0.2 SECONDS
 	duration = 1 MINUTES
 	status_type = STATUS_EFFECT_REPLACE
 	alert_type = null
@@ -196,7 +196,7 @@
 	current_beam = user.Beam(current_target, icon_state="cosmic_beam", time = 1 MINUTES, maxdistance = max_range, beam_type = /obj/effect/ebeam/cosmic)
 	RegisterSignal(current_beam, COMSIG_QDELETING, PROC_REF(beam_died))
 
-	SSblackbox.record_feedback("tally", "gun_fired", 1, type)
+	SSblackbox.record_feedback("tally", "gun_fired", 1, "Cosmic Beam")
 	if(current_target)
 		on_beam_hit(current_target)
 

@@ -433,6 +433,10 @@
 	ignore_alarms = FALSE
 	if(!alarm_type || active) // If we have no alarm type, or are already active, go away
 		return
+	// Do we even care about temperature?
+	for(var/area/place in affecting_areas)
+		if(!place.fire_detect) // If any area is set to disable detection
+			return
 	// Otherwise, reactivate ourselves
 	start_activation_process(alarm_type)
 
@@ -901,9 +905,9 @@
 
 /obj/structure/firelock_frame/rcd_vals(mob/user, obj/item/construction/rcd/the_rcd)
 	if(the_rcd.mode == RCD_DECONSTRUCT)
-		return list("mode" = RCD_DECONSTRUCT, "delay" = 50, "cost" = 16)
+		return list("mode" = RCD_DECONSTRUCT, "delay" = 5 SECONDS, "cost" = 16)
 	else if((constructionStep == CONSTRUCTION_NO_CIRCUIT) && (the_rcd.upgrade & RCD_UPGRADE_SIMPLE_CIRCUITS))
-		return list("mode" = RCD_UPGRADE_SIMPLE_CIRCUITS, "delay" = 20, "cost" = 1)
+		return list("mode" = RCD_UPGRADE_SIMPLE_CIRCUITS, "delay" = 2 SECONDS, "cost" = 1)
 	return FALSE
 
 /obj/structure/firelock_frame/rcd_act(mob/user, obj/item/construction/rcd/the_rcd, passed_mode)

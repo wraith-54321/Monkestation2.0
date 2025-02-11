@@ -43,12 +43,14 @@
 
 		var/client_is_in_db = query_client_in_db.NextRow()
 		if(!client_is_in_db)
-			
 			var/reject_message = "Failed Login: [ckey] [address]-[computer_id] - New Account attempting to connect during panic bunker, but was rejected due to no prior connections to game servers (no database entry)"
 			log_access(reject_message)
 			if (message)
 				message_admins(span_adminnotice("[reject_message]"))
+			qdel(query_client_in_db)
 			return list("reason"="panicbunker", "desc" = "Sorry but the server is currently not accepting connections from never before seen players")
+
+		qdel(query_client_in_db)
 
 	//Whitelist
 	if(!real_bans_only && !C && CONFIG_GET(flag/usewhitelist))
@@ -212,7 +214,7 @@
 
 		if (ban["fromdb"])
 			if(SSdbcore.Connect())
-				INVOKE_ASYNC(SSdbcore, /datum/controller/subsystem/dbcore/proc.QuerySelect, list(
+				INVOKE_ASYNC(SSdbcore, TYPE_PROC_REF(/datum/controller/subsystem/dbcore, QuerySelect), list(
 					SSdbcore.NewQuery(
 						"INSERT INTO [format_table_name("stickyban_matched_ckey")] (matched_ckey, stickyban) VALUES (:ckey, :bannedckey) ON DUPLICATE KEY UPDATE last_matched = now()",
 						list("ckey" = ckey, "bannedckey" = bannedckey)

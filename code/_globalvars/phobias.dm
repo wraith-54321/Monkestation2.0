@@ -50,6 +50,8 @@ GLOBAL_LIST_INIT(phobia_regexes, list(
 	"strangers" = construct_phobia_regex("strangers"),
 	"the supernatural" = construct_phobia_regex("the supernatural"),
 	"blood" = construct_phobia_regex("blood"),
+	"christian minecraft" = construct_phobia_regex("christian minecraft"), //monkestation edit: added for new smite. -dexee 05/24/24
+	"swearing" = construct_phobia_regex("swearing"), //MONKESTATION ADDITION: kakologophobia and easily offended quirks
 ))
 
 GLOBAL_LIST_INIT(phobia_mobs, list(
@@ -69,7 +71,7 @@ GLOBAL_LIST_INIT(phobia_mobs, list(
 		/mob/living/basic/pet/penguin,
 		/mob/living/simple_animal/bot/secbot,
 	)),
-	"doctors" = typecacheof(list(/mob/living/simple_animal/bot/medbot)),
+	"doctors" = typecacheof(list(/mob/living/basic/bot/medbot)),
 	"heresy" = typecacheof(list(
 		/mob/living/basic/heretic_summon,
 	)),
@@ -103,7 +105,7 @@ GLOBAL_LIST_INIT(phobia_mobs, list(
 		/mob/living/basic/wizard,
 		/mob/living/simple_animal/bot/mulebot/paranormal,
 		/mob/living/simple_animal/hostile/dark_wizard,
-		/mob/living/simple_animal/hostile/zombie,
+		/mob/living/basic/zombie,
 	)),
 	"aliens" = typecacheof(list(
 		/mob/living/carbon/alien,
@@ -143,7 +145,7 @@ GLOBAL_LIST_INIT(phobia_objs, list(
 		/obj/item/megaphone/sec,
 		/obj/item/melee/baton,
 		/obj/item/restraints/handcuffs,
-		/obj/item/stamp/hos,
+		/obj/item/stamp/head/hos,
 		/obj/item/toy/figure/hos,
 		/obj/item/toy/figure/secofficer,
 		/obj/machinery/door/airlock/security,
@@ -237,14 +239,8 @@ GLOBAL_LIST_INIT(phobia_objs, list(
 		/obj/item/radio/headset/heads,
 		/obj/item/megaphone/command,
 		/obj/item/melee/baton/abductor,
-		/obj/item/stamp/captain,
-		/obj/item/stamp/ce,
 		/obj/item/stamp/centcom,
-		/obj/item/stamp/cmo,
-		/obj/item/stamp/hop,
-		/obj/item/stamp/hos,
-		/obj/item/stamp/rd,
-		/obj/item/stamp/qm,
+		/obj/item/stamp/head,
 		/obj/item/storage/belt/military/abductor,
 		/obj/item/toy/figure/captain,
 		/obj/item/toy/figure/ce,
@@ -401,14 +397,8 @@ GLOBAL_LIST_INIT(phobia_objs, list(
 		/obj/item/encryptionkey/heads,
 		/obj/item/radio/headset/heads,
 		/obj/item/melee/baton/telescopic,
-		/obj/item/stamp/captain,
-		/obj/item/stamp/ce,
 		/obj/item/stamp/centcom,
-		/obj/item/stamp/cmo,
-		/obj/item/stamp/hop,
-		/obj/item/stamp/hos,
-		/obj/item/stamp/rd,
-		/obj/item/stamp/qm,
+		/obj/item/stamp/head,
 		/obj/item/toy/figure/captain,
 		/obj/item/toy/figure/ce,
 		/obj/item/toy/figure/cmo,
@@ -637,6 +627,6 @@ GLOBAL_LIST_INIT(phobia_species, list(
 	for(var/word in words)
 		words_match += "[REGEX_QUOTE(word)]|"
 	words_match = copytext(words_match, 1, -1)
-	return regex("(\\b|\\A)([words_match])('?s*)(\\b|\\|)", "ig")
+	return regex("(\\b|\\A)([words_match])('?s*)(\\b|\\|)", "i")
 
 #undef PHOBIA_FILE

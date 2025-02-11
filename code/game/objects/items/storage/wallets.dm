@@ -27,9 +27,9 @@
 		/obj/item/coin,
 		/obj/item/dice,
 		/obj/item/disk,
+		/obj/item/gbp_punchcard,
 		/obj/item/implanter,
 		/obj/item/lighter,
-		/obj/item/lipstick,
 		/obj/item/match,
 		/obj/item/paper,
 		/obj/item/pen,
@@ -38,6 +38,7 @@
 		/obj/item/reagent_containers/syringe,
 		/obj/item/reagent_containers/pill,
 		/obj/item/screwdriver,
+		/obj/item/spess_knife,
 		/obj/item/stamp),
 		list(/obj/item/screwdriver/power))
 

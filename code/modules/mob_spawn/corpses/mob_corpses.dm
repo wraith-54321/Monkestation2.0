@@ -20,6 +20,15 @@
 	id = /obj/item/card/id/advanced/chameleon
 	id_trim = /datum/id_trim/chameleon/operative
 
+/obj/effect/mob_spawn/corpse/human/syndicatepilot/lessenedgear
+	outfit = /datum/outfit/syndicatepilotcorpse/lessenedgear
+
+/datum/outfit/syndicatepilotcorpse/lessenedgear
+	name = "Syndicate Pilot Corpse (Less Antag Gear)"
+	gloves = /obj/item/clothing/gloves/color/black
+	id = /obj/item/card/id/advanced/black
+	id_trim = /datum/id_trim/syndicom
+
 /obj/effect/mob_spawn/corpse/human/syndicatecommando
 	name = "Syndicate Commando"
 	hairstyle = "Bald"
@@ -47,6 +56,18 @@
 	back = null
 	id = null
 	id_trim = null
+
+//monkestation edit begin
+/obj/effect/mob_spawn/corpse/human/syndicatecommando/lessenedgear/listeningpost
+	outfit = /datum/outfit/syndicatecommandocorpse/lessenedgear/listeningpost
+
+/datum/outfit/syndicatecommandocorpse/lessenedgear/listeningpost
+	name = "Forgotten Comms Agent Corpse"
+	back = /obj/item/storage/backpack
+	uniform = /obj/item/clothing/under/syndicate/sniper //corpse drip
+	neck = /obj/item/clothing/neck/large_scarf/syndie
+	head = /obj/item/clothing/head/soft/black
+//monke business ends
 
 /obj/effect/mob_spawn/corpse/human/syndicatestormtrooper
 	name = "Syndicate Stormtrooper"

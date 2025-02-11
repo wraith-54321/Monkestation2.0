@@ -1,14 +1,13 @@
 
 /datum/design/board/clonecontrol	//hippie start, re-add cloning
-	name = "Computer Design (Cloning Machine Console)"
+	name = "Cloning Machine Console"
 	desc = "Allows for the construction of circuit boards used to build a new Cloning Machine console."
 	id = "clonecontrol"
 	build_path = /obj/item/circuitboard/computer/cloning
 	category = list(
-		RND_CATEGORY_MACHINE + RND_SUBCATEGORY_MACHINE_MEDICAL
+		RND_CATEGORY_COMPUTER + RND_SUBCATEGORY_MACHINE_MEDICAL
 	)
-	departmental_flags =  DEPARTMENT_BITFLAG_MEDICAL
-
+	departmental_flags =  DEPARTMENT_BITFLAG_MEDICAL | DEPARTMENT_BITFLAG_SCIENCE | DEPARTMENT_BITFLAG_ENGINEERING
 
 /datum/design/board/clonepod
 	name = "Machine Design (Clone Pod)"
@@ -18,7 +17,17 @@
 	category = list(
 		RND_CATEGORY_MACHINE + RND_SUBCATEGORY_MACHINE_MEDICAL
 	)
-	departmental_flags =  DEPARTMENT_BITFLAG_MEDICAL
+	departmental_flags =  DEPARTMENT_BITFLAG_MEDICAL | DEPARTMENT_BITFLAG_SCIENCE | DEPARTMENT_BITFLAG_ENGINEERING
+
+/datum/design/board/clonepod_experimental
+	name = "Machine Design (Experimental Clone Pod)"
+	desc = "Allows for the construction of circuit boards used to build an Experimental Cloning Pod."
+	id = "clonepod_experimental"
+	build_path = /obj/item/circuitboard/machine/clonepod/experimental
+	category = list(
+		RND_CATEGORY_MACHINE + RND_SUBCATEGORY_MACHINE_MEDICAL
+	)
+	departmental_flags =  DEPARTMENT_BITFLAG_SCIENCE
 
 
 /datum/design/board/clonescanner	//hippie end, re-add cloning
@@ -29,7 +38,7 @@
 	category = list(
 		RND_CATEGORY_MACHINE + RND_SUBCATEGORY_MACHINE_MEDICAL
 	)
-	departmental_flags =  DEPARTMENT_BITFLAG_MEDICAL
+	departmental_flags =  DEPARTMENT_BITFLAG_MEDICAL | DEPARTMENT_BITFLAG_SCIENCE | DEPARTMENT_BITFLAG_ENGINEERING
 
 /datum/design/board/nanite_chamber
 	name = "Machine Design (Nanite Chamber Board)"
@@ -39,7 +48,7 @@
 	category = list(
 		RND_CATEGORY_MACHINE + RND_SUBCATEGORY_MACHINE_RESEARCH
 	)
-	departmental_flags =  DEPARTMENT_BITFLAG_SCIENCE
+	departmental_flags =  DEPARTMENT_BITFLAG_SCIENCE | DEPARTMENT_BITFLAG_ENGINEERING
 
 /datum/design/board/public_nanite_chamber
 	name = "Machine Design (Public Nanite Chamber Board)"
@@ -49,7 +58,7 @@
 	category = list(
 		RND_CATEGORY_MACHINE + RND_SUBCATEGORY_MACHINE_RESEARCH
 	)
-	departmental_flags =  DEPARTMENT_BITFLAG_SCIENCE
+	departmental_flags =  DEPARTMENT_BITFLAG_SCIENCE | DEPARTMENT_BITFLAG_ENGINEERING
 
 /datum/design/board/nanite_programmer
 	name = "Machine Design (Nanite Programmer Board)"
@@ -59,7 +68,7 @@
 	category = list(
 		RND_CATEGORY_MACHINE + RND_SUBCATEGORY_MACHINE_RESEARCH
 	)
-	departmental_flags =  DEPARTMENT_BITFLAG_SCIENCE
+	departmental_flags =  DEPARTMENT_BITFLAG_SCIENCE | DEPARTMENT_BITFLAG_ENGINEERING
 
 /datum/design/board/nanite_program_hub
 	name = "Machine Design (Nanite Program Hub Board)"
@@ -69,4 +78,34 @@
 	category = list(
 		RND_CATEGORY_MACHINE + RND_SUBCATEGORY_MACHINE_RESEARCH
 	)
-	departmental_flags =  DEPARTMENT_BITFLAG_SCIENCE
+	departmental_flags =  DEPARTMENT_BITFLAG_SCIENCE | DEPARTMENT_BITFLAG_ENGINEERING
+
+/datum/design/board/bomb_actualizer
+	name = "Machine Design (Bomb Actualizer Board)"
+	desc = "The circuit board for a bomb actualizing machine"
+	id = "bomb_actualizer"
+	build_path = /obj/item/circuitboard/machine/bomb_actualizer
+	category = list(
+	RND_CATEGORY_MACHINE + RND_SUBCATEGORY_MACHINE_RESEARCH
+	)
+	departmental_flags =  DEPARTMENT_BITFLAG_SCIENCE | DEPARTMENT_BITFLAG_ENGINEERING
+
+/datum/design/board/composters
+	name = "Machine Design (NT-Brand Auto Composter Board)"
+	desc = "The circuit board for a NT-Brand Auto Composter."
+	id = "composters"
+	build_path = /obj/item/circuitboard/machine/composters
+	category = list(
+		RND_CATEGORY_MACHINE + RND_SUBCATEGORY_MACHINE_BOTANY
+	)
+	departmental_flags =  DEPARTMENT_BITFLAG_SERVICE | DEPARTMENT_BITFLAG_ENGINEERING
+
+/datum/design/board/splicer
+	name = "Machine Design (Splicer Board)"
+	desc = "The circuit board for a Splicer."
+	id = "splicer"
+	build_path = /obj/item/circuitboard/machine/splicer
+	category = list(
+		RND_CATEGORY_MACHINE + RND_SUBCATEGORY_MACHINE_BOTANY
+	)
+	departmental_flags =  DEPARTMENT_BITFLAG_SERVICE | DEPARTMENT_BITFLAG_ENGINEERING

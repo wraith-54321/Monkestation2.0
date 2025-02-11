@@ -39,7 +39,7 @@
 		var/datum/action/added_action = item_parent.add_item_action(action)
 		linked_action_ref = WEAKREF(added_action)
 
-/datum/component/cult_ritual_item/Destroy(force, silent)
+/datum/component/cult_ritual_item/Destroy(force)
 	cleanup_shields()
 	QDEL_NULL(linked_action_ref)
 	return ..()
@@ -303,7 +303,7 @@
 		span_cult("You [cultist.blood_volume ? "slice open your arm and ":""]begin drawing a sigil of the Geometer.")
 		)
 
-	if(cultist.blood_volume)
+	if(!HAS_TRAIT(cultist, TRAIT_NOBLOOD)) // Monkestation Edit: BLOOD_DATUM
 		cultist.apply_damage(initial(rune_to_scribe.scribe_damage), BRUTE, pick(GLOB.arm_zones), wound_bonus = CANT_WOUND) // *cuts arm* *bone explodes* ever have one of those days?
 
 	var/scribe_mod = initial(rune_to_scribe.scribe_delay)
@@ -366,7 +366,13 @@
 	for(var/shielded_turf in spiral_range_turfs(1, cultist, 1))
 		LAZYADD(shields, new /obj/structure/emergency_shield/cult/narsie(shielded_turf))
 
-	notify_ghosts("[cultist] has begun scribing a Nar'Sie rune!", source = cultist, action = NOTIFY_ORBIT, header = "Maranax Infirmux!")
+	notify_ghosts(
+		"[cultist] has begun scribing a Nar'Sie rune!",
+		source = cultist,
+		action = NOTIFY_ORBIT,
+		header = "Maranax Infirmux!",
+		notify_flags = NOTIFY_CATEGORY_NOFLASH,
+	)
 
 	return TRUE
 

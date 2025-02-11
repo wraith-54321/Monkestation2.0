@@ -20,12 +20,8 @@
 /mob/living/carbon/transfer_blood_to(atom/movable/AM, amount, forced)
 	. = ..()
 
-	if(!mind)
-		return
-	var/datum/antagonist/bloodsucker/bloodsuckerdatum = mind.has_antag_datum(/datum/antagonist/bloodsucker)
-	if(!bloodsuckerdatum)
-		return
-	bloodsuckerdatum.bloodsucker_blood_volume -= amount
+	var/datum/antagonist/bloodsucker/bloodsuckerdatum = mind?.has_antag_datum(/datum/antagonist/bloodsucker)
+	bloodsuckerdatum?.bloodsucker_blood_volume -= amount
 
 /// Prevents using a Memento Mori
 /obj/item/clothing/neck/necklace/memento_mori/memento(mob/living/carbon/human/user)
@@ -34,18 +30,12 @@
 		return
 	return ..()
 
-/mob/living/carbon/human/natural_bodytemperature_stabilization(datum/gas_mixture/environment, seconds_per_tick, times_fired)
-	// Return 0 as your natural temperature. Species proc handle_environment() will adjust your temperature based on this.
-	if(HAS_TRAIT(src, TRAIT_COLDBLOODED))
-		return 0
-	return ..()
 
 // Used when analyzing a Bloodsucker, Masquerade will hide brain traumas (Unless you're a Beefman)
 /mob/living/carbon/get_traumas()
-	if(!mind)
+	if(QDELETED(mind))
 		return ..()
-	var/datum/antagonist/bloodsucker/bloodsuckerdatum = IS_BLOODSUCKER(src)
-	if(bloodsuckerdatum && HAS_TRAIT(src, TRAIT_MASQUERADE))
+	if(IS_BLOODSUCKER(src) && HAS_TRAIT(src, TRAIT_MASQUERADE))
 		return
 	return ..()
 

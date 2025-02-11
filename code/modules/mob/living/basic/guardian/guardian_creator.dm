@@ -98,16 +98,16 @@ GLOBAL_LIST_INIT(guardian_radial_images, setup_guardian_radial())
 		check_jobban = ROLE_PAI,
 		poll_time = 10 SECONDS,
 		ignore_category = POLL_IGNORE_HOLOPARASITE,
-		pic_source = guardian_path,
+		alert_pic = guardian_path,
 		role_name_text = "guardian spirit"
 	)
 	if(LAZYLEN(candidates))
 		var/mob/dead/observer/candidate = pick(candidates)
 		spawn_guardian(user, candidate, guardian_path)
-		used = TRUE
 		SEND_SIGNAL(src, COMSIG_TRAITOR_ITEM_USED(type))
 	else
 		to_chat(user, failure_message)
+		used = FALSE
 
 /// Actually create our guy
 /obj/item/guardian_creator/proc/spawn_guardian(mob/living/user, mob/dead/candidate, guardian_path)
@@ -173,6 +173,7 @@ GLOBAL_LIST_INIT(guardian_radial_images, setup_guardian_radial())
 	icon = 'icons/obj/medical/syringe.dmi'
 	icon_state = "combat_hypo"
 	theme = GUARDIAN_THEME_TECH
+	allow_multiple = TRUE
 	allow_changeling = FALSE
 	use_message = span_holoparasite("You start to power on the injector...")
 	used_message = span_holoparasite("The injector has already been used.")
@@ -201,6 +202,7 @@ GLOBAL_LIST_INIT(guardian_radial_images, setup_guardian_radial())
 	icon = 'icons/obj/lavaland/artefacts.dmi'
 	icon_state = "dustyshard"
 	theme = GUARDIAN_THEME_MINER
+	allow_multiple = TRUE
 	use_message = span_holoparasite("You pierce your skin with the shard...")
 	used_message = span_holoparasite("This shard seems to have lost all its power...")
 	failure_message = span_boldholoparasite("The shard hasn't reacted at all. Maybe try again later...")

@@ -89,7 +89,7 @@
 	var/static/list/set_types
 	if(!set_types)
 		set_types = list()
-		for(var/datum/voucher_set/static_set as anything in subtypesof(/datum/voucher_set))
+		for(var/datum/voucher_set/static_set as anything in subtypesof(/datum/voucher_set/mining)) //monkestation edit
 			set_types[initial(static_set.name)] = new static_set
 
 	var/list/items = list()
@@ -149,7 +149,7 @@
 	icon_state = "data_1"
 
 	///Amount of points this card contains.
-	var/points = 500
+	var/points = 325
 
 /obj/item/card/mining_point_card/examine(mob/user)
 	. = ..()

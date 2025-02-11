@@ -7,6 +7,8 @@
  * Used in creating spooky-text for heretic ascension announcements.
  */
 /proc/generate_heretic_text(length = 25)
+	if(!isnum(length)) // stupid thing so we can use this directly in replacetext
+		length = 25
 	. = ""
 	for(var/i in 1 to length)
 		. += pick("!", "$", "^", "@", "&", "#", "*", "(", ")", "?")
@@ -45,16 +47,20 @@
 	var/total_sacrifices = 0
 	/// A list of TOTAL how many high value sacrifices completed. (Heads of staff)
 	var/high_value_sacrifices = 0
+	/* monkestation removal: sacrifice refactor (see [monkestation\code\modules\antagonists\heretic])
 	/// Lazy assoc list of [refs to humans] to [image previews of the human]. Humans that we have as sacrifice targets.
 	var/list/mob/living/carbon/human/sac_targets
 	/// List of all sacrifice target's names, used for end of round report
 	var/list/all_sac_targets = list()
+	monkestation end */
 	/// Whether we're drawing a rune or not
 	var/drawing_rune = FALSE
 	/// A static typecache of all tools we can scribe with.
 	var/static/list/scribing_tools = typecacheof(list(/obj/item/pen, /obj/item/toy/crayon))
 	/// A blacklist of turfs we cannot scribe on.
 	var/static/list/blacklisted_rune_turfs = typecacheof(list(/turf/open/space, /turf/open/openspace, /turf/open/lava, /turf/open/chasm))
+	/// Wether we are allowed to ascend
+	var/feast_of_owls = FALSE
 	/// Static list of what each path converts to in the UI (colors are TGUI colors)
 	var/static/list/path_to_ui_color = list(
 		PATH_START = "grey",
@@ -66,6 +72,7 @@
 		PATH_BLADE = "label", // my favorite color is label
 		PATH_COSMIC = "purple",
 		PATH_KNOCK = "yellow",
+		PATH_MOON = "blue",
 	)
 	var/static/list/path_to_rune_color = list(
 		PATH_START = COLOR_LIME,
@@ -76,11 +83,14 @@
 		PATH_BLADE = COLOR_SILVER,
 		PATH_COSMIC = COLOR_PURPLE,
 		PATH_KNOCK = COLOR_YELLOW,
+		PATH_MOON = COLOR_BLUE_LIGHT,
 	)
 
+/* monkestation removal: sacrifice refactor
 /datum/antagonist/heretic/Destroy()
 	LAZYNULL(sac_targets)
 	return ..()
+monkestation end */
 
 /datum/antagonist/heretic/ui_data(mob/user)
 	var/list/data = list()
@@ -213,7 +223,7 @@
 	if(give_objectives)
 		forge_primary_objectives()
 
-	owner.current.playsound_local(get_turf(owner.current), 'sound/ambience/antag/ecult_op.ogg', 100, FALSE, pressure_affected = FALSE, use_reverb = FALSE)//subject to change
+	owner.current.playsound_local(get_turf(owner.current), 'sound/ambience/antag/heretic/heretic_gain.ogg', 100, FALSE, pressure_affected = FALSE, use_reverb = FALSE)//subject to change
 
 	for(var/starting_knowledge in GLOB.heretic_start_knowledge)
 		gain_knowledge(starting_knowledge)
@@ -424,6 +434,7 @@
 		other_sac_objective.owner = owner
 		objectives += other_sac_objective
 
+/* monkestation removal: sacrifice refactor (see [monkestation\code\modules\antagonists\heretic])
 /**
  * Add [target] as a sacrifice target for the heretic.
  * Generates a preview image and associates it with a weakref of the mob.
@@ -457,6 +468,7 @@
 	SIGNAL_HANDLER
 
 	remove_sacrifice_target(source)
+monkestation end */
 
 /**
  * Increments knowledge by one.
@@ -464,7 +476,7 @@
  */
 /datum/antagonist/heretic/proc/passive_influence_gain()
 	knowledge_points++
-	if(owner.current.stat <= SOFT_CRIT)
+	if(owner.current?.stat <= SOFT_CRIT)
 		to_chat(owner.current, "[span_hear("You hear a whisper...")] [span_hypnophrase(pick(strings(HERETIC_INFLUENCE_FILE, "drain_message")))]")
 	addtimer(CALLBACK(src, PROC_REF(passive_influence_gain)), passive_gain_timer)
 
@@ -475,7 +487,7 @@
 
 	parts += printplayer(owner)
 	parts += "<b>Sacrifices Made:</b> [total_sacrifices]"
-	parts += "The heretic's sacrifice targets were: [english_list(all_sac_targets, nothing_text = "No one")]."
+	parts += "The heretic's sacrifice targets were: [roundend_sac_list()]." // monkestation edit: sacrifice refactor
 	if(length(objectives))
 		var/count = 1
 		for(var/datum/objective/objective as anything in objectives)
@@ -483,7 +495,8 @@
 				succeeded = FALSE
 			parts += "<b>Objective #[count]</b>: [objective.explanation_text] [objective.get_roundend_success_suffix()]"
 			count++
-
+	if(feast_of_owls)
+		parts += span_greentext("Ascension Forsaken")
 	if(ascended)
 		parts += span_greentext(span_big("THE HERETIC ASCENDED!"))
 
@@ -560,6 +573,7 @@
 		to_chat(admin, span_warning("You shouldn't be using this!"))
 		return
 
+	var/list/sac_targets = get_current_target_bodies() // monkestation edit: heretic refactor
 	var/list/removable = list()
 	for(var/mob/living/carbon/human/old_target as anything in sac_targets)
 		removable[old_target.name] = old_target
@@ -621,10 +635,10 @@
 
 	. += "<br>"
 	. += "<i><b>Current Targets:</b></i><br>"
+	var/list/sac_targets = get_current_target_bodies() // monkestation edit: heretic refactor
 	if(LAZYLEN(sac_targets))
 		for(var/mob/living/carbon/human/target as anything in sac_targets)
 			. += " - <b>[target.real_name]</b>, the [target.mind?.assigned_role?.title || "human"].<br>"
-
 	else
 		. += "<i>None!</i><br>"
 	. += "<br>"
@@ -692,6 +706,8 @@
 /datum/antagonist/heretic/proc/can_ascend()
 	if(!can_assign_self_objectives)
 		return FALSE // We spurned the offer of the Mansus :(
+	if(feast_of_owls)
+		return FALSE // We sold our ambition for immediate power :/
 	for(var/datum/objective/must_be_done as anything in objectives)
 		if(!must_be_done.check_completion())
 			return FALSE
@@ -740,7 +756,7 @@
 /datum/objective/major_sacrifice
 	name = "major sacrifice"
 	target_amount = 1
-	explanation_text = "Sacrifice 1 head of staff."
+	explanation_text = "Sacrifice any head of staff." // monkestation edit: clarify that any head can be sacrificed
 
 /datum/objective/major_sacrifice/check_completion()
 	var/datum/antagonist/heretic/heretic_datum = owner?.has_antag_datum(/datum/antagonist/heretic)
@@ -789,14 +805,17 @@
 	name = "summon monsters"
 	target_amount = 2
 	explanation_text = "Summon 2 monsters from the Mansus into this realm."
+/* monkestation removal: refactored in [monkestation\code\modules\antagonists\heretic\heretic_antag.dm]
 	/// The total number of summons the objective owner has done
 	var/num_summoned = 0
 
 /datum/objective/heretic_summon/check_completion()
 	return completed || (num_summoned >= target_amount)
+monkestation end */
 
 /datum/outfit/heretic
 	name = "Heretic (Preview only)"
 
 	suit = /obj/item/clothing/suit/hooded/cultrobes/eldritch
+	head = /obj/item/clothing/head/hooded/cult_hoodie/eldritch
 	r_hand = /obj/item/melee/touch_attack/mansus_fist

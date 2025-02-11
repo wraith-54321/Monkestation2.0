@@ -87,6 +87,9 @@
 
 /obj/machinery/computer/communications/Initialize(mapload)
 	. = ..()
+	// All maps should have at least 1 comms console
+	REGISTER_REQUIRED_MAP_ITEM(1, INFINITY)
+
 	GLOB.shuttle_caller_list += src
 	AddComponent(/datum/component/gps, "Secured Communications Signal")
 
@@ -183,6 +186,11 @@
 		if ("changeSecurityLevel")
 			if (!authenticated_as_silicon_or_captain(usr))
 				return
+			//monkestation edit start:
+			if(istype(get_area(src), /area/shuttle/syndicate/cruiser)) // monkestation edit: Prevents assault ops from modifying the alert level from their shuttle
+				to_chat(usr, span_warning("Unable to connect to security level systems due to local interference"))
+				return
+			//monkestation edit end
 
 			// Check if they have
 			if (!issilicon(usr))
@@ -197,13 +205,22 @@
 					playsound(src, 'sound/machines/terminal_prompt_deny.ogg', 50, FALSE)
 					return
 
-			var/new_sec_level = SSsecurity_level.text_level_to_number(params["newSecurityLevel"])
-			if (new_sec_level != SEC_LEVEL_GREEN && new_sec_level != SEC_LEVEL_BLUE)
+			// monkestation start: prevent lowering alert level from delta
+			var/datum/security_level/new_sec_level = SSsecurity_level.available_levels[params["newSecurityLevel"]]
+			if(!new_sec_level)
 				return
-			if (SSsecurity_level.get_current_level_as_number() == new_sec_level)
+			var/datum/security_level/current_sec_level = SSsecurity_level.current_security_level
+			if(!current_sec_level.can_crew_change_alert)
+				to_chat(usr, span_warning("Alert cannot be manually lowered from the current security level!"))
+				playsound(src, 'sound/machines/terminal_prompt_deny.ogg', 50, FALSE)
 				return
+			if(!new_sec_level.can_set_via_comms_console)
+				return
+			if(current_sec_level == new_sec_level)
+				return
+			// monkestation end
 
-			SSsecurity_level.set_level(new_sec_level)
+			SSsecurity_level.set_level(new_sec_level.name)
 
 			to_chat(usr, span_notice("Authorization confirmed. Modifying security level."))
 			playsound(src, 'sound/machines/terminal_prompt_confirm.ogg', 50, FALSE)
@@ -284,8 +301,16 @@
 			state = STATE_MAIN
 		if ("recallShuttle")
 			// AIs cannot recall the shuttle
-			if (!authenticated(usr) || issilicon(usr) || syndicate)
+			var/clock_user = IS_CLOCK(usr) //monkestation edit
+			if (!authenticated(usr) || issilicon(usr) || syndicate || (clock_user && GLOB.main_clock_cult?.member_recalled)) //monkestation edit: adds the CWC check
 				return
+//monkestation edit start:
+			if(clock_user)
+				GLOB.main_clock_cult?.member_recalled = TRUE
+			if(istype(get_area(src), /area/shuttle/syndicate/cruiser)) // monkestation edit: Prevents assault ops from recalling from their shuttle
+				to_chat(usr, span_warning("Unable to connect to shuttle systems due to local interference"))
+				return
+//monkestation edit end
 			SSshuttle.cancelEvac(usr)
 		if ("requestNukeCodes")
 			if (!authenticated_as_non_silicon_captain(usr))
@@ -343,7 +368,7 @@
 				span_adminnotice( \
 					"<b color='orange'>CROSS-SECTOR MESSAGE (OUTGOING):</b> [ADMIN_LOOKUPFLW(usr)] is about to send \
 					the following message to <b>[destination]</b> (will autoapprove in [SScommunications.soft_filtering ? DisplayTimeText(EXTENDED_CROSS_SECTOR_CANCEL_TIME) : DisplayTimeText(CROSS_SECTOR_CANCEL_TIME)]): \
-					<b><a href='?src=[REF(src)];reject_cross_comms_message=1'>REJECT</a></b><br> \
+					<b><a href='byond://?src=[REF(src)];reject_cross_comms_message=1'>REJECT</a></b><br> \
 					[html_encode(message)]" \
 				)
 			)
@@ -569,7 +594,8 @@
 
 					data["alertLevelTick"] = alert_level_tick
 					data["canMakeAnnouncement"] = TRUE
-					data["canSetAlertLevel"] = issilicon(user) ? "NO_SWIPE_NEEDED" : "SWIPE_NEEDED"
+					if(SSsecurity_level.current_security_level?.can_crew_change_alert)
+						data["canSetAlertLevel"] = issilicon(user) ? "NO_SWIPE_NEEDED" : "SWIPE_NEEDED"
 				else if(syndicate)
 					data["canMakeAnnouncement"] = TRUE
 
@@ -609,7 +635,9 @@
 					shuttles += list(list(
 						"name" = shuttle_template.name,
 						"description" = shuttle_template.description,
+						"occupancy_limit" = shuttle_template.occupancy_limit,
 						"creditCost" = shuttle_template.credit_cost,
+						"initial_cost" = initial(shuttle_template.credit_cost),
 						"emagOnly" = shuttle_template.emag_only,
 						"prerequisites" = shuttle_template.prerequisites,
 						"ref" = REF(shuttle_template),
@@ -631,11 +659,17 @@
 		ui.open()
 
 /obj/machinery/computer/communications/ui_static_data(mob/user)
-	return list(
+	. = list(
 		"callShuttleReasonMinLength" = CALL_SHUTTLE_REASON_LENGTH,
 		"maxStatusLineLength" = MAX_STATUS_LINE_LENGTH,
 		"maxMessageLength" = MAX_MESSAGE_LEN,
+		"settableLevels" = list(),
 	)
+	for(var/level_name in SSsecurity_level.available_levels)
+		var/datum/security_level/level = SSsecurity_level.available_levels[level_name]
+		if(!level.can_set_via_comms_console)
+			continue
+		.["settableLevels"] += level_name
 
 /obj/machinery/computer/communications/Topic(href, href_list)
 	if (href_list["reject_cross_comms_message"])
@@ -885,6 +919,19 @@
 
 
 		if(HACK_SLEEPER) // Trigger one or multiple sleeper agents with the crew (or for latejoining crew)
+			// monkestation start: inject storyteller events instead of dynamic rulesets
+			var/event_to_spawn = pick_weight(list(
+				/datum/round_event_control/antagonist/solo/traitor/midround = 75,
+				// hmmm, let's rarely spawn some non-traitor antags just to spice things up a bit
+				/datum/round_event_control/antagonist/solo/heretic/midround = 15,
+				/datum/round_event_control/antagonist/solo/from_ghosts/wizard = 1
+			))
+			force_event_after(event_to_spawn, "[hacker] hacking a communications console", rand(20 SECONDS, 1 MINUTES))
+			priority_announce(
+				"Attention crew, it appears that someone on your station has hijacked your telecommunications and broadcasted an unknown signal.",
+				"[command_name()] High-Priority Update",
+			)
+			/*
 			var/datum/dynamic_ruleset/midround/sleeper_agent_type = /datum/dynamic_ruleset/midround/from_living/autotraitor
 			var/datum/game_mode/dynamic/dynamic = SSticker.mode
 			var/max_number_of_sleepers = clamp(round(length(GLOB.alive_player_list) / 20), 1, 3)
@@ -904,6 +951,7 @@
 					"Attention crew, it appears that someone on your station has hijacked your telecommunications and broadcasted an unknown signal.",
 					"[command_name()] High-Priority Update",
 				)
+			*/ // monkestation end
 
 #undef HACK_PIRATE
 #undef HACK_FUGITIVES
@@ -929,6 +977,10 @@
 		content = new_content
 	if(new_possible_answers)
 		possible_answers = new_possible_answers
+
+/datum/comm_message/Destroy()
+	answer_callback = null
+	return ..()
 
 #undef IMPORTANT_ACTION_COOLDOWN
 #undef EMERGENCY_ACCESS_COOLDOWN

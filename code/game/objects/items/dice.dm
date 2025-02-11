@@ -382,7 +382,7 @@
 		if(9)
 			//Cold
 			selected_turf.visible_message(span_userdanger("[user] looks a little under the weather!"))
-			var/virus_choice = pick(subtypesof(/datum/disease/advanced)- typesof(/datum/disease/advanced/premade))
+			var/virus_choice = pick(WILD_ACUTE_DISEASES)
 			var/list/anti = list(
 				ANTIGEN_BLOOD	= 1,
 				ANTIGEN_COMMON	= 1,
@@ -397,7 +397,7 @@
 				EFFECT_DANGER_HARMFUL	= 1,
 				EFFECT_DANGER_DEADLY	= 0,
 				)
-			var/datum/disease/advanced/new_disease = new virus_choice
+			var/datum/disease/acute/new_disease = new virus_choice
 			new_disease.makerandom(list(50,90),list(50,100),anti,bad,src)
 			user.infect_disease(new_disease, TRUE, "(Die of Fate 7)")
 
@@ -442,11 +442,10 @@
 			var/mob/living/carbon/human/human_servant = new(drop_location())
 			do_smoke(0, holder = src, location = drop_location())
 
-			var/list/mob/dead/observer/candidates = SSpolling.poll_ghost_candidates_for_mob("Do you want to play as [user.real_name]'s Servant?", check_jobban = ROLE_WIZARD, role = ROLE_WIZARD, poll_time = 5 SECONDS, target_mob = human_servant, pic_source = user, role_name_text = "dice servant")
-			if(LAZYLEN(candidates))
-				var/mob/dead/observer/candidate = pick(candidates)
-				message_admins("[ADMIN_LOOKUPFLW(candidate)] was spawned as Dice Servant")
-				human_servant.key = candidate.key
+			var/mob/chosen_one = SSpolling.poll_ghosts_for_target("Do you want to play as [span_danger("[user.real_name]'s")] [span_notice("Servant")]?", check_jobban = ROLE_WIZARD, role = ROLE_WIZARD, poll_time = 5 SECONDS, checked_target = human_servant, alert_pic = user, role_name_text = "dice servant")
+			if(chosen_one)
+				message_admins("[ADMIN_LOOKUPFLW(chosen_one)] was spawned as Dice Servant")
+				human_servant.key = chosen_one.key
 
 			human_servant.equipOutfit(/datum/outfit/butler)
 			var/datum/mind/servant_mind = new /datum/mind()

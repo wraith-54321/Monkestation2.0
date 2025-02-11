@@ -255,9 +255,9 @@
 	icon_state = "hostile_env"
 	hoodtype = /obj/item/clothing/head/hooded/hostile_environment
 	armor_type = /datum/armor/hooded_hostile_environment
-	cold_protection = CHEST|GROIN|LEGS|FEET|ARMS|HANDS
+
 	min_cold_protection_temperature = FIRE_SUIT_MIN_TEMP_PROTECT
-	heat_protection = CHEST|GROIN|LEGS|FEET|ARMS|HANDS
+
 	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
 	body_parts_covered = CHEST|GROIN|LEGS|FEET|ARMS|HANDS
 	clothing_flags = THICKMATERIAL
@@ -300,9 +300,9 @@
 	icon_state = "hostile_env"
 	w_class = WEIGHT_CLASS_NORMAL
 	armor_type = /datum/armor/hooded_hostile_environment
-	cold_protection = HEAD
+
 	min_cold_protection_temperature = FIRE_SUIT_MIN_TEMP_PROTECT
-	heat_protection = HEAD
+
 	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
 	clothing_flags = SNUG_FIT|THICKMATERIAL
 	resistance_flags = FIRE_PROOF|LAVA_PROOF|ACID_PROOF
@@ -428,7 +428,7 @@
 		check_jobban = ROLE_PAI,
 		poll_time = 10 SECONDS,
 		ignore_category = POLL_IGNORE_POSSESSED_BLADE,
-		pic_source = src,
+		alert_pic = src,
 		role_name_text = "soul scythe"
 	)
 	if(LAZYLEN(candidates))
@@ -667,9 +667,13 @@
 		return
 	to_chat(user, span_notice("You call out for aid, attempting to summon spirits to your side."))
 
-	notify_ghosts("[user] is raising [user.p_their()] [name], calling for your help!",
-		enter_link="<a href=?src=[REF(src)];orbit=1>(Click to help)</a>",
-		source = user, ignore_key = POLL_IGNORE_SPECTRAL_BLADE, header = "Spectral blade")
+	notify_ghosts(
+		"[user] is raising [user.p_their()] [name], calling for your help!",
+		action = NOTIFY_ORBIT,
+		source = user,
+		ignore_key = POLL_IGNORE_SPECTRAL_BLADE,
+		header = "Spectral blade",
+	)
 
 	summon_cooldown = world.time + 600
 
@@ -731,8 +735,9 @@
 	switch(random)
 		if(1)
 			to_chat(user, span_danger("Your appearance morphs to that of a very small humanoid ash dragon! You get to look like a freak without the cool abilities."))
+			var/datum/color_palette/generic_colors/located = consumer.dna.color_palettes[/datum/color_palette/generic_colors]
+			located.mutant_color = "#A02720"
 			consumer.dna.features = list(
-				"mcolor" = "#A02720",
 				"tail_lizard" = "Dark Tiger",
 				"tail_human" = "None",
 				"snout" = "Sharp",

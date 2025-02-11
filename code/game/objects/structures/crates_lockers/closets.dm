@@ -1,5 +1,11 @@
 #define LOCKER_FULL -1
 
+/// A comprehensive list of all roundstart closets (NOT CRATES)
+GLOBAL_LIST_EMPTY_TYPED(roundstart_station_closets, /obj/structure/closet)
+
+/// A comprehensive list of all roundstart closets in the game world
+GLOBAL_LIST_EMPTY_TYPED(closets, /obj/structure/closet)
+
 /obj/structure/closet
 	name = "closet"
 	desc = "It's a basic storage unit."
@@ -82,6 +88,10 @@
 /obj/structure/closet/Initialize(mapload)
 	. = ..()
 
+	GLOB.closets += src
+	if(is_station_level(z) && mapload)
+		add_to_roundstart_list()
+
 	// if closed, any item at the crate's loc is put in the contents
 	if (mapload && !opened)
 		. = INITIALIZE_HINT_LATELOAD
@@ -112,6 +122,8 @@
 /obj/structure/closet/Destroy()
 	QDEL_NULL(door_obj)
 	QDEL_NULL(electronics)
+	GLOB.closets -= src
+	GLOB.roundstart_station_closets -= src
 	return ..()
 
 /obj/structure/closet/update_appearance(updates=ALL)
@@ -806,10 +818,14 @@
 	return COMSIG_CARBON_SHOVE_HANDLED
 
 /// Signal proc for [COMSIG_ATOM_MAGICALLY_UNLOCKED]. Unlock and open up when we get knock casted.
-/obj/structure/closet/proc/on_magic_unlock(datum/source, datum/action/cooldown/spell/aoe/knock/spell, mob/living/caster)
+/obj/structure/closet/proc/on_magic_unlock(datum/source, datum/action/cooldown/spell/aoe/knock/spell, atom/caster)
 	SIGNAL_HANDLER
 
 	locked = FALSE
 	INVOKE_ASYNC(src, PROC_REF(open))
+
+///Adds the closet to a global list. Placed in its own proc so that crates may be excluded.
+/obj/structure/closet/proc/add_to_roundstart_list()
+	GLOB.roundstart_station_closets += src
 
 #undef LOCKER_FULL

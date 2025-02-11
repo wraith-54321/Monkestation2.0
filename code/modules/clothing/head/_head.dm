@@ -6,6 +6,7 @@
 	righthand_file = 'icons/mob/inhands/clothing/hats_righthand.dmi'
 	body_parts_covered = HEAD
 	slot_flags = ITEM_SLOT_HEAD
+	blood_overlay_type = "helmetblood"
 
 ///Special throw_impact for hats to frisbee hats at people to place them on their heads/attempt to de-hat them.
 /obj/item/clothing/head/throw_impact(atom/hit_atom, datum/thrownthing/thrownthing)
@@ -64,12 +65,6 @@
 
 	if(damaged_clothes)
 		. += mutable_appearance('icons/effects/item_damage.dmi', "damagedhelmet")
-	if(GET_ATOM_BLOOD_DNA_LENGTH(src))
-		if(clothing_flags & LARGE_WORN_ICON)
-			. += mutable_appearance('icons/effects/64x64.dmi', "helmetblood_large")
-		else
-			. += mutable_appearance('icons/effects/blood.dmi', "helmetblood")
-
 
 	if(!(flags_inv & HIDEHAIR))
 		if(ismob(loc))
@@ -91,7 +86,7 @@
 			if(ismob(loc))
 				if(ishuman(loc))
 					var/mob/living/carbon/human/user = loc
-					hat_adding.pixel_y -= GLOB.human_heights_to_offsets[num2text(user.get_mob_height())][1]
+					hat_adding.pixel_y -= GLOB.human_heights_to_offsets[num2text(user.mob_height)][1]
 			hat_adding.pixel_x = (rand(-1, 1))
 			current_hat++
 			. += hat_adding

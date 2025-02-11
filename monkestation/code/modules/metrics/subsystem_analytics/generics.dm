@@ -12,7 +12,8 @@
 		cust["gcr"] = 0
 	else
 		cust["gcr"] = (gcedlasttick / (delslasttick + gcedlasttick))
-	cust["total_harddels"] = totaldels
+	cust["total_harddels"] = totaldels + length(failed_hard_deletes)
+	cust["total_failed_harddels"] = length(failed_hard_deletes)
 	cust["total_softdels"] = totalgcs
 	var/i = 0
 	for(var/list/L in queues)
@@ -33,6 +34,14 @@
 	. = ..()
 	var/list/cust = list()
 	cust["processing_machines"] = length(processing)
+	cust["total_power_used"] = 0
+	cust["total_excess_power"] = 0
+	cust["total_power"] = 0
+	for(var/datum/powernet/powernet in powernets)
+		cust["total_excess_power"] += powernet.netexcess
+		cust["total_power_used"] += powernet.load
+		cust["total_power"] += powernet.avail
+
 	.["custom"] = cust
 
 /datum/controller/subsystem/mobs/get_metrics()

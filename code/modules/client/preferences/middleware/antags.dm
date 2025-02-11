@@ -17,11 +17,11 @@
 	data["selected_antags"] = selected_antags
 
 	var/list/antag_bans = get_antag_bans()
-	if (antag_bans.len)
+	if (length(antag_bans))
 		data["antag_bans"] = antag_bans
 
 	var/list/antag_days_left = get_antag_days_left()
-	if (antag_days_left?.len)
+	if (length(antag_days_left))
 		data["antag_days_left"] = antag_days_left
 
 	return data
@@ -66,7 +66,7 @@
 		if (isnull(antag_flag))
 			continue
 
-		if (is_banned_from(preferences.parent.ckey, list(antag_flag_override || antag_flag, ROLE_SYNDICATE)))
+		if (is_banned_from(preferences.parent?.ckey, list(antag_flag_override || antag_flag, ROLE_SYNDICATE)))
 			antag_bans += serialize_antag_name(antag_flag)
 
 	return antag_bans
@@ -120,6 +120,7 @@
 		ROLE_LONE_OPERATIVE = /datum/antagonist/nukeop/lone,
 		ROLE_SENTIENCE = /datum/antagonist/sentient_creature,
 		//monkestation antags
+		ROLE_CORTICAL_BORER = /datum/antagonist/cortical_borer,
 		ROLE_DRIFTING_CONTRACTOR = /datum/antagonist/traitor/contractor,
 		ROLE_SLASHER = /datum/antagonist/slasher,
 		ROLE_FLORIDA_MAN = /datum/antagonist/florida_man

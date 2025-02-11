@@ -41,6 +41,7 @@
 	var/med_hud = DATA_HUD_MEDICAL_ADVANCED //Determines the med hud to use
 	var/sec_hud = DATA_HUD_SECURITY_ADVANCED //Determines the sec hud to use
 	var/d_hud = DATA_HUD_DIAGNOSTIC_BASIC //Determines the diag hud to use
+	var/crew_hud = DATA_HUD_CREW //MONKE, lets silicons tell who is crew.
 
 	var/law_change_counter = 0
 	var/obj/machinery/camera/builtInCamera = null
@@ -88,19 +89,20 @@
 /mob/living/silicon/proc/create_modularInterface()
 	if(!modularInterface)
 		modularInterface = new /obj/item/modular_computer/pda/silicon(src)
+	var/job_name = ""
 	if(isAI(src))
-		modularInterface.saved_job = "AI"
+		job_name = "AI"
 	if(ispAI(src))
-		modularInterface.saved_job = "pAI Messenger"
+		job_name = "pAI Messenger"
 
 	modularInterface.layer = ABOVE_HUD_PLANE
 	SET_PLANE_EXPLICIT(modularInterface, ABOVE_HUD_PLANE, src)
-	modularInterface.saved_identification = real_name || name
+	modularInterface.imprint_id(real_name || name, job_name)
 
 /mob/living/silicon/robot/create_modularInterface()
 	if(!modularInterface)
 		modularInterface = new /obj/item/modular_computer/pda/silicon/cyborg(src)
-		modularInterface.saved_job = "Cyborg"
+		modularInterface.imprint_id(job_name = "Cyborg")
 	return ..()
 
 /mob/living/silicon/med_hud_set_health()
@@ -189,6 +191,9 @@
 	return laws_to_return
 
 /mob/living/silicon/Topic(href, href_list)
+	// monkestation edit: extra sanity checks
+	if(QDELETED(usr) || QDELETED(usr.client))
+		return
 	if (href_list["lawc"]) // Toggling whether or not a law gets stated by the State Laws verb
 		var/law_index = text2num(href_list["lawc"])
 		var/law = assemble_laws()[law_index + 1]
@@ -220,7 +225,7 @@
 		statelaws()
 
 	if (href_list["printlawtext"]) // this is kinda backwards
-		if (href_list["dead"] && (!isdead(usr) && !usr.client.holder)) // do not print deadchat law notice if the user is now alive
+		if (href_list["dead"] && (!isdead(usr) && !usr?.client?.holder)) // do not print deadchat law notice if the user is now alive
 			to_chat(usr, span_warning("You cannot view law changes that were made while you were dead."))
 			return
 		to_chat(usr, href_list["printlawtext"])
@@ -381,17 +386,21 @@
 	var/datum/atom_hud/secsensor = GLOB.huds[sec_hud]
 	var/datum/atom_hud/medsensor = GLOB.huds[med_hud]
 	var/datum/atom_hud/diagsensor = GLOB.huds[d_hud]
+	var/datum/atom_hud/crewsensor = GLOB.huds[crew_hud]
 	secsensor.hide_from(src)
 	medsensor.hide_from(src)
 	diagsensor.hide_from(src)
+	crewsensor.hide_from(src)
 
 /mob/living/silicon/proc/add_sensors()
 	var/datum/atom_hud/secsensor = GLOB.huds[sec_hud]
 	var/datum/atom_hud/medsensor = GLOB.huds[med_hud]
 	var/datum/atom_hud/diagsensor = GLOB.huds[d_hud]
+	var/datum/atom_hud/crewsensor = GLOB.huds[crew_hud]
 	secsensor.show_to(src)
 	medsensor.show_to(src)
 	diagsensor.show_to(src)
+	crewsensor.show_to(src)
 
 /mob/living/silicon/proc/toggle_sensors()
 	if(incapacitated())
@@ -464,4 +473,4 @@
 	if(!modularInterface)
 		stack_trace("Silicon [src] ( [type] ) was somehow missing their integrated tablet. Please make a bug report.")
 		create_modularInterface()
-	modularInterface.saved_identification = newname
+	modularInterface.imprint_id(name = newname)

@@ -101,6 +101,8 @@
 		take_overall_damage(brute = amount, updating_health = updating_health, required_bodytype = required_bodytype)
 	else
 		heal_overall_damage(brute = abs(amount), required_bodytype = required_bodytype, updating_health = updating_health)
+	if(amount < 0)
+		SEND_SIGNAL(src, COMSIG_CARBON_TAKE_BRUTE_DAMAGE, amount)
 	return amount
 
 /mob/living/carbon/setBruteLoss(amount, updating_health = TRUE, forced = FALSE, required_bodytype)
@@ -150,12 +152,12 @@
 	return ..()
 
 /mob/living/carbon/pre_stamina_change(diff as num, forced)
-	if(!forced && (status_flags & GODMODE))
+	if(!forced && HAS_TRAIT(src, TRAIT_GODMODE))
 		return 0
 	return diff
 
 /**
- * If an organ exists in the slot requested, and we are capable of taking damage (we don't have [GODMODE] on), call the damage proc on that organ.
+ * If an organ exists in the slot requested, and we are capable of taking damage (we don't have [TRAIT_GODMODE]), call the damage proc on that organ.
  *
  * Arguments:
  * * slot - organ slot, like [ORGAN_SLOT_HEART]
@@ -165,14 +167,14 @@
  */
 /mob/living/carbon/adjustOrganLoss(slot, amount, maximum, required_organtype)
 	var/obj/item/organ/affected_organ = get_organ_slot(slot)
-	if(!affected_organ || (status_flags & GODMODE))
+	if(!affected_organ || HAS_TRAIT(src, TRAIT_GODMODE))
 		return
 	if(required_organtype && (affected_organ.status != required_organtype))
 		return
 	affected_organ.apply_organ_damage(amount, maximum)
 
 /**
- * If an organ exists in the slot requested, and we are capable of taking damage (we don't have [GODMODE] on), call the set damage proc on that organ, which can
+ * If an organ exists in the slot requested, and we are capable of taking damage (we don't have [TRAIT_GODMODE]), call the set damage proc on that organ, which can
  * set or clear the failing variable on that organ, making it either cease or start functions again, unlike adjustOrganLoss.
  *
  * Arguments:
@@ -182,7 +184,7 @@
  */
 /mob/living/carbon/setOrganLoss(slot, amount, required_organtype)
 	var/obj/item/organ/affected_organ = get_organ_slot(slot)
-	if(!affected_organ || (status_flags & GODMODE))
+	if(!affected_organ || HAS_TRAIT(src, TRAIT_GODMODE))
 		return
 	if(required_organtype && (affected_organ.status != required_organtype))
 		return
@@ -244,8 +246,8 @@
  *
  * It automatically updates health status
  */
-/mob/living/carbon/heal_bodypart_damage(brute = 0, burn = 0, updating_health = TRUE, required_bodytype)
-	var/list/obj/item/bodypart/parts = get_damaged_bodyparts(brute, burn, required_bodytype)
+/mob/living/carbon/heal_bodypart_damage(brute = 0, burn = 0, updating_health = TRUE, required_bodytype = NONE, target_zone = null)
+	var/list/obj/item/bodypart/parts = get_damaged_bodyparts(brute, burn, required_bodytype, target_zone)
 	if(!parts.len)
 		return
 	var/obj/item/bodypart/picked = pick(parts)
@@ -294,7 +296,7 @@
 
 /// damage MANY bodyparts, in random order
 /mob/living/carbon/take_overall_damage(brute = 0, burn = 0, stamina = 0, updating_health = TRUE, required_bodytype)
-	if(status_flags & GODMODE)
+	if(HAS_TRAIT(src, TRAIT_GODMODE))
 		return //godmode
 
 	var/list/obj/item/bodypart/parts = get_damageable_bodyparts(required_bodytype)

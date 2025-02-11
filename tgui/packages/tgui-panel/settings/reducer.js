@@ -4,9 +4,18 @@
  * @license MIT
  */
 
-import { changeSettingsTab, loadSettings, openChatSettings, toggleSettings, updateSettings, addHighlightSetting, removeHighlightSetting, updateHighlightSetting } from './actions';
+import {
+  changeSettingsTab,
+  loadSettings,
+  openChatSettings,
+  toggleSettings,
+  updateSettings,
+  addHighlightSetting,
+  removeHighlightSetting,
+  updateHighlightSetting,
+} from './actions';
 import { createDefaultHighlightSetting } from './model';
-import { SETTINGS_TABS, FONTS, MAX_HIGHLIGHT_SETTINGS } from './constants';
+import { SETTINGS_TABS, FONTS } from './constants';
 
 const defaultHighlightSetting = createDefaultHighlightSetting();
 
@@ -65,6 +74,12 @@ export const settingsReducer = (state = initialState, action) => {
       nextState.highlightSettingById[defaultHighlightSetting.id] =
         defaultHighlightSetting;
     }
+    // Migrate old highlights to include enabled: true
+    Object.keys(nextState.highlightSettingById).forEach((key) => {
+      if (nextState.highlightSettingById[key].enabled === undefined) {
+        nextState.highlightSettingById[key].enabled = true;
+      }
+    });
     // Update the highlight settings for default highlight
     // settings compatibility
     const highlightSetting =
@@ -104,9 +119,6 @@ export const settingsReducer = (state = initialState, action) => {
   }
   if (type === addHighlightSetting.type) {
     const highlightSetting = payload;
-    if (state.highlightSettings.length >= MAX_HIGHLIGHT_SETTINGS) {
-      return state;
-    }
     return {
       ...state,
       highlightSettings: [...state.highlightSettings, highlightSetting.id],
@@ -131,7 +143,7 @@ export const settingsReducer = (state = initialState, action) => {
     } else {
       delete nextState.highlightSettingById[id];
       nextState.highlightSettings = nextState.highlightSettings.filter(
-        (sid) => sid !== id
+        (sid) => sid !== id,
       );
       if (!nextState.highlightSettings.length) {
         nextState.highlightSettings.push(defaultHighlightSetting.id);

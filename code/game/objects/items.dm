@@ -59,9 +59,9 @@
 
 		!!!!!!!!!!!!!!! IMPORTANT !!!!!!!!!!!!!! */
 
-	///Dimensions of the icon file used when this item is worn, eg: hats.dmi (32x32 sprite, 64x64 sprite, etc.). Allows inhands/worn sprites to be of any size, but still centered on a mob properly
+	///Dimensions of the sprite used when this item is worn. Used to center sprites which aren't 32x32 on mobs
 	var/worn_x_dimension = 32
-	///Dimensions of the icon file used when this item is worn, eg: hats.dmi (32x32 sprite, 64x64 sprite, etc.). Allows inhands/worn sprites to be of any size, but still centered on a mob properly
+	///Dimensions of the sprite used when this item is worn. Used to center sprites which aren't 32x32 on mobs
 	var/worn_y_dimension = 32
 	///Same as for [worn_x_dimension][/obj/item/var/worn_x_dimension] but for inhands, uses the lefthand_ and righthand_ file vars
 	var/inhand_x_dimension = 32
@@ -110,13 +110,11 @@
 	///Whether spessmen with an ID with an age below AGE_MINOR (20 by default) can buy this item
 	var/age_restricted = FALSE
 
-	///flags which determine which body parts are protected from heat. [See here][HEAD]
-	var/heat_protection = 0
-	///flags which determine which body parts are protected from cold. [See here][HEAD]
-	var/cold_protection = 0
-	///Set this variable to determine up to which temperature (IN KELVIN) the item protects against heat damage. Keep at null to disable protection. Only protects areas set by heat_protection flags
+	/// Set this variable to determine up to which temperature (IN KELVIN) the item protects against heat damage.
+	/// Keep at null to disable protection.
 	var/max_heat_protection_temperature
-	///Set this variable to determine down to which temperature (IN KELVIN) the item protects against cold damage. 0 is NOT an acceptable number due to if(varname) tests!! Keep at null to disable protection. Only protects areas set by cold_protection flags
+	/// Set this variable to determine down to which temperature (IN KELVIN) the item protects against cold damage.
+	/// Keep at null to disable protection.
 	var/min_cold_protection_temperature
 
 	///list of /datum/action's that this item has.
@@ -182,7 +180,8 @@
 	var/sharpness = NONE
 
 	///How a tool acts when you use it on something, such as wirecutters cutting wires while multitools measure power
-	var/tool_behaviour = NONE
+	var/tool_behaviour = null
+
 	///How fast does the tool work
 	var/toolspeed = 1
 
@@ -229,9 +228,10 @@
 	var/override_notes = FALSE
 	/// Used if we want to have a custom verb text for throwing. "John Spaceman flicks the ciggerate" for example.
 	var/throw_verb
-
+	/// Does this use the advanced reskinning setup?
+	var/uses_advanced_reskins = FALSE
 	/// A lazylist used for applying fantasy values, contains the actual modification applied to a variable.
-	var/list/fantasy_modifications
+	var/list/fantasy_modifications = null
 
 /obj/item/Initialize(mapload)
 	if(attack_verb_continuous)
@@ -252,7 +252,6 @@
 	// Handle adding item associated actions
 	for(var/path in actions_types)
 		add_item_action(path)
-
 	actions_types = null
 
 	if(force_string)
@@ -686,9 +685,12 @@
 	if(item_flags & DROPDEL && !QDELETED(src))
 		qdel(src)
 	item_flags &= ~IN_INVENTORY
+	UnregisterSignal(src, list(SIGNAL_ADDTRAIT(TRAIT_NO_WORN_ICON), SIGNAL_REMOVETRAIT(TRAIT_NO_WORN_ICON)))
 	SEND_SIGNAL(src, COMSIG_ITEM_DROPPED, user)
+	if(user && iscarbon(user))
+		SEND_SIGNAL(user, COMSIG_CARBON_ITEM_DROPPED, src)
 	if(!silent)
-		playsound(src, drop_sound, DROP_SOUND_VOLUME, ignore_walls = FALSE)
+		playsound(src, drop_sound, DROP_SOUND_VOLUME, ignore_walls = FALSE, mixer_channel = drop_mixer_channel) // monkestation edit: sound mixer
 	user?.update_equipment_speed_mods()
 
 /// called just as an item is picked up (loc is not yet changed)
@@ -696,6 +698,8 @@
 	SHOULD_CALL_PARENT(TRUE)
 	SEND_SIGNAL(src, COMSIG_ITEM_PICKUP, user)
 	SEND_SIGNAL(user, COMSIG_LIVING_PICKED_UP_ITEM, src)
+	if(iscarbon(user))
+		SEND_SIGNAL(user, COMSIG_CARBON_ITEM_PICKED_UP, src)
 	item_flags |= IN_INVENTORY
 
 /// called when "found" in pockets and storage items. Returns 1 if the search should end.
@@ -750,17 +754,18 @@
 		give_item_action(action, user, slot)
 
 	item_flags |= IN_INVENTORY
+	RegisterSignals(src, list(SIGNAL_ADDTRAIT(TRAIT_NO_WORN_ICON), SIGNAL_REMOVETRAIT(TRAIT_NO_WORN_ICON)), PROC_REF(update_slot_icon), override = TRUE)
 	if(!initial)
 		if(equip_sound && (slot_flags & slot))
-			playsound(src, equip_sound, EQUIP_SOUND_VOLUME, TRUE, ignore_walls = FALSE)
+			playsound(src, equip_sound, EQUIP_SOUND_VOLUME, TRUE, ignore_walls = FALSE, mixer_channel = equip_mixer_channel) // monkestation: sound mixer
 		else if(slot & ITEM_SLOT_HANDS)
-			playsound(src, pickup_sound, PICKUP_SOUND_VOLUME, ignore_walls = FALSE)
+			playsound(src, pickup_sound, PICKUP_SOUND_VOLUME, ignore_walls = FALSE, mixer_channel = pickup_mixer_channel) // monkestation: sound mixer
 	user.update_equipment_speed_mods()
 
 /// Gives one of our item actions to a mob, when equipped to a certain slot
 /obj/item/proc/give_item_action(datum/action/action, mob/to_who, slot)
 	// Some items only give their actions buttons when in a specific slot.
-	if(!item_action_slot_check(slot, to_who))
+	if(!item_action_slot_check(slot, to_who, action) || (SEND_SIGNAL(src, COMSIG_ITEM_UI_ACTION_SLOT_CHECKED, to_who, action, slot) & COMPONENT_ITEM_ACTION_SLOT_INVALID))
 		// There is a chance we still have our item action currently,
 		// and are moving it from a "valid slot" to an "invalid slot".
 		// So call Remove() here regardless, even if excessive.
@@ -770,7 +775,7 @@
 	action.Grant(to_who)
 
 /// Sometimes we only want to grant the item's action if it's equipped in a specific slot.
-/obj/item/proc/item_action_slot_check(slot, mob/user)
+/obj/item/proc/item_action_slot_check(slot, mob/user, datum/action/action)
 	if(slot & (ITEM_SLOT_BACKPACK|ITEM_SLOT_LEGCUFFED)) //these aren't true slots, so avoid granting actions there
 		return FALSE
 	return TRUE
@@ -859,7 +864,7 @@
 			playsound(hit_atom, 'sound/weapons/throwtap.ogg', 1, volume, -1)
 
 	else
-		playsound(src, drop_sound, YEET_SOUND_VOLUME, ignore_walls = FALSE)
+		playsound(src, drop_sound, YEET_SOUND_VOLUME, ignore_walls = FALSE, mixer_channel = drop_mixer_channel) // monkestation edit: sound mixer
 	return hit_atom.hitby(src, 0, itempush, throwingdatum=throwingdatum)
 
 /obj/item/throw_at(atom/target, range, speed, mob/thrower, spin=1, diagonals_first = 0, datum/callback/callback, force, gentle = FALSE, quickstart = TRUE)
@@ -900,7 +905,15 @@
 		return mutable_appearance(SSgreyscale.GetColoredIconByType(greyscale_config_belt, greyscale_colors), icon_state_to_use)
 	return mutable_appearance('icons/obj/clothing/belt_overlays.dmi', icon_state_to_use)
 
+/**
+ * Extend this to give the item an appearance when placed in a surgical tray. Uses an icon state in `medicart.dmi`.
+ * * tray_extended - If true, the surgical tray the item is placed on is in "table mode"
+ */
+/obj/item/proc/get_surgery_tool_overlay(tray_extended)
+	return null
+
 /obj/item/proc/update_slot_icon()
+	SIGNAL_HANDLER
 	if(!ismob(loc))
 		return
 	var/mob/owner = loc
@@ -1088,7 +1101,7 @@
 	add_filter(HOVER_OUTLINE_FILTER, 1, list("type" = "outline", "size" = 1, "color" = outline_color))
 
 /// Called when a mob tries to use the item as a tool. Handles most checks.
-/obj/item/proc/use_tool(atom/target, mob/living/user, delay, amount=0, volume=0, datum/callback/extra_checks)
+/obj/item/proc/use_tool(atom/target, mob/living/user, delay, amount=0, volume=0, datum/callback/extra_checks, interaction_key)
 	// No delay means there is no start message, and no reason to call tool_start_check before use_tool.
 	// Run the start check here so we wouldn't have to call it manually.
 	if(!delay && !tool_start_check(user, amount))
@@ -1113,7 +1126,7 @@
 		// Create a callback with checks that would be called every tick by do_after.
 		var/datum/callback/tool_check = CALLBACK(src, PROC_REF(tool_check_callback), user, amount, extra_checks)
 
-		if(!do_after(user, delay, target=target, extra_checks=tool_check))
+		if(!do_after(user, delay, target=target, extra_checks=tool_check, interaction_key=interaction_key))
 			return
 	else
 		// Invoke the extra checks once, just in case.
@@ -1375,7 +1388,7 @@
 /obj/item/wash(clean_types)
 	. = ..()
 
-	if(ismob(loc))
+	if(ismob(loc) && ..())
 		var/mob/mob_loc = loc
 		mob_loc.regenerate_icons()
 
@@ -1409,9 +1422,79 @@
 	if(SEND_SIGNAL(src, COMSIG_ITEM_OFFER_TAKEN, offerer, taker) & COMPONENT_OFFER_INTERRUPT)
 		return TRUE
 
+/obj/item/clothing/glasses	//Code to let you switch the side your eyepatch is on! Woo! Just an explanation, this is added to the base glasses so it works on eyepatch-huds too
+	var/can_switch_eye = FALSE	//Having this default to false means that its easy to make sure this doesnt apply to any pre-existing items
+
+/obj/item/reskin_obj(mob/M)
+	if(!uses_advanced_reskins)
+		return ..()
+	if(!LAZYLEN(unique_reskin))
+		return
+
+	/// Is the obj a glasses icon with swappable item states?
+	var/is_swappable = FALSE
+	/// if the item are glasses, this variable stores the item.
+	var/obj/item/clothing/glasses/reskinned_glasses
+
+	if(istype(src, /obj/item/clothing/glasses)) // TODO - Remove this mess about glasses, it shouldn't be necessary anymore.
+		reskinned_glasses = src
+		if(reskinned_glasses.can_switch_eye)
+			is_swappable = TRUE
+
+	var/list/items = list()
+
+
+	for(var/reskin_option in unique_reskin)
+		var/image/item_image = image(icon = unique_reskin[reskin_option][RESKIN_ICON] ? unique_reskin[reskin_option][RESKIN_ICON] : icon, icon_state = "[unique_reskin[reskin_option][RESKIN_ICON_STATE]]")
+		items += list("[reskin_option]" = item_image)
+	sort_list(items)
+
+	var/pick = show_radial_menu(M, src, items, custom_check = CALLBACK(src, PROC_REF(check_reskin_menu), M), radius = 38, require_near = TRUE)
+	if(!pick)
+		return
+	if(!unique_reskin[pick])
+		return
+	current_skin = pick
+
+	if(unique_reskin[pick][RESKIN_ICON])
+		icon = unique_reskin[pick][RESKIN_ICON]
+
+	if(unique_reskin[pick][RESKIN_ICON_STATE])
+		if(is_swappable)
+			base_icon_state = unique_reskin[pick][RESKIN_ICON_STATE]
+			icon_state = base_icon_state
+		else
+			icon_state = unique_reskin[pick][RESKIN_ICON_STATE]
+
+	if(unique_reskin[pick][RESKIN_WORN_ICON])
+		worn_icon = unique_reskin[pick][RESKIN_WORN_ICON]
+
+	if(unique_reskin[pick][RESKIN_WORN_ICON_STATE])
+		worn_icon_state = unique_reskin[pick][RESKIN_WORN_ICON_STATE]
+
+	if(unique_reskin[pick][RESKIN_INHAND_L])
+		lefthand_file = unique_reskin[pick][RESKIN_INHAND_L]
+	if(unique_reskin[pick][RESKIN_INHAND_R])
+		righthand_file = unique_reskin[pick][RESKIN_INHAND_R]
+	if(unique_reskin[pick][RESKIN_INHAND_STATE])
+		inhand_icon_state = unique_reskin[pick][RESKIN_INHAND_STATE]
+	if(unique_reskin[pick][RESKIN_SUPPORTS_VARIATIONS_FLAGS])
+		supports_variations_flags = unique_reskin[pick][RESKIN_SUPPORTS_VARIATIONS_FLAGS]
+	if(ishuman(M))
+		var/mob/living/carbon/human/wearer = M
+		wearer.regenerate_icons() // update that mf
+	to_chat(M, "[src] is now skinned as '[pick].'")
+	post_reskin(M)
+	return TRUE
+
+/// Automatically called after a reskin, for any extra variable changes.
+/obj/item/proc/post_reskin(mob/our_mob)
+	return
+
 /// Special stuff you want to do when an outfit equips this item.
 /obj/item/proc/on_outfit_equip(mob/living/carbon/human/outfit_wearer, visuals_only, item_slot)
-	return
+	SHOULD_CALL_PARENT(TRUE)
+	SEND_SIGNAL(src, COMSIG_ITEM_EQUIPPED_AS_OUTFIT, outfit_wearer, visuals_only, item_slot)
 
 /// Whether or not this item can be put into a storage item through attackby
 /obj/item/proc/attackby_storage_insert(datum/storage, atom/storage_holder, mob/user)
@@ -1613,8 +1696,13 @@
 
 /// Modifies the fantasy variable
 /obj/item/proc/modify_fantasy_variable(variable_key, value, bonus, minimum = 0)
-	if(LAZYACCESS(fantasy_modifications, variable_key) != null)
+	var/result = LAZYACCESS(fantasy_modifications, variable_key)
+	if(!isnull(result))
+		if(HAS_TRAIT(src, TRAIT_INNATELY_FANTASTICAL_ITEM))
+			return result // we are immune to your foul magicks you inferior wizard, we keep our bonuses
+
 		stack_trace("modify_fantasy_variable was called twice for the same key '[variable_key]' on type '[type]' before reset_fantasy_variable could be called!")
+
 	var/intended_target = value + bonus
 	value = max(minimum, intended_target)
 
@@ -1626,9 +1714,14 @@
 /// Returns the original fantasy variable value
 /obj/item/proc/reset_fantasy_variable(variable_key, current_value)
 	var/modification = LAZYACCESS(fantasy_modifications, variable_key)
+
+	if(isnum(modification) && HAS_TRAIT(src, TRAIT_INNATELY_FANTASTICAL_ITEM))
+		return modification // we are immune to your foul magicks you inferior wizard, we keep our bonuses the way they are
+
 	LAZYREMOVE(fantasy_modifications, variable_key)
-	if(!modification)
+	if(isnull(modification))
 		return current_value
+
 	return current_value - modification
 
 /obj/item/proc/apply_fantasy_bonuses(bonus)
@@ -1648,3 +1741,9 @@
 	bare_wound_bonus = reset_fantasy_variable("bare_wound_bonus", bare_wound_bonus)
 	toolspeed = reset_fantasy_variable("toolspeed", toolspeed)
 	SEND_SIGNAL(src, COMSIG_ITEM_REMOVE_FANTASY_BONUSES, bonus)
+
+//automatically finds tool behavior if there is only one. requires an extension of the proc if a tool has multiple behaviors
+/obj/item/proc/get_all_tool_behaviours()
+	if (!isnull(tool_behaviour))
+		return list(tool_behaviour)
+	return null

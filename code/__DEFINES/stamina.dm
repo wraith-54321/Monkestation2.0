@@ -15,7 +15,9 @@
 ///The default maximum stamina
 #define STAMINA_MAX 250
 ///Carbons enter Exhaustion when their stamina drops below this percentage
-#define STAMINA_EXHAUSTION_THRESHOLD_MODIFIER (0.4) //40% or less
+#define STAMINA_EXHAUSTION_THRESHOLD_MODIFIER (0.3) //30% or less
+///Carbons exit Exhaustion when their stamina drops below this percentage
+#define STAMINA_EXHAUSTION_THRESHOLD_MODIFIER_EXIT (0.45) //45% or less
 ///The slowdown when a mob is exhausted
 #define STAMINA_EXHAUSTION_MOVESPEED_SLOWDOWN 3
 ///Carbons will be exposed to stamina stuns upon dropping below this percentage
@@ -78,7 +80,3 @@
 /// Chance to resist out of chokeholds grabs.
 #define STAMINA_GRAB_CHOKE_RESIST_CHANCE 45
 
-////
-/// TRAITS
-////
-#define TRAIT_CANT_STAMCRIT "cant_stamcrit"

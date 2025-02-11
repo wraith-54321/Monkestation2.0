@@ -5,6 +5,7 @@
 	slot_flags = ITEM_SLOT_NECK
 	strip_delay = 40
 	equip_delay_other = 40
+	blood_overlay_type = "mask"
 
 /obj/item/clothing/neck/worn_overlays(mutable_appearance/standing, isinhands = FALSE)
 	. = ..()
@@ -14,8 +15,30 @@
 	if(body_parts_covered & HEAD)
 		if(damaged_clothes)
 			. += mutable_appearance('icons/effects/item_damage.dmi', "damagedmask")
-		if(GET_ATOM_BLOOD_DNA_LENGTH(src))
-			. += mutable_appearance('icons/effects/blood.dmi', "maskblood")
+
+/obj/item/clothing/neck/appears_bloody()
+	return ..() && (body_parts_covered & HEAD)
+
+/obj/item/clothing/neck/bowtie
+	name = "bow tie"
+	desc = "A small neosilk bowtie."
+	icon = 'icons/obj/clothing/neck.dmi'
+	icon_state = "bowtie_greyscale"
+	inhand_icon_state = "" //no inhands
+	w_class = WEIGHT_CLASS_SMALL
+	custom_price = PAYCHECK_CREW
+	greyscale_config = /datum/greyscale_config/ties
+	greyscale_config_worn = /datum/greyscale_config/ties/worn
+	greyscale_colors = "#151516ff"
+	flags_1 = IS_PLAYER_COLORABLE_1
+
+/obj/item/clothing/neck/bowtie/rainbow
+	name = "rainbow bow tie"
+	desc = "An extremely large neosilk rainbow-colored bowtie."
+	icon_state = "bowtie_rainbow"
+	greyscale_config = null
+	greyscale_config_worn = null
+	greyscale_colors = null
 
 /obj/item/clothing/neck/tie
 	name = "slick tie"
@@ -26,7 +49,7 @@
 	w_class = WEIGHT_CLASS_SMALL
 	custom_price = PAYCHECK_CREW
 	greyscale_config = /datum/greyscale_config/ties
-	greyscale_config_worn = /datum/greyscale_config/ties_worn
+	greyscale_config_worn = /datum/greyscale_config/ties/worn
 	greyscale_colors = "#4d4e4e"
 	flags_1 = IS_PLAYER_COLORABLE_1
 	/// All ties start untied unless otherwise specified
@@ -43,7 +66,7 @@
 	if(clip_on)
 		return
 	update_appearance(UPDATE_ICON)
-	register_context()
+	// register_context() monkestation: register_context() is already called in ..()
 
 /obj/item/clothing/neck/tie/examine(mob/user)
 	. = ..()
@@ -298,7 +321,7 @@
 					render_list += "<span class='notice ml-1'>[M.p_their(TRUE)] pulse is [pulse_pressure] and [heart_strength].</span>\n"
 
 	//display our packaged information in an examine block for easy reading
-	to_chat(user, examine_block(jointext(render_list, "")), type = MESSAGE_TYPE_INFO)
+	to_chat(user, boxed_message(jointext(render_list, "")), type = MESSAGE_TYPE_INFO)
 
 ///////////
 //SCARVES//

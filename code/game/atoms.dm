@@ -96,7 +96,7 @@
 	var/list/alternate_appearances
 
 	///Light systems, both shouldn't be active at the same time.
-	var/light_system = STATIC_LIGHT
+	var/light_system = COMPLEX_LIGHT
 	///Range of the maximum brightness of light in tiles. Zero means no light.
 	var/light_inner_range = 0
 	///Range where light begins to taper into darkness in tiles.
@@ -203,7 +203,7 @@
 		if(SSatoms.InitAtom(src, FALSE, args))
 			//we were deleted
 			return
-	SSdemo.mark_new(src) //Monkestation edit: Replays
+		SSdemo.mark_new(src) //Monkestation edit: Replays
 
 /**
  * The primary method that objects are setup in SS13 with
@@ -250,9 +250,6 @@
 		stack_trace("Warning: [src]([type]) initialized multiple times!")
 	flags_1 |= INITIALIZED_1
 
-	if(loc)
-		SEND_SIGNAL(loc, COMSIG_ATOM_INITIALIZED_ON, src) /// Sends a signal that the new atom `src`, has been created at `loc`
-
 	SET_PLANE_IMPLICIT(src, plane)
 
 	if(greyscale_config && greyscale_colors) //we'll check again at item/init for inhand/belt/worn configs.
@@ -262,7 +259,7 @@
 	if(color)
 		add_atom_colour(color, FIXED_COLOUR_PRIORITY)
 
-	if (light_system == STATIC_LIGHT && light_power && (light_inner_range || light_outer_range))
+	if (light_system == COMPLEX_LIGHT && light_power && (light_inner_range || light_outer_range))
 		update_light()
 
 	SETUP_SMOOTHING()
@@ -336,6 +333,20 @@
 
 	if(smoothing_flags & SMOOTH_QUEUED)
 		SSicon_smooth.remove_from_queues(src)
+
+#ifndef DISABLE_DREAMLUAU
+	// These lists cease existing when src does, so we need to clear any lua refs to them that exist.
+	DREAMLUAU_CLEAR_REF_USERDATA(contents)
+	DREAMLUAU_CLEAR_REF_USERDATA(filters)
+	DREAMLUAU_CLEAR_REF_USERDATA(overlays)
+	DREAMLUAU_CLEAR_REF_USERDATA(underlays)
+#endif
+
+	if(material_stats)
+		QDEL_NULL(material_stats)
+
+	if(animate_holder)
+		QDEL_NULL(animate_holder)
 
 	return ..()
 
@@ -489,7 +500,7 @@
 		if(mobile_docking_port.launch_status != check_for_launch_status)
 			continue
 		for(var/area/shuttle/shuttle_area as anything in mobile_docking_port.shuttle_areas)
-			if(current_turf in shuttle_area.get_contained_turfs())
+			if(shuttle_area == current_turf.loc)
 				return TRUE
 
 	return FALSE
@@ -558,7 +569,8 @@
 	return null
 
 ///Return the current air environment in this atom
-/atom/proc/return_air()
+/atom/proc/return_air() as /datum/gas_mixture
+	RETURN_TYPE(/datum/gas_mixture)
 	if(loc)
 		return loc.return_air()
 	else
@@ -821,7 +833,6 @@
 
 /// Updates the icon of the atom
 /atom/proc/update_icon(updates=ALL)
-	SIGNAL_HANDLER
 	SHOULD_CALL_PARENT(TRUE)
 
 	. = NONE
@@ -835,19 +846,54 @@
 			SSvis_overlays.remove_vis_overlay(src, managed_vis_overlays)
 
 		var/list/new_overlays = update_overlays(updates)
-		if (managed_overlays)
-			if (length(overlays) == (islist(managed_overlays) ? length(managed_overlays) : 1))
-				overlays = null
-				POST_OVERLAY_CHANGE(src)
-			else
-				cut_overlay(managed_overlays)
-				managed_overlays = null
-		if(length(new_overlays))
-			if (length(new_overlays) == 1)
-				managed_overlays = new_overlays[1]
-			else
-				managed_overlays = new_overlays
-			add_overlay(new_overlays)
+		var/nulls = 0
+		for(var/i in 1 to length(new_overlays))
+			var/atom/maybe_not_an_atom = new_overlays[i]
+			if(isnull(maybe_not_an_atom))
+				nulls++
+				continue
+			if(istext(maybe_not_an_atom) || isicon(maybe_not_an_atom))
+				continue
+			new_overlays[i] = maybe_not_an_atom.appearance
+		if(nulls)
+			for(var/i in 1 to nulls)
+				new_overlays -= null
+
+		var/identical = FALSE
+		var/new_length = length(new_overlays)
+		if(!managed_overlays && !new_length)
+			identical = TRUE
+		else if(!islist(managed_overlays))
+			if(new_length == 1 && managed_overlays == new_overlays[1])
+				identical = TRUE
+		else if(length(managed_overlays) == new_length)
+			identical = TRUE
+			for(var/i in 1 to length(managed_overlays))
+				if(managed_overlays[i] != new_overlays[i])
+					identical = FALSE
+					break
+
+		if(!identical)
+			var/full_control = FALSE
+			if(managed_overlays)
+				full_control = length(overlays) == (islist(managed_overlays) ? length(managed_overlays) : 1)
+				if(full_control)
+					overlays = null
+				else
+					cut_overlay(managed_overlays)
+
+			switch(length(new_overlays))
+				if(0)
+					if(full_control)
+						POST_OVERLAY_CHANGE(src)
+					managed_overlays = null
+				if(1)
+					add_overlay(new_overlays)
+					managed_overlays = new_overlays[1]
+				else
+					add_overlay(new_overlays)
+					managed_overlays = new_overlays
+
 		. |= UPDATE_OVERLAYS
 
 	. |= SEND_SIGNAL(src, COMSIG_ATOM_UPDATED_ICON, updates, .)
@@ -1004,20 +1050,19 @@
 
 ///returns the mob's dna info as a list, to be inserted in an object's blood_DNA list
 /mob/living/proc/get_blood_dna_list()
-	if(get_blood_id() != /datum/reagent/blood)
-		return
-	return list("ANIMAL DNA" = "Y-")
+	var/datum/blood_type/blood = get_blood_type()
+	if(!isnull(blood))
+		return list("UNKNOWN DNA" = blood.type)
+	return null
 
 ///Get the mobs dna list
 /mob/living/carbon/get_blood_dna_list()
-	if(get_blood_id() != /datum/reagent/blood)
-		return
-	var/list/blood_dna = list()
-	if(dna)
-		blood_dna[dna.unique_enzymes] = dna.blood_type
-	else
-		blood_dna["UNKNOWN DNA"] = "X*"
-	return blood_dna
+	if(isnull(dna)) // Xenos
+		return ..()
+	var/datum/blood_type/blood = get_blood_type()
+	if(isnull(blood)) // Skeletons?
+		return null
+	return list("[dna.unique_enzymes]" = blood.type)
 
 /mob/living/carbon/alien/get_blood_dna_list()
 	return list("UNKNOWN DNA" = "X*")
@@ -1171,6 +1216,9 @@
 		return
 	SEND_SIGNAL(src, COMSIG_ATOM_DIR_CHANGE, dir, newdir)
 	dir = newdir
+	//SEND_SIGNAL(src, COMSIG_ATOM_POST_DIR_CHANGE, dir, newdir)
+	if(smoothing_flags & SMOOTH_BORDER_OBJECT)
+		QUEUE_SMOOTH_NEIGHBORS(src)
 
 /**
  * Called when the atom log's in or out
@@ -1264,23 +1312,23 @@
 /atom/vv_edit_var(var_name, var_value)
 	switch(var_name)
 		if(NAMEOF(src, light_inner_range))
-			if(light_system == STATIC_LIGHT)
+			if(light_system == COMPLEX_LIGHT)
 				set_light(l_inner_range = var_value)
 				. = TRUE
 		if(NAMEOF(src, light_outer_range))
-			if(light_system == STATIC_LIGHT)
+			if(light_system == COMPLEX_LIGHT)
 				set_light(l_outer_range = var_value)
 			else
 				set_light_range(var_value)
 			. = TRUE
 		if(NAMEOF(src, light_power))
-			if(light_system == STATIC_LIGHT)
+			if(light_system == COMPLEX_LIGHT)
 				set_light(l_power = var_value)
 			else
 				set_light_power(var_value)
 			. = TRUE
 		if(NAMEOF(src, light_color))
-			if(light_system == STATIC_LIGHT)
+			if(light_system == COMPLEX_LIGHT)
 				set_light(l_color = var_value)
 			else
 				set_light_color(var_value)
@@ -1334,6 +1382,7 @@
 	VV_DROPDOWN_OPTION(VV_HK_MODIFY_TRANSFORM, "Modify Transform")
 	VV_DROPDOWN_OPTION(VV_HK_SPIN_ANIMATION, "SpinAnimation")
 	VV_DROPDOWN_OPTION(VV_HK_STOP_ALL_ANIMATIONS, "Stop All Animations")
+	VV_DROPDOWN_OPTION(VV_HK_SHAKE, "Shake")
 	VV_DROPDOWN_OPTION(VV_HK_SHOW_HIDDENPRINTS, "Show Hiddenprint log")
 	VV_DROPDOWN_OPTION(VV_HK_ADD_REAGENT, "Add Reagent")
 	VV_DROPDOWN_OPTION(VV_HK_TRIGGER_EMP, "EMP Pulse")
@@ -1342,6 +1391,7 @@
 	VV_DROPDOWN_OPTION(VV_HK_EDIT_COLOR_MATRIX, "Edit Color as Matrix")
 	VV_DROPDOWN_OPTION(VV_HK_ADD_AI, "Add AI controller")
 	VV_DROPDOWN_OPTION(VV_HK_ARMOR_MOD, "Modify Armor")
+	VV_DROPDOWN_OPTION(VV_HK_ADJUST_ANIMATIONS, "Adjust Animations")
 	if(greyscale_colors)
 		VV_DROPDOWN_OPTION(VV_HK_MODIFY_GREYSCALE, "Modify greyscale colors")
 
@@ -1475,6 +1525,20 @@
 			animate(src, transform = null, flags = ANIMATION_END_NOW) // Literally just fucking stop animating entirely because admin said so
 		return
 
+	// monkestation edit start: forced shake
+	if(href_list[VV_HK_SHAKE] && check_rights(R_FUN))
+		var/pixelshiftx = input(usr, "Choose amount of pixels to shift on X axis","Shake Atom") as null|num
+		var/pixelshifty = input(usr, "Choose amount of pixels to shift on Y axis","Shake Atom") as null|num
+		if(isnull(pixelshiftx) || isnull(pixelshifty))
+			return
+
+		var/duration = input(usr, "Duration? (In seconds)","Shake Atom") as null|num
+		var/shake_interval = input(usr, "Shake interval (In seconds) - Default: 0.02", "Shake Atom", 0.02) as null|num
+		if(isnull(shake_interval) || isnull(duration))
+			return
+
+		src.Shake(pixelshiftx, pixelshifty, duration * 10, shake_interval * 10)
+	// monkestation edit end
 	if(href_list[VV_HK_AUTO_RENAME] && check_rights(R_VAREDIT))
 		var/newname = input(usr, "What do you want to rename this to?", "Automatic Rename") as null|text
 		// Check the new name against the chat filter. If it triggers the IC chat filter, give an option to confirm.
@@ -1488,6 +1552,13 @@
 	if(href_list[VV_HK_EDIT_COLOR_MATRIX] && check_rights(R_VAREDIT))
 		var/client/C = usr.client
 		C?.open_color_matrix_editor(src)
+
+	//monke edit start: CYBERNETIC
+	if(href_list[VV_HK_ADJUST_ANIMATIONS] && check_rights(R_VAREDIT))
+		if(!animate_holder)
+			animate_holder = new(src)
+		animate_holder.ui_interact(usr)
+	//monke edit end: CYBERNETIC
 
 /atom/vv_get_header()
 	. = ..()
@@ -1582,6 +1653,14 @@
 			act_result = is_left_clicking ? welder_act(user, tool) : welder_act_secondary(user, tool)
 		if(TOOL_ANALYZER)
 			act_result = is_left_clicking ? analyzer_act(user, tool) : analyzer_act_secondary(user, tool)
+		if(TOOL_BILLOW)
+			act_result = is_left_clicking ? billow_act(user, tool) : billow_act_secondary(user, tool)
+		if(TOOL_TONG)
+			act_result = is_left_clicking ? tong_act(user, tool) : tong_act_secondary(user, tool)
+		if(TOOL_HAMMER)
+			act_result = is_left_clicking ? hammer_act(user, tool) : hammer_act_secondary(user, tool)
+		if(TOOL_BLOWROD)
+			act_result = is_left_clicking ? blowrod_act(user, tool) : blowrod_act_secondary(user, tool)
 	if(!act_result)
 		return
 
@@ -2034,10 +2113,13 @@
 	if (isnull(user))
 		return
 
+	if(user.client)
+		SEND_SIGNAL(user.client, COMSIG_CLIENT_HOVER_NEW, src)
+	SEND_SIGNAL(src, COMSIG_ATOM_MOUSE_ENTERED, user)
+
 	// Face directions on combat mode. No procs, no typechecks, just a var for speed
 	if(user.face_mouse)
 		user.face_atom(src)
-
 	// Screentips
 	var/datum/hud/active_hud = user.hud_used
 	if(!active_hud)
@@ -2055,6 +2137,7 @@
 	var/shift_lmb_ctrl_shift_lmb_line = ""
 	var/extra_lines = 0
 	var/extra_context = ""
+	var/misc_context = ""
 
 	if(isliving(user) || isovermind(user) || isaicamera(user) || (ghost_screentips && isobserver(user)))
 		var/obj/item/held_item = user.get_active_held_item()
@@ -2116,8 +2199,17 @@
 				if (shift_lmb_ctrl_shift_lmb_line != "")
 					extra_lines++
 
+				if(SCREENTIP_CONTEXT_MISC in context)
+					misc_context += context[SCREENTIP_CONTEXT_MISC]
+
+				if (misc_context != "")
+					extra_lines++
+
 				if(extra_lines)
-					extra_context = "<br><span class='subcontext'>[lmb_rmb_line][ctrl_lmb_ctrl_rmb_line][alt_lmb_alt_rmb_line][shift_lmb_ctrl_shift_lmb_line]</span>"
+					if(misc_context != "")
+						extra_context = "<br><span class='subcontext'>[misc_context]\n[lmb_rmb_line][ctrl_lmb_ctrl_rmb_line][alt_lmb_alt_rmb_line][shift_lmb_ctrl_shift_lmb_line]</span>"
+					else
+						extra_context = "<br><span class='subcontext'>[lmb_rmb_line][ctrl_lmb_ctrl_rmb_line][alt_lmb_alt_rmb_line][shift_lmb_ctrl_shift_lmb_line]</span>"
 					//first extra line pushes atom name line up 11px, subsequent lines push it up 9px, this offsets that and keeps the first line in the same place
 					active_hud.screentip_text.maptext_y = -1 + (extra_lines - 1) * -9
 

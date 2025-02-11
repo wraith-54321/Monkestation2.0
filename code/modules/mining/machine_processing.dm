@@ -24,12 +24,12 @@
 /obj/machinery/mineral/proc/register_input_turf()
 	input_turf = get_step(src, input_dir)
 	if(input_turf) // make sure there is actually a turf
-		RegisterSignals(input_turf, list(COMSIG_ATOM_INITIALIZED_ON, COMSIG_ATOM_ENTERED), PROC_REF(pickup_item))
+		RegisterSignals(input_turf, list(COMSIG_ATOM_AFTER_SUCCESSFUL_INITIALIZED_ON, COMSIG_ATOM_ENTERED), PROC_REF(pickup_item))
 
 /// Unregisters signals that are registered the machine's input turf, if it has one.
 /obj/machinery/mineral/proc/unregister_input_turf()
 	if(input_turf)
-		UnregisterSignal(input_turf, list(COMSIG_ATOM_ENTERED, COMSIG_ATOM_INITIALIZED_ON))
+		UnregisterSignal(input_turf, list(COMSIG_ATOM_ENTERED, COMSIG_ATOM_AFTER_SUCCESSFUL_INITIALIZED_ON))
 
 /obj/machinery/mineral/Moved(atom/old_loc, movement_dir, forced, list/old_locs, momentum_change = TRUE)
 	. = ..()
@@ -185,7 +185,7 @@
 		if (selected_material == all_materials)
 			dat += " <i>Smelting</i>"
 		else
-			dat += " <A href='?src=[REF(mineral_machine)];material=[REF(all_materials)]'><b>Not Smelting</b></A> "
+			dat += " <A href='byond://?src=[REF(mineral_machine)];material=[REF(all_materials)]'><b>Not Smelting</b></A> "
 		dat += "<br>"
 
 	dat += "<br><br>"
@@ -197,16 +197,16 @@
 		if (selected_alloy == designs.id)
 			dat += " <i>Smelting</i>"
 		else
-			dat += " <A href='?src=[REF(mineral_machine)];alloy=[designs.id]'><b>Not Smelting</b></A> "
+			dat += " <A href='byond://?src=[REF(mineral_machine)];alloy=[designs.id]'><b>Not Smelting</b></A> "
 		dat += "<br>"
 
 	dat += "<br><br>"
 	//On or off
 	dat += "Machine is currently "
 	if (on)
-		dat += "<A href='?src=[REF(mineral_machine)];set_on=off'>On</A> "
+		dat += "<A href='byond://?src=[REF(mineral_machine)];set_on=off'>On</A> "
 	else
-		dat += "<A href='?src=[REF(mineral_machine)];set_on=on'>Off</A> "
+		dat += "<A href='byond://?src=[REF(mineral_machine)];set_on=on'>Off</A> "
 
 	return dat
 

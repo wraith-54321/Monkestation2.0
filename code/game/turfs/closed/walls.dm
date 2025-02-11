@@ -27,6 +27,7 @@
 	var/hardness = 40
 	var/slicing_duration = 100  //default time taken to slice the wall
 	var/sheet_type = /obj/item/stack/sheet/iron
+	var/scrap_type = /obj/item/stack/scrap/plating
 	var/sheet_amount = 2
 	var/girder_type = /obj/structure/girder
 	/// A turf that will replace this turf when this turf is destroyed
@@ -44,7 +45,6 @@
 		return
 	if(!carbon_mob.density)
 		return
-	carbon_mob.is_leaning = TRUE
 	var/turf/checked_turf = get_step(carbon_mob, turn(carbon_mob.dir, 180))
 	if(checked_turf == src)
 		carbon_mob.start_leaning(src)
@@ -63,19 +63,29 @@
 
 	ADD_TRAIT(src, TRAIT_UNDENSE, LEANING_TRAIT)
 	ADD_TRAIT(src, TRAIT_EXPANDED_FOV, LEANING_TRAIT)
+	ADD_TRAIT(src, TRAIT_NO_LEG_AID, LEANING_TRAIT)
 	visible_message(span_notice("[src] leans against \the [wall]!"), \
 						span_notice("You lean against \the [wall]!"))
-	RegisterSignals(src, list(COMSIG_MOB_CLIENT_PRE_MOVE, COMSIG_HUMAN_DISARM_HIT, COMSIG_LIVING_GET_PULLED, COMSIG_MOVABLE_TELEPORTING, COMSIG_ATOM_DIR_CHANGE), PROC_REF(stop_leaning))
+	RegisterSignals(src, list(COMSIG_MOB_CLIENT_PRE_MOVE, COMSIG_HUMAN_DISARM_HIT, COMSIG_LIVING_GET_PULLED, COMSIG_MOVABLE_TELEPORTING, COMSIG_LIVING_RESIST), PROC_REF(stop_leaning))
+	RegisterSignal(src, COMSIG_ATOM_DIR_CHANGE, PROC_REF(stop_leaning_dir))
 	update_fov()
+	is_leaning = TRUE
+	update_limbless_locomotion()
+
+/mob/living/carbon/proc/stop_leaning_dir(datum/source, old_dir, new_dir)
+	SIGNAL_HANDLER
+	if(new_dir != old_dir)
+		stop_leaning()
 
 /mob/living/carbon/proc/stop_leaning()
 	SIGNAL_HANDLER
-	UnregisterSignal(src, list(COMSIG_MOB_CLIENT_PRE_MOVE, COMSIG_HUMAN_DISARM_HIT, COMSIG_LIVING_GET_PULLED, COMSIG_MOVABLE_TELEPORTING, COMSIG_ATOM_DIR_CHANGE))
+	UnregisterSignal(src, list(COMSIG_MOB_CLIENT_PRE_MOVE, COMSIG_HUMAN_DISARM_HIT, COMSIG_LIVING_GET_PULLED, COMSIG_MOVABLE_TELEPORTING, COMSIG_ATOM_DIR_CHANGE, COMSIG_LIVING_RESIST))
 	is_leaning = FALSE
 	pixel_y = base_pixel_y + body_position_pixel_x_offset
 	pixel_x = base_pixel_y + body_position_pixel_y_offset
 	REMOVE_TRAIT(src, TRAIT_UNDENSE, LEANING_TRAIT)
 	REMOVE_TRAIT(src, TRAIT_EXPANDED_FOV, LEANING_TRAIT)
+	REMOVE_TRAIT(src, TRAIT_NO_LEG_AID, LEANING_TRAIT)
 	update_fov()
 
 /turf/closed/wall/Initialize(mapload)
@@ -130,7 +140,7 @@
 	for(var/obj/O in src.contents) //Eject contents!
 		if(istype(O, /obj/structure/sign/poster))
 			var/obj/structure/sign/poster/P = O
-			P.roll_and_drop(src)
+			INVOKE_ASYNC(P, TYPE_PROC_REF(/obj/structure/sign/poster, roll_and_drop), src)
 	if(decon_type)
 		ChangeTurf(decon_type, flags = CHANGETURF_INHERIT_AIR)
 	else
@@ -138,12 +148,20 @@
 	QUEUE_SMOOTH_NEIGHBORS(src)
 
 /turf/closed/wall/proc/break_wall()
-	new sheet_type(src, sheet_amount)
+	var/area/shipbreak/A = get_area(src)
+	if(istype(A)) //if we are actually in the shipbreaking zone...
+		new scrap_type(src, sheet_amount)
+	else
+		new sheet_type(src, sheet_amount)
 	if(girder_type)
 		return new girder_type(src)
 
 /turf/closed/wall/proc/devastate_wall()
-	new sheet_type(src, sheet_amount)
+	var/area/shipbreak/A = get_area(src)
+	if(istype(A))
+		new scrap_type(src, sheet_amount)
+	else
+		new sheet_type(src, sheet_amount)
 	if(girder_type)
 		new /obj/item/stack/sheet/iron(src)
 
@@ -321,9 +339,9 @@
 /turf/closed/wall/rcd_vals(mob/user, obj/item/construction/rcd/the_rcd)
 	switch(the_rcd.mode)
 		if(RCD_DECONSTRUCT)
-			return list("mode" = RCD_DECONSTRUCT, "delay" = 40, "cost" = 26)
+			return list("mode" = RCD_DECONSTRUCT, "delay" = 4 SECONDS, "cost" = 26)
 		if(RCD_WALLFRAME)
-			return list("mode" = RCD_WALLFRAME, "delay" = 10, "cost" = 25)
+			return list("mode" = RCD_WALLFRAME, "delay" = 1 SECONDS, "cost" = 8)
 	return FALSE
 
 /turf/closed/wall/rcd_act(mob/user, obj/item/construction/rcd/the_rcd, passed_mode)

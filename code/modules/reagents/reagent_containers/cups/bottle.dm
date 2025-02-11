@@ -7,8 +7,8 @@
 	fill_icon_state = "bottle"
 	inhand_icon_state = "atoxinbottle"
 	worn_icon_state = "bottle"
-	possible_transfer_amounts = list(5, 10, 15, 25, 30)
-	volume = 30
+	possible_transfer_amounts = list(5, 10, 15, 25, 50)
+	volume = 50
 	fill_icon_thresholds = list(0, 1, 20, 40, 60, 80, 100)
 
 /obj/item/reagent_containers/cup/bottle/Initialize(mapload)
@@ -41,7 +41,7 @@
 	name = "morphine bottle"
 	desc = "A small bottle of morphine."
 	icon = 'icons/obj/medical/chemical.dmi'
-	list_reagents = list(/datum/reagent/medicine/morphine = 30)
+	list_reagents = list(/datum/reagent/medicine/painkiller/morphine = 30)
 
 /obj/item/reagent_containers/cup/bottle/chloralhydrate
 	name = "chloral hydrate bottle"
@@ -62,7 +62,6 @@
 /obj/item/reagent_containers/cup/bottle/phlogiston
 	name = "Phlogiston bottle"
 	desc = "A small bottle of Phlogiston, that will set you on fire if used."
-	volume = 50
 	list_reagents = list(/datum/reagent/phlogiston = 30)
 
 /obj/item/reagent_containers/cup/bottle/ammoniated_mercury
@@ -442,7 +441,6 @@
 	fill_icon_state = "syrup"
 	fill_icon_thresholds = list(0, 20, 40, 60, 80, 100)
 	possible_transfer_amounts = list(5, 10)
-	volume = 50
 	amount_per_transfer_from_this = 5
 	spillable = FALSE
 	///variable to tell if the bottle can be refilled

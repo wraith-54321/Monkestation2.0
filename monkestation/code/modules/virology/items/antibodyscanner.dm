@@ -26,6 +26,7 @@
 		return
 
 	playsound(user, 'sound/items/weeoo1.ogg', 50, 1)
+	L.visual_masked_scan()
 	var/info = ""
 	var/icon/scan = icon('monkestation/code/modules/virology/icons/virology_bg.dmi',"immunitybg")
 	var/display_width = scan.Width()
@@ -38,7 +39,8 @@
 					antigens_that_matter += antibody
 					continue
 				if (length(L.diseases))
-					for (var/datum/disease/advanced/D as anything in L.diseases)
+					for (var/datum/disease/acute/D as anything in L.diseases)
+						D.Refresh_Acute()
 						var/ID = "[D.uniqueID]-[D.subID]"
 						if(ID in GLOB.virusDB)
 							if (antibody in D.antigen)
@@ -77,7 +79,7 @@
 			i++
 
 	if (length(L.diseases))
-		for (var/datum/disease/advanced/D as anything in L.diseases)
+		for (var/datum/disease/acute/D as anything in L.diseases)
 			var/ID = "[D.uniqueID]-[D.subID]"
 			scan.DrawBox("#FF0000",6,6+D.strength*3,display_width-5,6+D.strength*3)
 			if(ID in GLOB.virusDB)
@@ -110,7 +112,7 @@
 	info += "</table>"
 
 	if (length(L.diseases))
-		for (var/datum/disease/advanced/D as anything in L.diseases)
+		for (var/datum/disease/acute/D as anything in L.diseases)
 			var/ID = "[D.uniqueID]-[D.subID]"
 			if(ID in GLOB.virusDB)
 				var/datum/data/record/V = GLOB.virusDB[ID]
@@ -142,3 +144,20 @@
 				to_chat(user,span_danger("However, since its lid has been opened, unprotected contact with the dish can result in infection."))
 
 	. = ..()
+
+
+/obj/effect/abstract/blank/scan
+	alpha = 255
+	icon = 'monkestation/code/modules/virology/icons/items.dmi'
+	icon_state = "scan"
+
+/atom/movable/proc/visual_masked_scan()
+	var/obj/effect/abstract/blank/scan/scanline = new
+
+	vis_contents += scanline
+	addtimer(CALLBACK(src, PROC_REF(remove), scanline), 2 SECONDS)
+
+/atom/movable/proc/remove(atom/scanline)
+	vis_contents -= scanline
+	qdel(scanline)
+

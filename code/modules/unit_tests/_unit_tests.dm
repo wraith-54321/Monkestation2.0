@@ -70,17 +70,23 @@
 #else
 #define TEST_OUTPUT_GREEN(text) (text)
 #endif
+/// Change color to yellow on ANSI terminal output, if enabled with -DANSICOLORS.
+#ifdef ANSICOLORS
+#define TEST_OUTPUT_YELLOW(text) "\x1B\x5B1;33m[text]\x1B\x5B0m"
+#else
+#define TEST_OUTPUT_YELLOW(text) (text)
+#endif
 
 /// A trait source when adding traits through unit tests
 #define TRAIT_SOURCE_UNIT_TESTS "unit_tests"
 
 // BEGIN_INCLUDE
+#include "abductor_baton_spell.dm"
 #include "ablative_hud.dm"
 #include "achievements.dm"
 #include "anchored_mobs.dm"
 #include "anonymous_themes.dm"
 #include "antag_moodlets.dm"
-#include "antag_special_roles.dm"
 #include "area_contents.dm"
 #include "armor_verification.dm"
 #include "autowiki.dm"
@@ -115,6 +121,7 @@
 #include "egg_glands.dm"
 #include "emoting.dm"
 #include "fish_unit_tests.dm"
+#include "floor_lights.dm"
 #include "focus_only_tests.dm"
 #include "food_edibility_check.dm"
 #include "full_heal.dm"
@@ -135,9 +142,11 @@
 #include "json_savefile_importing.dm"
 #include "keybinding_init.dm"
 #include "knockoff_component.dm"
+#include "language_key_conflicts.dm"
 #include "leash.dm"
 #include "lesserform.dm"
 #include "limbsanity.dm"
+#include "linked_xenobio_pens.dm"
 #include "load_map_security.dm"
 #include "lungs.dm"
 #include "machine_disassembly.dm"
@@ -151,9 +160,11 @@
 #include "mob_chains.dm"
 #include "mob_faction.dm"
 #include "mob_spawn.dm"
+#include "modify_fantasy_variable.dm"
 #include "modsuit.dm"
 #include "modular_map_loader.dm"
 #include "mouse_bite_cable.dm"
+#include "movement_order_sanity.dm"
 #include "mutant_hands_consistency.dm"
 #include "mutant_organs.dm"
 #include "novaflower_burn.dm"
@@ -179,6 +190,7 @@
 #include "reagent_names.dm"
 #include "reagent_recipe_collisions.dm"
 #include "reagent_transfer.dm"
+#include "required_map_items.dm"
 #include "resist.dm"
 #include "say.dm"
 #include "screenshot_antag_icons.dm"
@@ -190,6 +202,7 @@
 #include "security_levels.dm"
 #include "security_officer_distribution.dm"
 #include "serving_tray.dm"
+#include "simple_animal_freeze.dm"
 #include "siunit.dm"
 #include "slips.dm"
 #include "spawn_humans.dm"
@@ -200,12 +213,15 @@
 #include "species_unique_id.dm"
 #include "species_whitelists.dm"
 #include "spell_invocations.dm"
+#include "spell_jaunt.dm"
 #include "spell_mindswap.dm"
 #include "spell_names.dm"
 #include "spell_shapeshift.dm"
+#include "spell_timestop.dm"
 #include "spritesheets.dm"
 #include "stack_singular_name.dm"
 #include "station_trait_tests.dm"
+#include "status_effect_validity.dm"
 #include "stomach.dm"
 #include "strange_reagent.dm"
 #include "strippable.dm"
@@ -218,8 +234,10 @@
 #include "timer_sanity.dm"
 #include "trait_addition_and_removal.dm"
 #include "traitor.dm"
+#include "trick_weapon_icons.dm"
 #include "tutorial_sanity.dm"
 #include "unit_test.dm"
+#include "vendor_boards.dm"
 #include "verify_config_tags.dm"
 #include "verify_emoji_names.dm"
 #include "wizard_loadout.dm"

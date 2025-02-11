@@ -81,6 +81,7 @@
 #define PATH_BLADE "Blade Path"
 #define PATH_COSMIC "Cosmic Path"
 #define PATH_KNOCK "Knock Path"
+#define PATH_MOON "Moon Path"
 
 /// Defines are used in /proc/has_living_heart() to report if the heretic has no heart period, no living heart, or has a living heart.
 #define HERETIC_NO_HEART_ORGAN -1
@@ -153,6 +154,7 @@ GLOBAL_LIST_INIT(syndicate_employers, list(
 	"Tiger Cooperative Fanatic",
 	"Waffle Corporation Terrorist",
 	"Waffle Corporation",
+	"The Ashen Forge Member",
 ))
 ///employers that are from nanotrasen
 GLOBAL_LIST_INIT(nanotrasen_employers, list(
@@ -219,8 +221,13 @@ GLOBAL_LIST_INIT(ai_employers, list(
 #define IS_HERETIC(mob) (mob.mind?.has_antag_datum(/datum/antagonist/heretic))
 /// Check if the given mob is a heretic monster.
 #define IS_HERETIC_MONSTER(mob) (mob.mind?.has_antag_datum(/datum/antagonist/heretic_monster))
-/// Checks if the given mob is either a heretic or a heretic monster.
-#define IS_HERETIC_OR_MONSTER(mob) (IS_HERETIC(mob) || IS_HERETIC_MONSTER(mob))
+/// Check if the given mob is a  lunatic
+#define IS_LUNATIC(mob) (mob.mind?.has_antag_datum(/datum/antagonist/lunatic))
+/// Checks if the given mob is either a heretic, heretic monster or a lunatic.
+#define IS_HERETIC_OR_MONSTER(mob) (IS_HERETIC(mob) || IS_HERETIC_MONSTER(mob) || IS_LUNATIC(mob))
+
+/// Checks if the given mob is in the mansus realm
+#define IS_IN_MANSUS(mob) (istype(get_area(mob), /area/centcom/heretic_sacrifice))
 
 /// Checks if the given mob is a wizard
 #define IS_WIZARD(mob) (mob?.mind?.has_antag_datum(/datum/antagonist/wizard))
@@ -327,9 +334,24 @@ GLOBAL_LIST_INIT(human_invader_antagonists, list(
 #define ANTAG_GROUP_SYNDICATE "Syndicate"
 #define ANTAG_GROUP_WIZARDS "Wizard Federation"
 #define ANTAG_GROUP_XENOS "Xenomorph Infestation"
+#define ANTAG_GROUP_FUGITIVES "Escaped Fugitives"
+#define ANTAG_GROUP_HUNTERS "Bounty Hunters"
+#define ANTAG_GROUP_PARADOX "Spacetime Aberrations"
+#define ANTAG_GROUP_CREW "Deviant Crew"
+
+#define HUNTER_PACK_COPS "Spacepol Officers"
+#define HUNTER_PACK_RUSSIAN "Russian Smugglers"
+#define HUNTER_PACK_BOUNTY "Bounty Hunters"
+#define HUNTER_PACK_PSYKER "Psyker Shikaris"
 
 // This flag disables certain checks that presume antagonist datums mean 'baddie'.
-#define FLAG_FAKE_ANTAG (1 << 0)
+#define FLAG_FAKE_ANTAG					(1 << 0)
+/// monkestation addition: Whether the antagonist can see exploitable info on people they examine.
+#define FLAG_CAN_SEE_EXPOITABLE_INFO	(1 << 1)
+// monkestation addition: The storyteller will ignore this antag datum as counting against the antag cap.
+#define FLAG_ANTAG_CAP_IGNORE			(1 << 2)
+// monkestation addition: The storyteller will count everyone on this antag's team as a singular antag instead.
+#define FLAG_ANTAG_CAP_TEAM				(1 << 3)
 
 #define FREEDOM_IMPLANT_CHARGES 4
 
@@ -340,3 +362,23 @@ GLOBAL_LIST_INIT(human_invader_antagonists, list(
 
 /// For changelings, this is how many recent say lines are retained when absorbing a mob
 #define LING_ABSORB_RECENT_SPEECH 8
+
+// Various abductor equipment modes.
+
+#define VEST_STEALTH 1
+#define VEST_COMBAT 2
+
+#define GIZMO_SCAN 1
+#define GIZMO_MARK 2
+
+#define MIND_DEVICE_MESSAGE 1
+#define MIND_DEVICE_CONTROL 2
+
+#define TOOLSET_MEDICAL 1
+#define TOOLSET_HACKING 2
+
+#define BATON_STUN 0
+#define BATON_SLEEP 1
+#define BATON_CUFF 2
+#define BATON_PROBE 3
+#define BATON_MODES 4

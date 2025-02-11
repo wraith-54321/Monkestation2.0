@@ -149,13 +149,15 @@
 		return
 
 	add_fingerprint(user)
-	if(!requiresID())
-		user = null
+	if(isliving(user) && isnull(user.mind))
+		var/mob/living/living_user = user
+		if(living_user.mob_size < MOB_SIZE_HUMAN)
+			return
 
 	if(elevator_mode && elevator_status == LIFT_PLATFORM_UNLOCKED)
 		open()
 
-	else if(allowed(user))
+	else if(requiresID() && allowed(user))
 		open_and_close()
 
 	else
@@ -441,7 +443,7 @@
 /obj/machinery/door/window/rcd_vals(mob/user, obj/item/construction/rcd/the_rcd)
 	switch(the_rcd.mode)
 		if(RCD_DECONSTRUCT)
-			return list("mode" = RCD_DECONSTRUCT, "delay" = 50, "cost" = 32)
+			return list("mode" = RCD_DECONSTRUCT, "delay" = 5 SECONDS, "cost" = 32)
 	return FALSE
 
 /obj/machinery/door/window/rcd_act(mob/user, obj/item/construction/rcd/the_rcd, passed_mode)

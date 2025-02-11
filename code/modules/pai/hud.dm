@@ -2,6 +2,7 @@
 
 /atom/movable/screen/pai
 	icon = 'icons/hud/screen_pai.dmi'
+	mouse_over_pointer = MOUSE_HAND_POINTER
 	var/required_software
 
 /atom/movable/screen/pai/Click()
@@ -94,6 +95,7 @@
 	if(LAZYACCESS(modifiers, RIGHT_CLICK))
 		pAI.host_scan(PAI_SCAN_MASTER)
 		return TRUE
+
 /atom/movable/screen/pai/crew_manifest
 	name = "Crew Manifest"
 	icon_state = "manifest"

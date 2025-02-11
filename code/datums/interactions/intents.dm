@@ -10,7 +10,6 @@
 
 	if(LAZYACCESS(modifiers, RIGHT_CLICK))
 		M.istate = ISTATE_SECONDARY
-		return
 
 	switch (intent)
 		if (INTENT_DISARM)
@@ -28,7 +27,7 @@
 	UI.icon_state = "[intent]"
 
 /datum/interaction_mode/intents3/procure_hud(mob/M, datum/hud/H)
-	if (!M.hud_used.has_interaction_ui)
+	if (!M.hud_used?.has_interaction_ui)
 		return
 	var/atom/movable/screen/act_intent3/AI = new
 	AI.hud = H

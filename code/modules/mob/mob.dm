@@ -265,11 +265,15 @@
  * * blind_message (optional) is what blind people will hear e.g. "You hear something!"
  * * vision_distance (optional) define how many tiles away the message can be seen.
  * * ignored_mob (optional) doesn't show any message to a given mob if TRUE.
+ * * push_appearance(optional) pushes an atom's appearance to all viewing mobs, for use with <img src='\ref[thing]'>
  */
-/atom/proc/visible_message(message, self_message, blind_message, vision_distance = DEFAULT_MESSAGE_RANGE, list/ignored_mobs, visible_message_flags = NONE)
+/atom/proc/visible_message(message, self_message, blind_message, vision_distance = DEFAULT_MESSAGE_RANGE, list/ignored_mobs, visible_message_flags = NONE, atom/push_appearance)
 	var/turf/T = get_turf(src)
 	if(!T)
 		return
+
+	if(!isnull(push_appearance) && !isatom(push_appearance))
+		stack_trace("push_appearance must be an atom, but got [push_appearance] instead")
 
 	if(!islist(ignored_mobs))
 		ignored_mobs = list(ignored_mobs)
@@ -304,6 +308,9 @@
 		if(!msg)
 			continue
 
+		if(push_appearance)
+			M << output(push_appearance, "push_appearance_placeholder_id")
+
 		if(visible_message_flags & EMOTE_MESSAGE && runechat_prefs_check(M, visible_message_flags) && !M.is_blind())
 			M.create_chat_message(src, raw_message = raw_msg, runechat_flags = visible_message_flags)
 
@@ -311,7 +318,7 @@
 
 
 ///Adds the functionality to self_message.
-/mob/visible_message(message, self_message, blind_message, vision_distance = DEFAULT_MESSAGE_RANGE, list/ignored_mobs, visible_message_flags = NONE)
+/mob/visible_message(message, self_message, blind_message, vision_distance = DEFAULT_MESSAGE_RANGE, list/ignored_mobs, visible_message_flags = NONE, atom/push_appearance)
 	. = ..()
 	if(self_message)
 		show_message(self_message, MSG_VISUAL, blind_message, MSG_AUDIBLE)
@@ -425,7 +432,7 @@
  *
  * Initial is used to indicate whether or not this is the initial equipment (job datums etc) or just a player doing it
  */
-/mob/proc/equip_to_slot_if_possible(obj/item/W, slot, qdel_on_fail = FALSE, disable_warning = FALSE, redraw_mob = TRUE, bypass_equip_delay_self = FALSE, initial = FALSE)
+/mob/proc/equip_to_slot_if_possible(obj/item/W, slot, qdel_on_fail = FALSE, disable_warning = FALSE, redraw_mob = TRUE, bypass_equip_delay_self = FALSE, initial = FALSE, move_equipped = FALSE) //MONKESTATION EDIT - Added 'move_equipped = FALSE'
 	if(!istype(W) || QDELETED(W)) //This qdeleted is to prevent stupid behavior with things that qdel during init, like say stacks
 		return FALSE
 	if(!W.mob_can_equip(src, slot, disable_warning, bypass_equip_delay_self))
@@ -434,7 +441,7 @@
 		else if(!disable_warning)
 			to_chat(src, span_warning("You are unable to equip that!"))
 		return FALSE
-	equip_to_slot(W, slot, initial, redraw_mob) //This proc should not ever fail.
+	equip_to_slot(W, slot, initial, redraw_mob, move_equipped) //This proc should not ever fail. //MONKESTATION EDIT - Added 'move_equipped'
 	return TRUE
 
 /**
@@ -557,7 +564,7 @@
 	if(is_blind()) //blind people see things differently (through touch)
 		if(!blind_examine_check(examinify))
 			return
-	else if(!(examine_turf?.luminosity || examine_turf.dynamic_lumcount) && \
+	else if(!(examine_turf?.luminosity || examine_turf?.dynamic_lumcount) && \
 		get_dist(src, examine_turf) > 1 && \
 		!has_nightvision()) // If you aren't blind, it's in darkness (that you can't see) and farther then next to you
 		return
@@ -584,7 +591,7 @@
 		for(var/i in 1 to (length(result) - 1))
 			result[i] += "\n"
 
-	to_chat(src, examine_block("<span class='infoplain'>[result.Join()]</span>"))
+	to_chat(src, boxed_message("<span class='infoplain'>[result.Join()]</span>"))
 	SEND_SIGNAL(src, COMSIG_MOB_EXAMINATE, examinify)
 
 
@@ -1121,7 +1128,7 @@
 	if(mind)
 		mind.name = newname
 		if(mind.key)
-			log_played_names(mind.key,newname) //Just in case the mind is unsynced at the moment.
+			log_played_names(ckey(mind.key) ,newname) //Just in case the mind is unsynced at the moment.
 
 	if(oldname)
 		//update the datacore records! This is goig to be a bit costly.
@@ -1166,7 +1173,7 @@
 		else if( search_pda && istype(A, /obj/item/modular_computer/pda) )
 			var/obj/item/modular_computer/pda/PDA = A
 			if(PDA.saved_identification == oldname)
-				PDA.saved_identification = newname
+				PDA.imprint_id(name = newname)
 				PDA.UpdateDisplay()
 				if(!search_id)
 					break
@@ -1330,7 +1337,9 @@
 	if(href_list[VV_HK_PLAYER_PANEL])
 		if(!check_rights(NONE))
 			return
-		usr.client.holder.show_player_panel(src)
+		usr.client.VUAP_selected_mob = src
+		usr.client.selectedPlayerCkey = src.ckey
+		usr.client.holder.vuap_open()
 	if(href_list[VV_HK_GODMODE])
 		if(!check_rights(R_ADMIN))
 			return
@@ -1404,19 +1413,37 @@
 /mob/proc/set_nutrition(change) //Seriously fuck you oldcoders.
 	nutrition = max(0, change)
 
+///Apply a proper movespeed modifier based on items we have equipped
 /mob/proc/update_equipment_speed_mods()
-	var/speedies = equipped_speed_mods()
-	if(!speedies)
-		remove_movespeed_modifier(/datum/movespeed_modifier/equipment_speedmod)
+	var/speedies = 0
+	var/immutable_speedies = 0
+	for(var/obj/item/thing in get_equipped_speed_mod_items())
+		if(thing.item_flags & IMMUTABLE_SLOW)
+			immutable_speedies += thing.slowdown
+		else
+			speedies += thing.slowdown
+	if(immutable_speedies)
+		add_or_update_variable_movespeed_modifier(
+			/datum/movespeed_modifier/equipment_speedmod/immutable,
+			multiplicative_slowdown = immutable_speedies,
+		)
 	else
-		add_or_update_variable_movespeed_modifier(/datum/movespeed_modifier/equipment_speedmod, multiplicative_slowdown = speedies)
+		remove_movespeed_modifier(/datum/movespeed_modifier/equipment_speedmod/immutable)
 
-/// Gets the combined speed modification of all worn items
-/// Except base mob type doesnt really wear items
-/mob/proc/equipped_speed_mods()
-	for(var/obj/item/I in held_items)
-		if(I.item_flags & SLOWS_WHILE_IN_HAND)
-			. += I.slowdown
+	if(speedies)
+		add_or_update_variable_movespeed_modifier(
+			/datum/movespeed_modifier/equipment_speedmod,
+			multiplicative_slowdown = speedies,
+		)
+	else
+		remove_movespeed_modifier(/datum/movespeed_modifier/equipment_speedmod)
+
+///Get all items in our possession that should affect our movespeed
+/mob/proc/get_equipped_speed_mod_items()
+	. = list()
+	for(var/obj/item/thing in held_items)
+		if(thing.item_flags & SLOWS_WHILE_IN_HAND)
+			. += thing
 
 /mob/proc/set_stat(new_stat)
 	if(new_stat == stat)
@@ -1424,6 +1451,11 @@
 	. = stat
 	stat = new_stat
 	SEND_SIGNAL(src, COMSIG_MOB_STATCHANGE, new_stat, .)
+
+/// Proc used for custom metabolization of reagents, if any
+/mob/proc/reagent_check(datum/reagent/chem, seconds_per_tick, times_fired)
+	SHOULD_CALL_PARENT(TRUE)
+	return SEND_SIGNAL(src, COMSIG_MOB_REAGENT_CHECK, chem, seconds_per_tick, times_fired)
 
 /mob/vv_edit_var(var_name, var_value)
 	switch(var_name)
@@ -1465,9 +1497,8 @@
 	if(!canon_client)
 		return
 
-	for(var/foo in canon_client.player_details.post_logout_callbacks)
-		var/datum/callback/CB = foo
-		CB.Invoke()
+	for(var/datum/callback/callback as anything in canon_client.player_details?.post_logout_callbacks)
+		callback.Invoke()
 
 	if(canon_client?.movingmob)
 		LAZYREMOVE(canon_client.movingmob.client_mobs_in_contents, src)
@@ -1536,3 +1567,7 @@
 	set name = "View Skills"
 
 	mind?.print_levels(src)
+
+/mob/key_down(key, client/client, full_key)
+	..()
+	SEND_SIGNAL(src, COMSIG_MOB_KEYDOWN, key, client, full_key)

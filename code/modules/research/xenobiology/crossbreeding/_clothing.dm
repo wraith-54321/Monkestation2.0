@@ -52,11 +52,8 @@ Slimecrossing Armor
 	anchored = TRUE
 	max_integrity = 10
 
-/obj/structure/light_prism/Initialize(mapload, newcolor)
+/obj/structure/light_prism/Initialize(mapload, newcolor = COLOR_WHITE)
 	. = ..()
-	#if DM_VERSION < 515
-	newcolor ||= COLOR_WHITE // If you're reading this and developing on 515 or later, you can remove this line
-	#endif
 	color = newcolor
 	set_light_color(newcolor)
 	set_light(5)
@@ -140,12 +137,12 @@ Slimecrossing Armor
 	worn_icon = 'icons/mob/clothing/suits/armor.dmi'
 	inhand_icon_state = null
 	flags_inv = NONE
-	obj_flags = IMMUTABLE_SLOW
+	item_flags = IMMUTABLE_SLOW
 	slowdown = 4
 	var/hit_reflect_chance = 40
 
 /obj/item/clothing/suit/armor/heavy/adamantine/IsReflect(def_zone)
-	if(def_zone in list(BODY_ZONE_CHEST, BODY_ZONE_R_ARM, BODY_ZONE_L_ARM, BODY_ZONE_R_LEG, BODY_ZONE_L_LEG) && prob(hit_reflect_chance))
+	if((def_zone in list(BODY_ZONE_CHEST, BODY_ZONE_R_ARM, BODY_ZONE_L_ARM, BODY_ZONE_R_LEG, BODY_ZONE_L_LEG)) && prob(hit_reflect_chance))
 		return TRUE
 	else
 		return FALSE

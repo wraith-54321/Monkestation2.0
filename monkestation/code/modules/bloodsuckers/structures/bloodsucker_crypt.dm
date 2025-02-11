@@ -11,6 +11,10 @@
 	var/vassal_desc
 	var/hunter_desc
 
+/obj/structure/bloodsucker/Destroy()
+	owner = null
+	return ..()
+
 /obj/structure/bloodsucker/examine(mob/user)
 	. = ..()
 	if(!user.mind && ghost_desc != "")
@@ -139,19 +143,20 @@
 
 /obj/structure/bloodsucker/vassalrack/deconstruct(disassembled = TRUE)
 	. = ..()
-	new /obj/item/stack/sheet/iron(src.loc, 4)
-	new /obj/item/stack/rods(loc, 4)
+	new /obj/item/stack/sheet/iron(drop_location(), 4)
+	new /obj/item/stack/rods(drop_location(), 4)
 	qdel(src)
 
 /obj/structure/bloodsucker/vassalrack/bolt()
 	. = ..()
-	density = FALSE
-	anchored = TRUE
+	set_density(FALSE)
+	set_anchored(TRUE)
 
 /obj/structure/bloodsucker/vassalrack/unbolt()
 	. = ..()
-	density = TRUE
-	anchored = FALSE
+	unbuckle_all_mobs()
+	set_density(TRUE)
+	set_anchored(FALSE)
 
 /obj/structure/bloodsucker/vassalrack/MouseDrop_T(atom/movable/movable_atom, mob/user)
 	var/mob/living/living_target = movable_atom
@@ -196,14 +201,12 @@
 		span_boldnotice("You secure [target] tightly in place. They won't escape you now."),
 	)
 
-	playsound(loc, 'sound/effects/pop_expl.ogg', 25, 1)
+	playsound(loc, 'sound/effects/pop_expl.ogg', vol = 25, vary = TRUE)
 	update_appearance(UPDATE_ICON)
-	density = TRUE
+	set_density(TRUE)
 
 	// Set up Torture stuff now
-	convert_progress = 3
-	disloyalty_confirm = FALSE
-	disloyalty_offered = FALSE
+	reset_progress()
 
 /// Attempt Unbuckle
 /obj/structure/bloodsucker/vassalrack/user_unbuckle_mob(mob/living/buckled_mob, mob/user)
@@ -232,9 +235,10 @@
 	if(!.)
 		return FALSE
 	visible_message(span_danger("[buckled_mob][buckled_mob.stat == DEAD ? "'s corpse" : ""] slides off of the rack."))
-	density = FALSE
+	set_density(FALSE)
 	buckled_mob.Paralyze(2 SECONDS)
 	update_appearance(UPDATE_ICON)
+	reset_progress()
 	return TRUE
 
 /obj/structure/bloodsucker/vassalrack/attack_hand(mob/user, list/modifiers)
@@ -243,6 +247,7 @@
 		return FALSE
 	// Is there anyone on the rack & If so, are they being tortured?
 	if(!has_buckled_mobs())
+		balloon_alert(user, "nobody buckled!")
 		return FALSE
 
 	var/datum/antagonist/bloodsucker/bloodsuckerdatum = user.mind.has_antag_datum(/datum/antagonist/bloodsucker)
@@ -258,7 +263,7 @@
 
 	var/datum/antagonist/vassal/vassaldatum = IS_VASSAL(buckled_carbons)
 	// Are they our Vassal?
-	if(vassaldatum && (vassaldatum in bloodsuckerdatum.vassals))
+	if(vassaldatum?.master == bloodsuckerdatum)
 		SEND_SIGNAL(bloodsuckerdatum, BLOODSUCKER_INTERACT_WITH_VASSAL, vassaldatum)
 		return
 
@@ -287,11 +292,10 @@
 	if(!ishuman(target))
 		balloon_alert(user, "you can't torture an animal or basic mob!")
 		return FALSE
-	var/disloyalty_requires = RequireDisloyalty(user, target)
-
-	if(HAS_TRAIT(target, TRAIT_MINDSHIELD))
-		balloon_alert(user, "its pointless to try and change their loyalties!")
+	if(disloyalty_offered)
+		balloon_alert(user, "wait a moment!")
 		return FALSE
+	var/disloyalty_requires = RequireDisloyalty(user, target)
 
 	if(disloyalty_requires == VASSALIZATION_BANNED)
 		balloon_alert(user, "can't be vassalized!")
@@ -301,6 +305,7 @@
 	if(convert_progress)
 		//Are we currently torturing this person? If so, do not spill blood more.
 		if(blood_draining)
+			balloon_alert(user, "already spilling blood!")
 			return
 		//We're torturing. Do not start another torture on this rack.
 		blood_draining = TRUE
@@ -329,6 +334,7 @@
 				return
 			if(!disloyalty_confirm)
 				balloon_alert(user, "refused persuasion!")
+				convert_progress++
 			else
 				balloon_alert(user, "ready for communion!")
 			return
@@ -433,6 +439,12 @@
 		if(istype(implant, /obj/item/implant/mindshield) && implant.removed(target, silent = TRUE))
 			qdel(implant)
 
+/obj/structure/bloodsucker/vassalrack/proc/reset_progress()
+	convert_progress = initial(convert_progress)
+	disloyalty_offered = initial(disloyalty_offered)
+	disloyalty_confirm = initial(disloyalty_confirm)
+	blood_draining = initial(blood_draining)
+
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 /obj/structure/bloodsucker/candelabrum
@@ -467,12 +479,12 @@
 /obj/structure/bloodsucker/candelabrum/bolt()
 	. = ..()
 	set_anchored(TRUE)
-	density = TRUE
+	set_density(TRUE)
 
 /obj/structure/bloodsucker/candelabrum/unbolt()
 	. = ..()
 	set_anchored(FALSE)
-	density = FALSE
+	set_density(FALSE)
 
 /obj/structure/bloodsucker/candelabrum/attack_hand(mob/living/user, list/modifiers)
 	. = ..()
@@ -499,9 +511,9 @@
 		return
 	for(var/mob/living/carbon/nearly_people in viewers(7, src))
 		/// We dont want Bloodsuckers or Vassals affected by this
-		if(IS_VASSAL(nearly_people) || IS_BLOODSUCKER(nearly_people))
+		if(IS_VASSAL(nearly_people) || IS_BLOODSUCKER(nearly_people) || IS_MONSTERHUNTER(nearly_people))
 			continue
-		nearly_people.adjust_hallucinations(5 SECONDS)
+		nearly_people.set_hallucinations_if_lower(5 SECONDS)
 		nearly_people.add_mood_event("vampcandle", /datum/mood_event/vampcandle)
 
 /// Blood Throne - Allows Bloodsuckers to remotely speak with their Vassals. - Code (Mostly) stolen from comfy chairs (armrests) and chairs (layers)
@@ -534,11 +546,11 @@
 
 /obj/structure/bloodsucker/bloodthrone/bolt()
 	. = ..()
-	anchored = TRUE
+	set_anchored(TRUE)
 
 /obj/structure/bloodsucker/bloodthrone/unbolt()
 	. = ..()
-	anchored = FALSE
+	set_anchored(FALSE)
 
 // Armrests
 /obj/structure/bloodsucker/bloodthrone/proc/GetArmrest()
@@ -596,7 +608,7 @@
 	target.pixel_y -= 2
 
 // The speech itself
-/obj/structure/bloodsucker/bloodthrone/proc/handle_speech(datum/source, mob/speech_args)
+/obj/structure/bloodsucker/bloodthrone/proc/handle_speech(datum/source, list/speech_args)
 	SIGNAL_HANDLER
 
 	var/message = speech_args[SPEECH_MESSAGE]
@@ -605,14 +617,14 @@
 	user.log_talk(message, LOG_SAY, tag=ROLE_BLOODSUCKER)
 	var/datum/antagonist/bloodsucker/bloodsuckerdatum = user.mind.has_antag_datum(/datum/antagonist/bloodsucker)
 	for(var/datum/antagonist/vassal/receiver as anything in bloodsuckerdatum.vassals)
-		if(!receiver.owner.current)
+		var/mob/receiver_mob = receiver?.owner?.current
+		if(QDELETED(receiver_mob))
 			continue
-		var/mob/receiver_mob = receiver.owner.current
-		to_chat(receiver_mob, rendered)
-	to_chat(user, rendered) // tell yourself, too.
+		to_chat(receiver_mob, rendered, type = MESSAGE_TYPE_RADIO)
+	to_chat(user, rendered, type = MESSAGE_TYPE_RADIO, avoid_highlighting = TRUE) // tell yourself, too.
 
 	for(var/mob/dead_mob in GLOB.dead_mob_list)
 		var/link = FOLLOW_LINK(dead_mob, user)
-		to_chat(dead_mob, "[link] [rendered]")
+		to_chat(dead_mob, "[link] [rendered]", type = MESSAGE_TYPE_RADIO)
 
 	speech_args[SPEECH_MESSAGE] = ""

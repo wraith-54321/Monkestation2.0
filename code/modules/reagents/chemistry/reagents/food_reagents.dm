@@ -60,14 +60,9 @@
 	var/brute_heal = 1
 	var/burn_heal = 0
 
-/datum/reagent/consumable/nutriment/feed_interaction(mob/living/basic/chicken/target, volume)
+/datum/reagent/consumable/nutriment/feed_interaction(mob/living/basic/chicken/target, volume, mob/user)
 	. = ..()
 	target.fertility_boosting += min(25, volume * 0.5)
-
-/datum/reagent/consumable/nutriment/on_hydroponics_apply(obj/item/seeds/myseed, datum/reagents/chems, obj/machinery/hydroponics/mytray, mob/user)
-	. = ..()
-	if(chems.has_reagent(src.type, 1))
-		mytray.adjust_plant_health(round(chems.get_reagent_amount(type) * 0.2))
 
 /datum/reagent/consumable/nutriment/on_mob_life(mob/living/carbon/M, seconds_per_tick, times_fired)
 	if(SPT_PROB(30, seconds_per_tick))
@@ -125,8 +120,7 @@
 	burn_heal = 1
 
 /datum/reagent/consumable/nutriment/vitamin/on_mob_life(mob/living/carbon/M, seconds_per_tick, times_fired)
-	if(M.satiety < MAX_SATIETY)
-		M.satiety += 30 * REM * seconds_per_tick
+	M.adjust_satiety(30 * REM * seconds_per_tick)
 	. = ..()
 
 /// The basic resource of vat growing.
@@ -174,7 +168,7 @@
 	penetrates_skin = NONE
 	var/fry_temperature = 450 //Around ~350 F (117 C) which deep fryers operate around in the real world
 	chemical_flags = REAGENT_CAN_BE_SYNTHESIZED
-	default_container = /obj/item/reagent_containers/condiment/quality_oil
+	default_container = /obj/item/reagent_containers/condiment/cooking_oil
 	turf_exposure = TRUE
 
 /datum/reagent/consumable/cooking_oil/expose_obj(obj/exposed_obj, reac_volume)
@@ -236,17 +230,10 @@
 	chemical_flags = REAGENT_CAN_BE_SYNTHESIZED
 	default_container = /obj/item/reagent_containers/condiment/sugar
 
-// Plants should not have sugar, they can't use it and it prevents them getting water/ nutients, it is good for mold though...
-/datum/reagent/consumable/sugar/on_hydroponics_apply(obj/item/seeds/myseed, datum/reagents/chems, obj/machinery/hydroponics/mytray, mob/user)
-	. = ..()
-	if(chems.has_reagent(src.type, 1))
-		mytray.adjust_weedlevel(rand(1,2))
-		mytray.adjust_pestlevel(rand(1,2))
 
-
-/datum/reagent/consumable/sugar/feed_interaction(mob/living/basic/chicken/target, volume)
+/datum/reagent/consumable/sugar/feed_interaction(mob/living/basic/chicken/target, volume, mob/user)
 	.=..()
-	target.adjust_happiness(0.1*volume)
+	target.adjust_happiness(0.1*volume, user)
 
 /datum/reagent/consumable/sugar/overdose_start(mob/living/M)
 	to_chat(M, span_userdanger("You go into hyperglycaemic shock! Lay off the twinkies!"))
@@ -265,12 +252,6 @@
 	color = "#899613" // rgb: 137, 150, 19
 	taste_description = "watery milk"
 	chemical_flags = REAGENT_CAN_BE_SYNTHESIZED
-
-	// Compost for EVERYTHING
-/datum/reagent/consumable/virus_food/on_hydroponics_apply(obj/item/seeds/myseed, datum/reagents/chems, obj/machinery/hydroponics/mytray, mob/user)
-	. = ..()
-	if(chems.has_reagent(src.type, 1))
-		mytray.adjust_plant_health(-round(chems.get_reagent_amount(type) * 0.5))
 
 /datum/reagent/consumable/soysauce
 	name = "Soysauce"
@@ -299,28 +280,21 @@
 	chemical_flags = REAGENT_CAN_BE_SYNTHESIZED
 
 /datum/reagent/consumable/capsaicin/on_mob_life(mob/living/carbon/M, seconds_per_tick, times_fired)
+	. = ..()
+	holder?.remove_reagent(/datum/reagent/cryostylane, 5 * REM * seconds_per_tick)
+
 	var/heating = 0
 	switch(current_cycle)
 		if(1 to 15)
-			heating = 5
-			if(holder.has_reagent(/datum/reagent/cryostylane))
-				holder.remove_reagent(/datum/reagent/cryostylane, 5 * REM * seconds_per_tick)
-			if(isslime(M))
-				heating = rand(5, 20)
+			heating = 0.1 KELVIN
 		if(15 to 25)
-			heating = 10
-			if(isslime(M))
-				heating = rand(10, 20)
+			heating = 0.33 KELVIN
 		if(25 to 35)
-			heating = 15
-			if(isslime(M))
-				heating = rand(15, 20)
+			heating = 0.66 KELVIN
 		if(35 to INFINITY)
-			heating = 20
-			if(isslime(M))
-				heating = rand(20, 25)
-	M.adjust_bodytemperature(heating * TEMPERATURE_DAMAGE_COEFFICIENT * REM * seconds_per_tick)
-	..()
+			heating = 1.2 KELVIN
+
+	M.adjust_bodytemperature(heating * REM * seconds_per_tick, max_temp = CELCIUS_TO_KELVIN(39 CELCIUS))
 
 /datum/reagent/consumable/frostoil
 	name = "Frost Oil"
@@ -336,32 +310,25 @@
 	turf_exposure = TRUE
 
 /datum/reagent/consumable/frostoil/on_mob_life(mob/living/carbon/M, seconds_per_tick, times_fired)
+	. = ..()
+	holder.remove_reagent(/datum/reagent/consumable/capsaicin, 5 * REM * seconds_per_tick)
+
 	var/cooling = 0
 	switch(current_cycle)
 		if(1 to 15)
-			cooling = -10
-			if(holder.has_reagent(/datum/reagent/consumable/capsaicin))
-				holder.remove_reagent(/datum/reagent/consumable/capsaicin, 5 * REM * seconds_per_tick)
-			if(isslime(M))
-				cooling = -rand(5, 20)
+			cooling = -0.1 KELVIN
 		if(15 to 25)
-			cooling = -20
-			if(isslime(M))
-				cooling = -rand(10, 20)
+			cooling = -0.5 KELVIN
 		if(25 to 35)
-			cooling = -30
+			cooling = -1 KELVIN
 			if(prob(1))
 				M.emote("shiver")
-			if(isslime(M))
-				cooling = -rand(15, 20)
 		if(35 to INFINITY)
-			cooling = -40
+			cooling = -2 KELVIN
 			if(prob(5))
 				M.emote("shiver")
-			if(isslime(M))
-				cooling = -rand(20, 25)
-	M.adjust_bodytemperature(cooling * TEMPERATURE_DAMAGE_COEFFICIENT * REM * seconds_per_tick, 50)
-	..()
+
+	M.adjust_bodytemperature(cooling * REM * seconds_per_tick, min_temp = M.bodytemp_cold_damage_limit - 15 KELVIN)
 
 /datum/reagent/consumable/frostoil/expose_turf(turf/exposed_turf, reac_volume)
 	. = ..()
@@ -442,13 +409,12 @@
 
 	new/obj/effect/decal/cleanable/food/salt(exposed_turf)
 
-/datum/reagent/consumable/salt/expose_mob(mob/living/exposed_mob, methods, reac_volume)
+/datum/reagent/consumable/salt/expose_mob(mob/living/carbon/exposed_carbon, methods, reac_volume)
 	. = ..()
-	var/mob/living/carbon/carbies = exposed_mob
-	if(!(methods & (PATCH|TOUCH|VAPOR)))
+	if(!iscarbon(exposed_carbon) || !(methods & (PATCH|TOUCH|VAPOR)))
 		return
-	for(var/datum/wound/iter_wound as anything in carbies.all_wounds)
-		iter_wound.on_salt(reac_volume, carbies)
+	for(var/datum/wound/iter_wound as anything in exposed_carbon.all_wounds)
+		iter_wound.on_salt(reac_volume, exposed_carbon)
 
 // Salt can help with wounds by soaking up fluid, but undiluted salt will also cause irritation from the loose crystals, and it might soak up the body's water as well!
 // A saltwater mixture would be best, but we're making improvised chems here, not real ones.
@@ -558,6 +524,7 @@
 	color = "#302000" // rgb: 48, 32, 0
 	taste_description = "slime"
 	chemical_flags = REAGENT_CAN_BE_SYNTHESIZED
+	default_container = /obj/item/reagent_containers/condiment/cooking_oil
 	turf_exposure = TRUE
 
 /datum/reagent/consumable/cornoil/expose_turf(turf/open/exposed_turf, reac_volume)
@@ -608,7 +575,7 @@
 	chemical_flags = REAGENT_CAN_BE_SYNTHESIZED
 
 /datum/reagent/consumable/hot_ramen/on_mob_life(mob/living/carbon/M, seconds_per_tick, times_fired)
-	M.adjust_bodytemperature(10 * TEMPERATURE_DAMAGE_COEFFICIENT * REM * seconds_per_tick, 0, M.get_body_temp_normal())
+	M.adjust_bodytemperature(0.2 KELVIN * REM * seconds_per_tick, 0, M.standard_body_temperature)
 	..()
 
 /datum/reagent/consumable/hell_ramen
@@ -620,7 +587,7 @@
 	chemical_flags = REAGENT_CAN_BE_SYNTHESIZED
 
 /datum/reagent/consumable/hell_ramen/on_mob_life(mob/living/carbon/target_mob, seconds_per_tick, times_fired)
-	target_mob.adjust_bodytemperature(10 * TEMPERATURE_DAMAGE_COEFFICIENT * REM * seconds_per_tick)
+	target_mob.adjust_bodytemperature(WARM_DRINK KELVIN * REM * seconds_per_tick, max_temp = CELCIUS_TO_KELVIN(45 CELCIUS))
 	..()
 
 /datum/reagent/consumable/flour
@@ -779,16 +746,6 @@
 	taste_description = "sweetness"
 	chemical_flags = REAGENT_CAN_BE_SYNTHESIZED
 	default_container = /obj/item/reagent_containers/condiment/honey
-
-	// On the other hand, honey has been known to carry pollen with it rarely. Can be used to take in a lot of plant qualities all at once, or harm the plant.
-/datum/reagent/consumable/honey/on_hydroponics_apply(obj/item/seeds/myseed, datum/reagents/chems, obj/machinery/hydroponics/mytray, mob/user)
-	. = ..()
-	if(chems.has_reagent(src.type, 1))
-		if(myseed && prob(80))
-			mytray.adjust_weedlevel(rand(1,2))
-			mytray.adjust_pestlevel(rand(1,2))
-			myseed.adjust_maturation(rand(1,2))
-			myseed.adjust_lifespan(rand(1,2))
 
 /datum/reagent/consumable/honey/on_mob_life(mob/living/carbon/M, seconds_per_tick, times_fired)
 	holder.add_reagent(/datum/reagent/consumable/sugar, 3 * REM * seconds_per_tick)

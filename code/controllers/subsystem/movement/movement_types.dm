@@ -129,6 +129,10 @@
 
 	SEND_SIGNAL(src, COMSIG_MOVELOOP_POSTPROCESS, result, delay * visual_delay)
 
+	if(result == MOVELOOP_FAILURE && ishuman(src.moving) && istype(src, /datum/move_loop/has_target/move_towards)) // Tell the mob we slipped and what happened
+		var/datum/move_loop/has_target/move_towards/collide_move = src
+		SEND_SIGNAL(src.moving, COMSIG_MOVELOOP_POSTPROCESS, result, delay * visual_delay, collide_move.moving_towards, src)
+
 	if(QDELETED(src) || result != MOVELOOP_SUCCESS) //Can happen
 		return
 
@@ -352,6 +356,7 @@
 	turf/avoid,
 	skip_first,
 	subsystem,
+	diagonal_handling,
 	priority,
 	flags,
 	datum/extra_info,
@@ -372,6 +377,7 @@
 		simulated_only,
 		avoid,
 		skip_first,
+		diagonal_handling,
 		initial_path)
 
 /datum/move_loop/has_target/jps
@@ -389,6 +395,8 @@
 	var/turf/avoid
 	///Should we skip the first step? This is the tile we're currently on, which breaks some things
 	var/skip_first
+	///Whether we replace diagonal movements with cardinal movements or follow through with them
+	var/diagonal_handling
 	///A list for the path we're currently following
 	var/list/movement_path
 	///Cooldown for repathing, prevents spam
@@ -402,7 +410,7 @@
 	. = ..()
 	on_finish_callbacks += CALLBACK(src, PROC_REF(on_finish_pathing))
 
-/datum/move_loop/has_target/jps/setup(delay, timeout, atom/chasing, repath_delay, max_path_length, minimum_distance, list/access, simulated_only, turf/avoid, skip_first, list/initial_path)
+/datum/move_loop/has_target/jps/setup(delay, timeout, atom/chasing, repath_delay, max_path_length, minimum_distance, list/access, simulated_only, turf/avoid, skip_first, diagonal_handling, list/initial_path)
 	. = ..()
 	if(!.)
 		return
@@ -413,6 +421,7 @@
 	src.simulated_only = simulated_only
 	src.avoid = avoid
 	src.skip_first = skip_first
+	src.diagonal_handling = diagonal_handling
 	movement_path = initial_path?.Copy()
 
 /datum/move_loop/has_target/jps/compare_loops(datum/move_loop/loop_type, priority, flags, extra_info, delay, timeout, atom/chasing, repath_delay, max_path_length, minimum_distance, list/access, simulated_only, turf/avoid, skip_first, initial_path)
@@ -431,7 +440,7 @@
 
 /datum/move_loop/has_target/jps/Destroy()
 	avoid = null
-	on_finish_callbacks = null
+	on_finish_callbacks.Cut()
 	return ..()
 
 ///Tries to calculate a new path for this moveloop.
@@ -439,7 +448,7 @@
 	if(!COOLDOWN_FINISHED(src, repath_cooldown))
 		return
 	COOLDOWN_START(src, repath_cooldown, repath_delay)
-	if(SSpathfinder.pathfind(moving, target, max_path_length, minimum_distance, access, simulated_only, avoid, skip_first, on_finish = on_finish_callbacks))
+	if(SSpathfinder.pathfind(moving, target, max_path_length, minimum_distance, access, simulated_only, avoid, skip_first, diagonal_handling, on_finish = on_finish_callbacks))
 		is_pathing = TRUE
 		SEND_SIGNAL(src, COMSIG_MOVELOOP_JPS_REPATH)
 
@@ -447,6 +456,7 @@
 /datum/move_loop/has_target/jps/proc/on_finish_pathing(list/path)
 	movement_path = path
 	is_pathing = FALSE
+	SEND_SIGNAL(src, COMSIG_MOVELOOP_JPS_FINISHED_PATHING, path)
 
 /datum/move_loop/has_target/jps/move()
 	if(!length(movement_path))

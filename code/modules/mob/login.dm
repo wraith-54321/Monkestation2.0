@@ -46,9 +46,9 @@
 
 	if(hud_used)
 		if (forced_interaction_mode)
-			client.imode.replace(forced_interaction_mode)
+			client.imode?.replace(forced_interaction_mode)
 		else
-			client.imode.reload_hud(src)
+			client.imode?.reload_hud(src)
 		hud_used.show_hud(hud_used.hud_version) // see above, this can process a disconnect
 		if(!client)
 			return FALSE
@@ -128,15 +128,6 @@
 	AddElement(/datum/element/weather_listener, /datum/weather/ash_storm, ZTRAIT_ASHSTORM, GLOB.ash_storm_sounds)
 
 	SEND_GLOBAL_SIGNAL(COMSIG_GLOB_MOB_LOGGED_IN, src)
-
-	if(!client.patreon)
-		client.patreon = new(client)
-
-	if(!client.twitch)
-		client.twitch = new(client)
-
-	if(!client.client_token_holder)
-		client.client_token_holder = new(client)
 
 	return TRUE
 

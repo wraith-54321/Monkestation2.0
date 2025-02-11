@@ -9,7 +9,7 @@
 	name = "condiment bottle"
 	desc = "Just your average condiment bottle."
 	icon = 'icons/obj/food/containers.dmi'
-	icon_state = "emptycondiment"
+	icon_state = "generic_condiment" // monkestation edit: ew should just be a generic bottle.
 	inhand_icon_state = "beer" //Generic held-item sprite until unique ones are made.
 	lefthand_file = 'icons/mob/inhands/items/drinks_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/items/drinks_righthand.dmi'
@@ -66,7 +66,7 @@
 	playsound(M.loc,'sound/items/drink.ogg', rand(10,50), TRUE)
 	return TRUE
 
-/obj/item/reagent_containers/condiment/afterattack(obj/target, mob/user , proximity)
+/obj/item/reagent_containers/condiment/afterattack(obj/target, mob/user, proximity, params)
 	. = ..()
 	if(!proximity)
 		return
@@ -94,6 +94,18 @@
 			return
 		var/trans = src.reagents.trans_to(target, amount_per_transfer_from_this, transfered_by = user)
 		to_chat(user, span_notice("You transfer [trans] units of the condiment to [target]."))
+
+		var/datum/reagent/main_reagent = reagents.get_master_reagent_id()
+		var/condiment_overlay = initial(main_reagent.condiment_overlay)
+		var/overlay_colored = initial(main_reagent.overlay_colored)
+		if(condiment_overlay && istype (target, /obj/item/food))
+			var/list/params_list = params2list(params)
+			var/image/I = image('monkestation/code/modules/brewin_and_chewin/icons/condiment_overlays.dmi', target, condiment_overlay)
+			I.pixel_x = clamp(text2num(params_list["icon-x"]) - world.icon_size/2 - pixel_x,-world.icon_size/2,world.icon_size/2)
+			I.pixel_y = clamp(text2num(params_list["icon-y"]) - world.icon_size/2 - pixel_y,-world.icon_size/2,world.icon_size/2)
+			if (overlay_colored)
+				I.color = mix_color_from_reagents(reagents.reagent_list)
+			target.overlays += I
 
 /obj/item/reagent_containers/condiment/enzyme
 	name = "universal enzyme"
@@ -207,14 +219,19 @@
 	. = ..()
 	var/datum/chemical_reaction/recipe_dough = GLOB.chemical_reactions_list[/datum/chemical_reaction/food/dough]
 	var/datum/chemical_reaction/recipe_cakebatter = GLOB.chemical_reactions_list[/datum/chemical_reaction/food/cakebatter]
+	var/datum/chemical_reaction/recipe_cakebatter_vegan = GLOB.chemical_reactions_list[/datum/chemical_reaction/food/cakebatter/vegan]
 	var/dough_flour_required = recipe_dough.required_reagents[/datum/reagent/consumable/flour]
 	var/dough_water_required = recipe_dough.required_reagents[/datum/reagent/water]
 	var/cakebatter_flour_required = recipe_cakebatter.required_reagents[/datum/reagent/consumable/flour]
 	var/cakebatter_eggyolk_required = recipe_cakebatter.required_reagents[/datum/reagent/consumable/eggyolk]
+	var/cakebatter_eggwhite_required = recipe_cakebatter.required_reagents[/datum/reagent/consumable/eggwhite]
 	var/cakebatter_sugar_required = recipe_cakebatter.required_reagents[/datum/reagent/consumable/sugar]
+	var/cakebatter_soy_required = recipe_cakebatter_vegan.required_reagents[/datum/reagent/consumable/soymilk]
 	. += "<b><i>You retreat inward and recall the teachings of... Making Dough...</i></b>"
 	. += span_notice("[dough_flour_required] flour, [dough_water_required] water makes normal dough. You can make flat dough from it.")
-	. += span_notice("[cakebatter_flour_required] flour, [cakebatter_eggyolk_required] egg yolk (or soy milk), [cakebatter_sugar_required] sugar makes cake dough. You can make pie dough from it.")
+	. += span_notice("[cakebatter_flour_required] flour, [cakebatter_eggyolk_required] egg yolk, [cakebatter_eggwhite_required] egg white, and [cakebatter_sugar_required] sugar makes cake dough.")
+	. += span_notice("Alternatively, a vegan cake is made with: [cakebatter_flour_required] flour, [cakebatter_soy_required] soy milk, and [cakebatter_sugar_required] sugar.")
+	. += span_notice("It can be flattened into pie dough and then cut into pastry base. Once baked, pastry base can be combined with sugar for donuts!")
 
 /obj/item/reagent_containers/condiment/soymilk
 	name = "soy milk"
@@ -271,6 +288,13 @@
 	desc = "Perfect for chips, if you're feeling Space British."
 	icon_state = "vinegar"
 	list_reagents = list(/datum/reagent/consumable/vinegar = 50)
+	fill_icon_thresholds = null
+
+/obj/item/reagent_containers/condiment/cooking_oil
+	name = "cooking oil"
+	desc = "For all your deep-frying needs."
+	icon_state = "cooking_oil"
+	list_reagents = list(/datum/reagent/consumable/cooking_oil = 50)
 	fill_icon_thresholds = null
 
 /obj/item/reagent_containers/condiment/quality_oil
@@ -378,6 +402,19 @@
 	icon_state = "condi_chocolate"
 	list_reagents = list(/datum/reagent/consumable/choccyshake = 10)
 
+
+/obj/item/reagent_containers/condiment/hotsauce
+	name = "hotsauce bottle"
+	desc= "You can almost TASTE the stomach ulcers!"
+	icon_state = "hotsauce"
+	list_reagents = list(/datum/reagent/consumable/capsaicin = 50)
+
+/obj/item/reagent_containers/condiment/coldsauce
+	name = "coldsauce bottle"
+	desc= "Leaves the tongue numb from its passage."
+	icon_state = "coldsauce"
+	list_reagents = list(/datum/reagent/consumable/frostoil = 50)
+
 //Food packs. To easily apply deadly toxi... delicious sauces to your food!
 
 /obj/item/reagent_containers/condiment/pack
@@ -420,7 +457,7 @@
 /obj/item/reagent_containers/condiment/pack/attack(mob/M, mob/user, def_zone) //Can't feed these to people directly.
 	return
 
-/obj/item/reagent_containers/condiment/pack/afterattack(obj/target, mob/user , proximity)
+/obj/item/reagent_containers/condiment/pack/afterattack(obj/target, mob/user , proximity, params)
 	if(!proximity)
 		return
 	. |= AFTERATTACK_PROCESSED_ITEM
@@ -436,6 +473,17 @@
 			return
 		else
 			to_chat(user, span_notice("You tear open [src] above [target] and the condiments drip onto it."))
+			var/datum/reagent/main_reagent = reagents.get_master_reagent_id()
+			var/condiment_overlay = initial(main_reagent.condiment_overlay)
+			var/overlay_colored = initial(main_reagent.overlay_colored)
+			if(condiment_overlay && istype (target, /obj/item/food))
+				var/list/params_list = params2list(params)
+				var/image/I = image('monkestation/code/modules/brewin_and_chewin/icons/condiment_overlays.dmi', target, condiment_overlay)
+				I.pixel_x = clamp(text2num(params_list["icon-x"]) - world.icon_size/2 - pixel_x,-world.icon_size/2,world.icon_size/2)
+				I.pixel_y = clamp(text2num(params_list["icon-y"]) - world.icon_size/2 - pixel_y,-world.icon_size/2,world.icon_size/2)
+				if (overlay_colored)
+					I.color = mix_color_from_reagents(reagents.reagent_list)
+				target.overlays += I
 			src.reagents.trans_to(target, amount_per_transfer_from_this, transfered_by = user)
 			qdel(src)
 			return

@@ -67,22 +67,28 @@
 	operated_bodypart = null
 	return ..()
 
+/datum/surgery/proc/is_valid_wound(datum/wound/wound)
+	return istype(wound, targetable_wound)
 
 /datum/surgery/proc/can_start(mob/user, mob/living/patient) //FALSE to not show in list
-	. = TRUE
 	if(replaced_by == /datum/surgery)
 		return FALSE
 
-	// True surgeons (like abductor scientists) need no instructions
-	if(HAS_TRAIT(user, TRAIT_ALL_SURGERIES) || (!isnull(user.mind) && HAS_TRAIT(user.mind, TRAIT_ALL_SURGERIES))) // monke edit: TRAIT_ALL_SURGERIES
-		if(replaced_by) // only show top-level surgeries
+	if(targetable_wound)
+		var/any_wound = FALSE
+		var/obj/item/bodypart/targeted_bodypart = patient.get_bodypart(user.zone_selected)
+		for(var/datum/wound/found_wound as anything in targeted_bodypart?.wounds)
+			if(is_valid_wound(found_wound))
+				any_wound = TRUE
+				break
+
+		if(!any_wound)
 			return FALSE
-		else
-			return TRUE
 
 	if(!requires_tech && !replaced_by)
 		return TRUE
 
+	. = TRUE
 	if(requires_tech)
 		. = FALSE
 
@@ -92,16 +98,22 @@
 	if(surgery_signal & COMPONENT_CANCEL_SURGERY)
 		return FALSE
 
-	var/turf/patient_turf = get_turf(patient)
+	// True surgeons (like abductor scientists) need no instructions
+	if(HAS_TRAIT(user, TRAIT_ALL_SURGERIES) || (!isnull(user.mind) && HAS_TRAIT(user.mind, TRAIT_ALL_SURGERIES))) // monke edit: TRAIT_ALL_SURGERIES
+		if(replaced_by) // only show top-level surgeries
+			return FALSE
+		else
+			return TRUE
 
 	//Get the relevant operating computer
-	var/obj/machinery/computer/operating/opcomputer = locate_operating_computer(patient_turf)
+	var/obj/machinery/computer/operating/opcomputer = locate_operating_computer(get_turf(patient))
 	if (isnull(opcomputer))
 		return .
 	if(replaced_by in opcomputer.advanced_surgeries)
 		return FALSE
 	if(type in opcomputer.advanced_surgeries)
 		return TRUE
+	return .
 
 /datum/surgery/proc/next_step(mob/living/user, modifiers)
 	if(location != user.zone_selected)
@@ -138,7 +150,7 @@
 	return null
 
 /datum/surgery/proc/complete(mob/surgeon)
-	SSblackbox.record_feedback("tally", "surgeries_completed", 1, type)
+	SSblackbox.record_feedback("tally", "surgeries_completed", 1, name)
 	surgeon.add_mob_memory(/datum/memory/surgery, deuteragonist = surgeon, surgery_type = name)
 	qdel(src)
 

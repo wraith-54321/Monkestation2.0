@@ -63,7 +63,7 @@
 	name = "dirt"
 	desc = "Someone should clean that up."
 	icon = 'icons/effects/dirt.dmi'
-	icon_state = "dirt"
+	icon_state = "dirt-flat-0"
 	base_icon_state = "dirt"
 	smoothing_flags = NONE
 	smoothing_groups = SMOOTH_GROUP_CLEANABLE_DIRT
@@ -73,6 +73,10 @@
 
 /obj/effect/decal/cleanable/dirt/Initialize(mapload)
 	. = ..()
+	icon_state = pick("dirt-flat-0","dirt-flat-1","dirt-flat-2","dirt-flat-3")
+	var/obj/structure/broken_flooring/broken_flooring = locate(/obj/structure/broken_flooring) in loc
+	if(!isnull(broken_flooring))
+		return
 	var/turf/T = get_turf(src)
 	if(T.tiled_dirt)
 		smoothing_flags = SMOOTH_BITMASK
@@ -88,6 +92,12 @@
 /obj/effect/decal/cleanable/dirt/dust
 	name = "dust"
 	desc = "A thin layer of dust coating the floor."
+	icon_state = "dust"
+	base_icon_state = "dust"
+
+/obj/effect/decal/cleanable/dirt/dust/Initialize(mapload)
+	. = ..()
+	icon_state = base_icon_state
 
 /obj/effect/decal/cleanable/greenglow
 	name = "glowing goo"
@@ -163,6 +173,14 @@
 			H.visible_message(span_alert("[H] extends a small proboscis into the vomit pool, sucking it with a slurping sound."))
 			reagents.trans_to(H, reagents.total_volume, transfered_by = user, methods = INGEST)
 			qdel(src)
+
+/// Nebula vomit with extra guests
+/obj/effect/decal/cleanable/vomit/nebula/worms
+
+/obj/effect/decal/cleanable/vomit/nebula/worms/Initialize(mapload, list/datum/disease/diseases)
+	. = ..()
+	for (var/i in 1 to rand(2, 3))
+		new /mob/living/basic/hivelord_brood(loc)
 
 /obj/effect/decal/cleanable/vomit/old
 	name = "crusty dried vomit"

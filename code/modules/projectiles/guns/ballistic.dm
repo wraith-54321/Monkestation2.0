@@ -47,8 +47,10 @@
 
 	///Whether the gun will spawn loaded with a magazine
 	var/spawnwithmagazine = TRUE
-	///Compatible magazines with the gun
-	var/mag_type = /obj/item/ammo_box/magazine/m10mm //Removes the need for max_ammo and caliber info
+	/// What type (includes subtypes) of magazine will this gun accept being put into it
+	var/obj/item/ammo_box/magazine/accepted_magazine_type = /obj/item/ammo_box/magazine/m10mm
+	/// Change this if the gun should spawn with a different magazine type to what accepted_magazine_type defines. Will create errors if not a type or subtype of accepted magazine.
+	var/obj/item/ammo_box/magazine/spawn_magazine_type
 	///Whether the sprite has a visible magazine or not
 	var/mag_display = TRUE
 	///Whether the sprite has a visible ammo display or not
@@ -125,20 +127,31 @@
 	///What is the cap on our misfire probability? Do not set this to 100.
 	var/misfire_probability_cap = 25
 
+	var/wield_recoil = 0
+
 /obj/item/gun/ballistic/Initialize(mapload)
 	. = ..()
+	AddComponent(/datum/component/two_handed, wield_callback = CALLBACK(src, PROC_REF(on_wield)), unwield_callback = CALLBACK(src, PROC_REF(on_unwield)))
+	if(!spawn_magazine_type)
+		spawn_magazine_type = accepted_magazine_type
 	if (!spawnwithmagazine)
 		bolt_locked = TRUE
 		update_appearance()
 		return
 	if (!magazine)
-		magazine = new mag_type(src)
+		magazine = new spawn_magazine_type(src)
 	if(bolt_type == BOLT_TYPE_STANDARD || internal_magazine) //Internal magazines shouldn't get magazine + 1.
 		chamber_round()
 	else
 		chamber_round(replace_new_round = TRUE)
 	update_appearance()
 	RegisterSignal(src, COMSIG_ITEM_RECHARGED, PROC_REF(instant_reload))
+	register_context()
+
+/obj/item/gun/ballistic/add_context(atom/source, list/context, obj/item/held_item, mob/user)
+	. = ..()
+	context[SCREENTIP_CONTEXT_CTRL_LMB] = "Toggle Bracing"
+	return CONTEXTUAL_SCREENTIP_SET
 
 /obj/item/gun/ballistic/Destroy()
 	QDEL_NULL(magazine)
@@ -303,7 +316,7 @@
 
 ///Handles all the logic needed for magazine insertion
 /obj/item/gun/ballistic/proc/insert_magazine(mob/user, obj/item/ammo_box/magazine/AM, display_message = TRUE)
-	if(!istype(AM, mag_type))
+	if(!istype(AM, accepted_magazine_type))
 		balloon_alert(user, "[AM.name] doesn't fit!")
 		return FALSE
 	if(user.transferItemToLoc(AM, src))
@@ -699,9 +712,9 @@ GLOBAL_LIST_INIT(gun_saw_types, typecacheof(list(
 	if(magazine)
 		magazine.top_off()
 	else
-		if(!mag_type)
+		if(!accepted_magazine_type)
 			return
-		magazine = new mag_type(src)
+		magazine = new accepted_magazine_type(src)
 	chamber_round()
 	update_appearance()
 

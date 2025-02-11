@@ -70,9 +70,9 @@
 	database_id = MEDAL_CLEANBOSS
 
 /datum/award/achievement/misc/rule8
-	name = "Rule 8"
+	name = "Rule 3"
 	desc = "Call an admin this is ILLEGAL!!"
-	database_id = MEDAL_RULE8
+	database_id = MEDAL_RULE8 //blame tg lmao
 	icon = "rule8"
 
 /datum/award/achievement/misc/speed_round
@@ -134,6 +134,12 @@
 	desc = "You managed to teleport an entity on the station that really shouldn't be there."
 	database_id = MEDAL_COSMOS_ASCENSION
 	icon = "cosmicascend"
+
+/datum/award/achievement/misc/moon_ascension
+	name = "The Last Act"
+	desc = "You managed to become the ringleader and slay the lie."
+	database_id = MEDAL_MOON_ASCENSION
+	icon = "moonascend"
 
 /datum/award/achievement/misc/grand_ritual_finale
 	name = "Archmage"
@@ -207,3 +213,8 @@
 	database_id = MEDAL_DEBT_EXTINGUISHED
 	icon = "outdebted"
 
+/datum/award/achievement/misc/gods_wrath
+	name = "God's Wrath"
+	desc = "Did you think you could get away with defiling the word of God?"
+	database_id = MEDAL_GODS_WRATH
+	icon = "godswrath"

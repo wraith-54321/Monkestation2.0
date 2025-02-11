@@ -75,16 +75,25 @@
 		return
 
 	msg = sanitize(copytext(msg,1,MAX_MESSAGE_LEN))
-	var/mentor_msg = "<font color='purple'><span class='mentornotice'><b>MENTORHELP:</b> <b>[key_name_mentor(src, TRUE, FALSE)]</b>: </span><span class='message linkify'>[msg]</span></font>"
+	var/mentor_msg = "<font color='purple'><span class='mentornotice'><b>MENTORHELP:</b> <b>[key_name_mentor(src, TRUE, FALSE)]</b> : </span><span class='message linkify'>[msg]</span></font>"
+	var/mentor_msg_observing = "<span class='mentornotice'><b><span class='mentorhelp'>MENTORHELP:</b> <b>[key_name_mentor(src, TRUE, FALSE)]</b> (<a href='byond://?_src_=mentor;[MentorHrefToken(TRUE)];mentor_friend=[REF(src.mob)]'>IF</a>) : [msg]</span></span>"
 	log_mentor("MENTORHELP: [key_name_mentor(src, null, FALSE, FALSE)]: [msg]")
 
 	/// Send the Mhelp to all Mentors/Admins
 	for(var/client/honked_clients in GLOB.mentors | GLOB.admins)
-		honked_clients << 'sound/items/bikehorn.ogg'
-		to_chat(honked_clients,
-			type = MESSAGE_TYPE_MODCHAT,
-			html = mentor_msg,
-			confidential = TRUE)
+		if(QDELETED(honked_clients?.mentor_datum) || honked_clients?.mentor_datum?.not_active)
+			continue
+		SEND_SOUND(honked_clients, sound('sound/items/bikehorn.ogg'))
+		if(!isobserver(honked_clients.mob))
+			to_chat(honked_clients,
+					type = MESSAGE_TYPE_MODCHAT,
+					html = mentor_msg,
+					confidential = TRUE)
+		else
+			to_chat(honked_clients,
+					type = MESSAGE_TYPE_MODCHAT,
+					html = mentor_msg_observing,
+					confidential = TRUE)
 
 	/// Also show it to person Mhelping
 	to_chat(usr,
@@ -99,6 +108,7 @@
 	if(request)
 		var/id = "[request.id]"
 		var/regular_webhook_url = CONFIG_GET(string/regular_mentorhelp_webhook_url)
+		SSplexora.mticket_new(request)
 		if(regular_webhook_url)
 			var/extra_message = CONFIG_GET(string/mhelp_message)
 			var/datum/discord_embed/embed = format_mhelp_embed(msg, id)
@@ -131,7 +141,7 @@
 		if(chosen_client)
 			user = chosen_client.mob
 	else if(findtext(whom, "Discord"))
-		return "<a href='?_src_=mentor;mentor_msg=[whom];[MentorHrefToken(TRUE)]'>"
+		return "<a href='byond://?_src_=mentor;mentor_msg=[whom];[MentorHrefToken(TRUE)]'>"
 	else
 		return "*invalid*"
 
@@ -142,7 +152,7 @@
 
 	if(key)
 		if(include_link != null)
-			. += "<a href='?_src_=mentor;mentor_msg=[ckey];[MentorHrefToken(TRUE)]'>"
+			. += "<a href='byond://?_src_=mentor;mentor_msg=[ckey];[MentorHrefToken(TRUE)]'>"
 
 		if(chosen_client && chosen_client.holder && chosen_client.holder.fakekey)
 			. += "Administrator"
@@ -157,6 +167,6 @@
 		. += "*no key*"
 
 	if(include_follow)
-		. += " (<a href='?_src_=mentor;mentor_follow=[REF(user)];[MentorHrefToken(TRUE)]'>F</a>)"
+		. += " (<a href='byond://?_src_=mentor;mentor_follow=[REF(user)];[MentorHrefToken(TRUE)]'>F</a>)"
 
 	return .

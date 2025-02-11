@@ -1,5 +1,6 @@
 /mob/living/basic/chicken/raptor
 	icon_suffix = "raptor"
+	worn_slot_flags = null
 
 	breed_name = "Raptor"
 	breed_name_male = "Tiercel"
@@ -11,6 +12,8 @@
 	melee_damage_lower = 8
 	melee_damage_upper =8
 	obj_damage = 10
+	liked_foods = list(/obj/item/food/nugget = 5)
+	disliked_food_types = list()
 
 	book_desc = "These creatures are bloodthirsty and will attack everything they are not friends with on site, this includes other chickens."
 

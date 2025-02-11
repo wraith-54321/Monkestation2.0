@@ -31,8 +31,8 @@
 		return
 	var/mob/living/carbon/human/dressing_human = user
 
-	if(dressing_human.dna && dressing_human.dna.species && (NO_UNDERWEAR in dressing_human.dna.species.species_traits))
-		to_chat(user, span_warning("You are not capable of wearing underwear."))
+	if(HAS_TRAIT(dressing_human, TRAIT_NO_UNDERWEAR))
+		to_chat(dressing_human, span_warning("You are not capable of wearing underwear."))
 		return
 
 	var/choice = tgui_input_list(user, "Underwear, Undershirt, or Socks?", "Changing", list("Underwear","Underwear Color","Undershirt","Socks", "Socks Color")) //MONKESTATION EDIT
@@ -59,7 +59,7 @@
 			if(new_socks)
 				dressing_human.socks= new_socks
 		if("Socks Color")	//MONKESTATION EDIT
-			var/new_socks_color = input(dressing_human, "Choose your socks color", "Socks Color", dressing_human.socks_color) as color|null
+			var/new_socks_color = tgui_color_picker(dressing_human, "Choose your socks color", "Socks Color", dressing_human.socks_color)
 			if(new_socks_color)
 				dressing_human.socks_color = sanitize_hexcolor(new_socks_color)
 

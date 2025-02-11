@@ -58,7 +58,13 @@
 	var/area/area = get_area(src)
 	if(area)
 		var/mutable_appearance/alert_overlay = mutable_appearance('icons/effects/cult/effects.dmi', "ghostalertsie")
-		notify_ghosts("Nar'Sie has risen in [area]. Reach out to the Geometer to be given a new shell for your soul.", source = src, alert_overlay = alert_overlay, action = NOTIFY_PLAY)
+		notify_ghosts(
+			"Nar'Sie has risen in [area]. Reach out to the Geometer to be given a new shell for your soul.",
+			source = src,
+			alert_overlay = alert_overlay,
+			action = NOTIFY_PLAY,
+		)
+
 	narsie_spawn_animation()
 
 	GLOB.cult_narsie = src
@@ -270,7 +276,7 @@
 
 ///security level and shuttle lockdowns for [/proc/begin_the_end()]
 /proc/narsie_start_destroy_station()
-	SSsecurity_level.set_level(SEC_LEVEL_DELTA)
+	SSsecurity_level.set_level(SEC_LEVEL_LAMBDA)
 	SSshuttle.registerHostileEnvironment(GLOB.cult_narsie)
 	SSshuttle.lockdown = TRUE
 	addtimer(CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(narsie_apocalypse)), 1 MINUTES)

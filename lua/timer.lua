@@ -1,18 +1,20 @@
-local SS13 = require("SS13_base")
+local state = require("state")
+
 local Timer = {}
 
+local SSlua = dm.global_vars.SSlua
 __Timer_timers = __Timer_timers or {}
 __Timer_callbacks = __Timer_callbacks or {}
 
 function __add_internal_timer(func, time, loop)
 	local timer = {
 		loop = loop,
-		executeTime = time + dm.world:get_var("time")
+		executeTime = time + dm.world.time,
 	}
 	__Timer_callbacks[tostring(func)] = function()
 		timer.executing = false
 		if loop and timer.terminate ~= true then
-			timer.executeTime = dm.world:get_var("time") + time
+			timer.executeTime = dm.world.time + time
 		else
 			__stop_internal_timer(tostring(func))
 		end
@@ -35,22 +37,21 @@ function __stop_internal_timer(func)
 end
 
 __Timer_timer_processing = __Timer_timer_processing or false
-SS13.state:set_var("timer_enabled", 1)
+state.state.timer_enabled = 1
 __Timer_timer_process = function(seconds_per_tick)
 	if __Timer_timer_processing then
 		return 0
 	end
 	__Timer_timer_processing = true
-	local time = dm.world:get_var("time")
 	for func, timeData in __Timer_timers do
 		if timeData.executing == true then
 			continue
 		end
-		if over_exec_usage(0.85) then
+		if _exec.time / (dm.world.tick_lag * 100) > 0.85 then
 			sleep()
 		end
-		if time >= timeData.executeTime then
-			SS13.state:get_var("functions_to_execute"):add(func)
+		if dm.world.time >= timeData.executeTime then
+			list.add(state.state.functions_to_execute, func)
 			timeData.executing = true
 		end
 	end
@@ -59,9 +60,9 @@ __Timer_timer_process = function(seconds_per_tick)
 end
 
 function Timer.wait(time)
-	local next_yield_index = __next_yield_index
+	local yieldIndex = _exec.next_yield_index
 	__add_internal_timer(function()
-		SS13.SSlua:call_proc("queue_resume", SS13.state, next_yield_index)
+		SSlua:queue_resume(state.state, yieldIndex)
 	end, time * 10, false)
 	coroutine.yield()
 end

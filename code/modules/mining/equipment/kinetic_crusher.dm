@@ -21,7 +21,7 @@
 	sharpness = SHARP_EDGED
 	actions_types = list(/datum/action/item_action/toggle_light)
 	obj_flags = UNIQUE_RENAME
-	light_system = MOVABLE_LIGHT
+	light_system = OVERLAY_LIGHT
 	light_outer_range = 5
 	light_on = FALSE
 	var/list/trophies = list()
@@ -151,9 +151,10 @@
 	destabilizer.hammer_synced = src
 	playsound(user, 'sound/weapons/plasma_cutter.ogg', 100, TRUE)
 	destabilizer.fire()
-	charged = FALSE
-	update_appearance()
-	addtimer(CALLBACK(src, PROC_REF(Recharge)), charge_time)
+	if(charge_time > 0)
+		charged = FALSE
+		update_appearance()
+		addtimer(CALLBACK(src, PROC_REF(Recharge)), charge_time)
 
 /obj/item/kinetic_crusher/proc/Recharge()
 	if(!charged)

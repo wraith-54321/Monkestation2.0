@@ -1,5 +1,6 @@
 /mob/living/basic/chicken/silkie_white
 	icon_suffix = "silkie_white"
+	worn_slot_flags = null
 
 	breed_name = "White Silkie"
 	egg_type = /obj/item/food/egg/silkie_white
@@ -12,3 +13,4 @@
 	icon_state = "silkie_white"
 
 	layer_hen_type = /mob/living/basic/chicken/silkie_white
+	turf_requirements = list(/turf/open/floor/grass, /turf/open/floor/sandy_dirt)

@@ -91,7 +91,7 @@
 	var/locx = (target_turf.x - here_turf.x) + 24
 	var/locy = (here_turf.y - target_turf.y) + 24
 
-	if(get_dist_euclidian(here_turf, target_turf) > 24)
+	if(get_dist_euclidean(here_turf, target_turf) > 24)
 		userot = TRUE
 		rot = round(get_angle(here_turf, target_turf))
 	else
@@ -176,7 +176,7 @@
 
 	var/here_turf = get_turf(computer)
 	var/target_turf = get_turf(signal)
-	var/trackdistance = get_dist_euclidian(here_turf, target_turf)
+	var/trackdistance = get_dist_euclidean(here_turf, target_turf)
 	switch(trackdistance)
 		if(0)
 			program_icon_state = "[initial(program_icon_state)]direct"
@@ -197,6 +197,8 @@
 	if(computer.active_program == src)
 		START_PROCESSING(SSfastprocess, src)
 
+//MONKESTATION REMOVAL START
+/*
 ///////////////////
 //Suit Sensor App//
 ///////////////////
@@ -244,7 +246,8 @@
 			var/obj/item/clothing/under/uniform = humanoid.w_uniform
 			if(uniform.has_sensor && uniform.sensor_mode >= SENSOR_COORDS) // Suit sensors must be on maximum
 				return TRUE
-	return FALSE
+	return FALSE */
+//MONKESTATION REMOVAL END
 
 ///Tracks all janitor equipment
 /datum/computer_file/program/radar/custodial_locator
@@ -279,8 +282,8 @@
 			var/obj/structure/mop_bucket/janitorialcart/janicart = custodial_tools
 			tool_name = "[janicart.name] - Water level: [janicart.reagents.total_volume] / [janicart.reagents.maximum_volume]"
 
-		if(istype(custodial_tools, /mob/living/simple_animal/bot/cleanbot))
-			var/mob/living/simple_animal/bot/cleanbot/cleanbots = custodial_tools
+		if(istype(custodial_tools, /mob/living/basic/bot/cleanbot))
+			var/mob/living/basic/bot/cleanbot/cleanbots = custodial_tools
 			tool_name = "[cleanbots.name] - [cleanbots.bot_mode_flags & BOT_MODE_ON ? "Online" : "Offline"]"
 
 		var/list/tool_information = list(

@@ -58,7 +58,7 @@
 		explosion(src, devastation_range = heavy, heavy_impact_range = medium, light_impact_range = weak, flame_range = weak, flash_range = weak, explosion_cause = src)
 		if(imp_in)
 			imp_in.investigate_log("has been gibbed by an explosive implant.", INVESTIGATE_DEATHS)
-			imp_in.gib(TRUE)
+			imp_in.gib(TRUE, safe_gib = FALSE)
 		qdel(src)
 		return
 	timed_explosion()
@@ -85,6 +85,17 @@
 
 /obj/item/implant/explosive/proc/timed_explosion()
 	imp_in.visible_message(span_warning("[imp_in] starts beeping ominously!"))
+
+	notify_ghosts(
+		"[imp_in] is about to detonate their explosive implant!",
+		source = src,
+		action = NOTIFY_ORBIT,
+		notify_flags = NOTIFY_CATEGORY_NOFLASH,
+		ghost_sound = 'sound/machines/warning-buzzer.ogg',
+		header = "Tick Tick Tick...",
+		notify_volume = 75,
+	)
+
 	playsound(loc, 'sound/items/timer.ogg', 30, FALSE)
 	sleep(delay*0.25)
 	if(imp_in && !imp_in.stat)

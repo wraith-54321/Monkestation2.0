@@ -50,10 +50,6 @@
 	addiction_types = list(/datum/addiction/alcohol = 0.05 * boozepwr)
 	return ..()
 
-/datum/reagent/consumable/ethanol/on_hydroponics_apply(obj/item/seeds/myseed, datum/reagents/chems, obj/machinery/hydroponics/mytray, mob/user)
-	. = ..()
-	myseed.process_trait_gain(/datum/plant_gene/trait/brewing, ((chems.get_reagent_amount(src.type) * 0.25) + (boozepwr * 0.1)))
-
 /datum/reagent/consumable/ethanol/on_mob_life(mob/living/carbon/drinker, seconds_per_tick, times_fired)
 	if(drinker.get_drunk_amount() < volume * boozepwr * ALCOHOL_THRESHOLD_MODIFIER || boozepwr < 0)
 		var/booze_power = boozepwr
@@ -63,10 +59,10 @@
 			booze_power *= 2
 		// Volume, power, and server alcohol rate effect how quickly one gets drunk
 		drinker.adjust_drunk_effect(sqrt(volume) * booze_power * ALCOHOL_RATE * REM * seconds_per_tick)
-		if(boozepwr > 0)
+		if(boozepwr > 0 && !HAS_TRAIT(drinker, TRAIT_LIVING_DRUNK))
 			var/obj/item/organ/internal/liver/liver = drinker.get_organ_slot(ORGAN_SLOT_LIVER)
 			if (istype(liver))
-				liver.apply_organ_damage(((max(sqrt(volume) * (boozepwr ** ALCOHOL_EXPONENT) * liver.alcohol_tolerance * seconds_per_tick, 0))/150))
+				liver.apply_organ_damage(((max(sqrt(volume) * (boozepwr ** ALCOHOL_EXPONENT) * liver.alcohol_tolerance * seconds_per_tick, 0))/150), maximum = HAS_TRAIT(drinker, TRAIT_ALCOHOL_TOLERANCE) ? (STANDARD_ORGAN_THRESHOLD - 10) : null)
 	return ..()
 
 /datum/reagent/consumable/ethanol/expose_obj(obj/exposed_obj, reac_volume)
@@ -109,13 +105,6 @@
 	ph = 4
 	chemical_flags = REAGENT_CAN_BE_SYNTHESIZED
 	glass_price = DRINK_PRICE_STOCK
-
-	// Beer is a chemical composition of alcohol and various other things. It's a garbage nutrient but hey, it's still one. Also alcohol is bad, mmmkay?
-/datum/reagent/consumable/ethanol/beer/on_hydroponics_apply(obj/item/seeds/myseed, datum/reagents/chems, obj/machinery/hydroponics/mytray, mob/user)
-	. = ..()
-	if(chems.has_reagent(src.type, 1))
-		mytray.adjust_plant_health(-round(chems.get_reagent_amount(src.type) * 0.05))
-		mytray.adjust_waterlevel(round(chems.get_reagent_amount(src.type) * 0.7))
 
 /datum/reagent/consumable/ethanol/beer/light
 	name = "Light Beer"
@@ -210,7 +199,7 @@
 /datum/reagent/consumable/ethanol/thirteenloko/on_mob_life(mob/living/carbon/drinker, seconds_per_tick, times_fired)
 	drinker.adjust_drowsiness(-14 SECONDS * REM * seconds_per_tick)
 	drinker.AdjustSleeping(-40 * REM * seconds_per_tick)
-	drinker.adjust_bodytemperature(-5 * REM * TEMPERATURE_DAMAGE_COEFFICIENT * seconds_per_tick, drinker.get_body_temp_normal())
+	drinker.adjust_bodytemperature(COLD_DRINK * REM * seconds_per_tick, min_temp = drinker.standard_body_temperature)
 	if(!HAS_TRAIT(drinker, TRAIT_ALCOHOL_TOLERANCE))
 		drinker.set_jitter_if_lower(10 SECONDS)
 	..()
@@ -690,7 +679,7 @@
 	chemical_flags = REAGENT_CAN_BE_SYNTHESIZED
 
 /datum/reagent/consumable/ethanol/toxins_special/on_mob_life(mob/living/drinker, seconds_per_tick, times_fired)
-	drinker.adjust_bodytemperature(15 * REM * TEMPERATURE_DAMAGE_COEFFICIENT * seconds_per_tick, 0, drinker.get_body_temp_normal() + 20) //310.15 is the normal bodytemp.
+	drinker.adjust_bodytemperature(WARM_DRINK * REM * seconds_per_tick, max_temp = drinker.standard_body_temperature + 4 KELVIN) //310.15 is the normal bodytemp.
 	return ..()
 
 /datum/reagent/consumable/ethanol/beepsky_smash
@@ -765,15 +754,15 @@
 	. = ..()
 	if(ishuman(drinker))
 		var/mob/living/carbon/human/potential_dwarf = drinker
-		if(HAS_TRAIT(potential_dwarf, TRAIT_DWARF))
+		if(HAS_TRAIT(potential_dwarf, TRAIT_DWARF) || HAS_TRAIT(potential_dwarf, TRAIT_ALCOHOL_TOLERANCE))
 			to_chat(potential_dwarf, span_notice("Now THAT is MANLY!"))
 			boozepwr = 50 // will still smash but not as much.
 			dorf_mode = TRUE
 
 /datum/reagent/consumable/ethanol/manly_dorf/on_mob_life(mob/living/carbon/dwarf, seconds_per_tick, times_fired)
 	if(dorf_mode)
-		dwarf.adjustBruteLoss(-2 * REM * seconds_per_tick, required_bodytype = affected_bodytype)
-		dwarf.adjustFireLoss(-2 * REM * seconds_per_tick, required_bodytype = affected_bodytype)
+		dwarf.adjustBruteLoss(-1.75 * REM * seconds_per_tick, required_bodytype = affected_bodytype)
+		dwarf.adjustFireLoss(-1.75 * REM * seconds_per_tick, required_bodytype = affected_bodytype)
 	return ..()
 
 /datum/reagent/consumable/ethanol/longislandicedtea
@@ -877,7 +866,7 @@
 	chemical_flags = REAGENT_CAN_BE_SYNTHESIZED
 
 /datum/reagent/consumable/ethanol/antifreeze/on_mob_life(mob/living/carbon/drinker, seconds_per_tick, times_fired)
-	drinker.adjust_bodytemperature(20 * REM * TEMPERATURE_DAMAGE_COEFFICIENT * seconds_per_tick, 0, drinker.get_body_temp_normal() + 20) //310.15 is the normal bodytemp.
+	drinker.adjust_bodytemperature(2 * WARM_DRINK * REM * seconds_per_tick, max_temp = drinker.standard_body_temperature + 4 KELVIN) //310.15 is the normal bodytemp.
 	return ..()
 
 /datum/reagent/consumable/ethanol/barefoot
@@ -1058,7 +1047,7 @@
 	chemical_flags = REAGENT_CAN_BE_SYNTHESIZED
 
 /datum/reagent/consumable/ethanol/sbiten/on_mob_life(mob/living/carbon/drinker, seconds_per_tick, times_fired)
-	drinker.adjust_bodytemperature(50 * REM * TEMPERATURE_DAMAGE_COEFFICIENT * seconds_per_tick, 0, BODYTEMP_HEAT_DAMAGE_LIMIT) //310.15 is the normal bodytemp.
+	drinker.adjust_bodytemperature(2.5 * WARM_DRINK * REM * seconds_per_tick, max_temp = drinker.standard_body_temperature + 8 KELVIN) //310.15 is the normal bodytemp.
 	return ..()
 
 /datum/reagent/consumable/ethanol/red_mead
@@ -1089,7 +1078,7 @@
 	chemical_flags = REAGENT_CAN_BE_SYNTHESIZED
 
 /datum/reagent/consumable/ethanol/iced_beer/on_mob_life(mob/living/carbon/drinker, seconds_per_tick, times_fired)
-	drinker.adjust_bodytemperature(-20 * REM * TEMPERATURE_DAMAGE_COEFFICIENT * seconds_per_tick, T0C) //310.15 is the normal bodytemp.
+	drinker.adjust_bodytemperature(2 * COLD_DRINK * REM * seconds_per_tick, min_temp = T0C) //310.15 is the normal bodytemp.
 	return ..()
 
 /datum/reagent/consumable/ethanol/grog
@@ -1152,14 +1141,15 @@
 	name = "Changeling Sting"
 	description = "You take a tiny sip and feel a burning sensation..."
 	color = "#2E6671" // rgb: 46, 102, 113
-	boozepwr = 50
+	boozepwr = 60 // monkestation edit
 	quality = DRINK_GOOD
 	taste_description = "your brain coming out your nose"
 	chemical_flags = REAGENT_CAN_BE_SYNTHESIZED
+	metabolization_rate = 0.2 // monkestation edit
 
 /datum/reagent/consumable/ethanol/changelingsting/on_mob_life(mob/living/carbon/target, seconds_per_tick, times_fired)
 	var/datum/antagonist/changeling/changeling = target.mind?.has_antag_datum(/datum/antagonist/changeling)
-	changeling?.adjust_chemicals(metabolization_rate * REM * seconds_per_tick)
+	changeling?.adjust_chemicals(metabolization_rate * seconds_per_tick) // monkestation edit
 	return ..()
 
 /datum/reagent/consumable/ethanol/irishcarbomb
@@ -1619,7 +1609,7 @@
 	chemical_flags = REAGENT_CAN_BE_SYNTHESIZED
 
 /datum/reagent/consumable/ethanol/squirt_cider/on_mob_life(mob/living/carbon/drinker, seconds_per_tick, times_fired)
-	drinker.satiety += 5 * REM * seconds_per_tick //for context, vitamins give 15 satiety per second
+	drinker.adjust_satiety(5 * REM * seconds_per_tick) //for context, vitamins give 15 satiety per second
 	..()
 	. = TRUE
 
@@ -1643,7 +1633,7 @@
 	chemical_flags = REAGENT_CAN_BE_SYNTHESIZED
 
 /datum/reagent/consumable/ethanol/sugar_rush/on_mob_life(mob/living/carbon/drinker, seconds_per_tick, times_fired)
-	drinker.satiety -= 10 * REM * seconds_per_tick //junky as hell! a whole glass will keep you from being able to eat junk food
+	drinker.adjust_satiety(-10 * REM * seconds_per_tick)//junky as hell! a whole glass will keep you from being able to eat junk food
 	..()
 	. = TRUE
 
@@ -1681,7 +1671,7 @@
 
 /datum/reagent/consumable/ethanol/peppermint_patty/on_mob_life(mob/living/carbon/drinker, seconds_per_tick, times_fired)
 	drinker.apply_status_effect(/datum/status_effect/throat_soothed)
-	drinker.adjust_bodytemperature(5 * REM * TEMPERATURE_DAMAGE_COEFFICIENT * seconds_per_tick, 0, drinker.get_body_temp_normal())
+	drinker.adjust_bodytemperature(WARM_DRINK * REM * seconds_per_tick, max_temp = drinker.standard_body_temperature)
 	..()
 
 /datum/reagent/consumable/ethanol/alexander
@@ -2026,17 +2016,18 @@
 	taste_description = "the pain of ten thousand slain mosquitos"
 	chemical_flags = REAGENT_CAN_BE_SYNTHESIZED
 
+/datum/reagent/consumable/ethanol/bug_spray/on_new(data)
+	. = ..()
+	AddElement(/datum/element/bugkiller_reagent)
+
 /datum/reagent/consumable/ethanol/bug_spray/on_mob_life(mob/living/carbon/drinker, seconds_per_tick, times_fired)
-	//Bugs should not drink Bug spray.
-	if(ismoth(drinker) || isflyperson(drinker))
-		drinker.adjustToxLoss(1 * REM * seconds_per_tick, FALSE, required_biotype = affected_biotype)
-	return ..()
-
-/datum/reagent/consumable/ethanol/bug_spray/on_mob_metabolize(mob/living/carbon/drinker)
-
-	if(ismoth(drinker) || isflyperson(drinker))
+	// Does some damage to bug biotypes
+	var/did_damage = drinker.adjustToxLoss(1 * REM * seconds_per_tick, updating_health = FALSE, required_biotype = MOB_BUG)
+	// Random chance of causing a screm if we did some damage
+	if(did_damage && SPT_PROB(2, seconds_per_tick))
 		drinker.emote("scream")
-	return ..()
+
+	return ..() || did_damage
 
 /datum/reagent/consumable/ethanol/applejack
 	name = "Applejack"
@@ -2173,7 +2164,7 @@
 
 /datum/reagent/consumable/ethanol/mauna_loa/on_mob_life(mob/living/carbon/drinker, seconds_per_tick, times_fired)
 	// Heats the user up while the reagent is in the body. Occasionally makes you burst into flames.
-	drinker.adjust_bodytemperature(25 * REM * TEMPERATURE_DAMAGE_COEFFICIENT * seconds_per_tick)
+	drinker.adjust_bodytemperature(2.5 * WARM_DRINK * REM * seconds_per_tick)
 	if (SPT_PROB(2.5, seconds_per_tick))
 		drinker.adjust_fire_stacks(1)
 		drinker.ignite_mob()
@@ -2546,7 +2537,7 @@
 	chemical_flags = REAGENT_CAN_BE_SYNTHESIZED
 
 /datum/reagent/consumable/ethanol/gin_garden/on_mob_life(mob/living/carbon/doll, seconds_per_tick, times_fired)
-	doll.adjust_bodytemperature(-5 * REM * TEMPERATURE_DAMAGE_COEFFICIENT * seconds_per_tick, doll.get_body_temp_normal())
+	doll.adjust_bodytemperature(COLD_DRINK * REM * seconds_per_tick, min_temp = doll.standard_body_temperature)
 	..()
 
 /datum/reagent/consumable/ethanol/wine_voltaic

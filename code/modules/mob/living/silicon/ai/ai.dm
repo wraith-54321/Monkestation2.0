@@ -330,7 +330,7 @@
 		to_chat(usr, span_alert("[can_evac_or_fail_reason]"))
 		return
 
-	var/reason = tgui_input_text(src, "What is the nature of your emergency? ([CALL_SHUTTLE_REASON_LENGTH] characters required.)", "Confirm Shuttle Call")
+	var/reason = tgui_input_text(src, "What is the nature of your emergency? ([CALL_SHUTTLE_REASON_LENGTH] characters required.)", "Confirm Shuttle Call", encode = FALSE) // monkestation edit: fix double-encoded ai shuttle call reasons
 
 	if(incapacitated())
 		return
@@ -575,17 +575,21 @@
 		to_chat(src, span_danger("Selected location is not visible."))
 
 /mob/living/silicon/ai/proc/call_bot(turf/waypoint)
-	var/mob/living/simple_animal/bot/bot = bot_ref?.resolve()
+	var/mob/living/bot = bot_ref?.resolve()
 	if(!bot)
 		return
+	var/summon_success
+	if(isbasicbot(bot))
+		var/mob/living/basic/bot/basic_bot = bot
+		summon_success = basic_bot.summon_bot(src, waypoint, grant_all_access = TRUE)
+	else
+		var/mob/living/simple_animal/bot/simple_bot = bot
+		call_bot_cooldown = world.time + CALL_BOT_COOLDOWN
+		summon_success = simple_bot.call_bot(src, waypoint)
+		call_bot_cooldown = 0
 
-	if(bot.calling_ai && bot.calling_ai != src) //Prevents an override if another AI is controlling this bot.
-		to_chat(src, span_danger("Interface error. Unit is already in use."))
-		return
-	to_chat(src, span_notice("Sending command to bot..."))
-	call_bot_cooldown = world.time + CALL_BOT_COOLDOWN
-	bot.call_bot(src, waypoint)
-	call_bot_cooldown = 0
+	var/chat_message = summon_success ? "Sending command to bot..." : "Interface error. Unit is already in use."
+	to_chat(src, span_notice("[chat_message]"))
 
 /mob/living/silicon/ai/proc/alarm_triggered(datum/source, alarm_type, area/source_area)
 	SIGNAL_HANDLER
@@ -775,6 +779,7 @@
 	if (!camera_light_on)
 		to_chat(src, "Camera lights deactivated.")
 
+		list_clear_nulls(lit_cameras)
 		for (var/obj/machinery/camera/C in lit_cameras)
 			C.set_light(0)
 			lit_cameras = list()
@@ -793,8 +798,12 @@
 	var/list/obj/machinery/camera/visible = list()
 	for (var/datum/camerachunk/chunk as anything in eyeobj.visibleCameraChunks)
 		for (var/z_key in chunk.cameras)
-			for(var/obj/machinery/camera/camera as anything in chunk.cameras[z_key])
-				if (!camera.can_use() || get_dist(camera, eyeobj) > 7 || !camera.internal_light)
+			var/list/z_cameras = chunk.cameras[z_key]
+			list_clear_nulls(z_cameras)
+			for(var/obj/machinery/camera/camera as anything in z_cameras)
+				if(QDELETED(camera))
+					continue
+				if(!camera.can_use() || get_dist(camera, eyeobj) > 7 || !camera.internal_light)
 					continue
 				visible |= camera
 
@@ -879,7 +888,7 @@
 
 	var/start = "Relayed Speech: "
 	var/namepart = "[speaker.GetVoice()][speaker.get_alt_name()]"
-	var/hrefpart = "<a href='?src=[REF(src)];track=[html_encode(namepart)]'>"
+	var/hrefpart = "<a href='byond://?src=[REF(src)];track=[html_encode(namepart)]'>"
 	var/jobpart = "Unknown"
 
 	if(!HAS_TRAIT(speaker, TRAIT_UNKNOWN)) //don't fetch the speaker's job in case they have something that conseals their identity completely
@@ -905,7 +914,7 @@
 	if(oldname != real_name)
 		if(eyeobj)
 			eyeobj.name = "[newname] (AI Eye)"
-			modularInterface.saved_identification = real_name
+			modularInterface.imprint_id(name = real_name)
 
 		// Notify Cyborgs
 		for(var/mob/living/silicon/robot/Slave in connected_robots)

@@ -63,12 +63,16 @@ GLOBAL_DATUM(cult_ratvar, /obj/ratvar)
 	var/area/area = get_area(src)
 	if(area)
 		var/mutable_appearance/alert_overlay = mutable_appearance('monkestation/icons/obj/clock_cult/clockwork_effects.dmi', "ratvar_alert")
-		notify_ghosts("Rat'var has risen in [area]. Reach out to the Justicar to be given a new shell for your soul.", source = src, \
-					alert_overlay = alert_overlay, action = NOTIFY_PLAY)
+		notify_ghosts(
+			"Rat'var has risen in [area]. Reach out to the Justicar to be given a new shell for your soul.",
+			source = src,
+			alert_overlay = alert_overlay,
+			action = NOTIFY_PLAY,
+		)
 	gods_battle()
 	START_PROCESSING(SSobj, src)
 
-/obj/ratvar/Destroy(force, ...)
+/obj/ratvar/Destroy(force)
 	if(GLOB.cult_ratvar == src)
 		GLOB.cult_ratvar = null
 	STOP_PROCESSING(SSobj, src)
@@ -106,12 +110,16 @@ GLOBAL_DATUM(cult_ratvar, /obj/ratvar)
 	forceMove(the_turf)
 
 /obj/ratvar/attack_ghost(mob/user)
-	if(!user.mind) //this should not happen but just to be safe
-		return
 	. = ..()
 	var/mob/living/basic/drone/created_drone = new /mob/living/basic/drone/cogscarab(get_turf(src))
 	created_drone.flags_1 |= (flags_1 & ADMIN_SPAWNED_1)
-	user.mind.transfer_to(created_drone, TRUE)
+	if(user.mind)
+		user.mind.transfer_to(created_drone, TRUE)
+	else if(isobserver(user))
+		created_drone.key = user.key
+	else
+		return
+	created_drone.mind.add_antag_datum(/datum/antagonist/clock_cultist)
 
 /obj/ratvar/proc/consume(atom/consumed)
 	consumed.ratvar_act()
@@ -125,7 +133,7 @@ GLOBAL_DATUM(cult_ratvar, /obj/ratvar)
 	var/next_attack_tick = 0
 
 /proc/clockcult_ending_start()
-	SSsecurity_level.set_level(3)
+	SSsecurity_level.set_level(SEC_LEVEL_LAMBDA)
 	priority_announce("Huge gravitational-energy spike detected emminating from a neutron star near your sector. Event has been determined to be survivable by 0% of life. \
 					   ESTIMATED TIME UNTIL ENERGY PULSE REACHES [GLOB.station_name]: 56 SECONDS. Godspeed crew, glory to Nanotrasen. -Admiral Telvig.", \
 					   "Central Command Anomolous Materials Division", 'sound/misc/airraid.ogg')
