@@ -6,10 +6,12 @@
 	var/atom/created_type
 	///Areas we are restricted to being activated in, if any
 	var/list/allowed_areas
+	///What does %TYPE% get replaced with on init, if unset then just use created_type's name
+	var/description_name
 
 /obj/item/gang_device/object_beacon/Initialize(mapload)
 	if(created_type)
-		gang_examine = replacetext(gang_examine, "%TYPE%", "[initial(created_type.name)]")
+		gang_examine = replacetext(gang_examine, "%TYPE%", "[description_name ? "[description_name]" : initial(created_type.name)]")
 
 	if(allowed_areas)
 		for(var/type in allowed_areas) //maybe I should try and cache this, ehh
@@ -61,7 +63,9 @@
 /obj/item/gang_device/object_beacon/gang_machine/credit_converter
 	icon_state = "gangtool-blue"
 	created_type = /obj/machinery/gang_machine/credit_converter
+	description_name = "Credit Converter"
 
 /obj/item/gang_device/object_beacon/gang_machine/fabricator
 	icon_state = "gangtool-red"
 	created_type = /obj/machinery/gang_machine/fabricator
+	description_name = "Gang Fabricator"
