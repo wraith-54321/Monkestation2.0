@@ -12,6 +12,8 @@
 	var/datum/action/innate/gang_communicate/communicate
 	///Do we let them get their given_gear_type
 	var/give_gear = FALSE
+	///A ref to the gang that is currently tracking us
+	var/datum/team/gang/tracked_by
 
 /obj/item/implant/uplink/gang/Initialize(mapload)
 	. = ..()

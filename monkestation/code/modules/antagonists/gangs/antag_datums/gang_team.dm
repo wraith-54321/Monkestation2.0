@@ -61,8 +61,8 @@ GLOBAL_LIST_EMPTY(all_gangs_by_tag)
 		stack_trace("Gang([src]) created with duplicate tag([gang_tag]) to already exsisting gang([GLOB.all_gangs_by_tag[gang_tag]]).")
 		message_admins("Gang([src]) created with duplicate tag([gang_tag]) to already exsisting gang([GLOB.all_gangs_by_tag[gang_tag]]), overriding old gang.")
 	GLOB.all_gangs_by_tag[gang_tag] = src
-	name = "[gang_tag] gang"
-	member_name = "[gang_tag] gang member"
+	name = "[gang_tag] Gang"
+	member_name = "[gang_tag] Gang Member"
 	setup_objectives()
 //	START_PROCESSING(SStraitor, src)
 
@@ -93,6 +93,9 @@ GLOBAL_LIST_EMPTY(all_gangs_by_tag)
 
 ///Called to make us start tracking an implant
 /datum/team/gang/proc/track_implant(obj/item/implant/uplink/gang/tracked_implant)
+	if(tracked_implant.tracked_by)
+		stack_trace("[src] calling track_implant() on an implant that already has a tracker([tracked_implant.tracked_by])")
+	tracked_implant.tracked_by = src
 	implants += tracked_implant
 	RegisterSignal(tracked_implant, COMSIG_QDELETING, PROC_REF(on_tracked_qdel))
 	RegisterSignal(tracked_implant, COMSIG_IMPLANT_IMPLANTED, PROC_REF(on_tracked_implanted))
@@ -101,6 +104,10 @@ GLOBAL_LIST_EMPTY(all_gangs_by_tag)
 /datum/team/gang/proc/stop_tracking_implant(obj/item/implant/uplink/gang/untracked_implant)
 	implants -= untracked_implant
 	UnregisterSignal(untracked_implant, list(COMSIG_QDELETING, COMSIG_IMPLANT_IMPLANTED))
+	if(untracked_implant.tracked_by != src)
+		stack_trace("[src] calling stop_tracking_implant() on an implant that is being tracked by a different gang([tracked_implant.tracked_by])")
+	else
+		untracked_implant.tracked_by = null
 
 /datum/team/gang/proc/track_objective(datum/traitor_objective/tracked_objective)
 	RegisterSignal(tracked_objective, COMSIG_TRAITOR_OBJECTIVE_FAILED, PROC_REF(handle_tracked_objective))

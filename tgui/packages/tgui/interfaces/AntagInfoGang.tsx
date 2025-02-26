@@ -89,7 +89,7 @@ const MainPage = (props: any) => {
         <Section scrollable fill>
           <Stack vertical>
             <Stack.Item textColor="red" fontSize="20px">
-              You are a member of the {data.gang_name} Gang.
+              You are a member of the {data.gang_name}.
             </Stack.Item>
             <Stack.Item>
               <ObjectivePrintout />

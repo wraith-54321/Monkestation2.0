@@ -15,6 +15,8 @@
 	var/datum/uplink_handler/gang/handler
 	///Typepath of item to give on_gain(), set to null to give nothing
 	var/given_gear_type = /obj/item/toy/crayon/spraycan/gang
+	///Set to TRUE when this datum is being removed due to rank change
+	var/changing_rank = FALSE
 
 /datum/antagonist/gang_member/create_team(datum/team/team)
 	if(!team)
@@ -74,18 +76,19 @@
 	. = ..()
 	var/mob/living/current = mob_override || owner?.current
 	if(current)
-		current -= "[REF(gang_team)]"
+		current.faction -= "[REF(gang_team)]"
 
 /datum/antagonist/gang_member/on_removal(obj/item/implant/uplink/gang/implant)
 	handler = null
-	if(!implant)
-		implant = locate() in owner?.current?.implants
-
 	. = ..()
 	gang_team.member_datums_by_rank["[rank]"] -= src
+	if(changing_rank)
+		return
+
+	if(!implant)
+		implant = locate() in owner?.current?.implants
 	if(implant)
-		UnregisterSignal(implant, list(COMSIG_IMPLANT_REMOVED, COMSIG_PRE_IMPLANT_REMOVED))
-		gang_team.implants -= implant
+		gang_team.stop_tracking_implant(implant)
 
 /datum/antagonist/gang_member/admin_add(datum/mind/new_owner, mob/admin)
 	message_admins("[key_name_admin(admin)] made [key_name_admin(new_owner)] into [name].")
@@ -102,12 +105,18 @@
 	given_implant.give_gear = TRUE
 	given_implant.implant(new_owner.current, force = TRUE, forced_gang = GLOB.all_gangs_by_tag[selected_gang])
 
+/datum/antagonist/gang_member/ui_static_data(mob/user)
+	var/list/data = ..()
+	data["gang_name"] = gang_team.name
+	return data
+
 ///Change our datum type to a different one
 /datum/antagonist/gang_member/proc/change_rank(datum/antagonist/gang_member/new_datum)
 	if(ispath(new_datum))
 		new_datum = new new_datum()
 
 	silent = TRUE
+	changing_rank = TRUE
 	var/datum/uplink_handler/handler_ref = handler
 	new_datum.handler = handler_ref
 	var/obj/item/implant/uplink/gang/implant = locate() in owner?.current?.implants
