@@ -66,11 +66,15 @@
 //might need to handle body transfer
 /datum/antagonist/gang_member/apply_innate_effects(mob/living/mob_override)
 	. = ..()
-	owner?.current?.faction += "[REF(gang_team)]"
+	var/mob/living/current = mob_override || owner?.current
+	if(current)
+		current.faction += "[REF(gang_team)]"
 
 /datum/antagonist/gang_member/remove_innate_effects(mob/living/mob_override)
 	. = ..()
-	owner?.current?.faction -= "[REF(gang_team)]"
+	var/mob/living/current = mob_override || owner?.current
+	if(current)
+		current -= "[REF(gang_team)]"
 
 /datum/antagonist/gang_member/on_removal(obj/item/implant/uplink/gang/implant)
 	handler = null
@@ -104,25 +108,26 @@
 		new_datum = new new_datum()
 
 	silent = TRUE
-	new_datum.handler = handler
+	var/datum/uplink_handler/handler_ref = handler
+	new_datum.handler = handler_ref
 	var/obj/item/implant/uplink/gang/implant = locate() in owner?.current?.implants
 	var/datum/mind/owner_ref = owner //we need to keep a temp ref of this to use after on_removal()
 	on_removal(implant)
 	owner_ref?.add_antag_datum(new_datum, gang_team)
-	var/active_length = length(handler.active_objectives)  //SOMEHOW HANDLER IS NULL HERE
-	while(active_length && handler.maximum_active_objectives < active_length) //our handler is the same so we can just access it locally
-		var/datum/traitor_objective/objective = handler.active_objectives[active_length]
+	var/active_length = length(handler_ref.active_objectives)  //SOMEHOW HANDLER IS NULL HERE
+	while(active_length && handler_ref.maximum_active_objectives < active_length)
+		var/datum/traitor_objective/objective = handler_ref.active_objectives[active_length]
 		objective.fail_objective() //penalty is unset so it will just count as invalid
-		handler.complete_objective(objective)
-		active_length = length(handler.active_objectives)
+		handler_ref.complete_objective(objective)
+		active_length = length(handler_ref.active_objectives)
 
-	var/potential_length = length(handler.potential_objectives)
-	while(potential_length && handler.maximum_potential_objectives < potential_length)
-		var/datum/traitor_objective/objective = handler.potential_objectives[potential_length]
+	var/potential_length = length(handler_ref.potential_objectives)
+	while(potential_length && handler_ref.maximum_potential_objectives < potential_length)
+		var/datum/traitor_objective/objective = handler_ref.potential_objectives[potential_length]
 		objective.handle_cleanup()
-		potential_length = length(handler.potential_objectives)
+		potential_length = length(handler_ref.potential_objectives)
 
-	handler.on_update() //im gonna say its cheaper to just always run this rather than set up some kind of janky check for it
+	handler_ref.on_update() //im gonna say its cheaper to just always run this rather than set up some kind of janky check for it
 	if(implant)
 		new_datum.RegisterSignal(implant, COMSIG_PRE_IMPLANT_REMOVED, TYPE_PROC_REF(/datum/antagonist/gang_member, handle_pre_implant_removal))
 		new_datum.RegisterSignal(implant, COMSIG_IMPLANT_REMOVED, TYPE_PROC_REF(/datum/antagonist/gang_member, handle_implant_removal))
@@ -161,13 +166,15 @@
 
 /datum/antagonist/gang_member/boss/apply_innate_effects(mob/living/mob_override)
 	. = ..()
-	if(owner?.current)
-		allocate.Grant(owner.current)
+	var/mob/living/current = mob_override || owner?.current
+	if(current)
+		allocate.Grant(current)
 
 /datum/antagonist/gang_member/boss/remove_innate_effects(mob/living/mob_override)
 	. = ..()
-	if(owner?.current)
-		allocate?.Remove(owner.current)
+	var/mob/living/current = mob_override || owner?.current
+	if(current)
+		allocate?.Remove(current)
 
 /datum/antagonist/gang_member/lieutenant
 	name = "\improper Syndicate Gang Lieutenant"

@@ -16,7 +16,7 @@
 
 	var/datum/antagonist/gang_member/user_datum = IS_GANGMEMBER(user)
 	var/datum/antagonist/gang_member/target_datum = IS_GANGMEMBER(target)
-	if(!user_datum || user_datum.rank < GANG_RANK_LIEUTENANT || !target_datum || !target_datum.rank < initial(promoted_to.rank))
+	if(!user_datum || user_datum.rank < GANG_RANK_LIEUTENANT || !target_datum || target_datum.rank >= initial(promoted_to.rank))
 		to_chat(user, span_notice("You cannot promote [target]"))
 		return ..()
 
