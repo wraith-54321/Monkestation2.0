@@ -105,7 +105,7 @@ GLOBAL_LIST_EMPTY(all_gangs_by_tag)
 	implants -= untracked_implant
 	UnregisterSignal(untracked_implant, list(COMSIG_QDELETING, COMSIG_IMPLANT_IMPLANTED))
 	if(untracked_implant.tracked_by != src)
-		stack_trace("[src] calling stop_tracking_implant() on an implant that is being tracked by a different gang([tracked_implant.tracked_by])")
+		stack_trace("[src] calling stop_tracking_implant() on an implant that is being tracked by a different gang([untracked_implant.tracked_by])")
 	else
 		untracked_implant.tracked_by = null
 
