@@ -279,3 +279,16 @@
 2025-03-09:
   CannibalHunter:
   - rscadd: Added several (6) new clothing items to the security clothing vendor!
+2025-03-10:
+  CannibalHunter:
+  - image: security_rigvest on mob sprite does not cover the hands anymore.
+  MichiRecRoom:
+  - bugfix: The experimental destructive scanner's UI should now show a scrollbar
+      on 516. (Please let me know if any other UIs that show a list of experiments
+      are broken.)
+  Shoddd:
+  - bugfix: mentor cloak can be changed again
+  - balance: cargo sabre damage is now 18 from 15
+  - balance: bowie and combat knives damage are now 17 from 20
+  michaelyoungin:
+  - admin: (del) Removes negative value check for adjusting monkecoins
