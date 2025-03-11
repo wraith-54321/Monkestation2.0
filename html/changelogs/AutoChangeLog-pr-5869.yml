@@ -1,0 +1,4 @@
+author: "Absolucy"
+delete-after: True
+changes:
+  - refactor: "The Stamina subsystem no longer wastes time trying to process stamina on dead mobs, or mobs that don't even care about stamina in the first place."
