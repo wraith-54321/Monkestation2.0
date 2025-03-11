@@ -292,3 +292,13 @@
   - balance: bowie and combat knives damage are now 17 from 20
   michaelyoungin:
   - admin: (del) Removes negative value check for adjusting monkecoins
+2025-03-11:
+  MichiRecRoom:
+  - bugfix: pAIs now ACTUALLY have maints access, as compared to before where the
+      doors just said "no" no matter what.
+  ThePooba:
+  - rscadd: add broom
+  - rscadd: added bird delamination
+  - rscadd: eternal damnation
+  - bugfix: no more syndicate nanites in strange seeds good lord
+  - bugfix: slasher damage fix
