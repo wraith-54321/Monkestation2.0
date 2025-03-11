@@ -1,0 +1,4 @@
+author: "MichiRecRoom"
+delete-after: True
+changes:
+  - rscadd: "(Ported from tgstation - ZeWaka) TGUI Stack elements can now be zebra-styled (alternating colors for contrast)"
