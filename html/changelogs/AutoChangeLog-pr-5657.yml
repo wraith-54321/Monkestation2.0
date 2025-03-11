@@ -1,0 +1,8 @@
+author: "MichiRecRoom, vinylspiders, Ben10Omintrix"
+delete-after: True
+changes:
+  - bugfix: "(Ben10Omintrix) stationary medbots will no longer ignore u for a while if u move out of their way while healing"
+  - bugfix: "(Ben10Omintrix) fixes a runtime that sometimes happens in ai controllers"
+  - refactor: "(MichiRecRoom) Some cleaning slime behaviors have been refactored to use similar behaviors as cleanbots."
+  - bugfix: "(MichiRecRoom) Cleaner slimes should now temporarily ignore things that they can't reach."
+  - bugfix: "(MichiRecRoom) Player-controlled cleaner slimes should now be able to clean cleanables."
