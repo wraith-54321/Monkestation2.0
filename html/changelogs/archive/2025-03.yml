@@ -319,3 +319,10 @@
   - rscadd: eternal damnation
   - bugfix: no more syndicate nanites in strange seeds good lord
   - bugfix: slasher damage fix
+2025-03-12:
+  Absolucy, StrangeWeirdKitten:
+  - bugfix: Character creator preview being miniature
+  Kmla2:
+  - spellcheck: changes pathology "Sesnory Restoration" symptom into "Sensory Restoration"
+  leaKsi:
+  - admin: Controlling events now requires basic admin permissions.
