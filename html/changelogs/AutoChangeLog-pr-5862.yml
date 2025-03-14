@@ -1,0 +1,9 @@
+author: "Absolucy"
+delete-after: True
+changes:
+  - qol: "The malf AI's module picker now shows icons for modules."
+  - bugfix: "Fixed some potential blurry icons in UIs on BYOND 516."
+  - bugfix: "Fixed bidding in a Black Market Uplink bluescreening the UI."
+  - qol: "(MTandi) New syndicate uplink UI!"
+  - qol: "(MTandi) Made it possible to buy a custom amount of TC, instead of bundles with fixed amounts."
+  - bugfix: "(JohnFulpWillard) Fixed not being able to scroll in the malf AI's module picker on BYOND 516."
