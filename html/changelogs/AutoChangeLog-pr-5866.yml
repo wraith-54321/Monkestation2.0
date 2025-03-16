@@ -1,0 +1,9 @@
+author: "Gw0sty"
+delete-after: True
+changes:
+  - rscdel: "Removed Clown planet from appearing in mining and bitrunning until critical slipping issue is fixed"
+  - rscdel: "Deleted copy of Bunhead 3 hair style"
+  - qol: "Added cut AI cut wires to CC Grief zone."
+  - qol: "moved daisy away from the radio booth some."
+  - bugfix: "Pipedream Tac locker should no longer be locked."
+  - bugfix: "Listening post Infirmary APC is now accessible."
