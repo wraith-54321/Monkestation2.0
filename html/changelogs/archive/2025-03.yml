@@ -380,3 +380,8 @@
 2025-03-15:
   CannibalHunter:
   - rscadd: Add's Cobalt Velvet 235's donator items
+2025-03-16:
+  CannibalHunter:
+  - bugfix: Tall Baby Pukeko effect granter is fixed to give the propper tall one.
+  Shoddd:
+  - rscadd: Polyglot quirk
