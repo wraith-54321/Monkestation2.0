@@ -400,6 +400,8 @@
       are unaffected by this change and still receive a Recolorable Turtleneck for
       free (though you can purchase the item anyways if you want two Recolorable Turtlenecks
       in your inventory).
+  RandomDudeFromTheRim:
+  - bugfix: fixed refined anomaly cores getting recycled into iron and glass
   Shoddd:
   - rscadd: Polyglot quirk
   ThePooba:
@@ -410,6 +412,8 @@
   Wisemonster:
   - balance: Junior operative max occurrences lowered from 20 to 5
   - balance: Junior operative event category changed from moderate to major
+  flleeppyy:
+  - rscadd: Chatbox websocket feature
   leaKsi:
   - bugfix: Suiciding or using "Return to Ghost" verb during a duel now properly rewards
       the winner.
