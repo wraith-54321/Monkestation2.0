@@ -1,6 +1,0 @@
-author: "leaKsi"
-delete-after: True
-changes:
-  - bugfix: "Suiciding or using \"Return to Ghost\" verb during a duel now properly rewards the winner."
-  - bugfix: "Duel participants will now get their coins reimbursed if their opponent decides to ghost or close the game, after accepting the duel."
-  - bugfix: "Round-end bonus for supporters now properly applies only on round-end."
