@@ -1,0 +1,4 @@
+author: "Uristthedorf"
+delete-after: True
+changes:
+  - rscadd: "Adds the FSS-550 3D printed gun from the autolathe. It requires a special design disk to make."
