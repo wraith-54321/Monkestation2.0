@@ -1,5 +1,0 @@
-author: "Shoddd"
-delete-after: True
-changes:
-  - rscadd: "walkman in loadout"
-  - bugfix: "loadout satchels now work"
