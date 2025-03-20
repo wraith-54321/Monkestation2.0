@@ -446,6 +446,8 @@
   TheMrGlasses:
   - rscadd: Adds Harebells and Lilys to the MegaSeed Servitor
 2025-03-20:
+  Kashargul:
+  - rscadd: You can now import and export chat settings
   dwasint:
   - bugfix: after images now properly set their plane based on the parents plane cube
       level.
