@@ -445,3 +445,7 @@
   - bugfix: loadout satchels now work
   TheMrGlasses:
   - rscadd: Adds Harebells and Lilys to the MegaSeed Servitor
+2025-03-20:
+  dwasint:
+  - bugfix: after images now properly set their plane based on the parents plane cube
+      level.
