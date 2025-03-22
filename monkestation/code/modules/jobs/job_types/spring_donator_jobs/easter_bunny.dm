@@ -1,6 +1,6 @@
 /datum/job/easter_bunny
 	title = JOB_EASTER_BUNNY
-	description = "Hide eggs around the station, get called a furry by the clown, don't explain where the eggs come from, and get pulled out a hat."
+	description = "Your an assistant with an easter bunny suit. God help you."
 	faction = FACTION_STATION
 	total_positions = 1
 	spawn_positions = 0
