@@ -1,0 +1,5 @@
+author: "Singul0"
+delete-after: True
+changes:
+  - rscadd: "Walls now have atom integrity, being able to be attacked and destroyed like other machineries and structures. they're a tough nut to crack though"
+  - rscadd: "Emitters can now tear down walls! (once upgraded)"
