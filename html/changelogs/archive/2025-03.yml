@@ -479,3 +479,14 @@
   ThePooba:
   - rscadd: 5 new donator latejoin jobs for SPRING, Florist, easter bunny, news reporter,
       spring cleaner, bird watcher, These jobs are just flavorful assistants
+2025-03-24:
+  Absolucy:
+  - map: Theseus's gravity generator SMES no longer backfeeds.
+  - rscadd: Added "Lesser Strange Seeds", variants of strange seeds with a wider limitation
+      on reagents.
+  - balance: Biogenerators can now only print lesser strange seeds. Other sources
+      of strange seeds remain unchanged.
+  Ceasefire2:
+  - admin: Added Ceasefire's office to CentCom
+  Shoddd:
+  - bugfix: elance recipe now has to be learned
