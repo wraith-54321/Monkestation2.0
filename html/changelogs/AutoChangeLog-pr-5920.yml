@@ -1,0 +1,4 @@
+author: "flleeppyy"
+delete-after: True
+changes:
+  - bugfix: "allow mentors/admins through the interview system by default"
