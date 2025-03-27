@@ -1,6 +1,0 @@
-author: "flleeppyy"
-delete-after: True
-changes:
-  - admin: "`Create Command Report` enhancements"
-  - code_imp: "New `priority_announce` and `generate_unique_announcement_header` param, `append_update` to append \"Update\" to command report titles."
-  - code_imp: "Added optional `sanitize` (default is TRUE) param to `print_command_report` and `SScommunications.send_message`"
