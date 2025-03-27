@@ -1,0 +1,9 @@
+author: "Absolucy"
+delete-after: True
+changes:
+  - rscadd: "Re-added interaction components to the mechcomp vendor."
+  - bugfix: "Fixed some further potential exploits with interaction components."
+  - code_imp: "Cleaned up a lot of interaction component code."
+  - map: "Added a mechcomp vendor to runtimestation."
+  - config: "Added config options to disable interaction components holding items or interacting with storage components."
+  - config: "Added a config option to add more item types to the interaction component blacklist."
