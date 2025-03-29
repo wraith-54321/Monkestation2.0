@@ -1,6 +1,0 @@
-author: "Shoddd"
-delete-after: True
-changes:
-  - bugfix: "pkas can no longer have infinite cooldowns"
-  - bugfix: "wendigo trophy no longer sets damage to 40 regardless of crusher"
-  - balance: "crushers can only mark lavaland mobs"

@@ -1,4 +1,0 @@
-author: "Absolucy"
-delete-after: True
-changes:
-  - bugfix: "Cleanbots no longer get eternally stuck trying to clean broken bottles."
