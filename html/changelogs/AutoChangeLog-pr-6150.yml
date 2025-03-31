@@ -1,4 +1,0 @@
-author: "Absolucy"
-delete-after: True
-changes:
-  - map: "Fixed a lot of cameras that were improperly mapped in, resulting in them not showing up on camera consoles."
