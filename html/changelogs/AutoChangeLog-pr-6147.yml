@@ -1,5 +1,0 @@
-author: "Absolucy"
-delete-after: True
-changes:
-  - rscadd: "You can now attach an internals tank to Vims if they don't have one already."
-  - qol: "You can no longer use empty tanks (or any tank with pressure below the habitable threshold) for a Vim."

@@ -1,4 +1,0 @@
-author: "Absolucy"
-delete-after: True
-changes:
-  - bugfix: "Fixed freerange radios/intercoms being able to broadcast over the radio frequency."
