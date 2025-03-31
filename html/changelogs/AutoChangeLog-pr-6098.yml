@@ -1,0 +1,8 @@
+author: "Absolucy"
+delete-after: True
+changes:
+  - rscadd: "Stat Panel now scales like a chat, depends on the font size. Defaults from the chat font size, but you can separate it."
+  - refactor: "(Aylong) Refactored Stat Panel styles and Byond skin theme applying. Stat Panel now looks more like a tgui."
+  - qol: "(Aylong) Sidebar has lost its bulging white lines. And top right buttons now flat."
+  - code_imp: "(TiviPlus) Made it easier to set custom orders for stat panel tabs in code"
+  - bugfix: "(TiviPlus) Fixed stat panel turf list menu clicks only working on the text"
