@@ -78,7 +78,7 @@
 			if(SPT_PROB(5, seconds_per_tick))
 				var/turf/open/OT = get_turf(affected_mob)
 				if(isopenturf(OT))
-					OT.MakeSlippery(TURF_WET_LUBE, 100)
+					OT.MakeSlippery(TURF_WET_LUBE, 109)
 
 
 /datum/disease/gastrolosis/cure(add_resistance = TRUE, mob/living/carbon/target)

@@ -39,4 +39,3 @@
 		if("light pink")
 			return "#FFB6C1"
 		if("adamantine")
-			return "#008B8B"

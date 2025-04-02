@@ -151,7 +151,7 @@
 	earliest_start = 40 MINUTES // give the chemist a chance
 	description = "An 'advanced' disease will infect some members of the crew."
 	min_wizard_trigger_potency = 2
-	max_wizard_trigger_potency = 6
+	max_wizard_trigger_potency = 5
 	admin_setup = list(
 		/datum/event_admin_setup/minimum_candidate_requirement/disease_outbreak,
 		/datum/event_admin_setup/listed_options/disease_outbreak_advanced,

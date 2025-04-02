@@ -278,7 +278,7 @@ SIDING_SUBTYPE_HELPER(/obj/effect/turf_decal/siding/dark_blue)
 SIDING_SUBTYPE_HELPER(/obj/effect/turf_decal/siding/yellow)
 
 /obj/effect/turf_decal/siding/purple
-	color = "#D381C9"
+	color = "#D412C9"
 
 SIDING_SUBTYPE_HELPER(/obj/effect/turf_decal/siding/purple)
 

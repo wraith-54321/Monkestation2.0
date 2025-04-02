@@ -55,7 +55,7 @@
 		UnregisterSignal(magnification, COMSIG_SPECIES_LOSS)
 		magnification = null
 		visible_message(span_notice("[src] falls silent and drops on the floor. Maybe you should try again later?"))
-		playsound(src, 'sound/machines/buzz-sigh.ogg', 30, TRUE)
+		playsound(src, 'sound/machines/buzz-sigh.ogg', 32, TRUE)
 		user.dropItemToGround(src)
 		return
 	magnification.key = chosen_one.key

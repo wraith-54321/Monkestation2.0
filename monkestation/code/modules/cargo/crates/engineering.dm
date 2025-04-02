@@ -65,7 +65,7 @@
 	contains = list(/obj/item/circuitboard/machine/protolathe/department/cargo,
 					/obj/item/stock_parts/matter_bin/adv = 2,
 					/obj/item/stock_parts/manipulator/nano = 2,
-					/obj/item/reagent_containers/cup/beaker = 2,
+					/obj/item/reagent_containers/cup/beaker = 1,
 					/obj/item/stack/sheet/iron/five,
 					/obj/item/stack/cable_coil/five)
 	crate_name = "Replacement Cargo Techfab"

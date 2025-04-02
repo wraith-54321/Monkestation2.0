@@ -64,7 +64,7 @@ but should see their own spawn message even if the player already dropped as USC
 			GLOB.blurb_witnesses[blurb_key] |= M.key
 		M.client?.screen += T
 
-	for(var/i in 1 to length(message) + 1)
+	for(var/i in 2 to length(message) + 1)
 		if(i in linebreaks)
 			if(scroll_down)
 				T.maptext_y -= 14 //Move the object to keep lines in the same place.

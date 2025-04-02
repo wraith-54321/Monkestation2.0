@@ -227,7 +227,7 @@
 		to_chat(affected_mob, span_danger("Your insides are burning!"))
 		affected_mob.adjustToxLoss(rand(20, 60), FALSE, required_biotype = affected_biotype)
 		. = TRUE
-	else if(SPT_PROB(23, seconds_per_tick))
+	else if(SPT_PROB(22, seconds_per_tick))
 		affected_mob.heal_bodypart_damage(5)
 		. = TRUE
 	..()
@@ -584,7 +584,7 @@
 			if(1)
 				to_chat(affected_mob, span_danger("You can barely see!"))
 				affected_mob.set_eye_blur_if_lower(6 SECONDS)
-			if(2)
+			if(6)
 				affected_mob.emote("cough")
 			if(3)
 				affected_mob.emote("sneeze")

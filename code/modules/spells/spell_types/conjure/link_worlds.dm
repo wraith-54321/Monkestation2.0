@@ -10,6 +10,6 @@
 	invocation_type = INVOCATION_SHOUT
 	spell_requirements = NONE
 
-	summon_radius = 1
+	summon_radius = 4
 	summon_type = list(/obj/structure/spawner/nether)
 	summon_amount = 1

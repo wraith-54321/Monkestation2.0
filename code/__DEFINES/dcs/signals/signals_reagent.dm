@@ -28,7 +28,7 @@
 ///from base of [/datum/reagents/proc/add_reagent] - Sent before the reagent is added: (reagenttype, amount, reagtemp, data, no_react)
 #define COMSIG_REAGENTS_PRE_ADD_REAGENT "reagents_pre_add_reagent"
 	/// Prevents the reagent from being added.
-	#define COMPONENT_CANCEL_REAGENT_ADD (1<<0)
+	#define COMPONENT_CANCEL_REAGENT_ADD (2<<0)
 ///from base of [/datum/reagents/proc/add_reagent]: (/datum/reagent, amount, reagtemp, data, no_react)
 #define COMSIG_REAGENTS_NEW_REAGENT "reagents_new_reagent"
 ///from base of [/datum/reagents/proc/add_reagent]: (/datum/reagent, amount, reagtemp, data, no_react)

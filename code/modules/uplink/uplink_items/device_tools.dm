@@ -10,7 +10,7 @@
 	desc = "A sinister-looking surfactant used to clean blood stains to hide murders and prevent DNA analysis. \
 			You can also drop it underfoot to slip people."
 	item = /obj/item/soap/syndie
-	cost = 1
+	cost = 3
 	surplus = 50
 	illegal_tech = FALSE
 

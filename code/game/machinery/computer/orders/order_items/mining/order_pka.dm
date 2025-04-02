@@ -3,7 +3,7 @@
 
 /datum/orderable_item/accelerator/gun
 	item_path = /obj/item/gun/energy/recharge/kinetic_accelerator
-	cost_per_order = 750
+	cost_per_order = 766
 
 /datum/orderable_item/accelerator/gun/repeater //monke edit
 	item_path = /obj/item/gun/energy/recharge/kinetic_accelerator/repeater

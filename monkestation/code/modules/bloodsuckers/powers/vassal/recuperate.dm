@@ -44,7 +44,7 @@
 	user.set_timed_status_effect(5 SECONDS, /datum/status_effect/jitter, only_if_higher = TRUE)
 	user.stamina.adjust(-bloodcost * 1.1)
 	user.heal_overall_damage(brute = 2.5, updating_health = FALSE)
-	user.adjustToxLoss(-2, updating_health = FALSE, forced = TRUE)
+	user.adjustToxLoss(-6, updating_health = FALSE, forced = TRUE)
 	// Plasmamen won't lose blood, they don't have any, so they don't heal from Burn.
 	if(!HAS_TRAIT(user, TRAIT_NOBLOOD))
 		user.blood_volume -= bloodcost

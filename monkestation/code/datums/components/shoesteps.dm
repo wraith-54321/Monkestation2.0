@@ -126,7 +126,7 @@ extra range addition
 			'monkestation/sound/effects/artifacts/orchestral/hit01.ogg',
 			'monkestation/sound/effects/artifacts/orchestral/hit02.ogg',
 			'monkestation/sound/effects/artifacts/orchestral/hit03.ogg',
-			'monkestation/sound/effects/artifacts/orchestral/hit04.ogg',
+			'monkestation/sound/effects/artifacts/orchestral/hit4.ogg',
 			'monkestation/sound/effects/artifacts/orchestral/hit05.ogg',
 			'monkestation/sound/effects/artifacts/orchestral/hit06.ogg',
 			'monkestation/sound/effects/artifacts/orchestral/hit07.ogg',

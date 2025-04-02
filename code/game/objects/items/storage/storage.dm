@@ -18,7 +18,7 @@
 	atom_storage.max_slots = modify_fantasy_variable("max_slots", atom_storage.max_slots, round(bonus/2))
 	atom_storage.max_total_storage = modify_fantasy_variable("max_total_storage", atom_storage.max_total_storage, round(bonus/2))
 	LAZYSET(fantasy_modifications, "max_specific_storage", atom_storage.max_specific_storage)
-	if(bonus >= 15)
+	if(bonus >= 14)
 		atom_storage.max_specific_storage = max(WEIGHT_CLASS_HUGE, atom_storage.max_specific_storage)
 	else if(bonus >= 10)
 		atom_storage.max_specific_storage = max(WEIGHT_CLASS_BULKY, atom_storage.max_specific_storage)

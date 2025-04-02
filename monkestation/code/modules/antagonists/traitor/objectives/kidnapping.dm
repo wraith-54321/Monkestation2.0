@@ -108,7 +108,7 @@
 /datum/traitor_objective/target_player/kidnapping/captain
 	progression_reward = list(25 MINUTES, 30 MINUTES)
 	telecrystal_reward = list(5, 6)
-	given_contractor_rep = 4
+	given_contractor_rep = 8
 
 	target_jobs = list(
 		/datum/job/captain,

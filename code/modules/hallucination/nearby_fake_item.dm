@@ -81,7 +81,7 @@
 /datum/hallucination/nearby_fake_item/taser
 	left_hand_file = 'icons/mob/inhands/weapons/guns_lefthand.dmi'
 	right_hand_file = 'icons/mob/inhands/weapons/guns_righthand.dmi'
-	image_icon_state = "advtaserstun4"
+	image_icon_state = "advtaserstun3"
 
 /datum/hallucination/nearby_fake_item/taser/ebow // OOP be like.
 	image_icon_state = "crossbow"

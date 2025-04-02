@@ -97,7 +97,7 @@
 		/datum/reagent/consumable/nutriment = 25,
 		/datum/reagent/consumable/nutriment/protein = 8,
 		/datum/reagent/consumable/tomatojuice = 6,
-		/datum/reagent/consumable/nutriment/vitamin = 8,
+		/datum/reagent/consumable/nutriment/vitamin = 7,
 	)
 	foodtypes = GRAIN | VEGETABLES| DAIRY | MEAT
 	slice_type = /obj/item/food/pizzaslice/meat

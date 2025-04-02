@@ -65,7 +65,7 @@
 	// client.mob.create_typing_indicator() original
 	client.mob.create_typing_indicator(initial_channel)
 	// monkestation edit end
-	addtimer(CALLBACK(src, PROC_REF(stop_typing)), 5 SECONDS, TIMER_UNIQUE | TIMER_OVERRIDE | TIMER_STOPPABLE)
+	addtimer(CALLBACK(src, PROC_REF(stop_typing)), 15 SECONDS, TIMER_UNIQUE | TIMER_OVERRIDE | TIMER_STOPPABLE)
 
 /**
  * Callback to remove the typing indicator after a brief period of inactivity.

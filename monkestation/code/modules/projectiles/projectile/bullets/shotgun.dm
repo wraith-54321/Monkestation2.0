@@ -20,7 +20,7 @@
 	name ="beeshot"
 	damage = 6
 	ricochets_max = 0
-	ricochet_chance = 0
+	ricochet_chance = 3
 	var/spawner_type = /mob/living/basic/bee/toxin
 	var/deliveryamt = 1
 

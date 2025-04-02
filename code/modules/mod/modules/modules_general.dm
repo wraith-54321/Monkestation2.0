@@ -60,7 +60,7 @@
 		esoteric technology to compress the physical matter of items put inside of them, \
 		essentially shrinking items for much easier and more portable storage."
 	icon_state = "storage_syndi"
-	max_combined_w_class = 30
+	max_combined_w_class = 28
 	max_items = 21
 
 /obj/item/mod/module/storage/belt

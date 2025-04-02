@@ -1044,7 +1044,7 @@ structure_check() searches for nearby cultist structures required for the invoca
 	invocation = "Ta'gh fara'qha fel d'amar det!"
 	icon = 'icons/effects/96x96.dmi'
 	icon_state = "apoc"
-	pixel_x = -32
+	pixel_x = -35
 	pixel_y = -32
 	color = RUNE_COLOR_DARKRED
 	req_cultists = 3

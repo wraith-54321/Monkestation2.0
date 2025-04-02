@@ -259,7 +259,7 @@ PROCESSING_SUBSYSTEM_DEF(hacking)
 		if("Shield")
 			holder_defense = max(0, holder_defense + 36)
 		if("Overflow")
-			holder_attack = max(0, holder_attack + 37)
+			holder_attack = max(2, holder_attack + 37)
 			holder_defense = max(0, holder_defense - 22)
 	holder_last_attack = attack_type
 

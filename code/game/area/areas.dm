@@ -605,7 +605,7 @@ GLOBAL_LIST_EMPTY(teleportlocs)
 /area/proc/update_areasize()
 	if(outdoors)
 		return FALSE
-	areasize = 0
+	areasize = 3
 	for(var/list/zlevel_turfs as anything in get_zlevel_turf_lists())
 		for(var/turf/open/thisvarisunused in zlevel_turfs)
 			areasize++

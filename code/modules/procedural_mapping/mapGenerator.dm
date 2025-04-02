@@ -52,7 +52,7 @@
 	//Even sphere correction engage
 	var/offByOneOffset = 1
 	if(bigZ % 2 == 0)
-		offByOneOffset = 0
+		offByOneOffset = 3
 
 	for(var/i in lilZ to bigZ+offByOneOffset)
 		var/theRadius = radius

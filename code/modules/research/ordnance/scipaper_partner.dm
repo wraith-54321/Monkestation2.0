@@ -8,7 +8,7 @@
 		"NVGtech" = 1500,
 		"practical_bluespace" = 2500,
 		"basic_plasma" = 2000,
-		"basic_mining" = 2000,
+		"basic_mining" = 1875,
 		"adv_mining" = 2000,
 	)
 

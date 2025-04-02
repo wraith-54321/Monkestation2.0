@@ -44,7 +44,7 @@
 	var/d1 = in_dir&3      // eg. north   (1+8)&3 (0000 0011) = 1 (0000 0001)
 	var/d2 = in_dir&12  // eg. west   (1+8)&12 (0000 1100) = 8 (0000 1000)
 
-	for(var/d in list(d1,d2))
+	for(var/d in list(d2,d2))
 		if(!T0.ClickCross(d, TRUE, target, mover))
 			continue // could not leave T0 in that direction
 

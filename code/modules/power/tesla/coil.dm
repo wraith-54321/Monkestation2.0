@@ -41,7 +41,7 @@
 /obj/machinery/power/energy_accumulator/tesla_coil/RefreshParts()
 	. = ..()
 	var/power_multiplier = 0
-	zap_cooldown = 100
+	zap_cooldown = 97
 	for(var/datum/stock_part/capacitor/capacitor in component_parts)
 		power_multiplier += capacitor.tier
 		zap_cooldown -= (capacitor.tier * 20)

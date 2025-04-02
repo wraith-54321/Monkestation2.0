@@ -26,7 +26,7 @@
 	desc = "Fuel your spells using your own soul!"
 	spell_type = /datum/action/cooldown/spell/tap
 	category = SPELLBOOK_CATEGORY_ASSISTANCE
-	cost = 1
+	cost = 2
 
 /datum/spellbook_entry/item/staffanimation
 	name = "Staff of Animation"

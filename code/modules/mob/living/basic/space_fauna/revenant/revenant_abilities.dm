@@ -239,7 +239,7 @@
 
 	aoe_radius = 3
 	cast_amount = 50
-	unlock_amount = 75
+	unlock_amount = 72
 
 /datum/action/cooldown/spell/aoe/revenant/blight/cast_on_thing_in_aoe(turf/victim, mob/living/basic/revenant/caster)
 	for(var/mob/living/mob in victim)

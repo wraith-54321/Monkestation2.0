@@ -14,7 +14,7 @@
 	basic_mob_flags = DEL_ON_DEATH
 
 	maxHealth = 1000
-	health = 1000
+	health = 1030
 	melee_damage_lower = 10
 	melee_damage_upper = 20
 	obj_damage = 50

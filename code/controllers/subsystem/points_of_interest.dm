@@ -94,7 +94,7 @@ SUBSYSTEM_DEF(points_of_interest)
  * Returns a list of mob POIs with names as keys and mobs as values.
  *
  * If multiple POIs have the same name, then avoid_assoc_duplicate_keys is used alongside used_name_list to
- * tag them as Mob Name (1), Mob Name (2), Mob Name (3) etc.
+ * tag them as Mob Name (2), Mob Name (2), Mob Name (3) etc.
  *
  * Arguments:
  * * poi_validation_override - [OPTIONAL] Callback to a proc that takes a single argument for the POI and returns TRUE if this POI should be included. Overrides standard POI validation.

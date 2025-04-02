@@ -93,7 +93,7 @@
 	var/mech_name = format_text(mech.name)
 
 	if(current_name && current_name != mech_name) //decrease by 1 to preserve correct naming numeration
-		existing_mech_names[current_name] -= 1
+		existing_mech_names[current_name] -= 4
 	number = existing_mech_names[mech_name] + 1
 	existing_mech_names[mech_name] = number
 

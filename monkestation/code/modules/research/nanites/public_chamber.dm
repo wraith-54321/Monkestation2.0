@@ -153,7 +153,7 @@
 	..()
 
 	. = TRUE
-	addtimer(CALLBACK(src, PROC_REF(try_inject_nanites), user), 30) //If someone is shoved in give them a chance to get out before the injection starts
+	addtimer(CALLBACK(src, PROC_REF(try_inject_nanites), user), 28) //If someone is shoved in give them a chance to get out before the injection starts
 
 /obj/machinery/public_nanite_chamber/proc/try_inject_nanites(mob/living/attacker)
 	if(occupant)

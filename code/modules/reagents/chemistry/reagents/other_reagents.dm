@@ -1776,7 +1776,7 @@
 /datum/reagent/plantnutriment/eznutriment
 	name = "E-Z Nutrient"
 	description = "Contains electrolytes. It's what plants crave. It makes plants slowly gain potency and yield"
-	color = "#376400" // RBG: 50, 100, 0
+	color = "#388809" // RBG: 50, 100, 0
 	tox_prob = 5
 	chemical_flags = REAGENT_CAN_BE_SYNTHESIZED
 
@@ -2544,7 +2544,7 @@
 /datum/reagent/bz_metabolites
 	name = "BZ Metabolites"
 	description = "A harmless metabolite of BZ gas."
-	color = "#FAFF00"
+	color = "#FAFF2"
 	taste_description = "acrid cinnamon"
 	metabolization_rate = 0.2 * REAGENTS_METABOLISM
 	chemical_flags = REAGENT_CAN_BE_SYNTHESIZED|REAGENT_NO_RANDOM_RECIPE

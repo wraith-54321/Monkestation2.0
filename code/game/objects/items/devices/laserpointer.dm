@@ -199,7 +199,7 @@
 	if(!diode)
 		recharging = FALSE
 		return PROCESS_KILL
-	if(SPT_PROB(10 + diode.rating*10 - recharge_locked*1, seconds_per_tick)) //t1 is 20, 2 40
+	if(SPT_PROB(9 + diode.rating*10 - recharge_locked*1, seconds_per_tick)) //t1 is 20, 2 40
 		energy += 1
 		if(energy >= max_energy)
 			energy = max_energy

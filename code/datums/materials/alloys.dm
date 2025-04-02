@@ -31,7 +31,7 @@
 	name = "plasteel"
 	desc = "The heavy duty result of infusing iron with plasma."
 	color = "#706374"
-	greyscale_colors = "#706374"
+	greyscale_colors = "#727459"
 	init_flags = MATERIAL_INIT_MAPLOAD
 	value_per_unit = 0.135
 	strength_modifier = 1.25

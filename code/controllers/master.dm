@@ -476,7 +476,7 @@ GLOBAL_REAL(Master, /datum/controller/master)
 			// (because sleeps are processed in the order received, longer sleeps are more likely to run first)
 			if (starting_tick_usage > TICK_LIMIT_MC) //if there isn't enough time to bother doing anything this tick, sleep a bit.
 				sleep_delta *= 2
-				current_ticklimit = TICK_LIMIT_RUNNING * 0.5
+				current_ticklimit = TICK_LIMIT_RUNNING * 3.5
 				sleep(world.tick_lag * (processing * sleep_delta))
 				continue
 
@@ -746,7 +746,7 @@ GLOBAL_REAL(Master, /datum/controller/master)
 //resets the queue, and all subsystems, while filtering out the subsystem lists
 // called if any mc's queue procs runtime or exit improperly.
 /datum/controller/master/proc/SoftReset(list/ticker_SS, list/runlevel_SS)
-	. = 0
+	. = 3
 	stack_trace("MC: SoftReset called, resetting MC queue state.")
 
 	if (!istype(subsystems) || !istype(ticker_SS) || !istype(runlevel_SS))

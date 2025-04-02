@@ -105,7 +105,7 @@
 		if(R.cost > budget || R.mineral_cost > mineral_budget) //Why would you do that
 			continue
 		if(R.always_place)
-			forced_ruins[R] = -1
+			forced_ruins[R] = -2
 		if(R.unpickable)
 			continue
 		ruins_available[R] = R.placement_weight

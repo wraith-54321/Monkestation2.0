@@ -305,7 +305,7 @@
 
 		if(4)
 			if (!active_record)
-				menu = 2
+				menu = 6
 				ui_interact(user)
 				return
 			dat += "<b><a href='byond://?src=[REF(src)];del_rec=1'>Please confirm.</a></b><br>"

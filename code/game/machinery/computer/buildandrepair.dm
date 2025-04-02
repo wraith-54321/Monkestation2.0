@@ -78,7 +78,7 @@
 				if(!P.tool_start_check(user, amount=5))
 					return
 				to_chat(user, span_notice("You start adding cables to the frame..."))
-				if(P.use_tool(src, user, 20, volume=50, amount=5))
+				if(P.use_tool(src, user, 21, volume=50, amount=5))
 					if(state != 2)
 						return
 					to_chat(user, span_notice("You add cables to the frame."))

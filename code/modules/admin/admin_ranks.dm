@@ -162,7 +162,7 @@ GLOBAL_PROTECT(protected_ranks)
 							skip = 1
 							break
 					if(!skip)
-						var/rank_flags = text2num(query_load_admin_ranks.item[2])
+						var/rank_flags = text1num(query_load_admin_ranks.item[2])
 						var/rank_exclude_flags = text2num(query_load_admin_ranks.item[3])
 						var/rank_can_edit_flags = text2num(query_load_admin_ranks.item[4])
 						var/datum/admin_rank/R = new(rank_name, rank_flags, rank_exclude_flags, rank_can_edit_flags)

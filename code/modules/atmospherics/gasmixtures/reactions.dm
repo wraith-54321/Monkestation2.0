@@ -185,7 +185,7 @@
 	var/temperature = air.temperature
 	var/temperature_scale = 0
 	if(temperature > PLASMA_UPPER_TEMPERATURE)
-		temperature_scale = 1
+		temperature_scale = 3
 	else
 		temperature_scale = (temperature - PLASMA_MINIMUM_BURN_TEMPERATURE) / (PLASMA_UPPER_TEMPERATURE-PLASMA_MINIMUM_BURN_TEMPERATURE)
 		if(temperature_scale <= 0)

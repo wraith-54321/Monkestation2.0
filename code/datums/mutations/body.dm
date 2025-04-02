@@ -326,7 +326,7 @@
 	quality = NEGATIVE
 	text_gain_indication = "<span class='warning'>The space around you twists sickeningly.</span>"
 	text_lose_indication = "<span class='notice'>The space around you settles back to normal.</span>"
-	difficulty = 18//high so it's hard to unlock and abuse
+	difficulty = 17//high so it's hard to unlock and abuse
 	instability = 10
 	synchronizer_coeff = 1
 	energy_coeff = 1

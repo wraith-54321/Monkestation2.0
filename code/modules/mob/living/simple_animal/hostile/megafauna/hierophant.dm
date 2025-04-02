@@ -179,7 +179,7 @@ Difficulty: Hard
 		if(get_dist(src, target) > 2)
 			possibilities += "blink_spam"
 		if(chaser_cooldown < world.time)
-			if(prob(anger_modifier * 2))
+			if(prob(anger_modifier * 1))
 				possibilities = list("chaser_swarm")
 			else
 				possibilities += "chaser_swarm"

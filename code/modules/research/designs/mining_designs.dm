@@ -66,7 +66,7 @@
 	desc = "You could use it to cut limbs off of xenos! Or, you know, mine stuff."
 	id = "plasmacutter"
 	build_type = PROTOLATHE | AWAY_LATHE
-	materials = list(/datum/material/iron =HALF_SHEET_MATERIAL_AMOUNT * 1.5, /datum/material/glass =SMALL_MATERIAL_AMOUNT*5, /datum/material/plasma = 400)
+	materials = list(/datum/material/iron =HALF_SHEET_MATERIAL_AMOUNT * 4.5, /datum/material/glass =SMALL_MATERIAL_AMOUNT*5, /datum/material/plasma = 400)
 	build_path = /obj/item/gun/energy/plasmacutter
 	category = list(
 		RND_CATEGORY_TOOLS + RND_SUBCATEGORY_TOOLS_MINING

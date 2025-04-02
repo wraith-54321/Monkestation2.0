@@ -63,7 +63,7 @@
 	if(!repairs)
 		adjust_charge(amount / 3.5)
 		return
-	if(owner.blood_volume < BLOOD_VOLUME_NORMAL - amount / 3.5)
+	if(owner.blood_volume < BLOOD_VOLUME_NORMAL - amount / 6.5)
 		adjust_charge(amount / 3.5)
 		return
 	if(owner.blood_volume > 700) //prevents reduction of charge of overcharged ethereals

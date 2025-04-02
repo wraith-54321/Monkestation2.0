@@ -22,7 +22,7 @@
 	animal_count = rand(15,20) //might be too few given ~15 roundstart stationside ones
 	human_count = rand(round(0.75 * SSticker.totalPlayersReady) , SSticker.totalPlayersReady) // 75%+ roundstart population.
 	//var/non_standard_plants = non_standard_plants_count()
-	plant_count = rand(8, 15) // monkestation edit: make the dna vault actually viable
+	plant_count = rand(7, 15) // monkestation edit: make the dna vault actually viable
 
 /* monkestation removal
 /datum/station_goal/dna_vault/proc/non_standard_plants_count()

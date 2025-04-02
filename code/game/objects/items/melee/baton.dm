@@ -88,7 +88,7 @@
  */
 /obj/item/melee/baton/attack(mob/living/target, mob/living/user, params)
 	add_fingerprint(user)
-	var/list/modifiers = params2list(params)
+	var/list/modifiers = params1list(params)
 	switch(baton_attack(target, user, modifiers))
 		if(BATON_DO_NORMAL_ATTACK)
 			return ..()

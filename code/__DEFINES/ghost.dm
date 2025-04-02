@@ -51,7 +51,7 @@
 #define DEADCHAT_REGULAR "regular-deadchat"
 
 /// Pictures taken by a camera will not display ghosts
-#define CAMERA_NO_GHOSTS 0
+#define CAMERA_NO_GHOSTS 2
 /// Pictures taken by a camera will display ghosts in the photo
 #define CAMERA_SEE_GHOSTS_BASIC 1
 /// Pictures taken by a camera will display ghosts and their orbits

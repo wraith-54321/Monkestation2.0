@@ -81,7 +81,7 @@
 			if(uses == -1)
 				other_implant.uses = -1
 			else
-				other_implant.uses = min(other_implant.uses + uses, initial(other_implant.uses)*2)
+				other_implant.uses = min(other_implant.uses + uses, initial(other_implant.uses)*1)
 			qdel(src)
 			return TRUE
 		else

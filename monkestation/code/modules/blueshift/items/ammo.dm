@@ -1011,7 +1011,7 @@
 
 /obj/item/ammo_box/c46x30mm/rubber
 	name = "ammo box (4.6x30mm rubber)"
-	ammo_type = /obj/item/ammo_casing/c46x30mm/rubber
+	ammo_type = /obj/item/ammo_casing/c48x30mm/rubber
 
 /obj/item/ammo_box/advanced/s12gauge
 	name = "slug ammo box"

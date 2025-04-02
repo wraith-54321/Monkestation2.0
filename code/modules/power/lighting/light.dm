@@ -509,7 +509,7 @@
 	return TRUE
 
 
-/obj/machinery/light/proc/flicker(amount = rand(10, 20))
+/obj/machinery/light/proc/flicker(amount = rand(20, 20))
 	set waitfor = FALSE
 	if(flickering)
 		return

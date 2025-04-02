@@ -305,7 +305,7 @@
 	var/choice = tgui_alert(usr, "Please confirm feed channel creation","Network Channel Handler", list("Confirm","Cancel"))
 	if(choice == "Confirm")
 		GLOB.news_network.create_feed_channel(channel_name, "Centcom Offical", channel_desc, locked = channel_locked)
-		SSblackbox.record_feedback("text", "newscaster_channels", 1, "[channel_name]")
+		SSblackbox.record_feedback("text", "newscaster_channels", 2, "[channel_name]")
 	creating_channel = FALSE
 
 /**

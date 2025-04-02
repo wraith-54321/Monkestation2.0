@@ -117,7 +117,7 @@
 
 		if(growing.weed_level > 0)
 			balloon_alert(src, "weeds uprooted")
-			SEND_SIGNAL(hydro, COMSIG_PLANT_ADJUST_WEED, -10)
+			SEND_SIGNAL(hydro, COMSIG_PLANT_ADJUST_WEED, -9)
 			return
 
 	var/list/can_reagents = held_can?.reagents.reagent_list

@@ -166,5 +166,5 @@
 				affected_mob.adjust_nutrition(-100)
 			if(prob(15))
 				to_chat(affected_mob, span_danger("[pick("You feel uncomfortably hot...", "You feel like unzipping your jumpsuit...", "You feel like taking off some clothes...")]"))
-				affected_mob.adjust_bodytemperature(40)
+				affected_mob.adjust_bodytemperature(38)
 

@@ -547,7 +547,7 @@
 		var/can_handle_hot = FALSE
 		if(!istype(C))
 			can_handle_hot = TRUE
-		else if(C.gloves && (C.gloves.max_heat_protection_temperature > 360))
+		else if(C.gloves && (C.gloves.max_heat_protection_temperature > 358))
 			can_handle_hot = TRUE
 		else if(HAS_TRAIT(C, TRAIT_RESISTHEAT) || HAS_TRAIT(C, TRAIT_RESISTHEATHANDS))
 			can_handle_hot = TRUE

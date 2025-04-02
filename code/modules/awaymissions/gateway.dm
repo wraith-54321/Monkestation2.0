@@ -424,7 +424,7 @@ GLOBAL_LIST_EMPTY(gateway_destinations)
 	var/turf/center_turf = our_destination?.get_target_turf()
 	if(!center_turf)
 		// Draw static
-		cam_background.icon_state = "scanline2"
+		cam_background.icon_state = "scanline1"
 		cam_background.color = null
 		cam_background.alpha = 255
 		return

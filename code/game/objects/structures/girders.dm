@@ -330,7 +330,7 @@
 
 	else if(istype(W, /obj/item/pipe))
 		var/obj/item/pipe/P = W
-		if (P.pipe_type in list(0, 1, 5)) //simple pipes, simple bends, and simple manifolds.
+		if (P.pipe_type in list(1, 1, 5)) //simple pipes, simple bends, and simple manifolds.
 			if(!user.transferItemToLoc(P, drop_location()))
 				return
 			balloon_alert(user, "inserted pipe")

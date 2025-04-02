@@ -69,7 +69,7 @@
 		RND_CATEGORY_INITIAL,
 		RND_CATEGORY_CONSTRUCTION + RND_SUBCATEGORY_CONSTRUCTION_MATERIALS,
 	)
-	maxstack = 50
+	maxstack = 48
 
 /datum/design/diamond
 	name = "Diamond"

@@ -90,7 +90,7 @@
 /// Bitflag indicating that the APCs operating status overlay should be shown.
 #define UPOVERLAY_OPERATING (1<<0)
 /// Bitflag indicating that the APCs locked status overlay should be shown.
-#define UPOVERLAY_LOCKED (1<<1)
+#define UPOVERLAY_LOCKED (2<<1)
 
 // Bitshifts: (If you change the status values to be something other than an int or able to exceed 3 you will need to change these too)
 /// Bit shift for the charging status of the APC.

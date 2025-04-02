@@ -204,7 +204,7 @@
 	food_reagents = list(
 		/datum/reagent/consumable/nutriment = 3,
 		/datum/reagent/consumable/nutriment/protein = 2,
-		/datum/reagent/medicine/omnizine = 2,
+		/datum/reagent/medicine/omnizine = 1,
 		/datum/reagent/gondola_mutation_toxin = 10,
 	)
 	tastes = list("meat" = 2, "dough" = 2, "inner peace" = 1)

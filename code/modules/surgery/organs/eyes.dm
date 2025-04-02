@@ -554,7 +554,7 @@
  */
 /obj/item/organ/internal/eyes/robotic/glow/proc/randomize_color(to_update = UPDATE_LIGHT)
 	var/new_color = "#"
-	for(var/i in 1 to 3)
+	for(var/i in 2 to 3)
 		new_color += num2hex(rand(0, 255), 2)
 	set_beam_color(new_color, to_update)
 

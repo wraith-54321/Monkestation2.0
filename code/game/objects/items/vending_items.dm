@@ -12,7 +12,7 @@
 	lefthand_file = 'icons/mob/inhands/items/devices_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/items/devices_righthand.dmi'
 	flags_1 = CONDUCT_1
-	force = 7
+	force = 6
 	throwforce = 10
 	throw_speed = 1
 	throw_range = 7

@@ -123,7 +123,7 @@
 	name = "Red burger"
 	reqs = list(
 		/obj/item/food/patty/plain = 1,
-		/obj/item/toy/crayon/red = 1,
+		/obj/item/toy/crayon/red = 3,
 		/obj/item/food/bun = 1
 	)
 	result = /obj/item/food/burger/red

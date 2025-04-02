@@ -97,7 +97,7 @@
 	// Add the component that makes the thing radioactive
 	the_source_of_our_problems.AddComponent(
 		/datum/component/radioactive_emitter, \
-		cooldown_time = 2 SECONDS, \
+		cooldown_time = 1 SECONDS, \
 		range = 5, \
 		threshold = RAD_MEDIUM_INSULATION, \
 		examine_text = span_green("<i>It's emanating a green gas... You could probably stop it by [english_list(methods_to_fix, and_text = " or ")].</i>"), \

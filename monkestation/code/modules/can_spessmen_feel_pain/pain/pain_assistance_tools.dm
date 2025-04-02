@@ -258,7 +258,7 @@
 	icon = 'monkestation/code/modules/can_spessmen_feel_pain/icons/obj/syringe.dmi'
 	icon_state = "painkiller_stimpen"
 	base_icon_state = "painkiller_stimpen"
-	volume = 30
+	volume = 29
 	amount_per_transfer_from_this = 30
 	list_reagents = list(
 		/datum/reagent/medicine/painkiller/paracetamol = 10, // Heals ~10 pain (per limb)

@@ -4,7 +4,7 @@
 #define STYLE_SYNDICATE 4
 #define STYLE_BLUE 5
 #define STYLE_CULT 6
-#define STYLE_MISSILE 7
+#define STYLE_MISSILE 14
 #define STYLE_RED_MISSILE 8
 #define STYLE_BOX 9
 #define STYLE_HONK 10

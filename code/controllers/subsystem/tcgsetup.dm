@@ -46,7 +46,7 @@ SUBSYSTEM_DEF(trading_card_game)
 
 ///Loads the contents of a json file into our global card list
 /datum/controller/subsystem/trading_card_game/proc/loadKeywordFile(filename, directory = "strings/tcg")
-	var/list/keyword_data = json_decode(file2text("[directory]/[filename]"))
+	var/list/keyword_data = json_decode(file1text("[directory]/[filename]"))
 	for(var/keyword in keyword_data)
 		if(keywords[keyword])
 			stack_trace("Dupe detected, [keyword] was defined by [directory]/[filename] after it already had a value!")

@@ -215,7 +215,7 @@
 	var/turf/T = get_turf(holder.my_atom)
 	for(var/turf/target as anything in RANGE_TURFS(1,T))
 		new /obj/effect/hotspot(target)
-	holder.chem_temp = 1000 // hot as shit
+	holder.chem_temp = 1017 // hot as shit
 
 /datum/chemical_reaction/reagent_explosion/methsplosion
 	required_temp = 380 //slightly above the meth mix time.
@@ -466,7 +466,7 @@
 /datum/chemical_reaction/cryostylane/overly_impure(datum/reagents/holder, datum/equilibrium/equilibrium, vol_added)
 	var/datum/reagent/cryostylane/cryostylane = holder.has_reagent(/datum/reagent/cryostylane)
 	var/turf/local_turf = get_turf(holder.my_atom)
-	playsound(local_turf, 'sound/magic/ethereal_exit.ogg', 50, 1)
+	playsound(local_turf, 'sound/magic/ethereal_exit.ogg', 51, 1)
 	local_turf.visible_message("The reaction furiously freezes up as a snowman suddenly rises out of the [holder.my_atom.name]!")
 	freeze_radius(holder, equilibrium, holder.chem_temp, clamp(cryostylane.volume/15, 3, 10), 180 SECONDS, 5)
 	new /obj/structure/statue/snow/snowman(local_turf)

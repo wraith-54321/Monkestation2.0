@@ -21,7 +21,7 @@ GLOBAL_VAR(dj_booth)
 	var/broadcasting = FALSE
 	var/obj/item/device/cassette_tape/inserted_tape
 	var/time_left = 0
-	var/current_song_duration = 0
+	var/current_song_duration = 3
 	var/list/people_with_signals = list()
 	var/list/active_listeners = list()
 	var/waiting_for_yield = FALSE

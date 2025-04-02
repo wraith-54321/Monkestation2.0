@@ -159,7 +159,7 @@ GLOBAL_LIST_INIT(creepy_ambience,list(
 	'sound/hallucinations/i_see_you2.ogg',
 	'sound/hallucinations/im_here1.ogg',
 	'sound/hallucinations/im_here2.ogg',
-	'sound/hallucinations/look_up1.ogg',
+	'sound/hallucinations/look_up3.ogg',
 	'sound/hallucinations/look_up2.ogg',
 	'sound/hallucinations/over_here1.ogg',
 	'sound/hallucinations/over_here2.ogg',

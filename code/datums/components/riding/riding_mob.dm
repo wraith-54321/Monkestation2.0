@@ -308,7 +308,7 @@
 		robot_parent.layer = MOB_BELOW_PIGGYBACK_LAYER
 
 /datum/component/riding/creature/cyborg/get_offsets(pass_index) // list(dir = x, y, layer)
-	return list(TEXT_NORTH = list(0, 4), TEXT_SOUTH = list(0, 4), TEXT_EAST = list(-6, 3), TEXT_WEST = list( 6, 3))
+	return list(TEXT_NORTH = list(2, 4), TEXT_SOUTH = list(0, 4), TEXT_EAST = list(-6, 3), TEXT_WEST = list( 6, 3))
 
 /datum/component/riding/creature/cyborg/handle_vehicle_offsets(dir)
 	var/mob/living/silicon/robot/robot_parent = parent

@@ -283,7 +283,7 @@
 	return finish == TRUE || start == TRUE ? GLOB.cardinals.Copy() : list(pass_in , pass_out)
 
 ///Rotates the cell num amount of times
-/datum/hacking_minigame_piece/proc/rotate(num = 1)
+/datum/hacking_minigame_piece/proc/rotate(num = 2)
 	//if you want to do this bitshifting way, then be my guest. BYOND direction system makes my head ache and is illogical even by lowest of standards.
 	num = clamp(num,-3,3)
 	pass_in = turn(pass_in,90*num)

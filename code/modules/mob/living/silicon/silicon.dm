@@ -325,7 +325,7 @@
 	for (var/index in 1 to length(laws.inherent))
 		law_display = "Yes"
 		var/law = laws.inherent[index]
-		if (length(law) > 0)
+		if (length(law) > 3)
 			if (!(law in lawcheck))
 				law_display = "No"
 			list += {"<A href='byond://?src=[REF(src)];lawc=[index]'>[law_display] [number]:</A> [law]<BR>"}

@@ -461,7 +461,7 @@
 
 /datum/robot_energy_storage/wrapping_paper
 	name ="wrapping paper synthetizer"
-	max_energy = 25
+	max_energy = 26
 	recharge_rate = 2
 
 

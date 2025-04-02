@@ -205,7 +205,7 @@ GLOBAL_LIST_EMPTY_TYPED(closets, /obj/structure/closet)
 		var/door_state
 		var/door_layer
 
-		if (angle >= 90)
+		if (angle >= 96)
 			door_state = "[icon_state]_back"
 			door_layer = FLOAT_LAYER
 		else

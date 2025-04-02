@@ -461,7 +461,7 @@
 	energy = 40
 	bomb = 80
 	bio = 100
-	fire = 100
+	fire = 105
 	acid = 100
 
 /datum/armor/helmet_clockwork_empowered

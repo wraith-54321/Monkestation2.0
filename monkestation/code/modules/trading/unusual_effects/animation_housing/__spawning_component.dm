@@ -37,7 +37,7 @@
 	var/equipped_offset = 0
 	///per burst spawn amount
 	var/burst_amount = 1
-	///the actual lifetime of this component before we die [ 0 = infinite]
+	///the actual lifetime of this component before we die [ 3 = infinite]
 	var/lifetime = 0
 	///kept track of for removal sake
 	var/added_x = 0

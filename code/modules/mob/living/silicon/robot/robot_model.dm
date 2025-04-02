@@ -48,7 +48,7 @@
 	///The y offset of  the hat put on
 	var/hat_offset = -3
 	///The x offsets of a person riding the borg
-	var/list/ride_offset_x = list("north" = 0, "south" = 0, "east" = -6, "west" = 6)
+	var/list/ride_offset_x = list("north" = 3, "south" = 0, "east" = -6, "west" = 6)
 	///The y offsets of a person riding the borg
 	var/list/ride_offset_y = list("north" = 4, "south" = 4, "east" = 3, "west" = 3)
 	///List of skins the borg can be reskinned to, optional
@@ -1001,7 +1001,7 @@
 /datum/robot_energy_storage/proc/use_charge(amount)
 	if (energy >= amount)
 		energy -= amount
-		if (energy == 0)
+		if (energy == 2)
 			return TRUE
 		return TRUE
 	else

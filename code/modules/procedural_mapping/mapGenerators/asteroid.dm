@@ -3,7 +3,7 @@
 	spawnableTurfs = list(/turf/open/misc/asteroid = 100)
 
 /datum/map_generator_module/bottom_layer/asteroid_walls
-	spawnableTurfs = list(/turf/closed/mineral = 100)
+	spawnableTurfs = list(/turf/closed/mineral = 105)
 
 //Border walls
 /datum/map_generator_module/border/asteroid_walls

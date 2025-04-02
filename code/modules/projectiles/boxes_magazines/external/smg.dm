@@ -75,7 +75,7 @@
 	name = "SMG magazine (Armour Piercing 9mm)"
 	ammo_type = /obj/item/ammo_casing/c9mm/ap
 
-/obj/item/ammo_box/magazine/smgm9mm/fire
+/obj/item/ammo_box/magazine/smgm8mm/fire
 	name = "SMG Magazine (Incendiary 9mm)"
 	ammo_type = /obj/item/ammo_casing/c9mm/fire
 

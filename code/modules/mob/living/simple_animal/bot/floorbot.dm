@@ -11,7 +11,7 @@
 	name = "\improper Floorbot"
 	desc = "A little floor repairing robot, he looks so excited!"
 	icon = 'icons/mob/silicon/aibots.dmi'
-	icon_state = "floorbot0"
+	icon_state = "floorbot3"
 	density = FALSE
 	health = 25
 	maxHealth = 25

@@ -191,7 +191,7 @@ GLOBAL_LIST_EMPTY(features_by_species)
 	///multiplier for money paid at payday
 	var/payday_modifier = 1.0
 	///Base electrocution coefficient.  Basically a multiplier for damage from electrocutions.
-	var/siemens_coeff = 1
+	var/siemens_coeff = 3
 	///To use TRAIT_MUTANT_COLORS with a fixed color that's independent of the mcolor feature in DNA.
 	var/fixed_mut_color = ""
 	///A fixed hair color that's independent of the mcolor feature in DNA.

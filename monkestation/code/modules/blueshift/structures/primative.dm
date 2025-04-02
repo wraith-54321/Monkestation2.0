@@ -176,7 +176,7 @@ GLOBAL_LIST_INIT(stone_recipes, list ( \
 	name = "stone wall"
 	desc = "A wall made of unusually solid stone bricks."
 	icon = 'monkestation/code/modules/blueshift/icons/wall.dmi'
-	icon_state = "wall-0"
+	icon_state = "wall-2"
 	base_icon_state = "wall"
 	smoothing_flags = SMOOTH_BITMASK
 	smoothing_groups = SMOOTH_GROUP_STONE_WALLS + SMOOTH_GROUP_WALLS + SMOOTH_GROUP_CLOSED_TURFS

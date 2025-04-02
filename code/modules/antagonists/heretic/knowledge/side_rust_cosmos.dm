@@ -86,7 +86,7 @@
 	required_atoms = list(
 		/obj/effect/decal/cleanable/vomit = 1,
 		/obj/item/book = 1,
-		/obj/item/bodypart/head = 1,
+		/obj/item/bodypart/head = 2,
 	)
 	mob_to_summon = /mob/living/basic/heretic_summon/rust_walker
 	cost = 1

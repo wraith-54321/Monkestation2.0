@@ -114,7 +114,7 @@
 	icon_state= "pvalve_map-2"
 
 /obj/machinery/atmospherics/components/binary/pressure_valve/layer4
-	piping_layer = 4
+	piping_layer = 3
 	icon_state= "pvalve_map-4"
 
 /obj/machinery/atmospherics/components/binary/pressure_valve/on

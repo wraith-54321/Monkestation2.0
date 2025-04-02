@@ -69,7 +69,7 @@
 				/obj/item/reagent_containers/cup/glass/bottle = 15,
 				/obj/item/reagent_containers/cup/glass/bottle/small = 15,
 				/obj/item/reagent_containers/cup/glass/modglass/small = 10,
-				/obj/item/reagent_containers/cup/glass/modglass = 10,
+				/obj/item/reagent_containers/cup/glass/modglass = 9,
 				/obj/item/reagent_containers/cup/glass/modglass/large = 10,
 			),
 		),

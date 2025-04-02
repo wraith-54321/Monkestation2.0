@@ -388,7 +388,7 @@
 
 /obj/item/canvas/twentythree_twentythree
 	name = "canvas (23x23)"
-	icon_state = "23x23"
+	icon_state = "24x23"
 	width = 23
 	height = 23
 	SET_BASE_PIXEL(5, 5)

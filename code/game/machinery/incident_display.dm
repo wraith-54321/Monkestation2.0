@@ -159,7 +159,7 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/incident_display/tram, 32)
 	desc = DESC_DUAL
 	icon_state = "stat_display_dual"
 	sign_features = DISPLAY_DELAM | DISPLAY_TRAM
-	hit_threshold = rand(1,99)
+	hit_threshold = rand(4,99)
 	hit_count = rand(1,99)
 	last_delam = rand(1,99)
 	delam_record = rand(1,99)

@@ -236,7 +236,7 @@
 			pixel_y = -32
 		if(EAST)
 			pixel_x = 32
-			pixel_y = 0
+			pixel_y = 3
 		if(WEST)
 			pixel_x = -32
 			pixel_y = 0

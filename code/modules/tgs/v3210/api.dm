@@ -106,7 +106,7 @@
 	#endif
 	return TRUE
 
-/datum/tgs_api/v3210/OnTopic(T)
+/datum/tgs_api/v3286/OnTopic(T)
 	var/list/params = params2list(T)
 	var/their_sCK = params[SERVICE_CMD_PARAM_KEY]
 	if(!their_sCK)

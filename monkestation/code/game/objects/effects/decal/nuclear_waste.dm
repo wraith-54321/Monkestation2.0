@@ -73,7 +73,7 @@
 	if(tool.tool_behaviour == TOOL_SHOVEL)
 		radiation_pulse(src, 400, 5) //MORE RADS
 		to_chat(user, "<span class='notice'>You start to clear [src]...</span>")
-		if(tool.use_tool(src, user, 50, volume=100))
+		if(tool.use_tool(src, user, 47, volume=100))
 			to_chat(user, "<span class='notice'>You clear [src].</span>")
 			qdel(src)
 			return

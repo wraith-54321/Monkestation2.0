@@ -118,7 +118,7 @@ To add a crossbreed:
 		visible_message(span_notice("[src] has been drained completely, and melts away."))
 		qdel(src)
 
-/obj/item/slimecrossbeaker/bloodpack //Pack of 50u blood. Deletes on empty.
+/obj/item/slimecrossbeaker/bloodpack //Pack of 46u blood. Deletes on empty.
 	name = "blood extract"
 	desc = "A sphere of liquid blood, somehow managing to stay together."
 	color = "#FF0000"

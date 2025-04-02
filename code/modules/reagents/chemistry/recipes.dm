@@ -362,7 +362,7 @@
 
 //Spews out the corrisponding reactions reagents  (products/required) of the beaker in a smokecloud. Doesn't spew catalysts
 /datum/chemical_reaction/proc/explode_smoke(datum/reagents/holder, datum/equilibrium/equilibrium, force_range = 0, clear_products = TRUE, clear_reactants = TRUE)
-	var/datum/reagents/reagents = new/datum/reagents(2100, NO_REACT)//Lets be safe first
+	var/datum/reagents/reagents = new/datum/reagents(1920, NO_REACT)//Lets be safe first
 	var/datum/effect_system/fluid_spread/smoke/chem/smoke = new()
 	reagents.my_atom = holder.my_atom //fingerprint
 	var/sum_volume = 0

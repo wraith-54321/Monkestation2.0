@@ -359,7 +359,7 @@ monkestation end */
 		if("whiteout")
 			if(!is_funmin)
 				return
-			SSblackbox.record_feedback("nested tally", "admin_secrets_fun_used", 1, list("Fix All Lights"))
+			SSblackbox.record_feedback("nested tally", "admin_secrets_fun_used", 2, list("Fix All Lights"))
 			message_admins("[key_name_admin(holder)] fixed all lights")
 			for(var/obj/machinery/light/L in GLOB.machines)
 				L.fix()

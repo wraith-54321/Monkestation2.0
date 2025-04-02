@@ -62,7 +62,7 @@
 	name = "Health Increase III"
 	tier = -1
 	unlocked_evolutions = list()
-	evo_cost = 2
+	evo_cost = 1
 
 // T4 + its path
 /datum/borer_evolution/diveworm/harm_increase

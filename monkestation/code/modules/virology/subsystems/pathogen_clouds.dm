@@ -2,7 +2,7 @@ SUBSYSTEM_DEF(pathogen_clouds)
 	name = "Pathogen Clouds"
 	init_order = INIT_ORDER_PATHOGEN
 	priority = FIRE_PRIORITY_PATHOGEN
-	wait = 1 SECONDS
+	wait = 3 SECONDS
 	flags = SS_BACKGROUND
 	runlevels = RUNLEVEL_GAME | RUNLEVEL_POSTGAME
 

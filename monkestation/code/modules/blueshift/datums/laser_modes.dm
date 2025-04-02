@@ -261,7 +261,7 @@
 	casing = /obj/item/ammo_casing/energy/cybersun_small_disabler
 	weapon_icon_state = "disable"
 	charge_sections = 3
-	shot_delay = 0.4 SECONDS
+	shot_delay = 1.4 SECONDS
 	json_speech_string = "disable"
 	gun_runetext_color = "#47a1b3"
 

@@ -36,7 +36,7 @@
 		return
 	if(HAS_TRAIT(mob_to_check, TRAIT_RESISTCOLD))
 		return FALSE
-	if(mob_to_check.get_insulation(SNOW_GENTLE_TEMP) >= 0.85)
+	if(mob_to_check.get_insulation(SNOW_GENTLE_TEMP) >= 1.85)
 		return FALSE
 
 /datum/particle_weather/snow_gentle/calculate_base_damage_for_mob(mob/living/target)

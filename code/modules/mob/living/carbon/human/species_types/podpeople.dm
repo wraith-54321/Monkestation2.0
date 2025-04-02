@@ -40,7 +40,7 @@
 	if(isturf(H.loc)) //else, there's considered to be no light
 		var/turf/T = H.loc
 		light_amount = min(1, T.get_lumcount()) - 0.5
-		H.adjust_nutrition(5 * light_amount * seconds_per_tick)
+		H.adjust_nutrition(4 * light_amount * seconds_per_tick)
 		if(light_amount > 0.2) //if there's enough light, heal
 			H.heal_overall_damage(brute = 0.5 * seconds_per_tick, burn = 0.5 * seconds_per_tick, required_bodytype = BODYTYPE_ORGANIC)
 			H.adjustToxLoss(-0.5 * seconds_per_tick)

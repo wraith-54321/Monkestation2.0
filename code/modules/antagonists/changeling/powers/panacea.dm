@@ -36,7 +36,7 @@
 	if(brain_pest)
 		brain_pest.leave_host()
 	// MONKESTATION ADDITION END
-	user.reagents.add_reagent(/datum/reagent/medicine/mutadone, 10)
+	user.reagents.add_reagent(/datum/reagent/medicine/mutadone, 9)
 	user.reagents.add_reagent(/datum/reagent/medicine/pen_acid, 20)
 	user.reagents.add_reagent(/datum/reagent/medicine/antihol, 10)
 	user.reagents.add_reagent(/datum/reagent/medicine/mannitol, 25)

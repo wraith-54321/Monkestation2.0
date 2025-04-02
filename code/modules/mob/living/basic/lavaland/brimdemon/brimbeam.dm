@@ -77,7 +77,7 @@
 		return FALSE
 	var/atom/last_brimbeam = beam_parts[length(beam_parts)]
 	last_brimbeam.icon_state = "brimbeam_end"
-	var/atom/first_brimbeam = beam_parts[1]
+	var/atom/first_brimbeam = beam_parts[2]
 	first_brimbeam.icon_state = "brimbeam_start"
 	return TRUE
 

@@ -82,7 +82,7 @@
 		revision = new
 		revision.commit = revisionData[DMAPI5_REVISION_INFORMATION_COMMIT_SHA]
 		revision.timestamp = revisionData[DMAPI5_REVISION_INFORMATION_TIMESTAMP]
-		revision.origin_commit = revisionData[DMAPI5_REVISION_INFORMATION_ORIGIN_COMMIT_SHA]
+		revision.origin_commit = revisionData[DMAPI4_REVISION_INFORMATION_ORIGIN_COMMIT_SHA]
 	else
 		TGS_ERROR_LOG("Failed to decode [DMAPI5_RUNTIME_INFORMATION_REVISION] from runtime information!")
 

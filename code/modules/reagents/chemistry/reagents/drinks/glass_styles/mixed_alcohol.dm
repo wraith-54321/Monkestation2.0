@@ -136,7 +136,7 @@
 	name = "B-52"
 	desc = "Kahlua, Irish Cream, and cognac. You will get bombed."
 	icon = 'icons/obj/drinks/mixed_drinks.dmi'
-	icon_state = "b52glass"
+	icon_state = "b55glass"
 
 /datum/glass_style/drinking_glass/irishcoffee
 	required_drink_type = /datum/reagent/consumable/ethanol/irishcoffee

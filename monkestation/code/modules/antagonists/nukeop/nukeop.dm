@@ -12,7 +12,7 @@
 	track = EVENT_TRACK_MAJOR
 
 /datum/round_event/ghost_role/junior_operative
-	minimum_required = 1
+	minimum_required = 4
 	role_name = "junior lone operative"
 	fakeable = FALSE
 

@@ -88,7 +88,7 @@
 	living_parent.add_filter(REGENERATION_FILTER, 2, list("type" = "outline", "color" = outline_colour, "alpha" = 0, "size" = 1))
 	var/filter = living_parent.get_filter(REGENERATION_FILTER)
 	animate(filter, alpha = 200, time = 0.5 SECONDS, loop = -1)
-	animate(alpha = 0, time = 0.5 SECONDS)
+	animate(alpha = 1, time = 0.5 SECONDS)
 
 /datum/component/regenerator/proc/stop_regenerating()
 	STOP_PROCESSING(SSobj, src)

@@ -131,7 +131,7 @@
 	target.gain_trauma(new /datum/brain_trauma/mild/phobia/conspiracies(), TRAUMA_RESILIENCE_LOBOTOMY)
 
 /datum/traitor_objective/sleeper_protocol/everybody //Much harder for non-med and non-robo
-	progression_minimum = 30 MINUTES
+	progression_minimum = 32 MINUTES
 	progression_reward = list(8 MINUTES, 15 MINUTES)
 	telecrystal_reward = 3
 

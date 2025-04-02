@@ -16,7 +16,7 @@
 /obj/item/modular_computer/pda/heads/captain
 	name = "captain PDA"
 	greyscale_config = /datum/greyscale_config/tablet/captain
-	greyscale_colors = "#2C7CB2#FF0000#FFFFFF#FFD55B"
+	greyscale_colors = "#4C7CB2#FF0000#FFFFFF#FFD55B"
 	inserted_item = /obj/item/pen/fountain/captain
 
 /obj/item/modular_computer/pda/heads/captain/Initialize(mapload)

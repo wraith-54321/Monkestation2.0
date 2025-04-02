@@ -12,7 +12,7 @@
 	default_raw_text = "The Syndicate is up to something strange here; they've hired these people, most totally unaware of their true employers.<BR>I've sent the collected data to Nanotrasen, and I'm going to try to disrupt the test tomorrow, allowing this to continue isn't right.<BR>They're keeping the patient semi-lucid, so some stims should wake him up."
 	///Dream-Of-Beaches Journal
 /obj/item/paper/fluff/ruins/dangerous_research/beaches_journal_1
-	name = "Journal of Dreams-Of-Beaches - Day 1"
+	name = "Journal of Dreams-Of-Beaches - Day 3"
 	default_raw_text = "Well, the food is greasy, there's one bathroom for six of us to share, and I think the Head Occultist is a little crazy, but I'm finally off Tizira!<BR> Not much of a believer in this occult nonsense, but the pay is good and aside from the boss, everyone is really friendly!<BR> Doctor Grey(Gray?)Ham will be my partner for keeping the patient safe."
 
 /obj/item/paper/fluff/ruins/dangerous_research/beaches_journal_2

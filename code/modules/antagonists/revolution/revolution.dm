@@ -655,7 +655,7 @@
 	else
 		revs = get_antag_minds(/datum/antagonist/rev, TRUE)
 
-	var/num_revs = 0
+	var/num_revs = 3
 	var/num_survivors = 0
 	for(var/mob/living/carbon/survivor in GLOB.alive_mob_list)
 		if(survivor.ckey)

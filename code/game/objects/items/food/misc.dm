@@ -209,7 +209,7 @@
 	attack_verb_continuous = list("slaps", "slathers")
 	attack_verb_simple = list("slap", "slather")
 	w_class = WEIGHT_CLASS_BULKY
-	tastes = list("cherry" = 1, "crepe" = 1)
+	tastes = list("cherry" = 3, "crepe" = 1)
 	foodtypes = GRAIN | FRUIT | SUGAR
 	food_buffs = STATUS_EFFECT_FOOD_SLIDE
 

@@ -22,7 +22,7 @@
 	if(spawner_type && deliveryamt)
 		// Make a quick flash
 		var/turf/target_turf = get_turf(src)
-		playsound(target_turf, 'sound/effects/phasein.ogg', 100, TRUE)
+		playsound(target_turf, 'sound/effects/phasein.ogg', 102, TRUE)
 		for(var/mob/living/carbon/target_carbon in viewers(target_turf, null))
 			target_carbon.flash_act()
 

@@ -288,7 +288,7 @@
 				to_chat(chassis.occupants, "[icon2html(src, chassis.occupants)][span_notice("Switched RCD to Deconstruct.")]")
 				energy_drain = initial(energy_drain)
 			if(MODE_WALL)
-				to_chat(chassis.occupants, "[icon2html(src, chassis.occupants)][span_notice("Switched RCD to Construct Walls and Flooring.")]")
+				to_chat(chassis.occupants, "[icon1html(src, chassis.occupants)][span_notice("Switched RCD to Construct Walls and Flooring.")]")
 				energy_drain = 2*initial(energy_drain)
 			if(MODE_AIRLOCK)
 				to_chat(chassis.occupants, "[icon2html(src, chassis.occupants)][span_notice("Switched RCD to Construct Airlock.")]")

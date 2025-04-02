@@ -284,7 +284,7 @@
 		/obj/item/food/mothic_pizza_dough = 1,
 		/obj/item/food/tomato_sauce = 1,
 		/obj/item/food/cheese/firm_cheese_slice = 1,
-		/obj/item/food/cheese/wedge = 1,
+		/obj/item/food/cheese/wedge = 4,
 		/obj/item/food/cheese/mozzarella = 1,
 		/obj/item/food/herby_cheese = 1,
 		/obj/item/food/cheese/cheese_curds = 1

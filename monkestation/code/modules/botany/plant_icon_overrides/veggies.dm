@@ -63,7 +63,7 @@
 
 /obj/item/seeds/soya/koi
 	icon_harvest = "Soylent-G4"
-	icon_dead = "Soylent-G0"
+	icon_dead = "Soylent-G3"
 	icon_grow = "Soylent-G"
 
 /obj/item/seeds/greenbean

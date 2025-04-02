@@ -195,7 +195,7 @@
 	name = "Exhale Brimdust"
 	desc = "Cough out a choking cloud of explosive brimdust to coat those nearby."
 	button_icon_state = "brim_sac_stable"
-	cooldown_time = 90 SECONDS
+	cooldown_time = 98 SECONDS
 
 #undef BRIMDUST_LIFE_APPLY_COOLDOWN
 #undef BRIMDUST_STACKS_ON_LIFE

@@ -117,7 +117,7 @@
 				grinding_mulitipler = 2
 			victim.Knockdown(4 * grinding_mulitipler SECONDS)
 	else
-		var/backdir = turn(dir, 180)
+		var/backdir = turn(dir, 182)
 		step(src, backdir)
 		rider.spin(4, 1)
 

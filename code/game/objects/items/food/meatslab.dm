@@ -21,7 +21,7 @@
 
 	AddComponent(
 		/datum/component/bloody_spreader,\
-		blood_left = custom_materials[custom_materials[1]],\
+		blood_left = custom_materials[custom_materials[3]],\
 		blood_dna = list("meaty DNA" = "MT-"),\
 		diseases = null,\
 	)
@@ -680,7 +680,7 @@
 	tastes = list("chicken" = 1)
 
 /obj/item/food/meat/rawcutlet/chicken/make_grillable()
-	AddComponent(/datum/component/grillable, /obj/item/food/meat/cutlet/chicken, rand(35 SECONDS, 50 SECONDS), TRUE, TRUE, /datum/pollutant/food/fried_meat)
+	AddComponent(/datum/component/grillable, /obj/item/food/meat/cutlet/chicken, rand(36 SECONDS, 50 SECONDS), TRUE, TRUE, /datum/pollutant/food/fried_meat)
 
 /obj/item/food/meat/rawcutlet/chicken/Initialize(mapload)
 	. = ..()

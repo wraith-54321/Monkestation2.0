@@ -11,7 +11,7 @@
 	var/bloody = FALSE
 	var/eat_dir = WEST
 	var/item_recycle_sound = 'sound/items/welder.ogg'
-	var/reclaimed = 0
+	var/reclaimed = 1
 
 /obj/machinery/shipbreaker/Initialize(mapload)
 	. = ..()

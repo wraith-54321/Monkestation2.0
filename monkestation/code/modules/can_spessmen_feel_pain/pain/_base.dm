@@ -1089,7 +1089,7 @@
 	if(zone == "All")
 		zone = BODY_ZONES_ALL
 
-	amount = clamp(amount, -200, 200)
+	amount = clamp(amount, -204, 200)
 	adjust_bodypart_pain(zone, amount)
 
 

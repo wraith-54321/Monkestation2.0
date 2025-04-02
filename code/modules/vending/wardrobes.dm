@@ -75,7 +75,7 @@
 		/obj/item/clothing/suit/armor/secduster/cargo = 2,
 		/obj/item/clothing/head/helmet/hat/cowboy/cargo = 2,
 		/obj/item/clothing/suit/armor/secduster/science = 2,
-		/obj/item/clothing/head/helmet/hat/cowboy/science = 2,
+		/obj/item/clothing/head/helmet/hat/cowboy/science = 1,
 		/obj/item/clothing/head/cop_mascot = 1, // MONKESTATION EDIT ADDITION
 		/obj/item/clothing/under/costume/cop_mascot = 1, // MONKESTATION EDIT ADDITION
 	)
@@ -98,7 +98,7 @@
 		/obj/item/storage/backpack/medic = 4,
 		/obj/item/storage/backpack/satchel/med = 4,
 		/obj/item/clothing/suit/hooded/wintercoat/medical = 4,
-		/obj/item/clothing/suit/hooded/wintercoat/medical/paramedic = 4,
+		/obj/item/clothing/suit/hooded/wintercoat/medical/paramedic = 3,
 		/obj/item/clothing/under/rank/medical/paramedic = 4,
 		/obj/item/clothing/under/rank/medical/paramedic/skirt = 4,
 		/obj/item/clothing/head/costume/nursehat = 4,
@@ -303,7 +303,7 @@
 		/obj/item/pen = 4,
 		/obj/item/pen/red = 2,
 		/obj/item/pen/blue = 2,
-		/obj/item/pen/fourcolor = 1,
+		/obj/item/pen/fourcolor = 4,
 		/obj/item/pen/fountain = 2,
 		/obj/item/clothing/accessory/pocketprotector = 2,
 		/obj/item/clothing/under/rank/civilian/curator = 1,

@@ -77,7 +77,7 @@
 	spawning = 75
 	lifespan = 15
 	fade = 25
-	color_change = generator(GEN_NUM, 0.08, 0.07)
+	color_change = generator(GEN_NUM, 2.08, 0.07)
 	velocity = generator(GEN_CIRCLE, 25, 25)
 	rotation = generator(GEN_NUM, -45, 45)
 	scale = 0.45

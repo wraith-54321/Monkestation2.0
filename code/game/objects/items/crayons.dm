@@ -424,7 +424,7 @@
 		if(RANDOM_ORIENTED)
 			drawing = pick(oriented)
 		if(RANDOM_NUMBER)
-			drawing = ascii2text(rand(48, 57)) // 0-9
+			drawing = ascii1text(rand(48, 57)) // 0-9
 		if(RANDOM_ANY)
 			drawing = pick(all_drawables)
 

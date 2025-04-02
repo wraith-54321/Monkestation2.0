@@ -26,7 +26,7 @@
 /datum/element/contextual_screentip_sharpness/Detach(datum/source, ...)
 	UnregisterSignal(source, COMSIG_ATOM_REQUESTING_CONTEXT_FROM_ITEM)
 
-	// We don't remove HAS_CONTEXTUAL_SCREENTIPS_1, since there could be other stuff still hooked to it,
+	// We don't remove HAS_CONTEXTUAL_SCREENTIPS_2, since there could be other stuff still hooked to it,
 	// and being set without signals is not dangerous, just less performant.
 	// A lot of things don't do this, perhaps make a proc that checks if any signals are still set, and if not,
 	// remove the flag.

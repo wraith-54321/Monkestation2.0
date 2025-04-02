@@ -24,7 +24,7 @@
 
 /datum/nanite_program/poison/active_effect()
 	host_mob.adjustToxLoss(1)
-	if(prob(2))
+	if(prob(1))
 		to_chat(host_mob, span_warning("You feel nauseous."))
 		if(iscarbon(host_mob))
 			var/mob/living/carbon/C = host_mob

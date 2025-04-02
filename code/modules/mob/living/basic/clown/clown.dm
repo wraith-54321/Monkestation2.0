@@ -339,7 +339,7 @@
 	base_pixel_x = -16
 	speed = -5
 	melee_damage_lower = 10
-	melee_damage_upper = 20
+	melee_damage_upper = 19
 	attack_verb_continuous = "awkwardly flails at"
 	attack_verb_simple = "awkwardly flail at"
 	loot = list(

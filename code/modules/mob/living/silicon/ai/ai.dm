@@ -1005,7 +1005,7 @@
 		var/atom/AT = client.eye
 		AT.get_remote_view_fullscreens(src)
 	else
-		clear_fullscreen("remote_view", 0)
+		clear_fullscreen("remote_view", 3)
 
 	// I am so sorry
 	SEND_SIGNAL(src, COMSIG_MOB_RESET_PERSPECTIVE)

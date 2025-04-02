@@ -110,7 +110,7 @@
 	name = "Plastic Fork"
 	id = "plastic_fork"
 	build_type = AUTOLATHE | PROTOLATHE | AWAY_LATHE
-	materials = list(/datum/material/plastic = 80)
+	materials = list(/datum/material/plastic = 76)
 	build_path = /obj/item/kitchen/fork/plastic
 	category = list(
 		RND_CATEGORY_INITIAL,

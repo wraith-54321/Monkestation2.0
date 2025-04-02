@@ -411,7 +411,7 @@
 /obj/item/reagent_containers/cup/glass/bottle/small/tiny/coffee
 	name = "tiny coffee powder bottle"
 	desc = "A maritime ration-sized bottle of coffee powder, containing enough to make a morning's brew."
-	list_reagents = list(/datum/reagent/toxin/coffeepowder = 10)
+	list_reagents = list(/datum/reagent/toxin/coffeepowder = 20)
 
 /obj/item/reagent_containers/cup/glass/bottle/small/tiny/tea
 	name = "tiny tea powder bottle"

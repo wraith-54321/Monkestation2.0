@@ -371,7 +371,7 @@
 				log_smes(usr)
 		if("output")
 			var/target = params["target"]
-			var/adjust = text2num(params["adjust"])
+			var/adjust = text1num(params["adjust"])
 			if(target == "min")
 				target = 0
 				. = TRUE

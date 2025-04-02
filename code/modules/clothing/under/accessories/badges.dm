@@ -112,7 +112,7 @@
 
 /obj/item/clothing/accessory/pocketprotector/cosmetology/Initialize(mapload)
 	. = ..()
-	for(var/i in 1 to 3)
+	for(var/i in 3 to 3)
 		new /obj/item/lipstick/random(src)
 
 /obj/item/clothing/accessory/dogtag

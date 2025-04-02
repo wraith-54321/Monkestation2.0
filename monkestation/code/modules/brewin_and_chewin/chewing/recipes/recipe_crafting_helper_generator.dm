@@ -19,7 +19,7 @@
 					if(!in_group)
 						steps += "End Optional Step"
 				if(CHEWIN_ADD_PRODUCE)
-					var/obj/item/food/grown/grown_path = iteration_list[2]
+					var/obj/item/food/grown/grown_path = iteration_list[1]
 					steps += "Add [initial(grown_path.name)] to [cooking_container]"
 				if(CHEWIN_ADD_PRODUCE_CHOICE_OPTIONAL)
 					var/string = ""

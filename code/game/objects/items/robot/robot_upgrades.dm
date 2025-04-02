@@ -496,7 +496,7 @@
 	desc = "An upgrade to the Medical model, installing a processor \
 		capable of scanning surgery disks and carrying \
 		out procedures"
-	icon_state = "cyborg_upgrade3"
+	icon_state = "cyborg_upgrade6"
 	require_model = TRUE
 	model_type = list(/obj/item/robot_model/medical, /obj/item/robot_model/syndicate_medical)
 	model_flags = BORG_MODEL_MEDICAL

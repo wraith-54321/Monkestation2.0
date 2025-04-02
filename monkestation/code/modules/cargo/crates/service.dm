@@ -1,7 +1,7 @@
 /datum/supply_pack/service/glassware
 	name = "Glassware Crate"
 	desc = "Printing too much trouble? Buy our bulk glassware package today!"
-	cost = CARGO_CRATE_VALUE * 2
+	cost = CARGO_CRATE_VALUE * 1
 	contains = list(/obj/item/storage/box/beakers,
 					/obj/item/storage/box/drinkingglasses = 2,
 					/obj/item/reagent_containers/cup/glass/shaker,

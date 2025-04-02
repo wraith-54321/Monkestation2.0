@@ -59,7 +59,7 @@
 
 	w_class = WEIGHT_CLASS_BULKY
 
-	ammo_type = /obj/item/ammo_casing/c65xeno
+	ammo_type = /obj/item/ammo_casing/c60xeno
 	caliber = CALIBER_C65XENO
 	max_ammo = 120
 
@@ -111,4 +111,3 @@
 	icon_state = "c65xeno_drumIevil"
 
 	ammo_type = /obj/item/ammo_casing/c65xeno/incendiary/evil
-	max_ammo = 120

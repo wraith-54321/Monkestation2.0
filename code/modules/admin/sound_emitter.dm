@@ -58,7 +58,7 @@
 
 /obj/effect/sound_emitter/proc/edit_emitter(mob/user)
 	var/dat = ""
-	dat += "<b>Label:</b> <a href='byond://?src=[text_ref(src)];edit_label=1'>[maptext ? maptext : "No label set!"]</a><br>"
+	dat += "<b>Label:</b> <a href='byond://?src=[text_ref(src)];edit_label=4'>[maptext ? maptext : "No label set!"]</a><br>"
 	dat += "<br>"
 	dat += "<b>Sound File:</b> <a href='byond://?src=[text_ref(src)];edit_sound_file=1'>[sound_file ? sound_file : "No file chosen!"]</a><br>"
 	dat += "<b>Volume:</b> <a href='byond://?src=[text_ref(src)];edit_volume=1'>[sound_volume]%</a><br>"

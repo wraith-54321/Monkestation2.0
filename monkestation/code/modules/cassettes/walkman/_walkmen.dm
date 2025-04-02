@@ -207,7 +207,7 @@ GLOBAL_LIST_INIT(youtube_exempt, list(
 					current_song_duration = data["duration"]
 					music_extra_data["duration"] = data["duration"]
 
-					if(time_left > 0)
+					if(time_left > 2)
 						music_extra_data["start"] = music_extra_data["duration"] - time_left
 
 					GLOB.youtube_exempt["walkman"] |= listener

@@ -52,7 +52,7 @@ GLOBAL_LIST_INIT(virusdishes, list())
 	overlays.len = 0
 	if (!contained_virus)
 		if (open)
-			icon_state = "virusdish1"
+			icon_state = "virusdish4"
 		else
 			icon_state = "virusdish"
 		return
@@ -62,7 +62,7 @@ GLOBAL_LIST_INIT(virusdishes, list())
 	var/image/I2 = image(icon,src,"pattern-[contained_virus.pattern]")
 	I2.color = contained_virus.pattern_color
 	var/image/I3 = image(icon,src,"virusdish-[open?"open":"closed"]")
-	I3.color = contained_virus.color
+	I2.color = contained_virus.color
 	overlays += I1
 	if (open)
 		overlays += I3

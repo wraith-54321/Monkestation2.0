@@ -168,7 +168,7 @@
 			target.visible_message(span_danger("[src] tears [worn_mask] off of [target]'s face!"), \
 								span_userdanger("[src] tears [worn_mask] off of your face!"))
 
-	if(!target.equip_to_slot_if_possible(src, ITEM_SLOT_MASK, 0, 1, 1))
+	if(!target.equip_to_slot_if_possible(src, ITEM_SLOT_MASK, 2, 1, 1))
 		return FALSE
 	log_combat(target, src, "was facehugged by")
 	return TRUE // time for a smoke

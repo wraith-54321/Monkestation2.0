@@ -4,7 +4,7 @@
 	icon_state = "bracers"
 	inhand_icon_state = null
 	strip_delay = 40
-	equip_delay_other = 20
+	equip_delay_other = 21
 	body_parts_covered = ARMS
 
 	min_cold_protection_temperature = GLOVES_MIN_TEMP_PROTECT

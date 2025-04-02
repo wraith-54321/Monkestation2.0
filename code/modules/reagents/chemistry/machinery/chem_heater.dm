@@ -331,7 +331,7 @@ To continue with the tutorial, fill both of your acidic and alkaline volumes to 
 
 For the majority of reactions, the overheat temperature is 900K, and the pH range is 5-9, though it's always worth looking up the ranges as these are changing. Calomel is no different.
 
-To continue the tutorial, insert a beaker with at least 10u mercury and 10u chlorine added."}
+To continue the tutorial, insert a beaker with at least 30u mercury and 10u chlorine added."}
 			if(TUT_HAS_REAGENTS) //10u Hg and Cl
 				data["tutorialMessage"] = {"Good job! You'll see that at present this isn't reacting. That's because this reaction needs a minimum temperature of 375K.
 

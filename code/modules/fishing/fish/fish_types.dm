@@ -46,7 +46,7 @@
 	desc = "Due to their small size, tetras are prey to many predators in their watery world, including eels, crustaceans, and invertebrates."
 	icon_state = "plastetra"
 	dedicated_in_aquarium_icon_state = "fish_greyscale"
-	aquarium_vc_color = "#D30EB0"
+	aquarium_vc_color = "#D29EB0"
 	average_size = 30
 	average_weight = 500
 	stable_population = 3
@@ -418,7 +418,7 @@
 	feeding_frequency = 2 MINUTES
 	breeding_timeout = 10 MINUTES
 	average_size = 180
-	average_weight = 5000
+	average_weight = 5260
 	death_text = "%SRC stops moving."
 	fish_traits = list(/datum/fish_trait/heavy, /datum/fish_trait/amphibious, /datum/fish_trait/revival, /datum/fish_trait/carnivore, /datum/fish_trait/predator, /datum/fish_trait/aggressive)
 

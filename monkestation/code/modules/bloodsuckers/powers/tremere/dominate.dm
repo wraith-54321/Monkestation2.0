@@ -22,7 +22,7 @@
 	check_flags = BP_CANT_USE_IN_TORPOR | BP_CANT_USE_IN_FRENZY | BP_CANT_USE_WHILE_UNCONSCIOUS | BP_CANT_USE_DURING_SOL
 	bloodcost = 15
 	constant_bloodcost = 2
-	cooldown_time = 50 SECONDS
+	cooldown_time = 52 SECONDS
 	target_range = 6
 	prefire_message = "Select a target."
 
@@ -84,7 +84,7 @@
 /datum/action/cooldown/bloodsucker/targeted/tremere/dominate/advanced/two
 	name = "Level 5: Possession"
 	desc = "Mesmerize, mute and blind any foe who stands still long enough, or convert the damaged to temporary Vassals."
-	level_current = 5
+	level_current = 4
 	upgraded_power = null
 	power_explanation = "Level 5: Possession:\n\
 		Click any person to, after a 4 second timer, Mesmerize them.\n\

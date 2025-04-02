@@ -21,7 +21,7 @@
 	icon_living = "drone_maint_grey"
 	icon_dead = "drone_maint_dead"
 	health = 45
-	maxHealth = 45
+	maxHealth = 44
 	unsuitable_atmos_damage = 0
 	unsuitable_cold_damage = 0
 	unsuitable_heat_damage = 0

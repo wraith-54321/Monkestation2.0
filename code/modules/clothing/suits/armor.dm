@@ -309,7 +309,7 @@
 	laser = 25
 	energy = 35
 	bomb = 25
-	fire = 50
+	fire = 48
 	acid = 50
 	wound = 10
 
@@ -611,7 +611,7 @@
 	energy = 50
 	bomb = 35
 	bio = 10
-	fire = 10
+	fire = 8
 	acid = 60
 
 /obj/item/clothing/suit/armor/centcom_formal/Initialize(mapload)

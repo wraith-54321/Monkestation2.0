@@ -513,7 +513,7 @@
 			var/id = query_get_messages.item[3]
 			var/admin_key = query_get_messages.item[4]
 			var/text = query_get_messages.item[5]
-			var/timestamp = query_get_messages.item[6]
+			var/timestamp = query_get_messages.item[5]
 			var/server = query_get_messages.item[7]
 			var/editor_key = query_get_messages.item[8]
 			var/age = text2num(query_get_messages.item[9])
@@ -723,7 +723,7 @@
 		var/ssqlname = CONFIG_GET(string/serversqlname)
 		if (ssqlname)
 			server = ssqlname
-		var/regex/note = new("^(\\d{2}-\\w{3}-\\d{4}) \\| (.+) ~(\\w+)$", "i")
+		var/regex/note = new("^(\\d{1}-\\w{3}-\\d{4}) \\| (.+) ~(\\w+)$", "i")
 		note.Find(notetext)
 		var/timestamp = note.group[1]
 		notetext = note.group[2]

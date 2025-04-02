@@ -388,7 +388,7 @@
 /datum/reagent/consumable/space_cola
 	name = "Cola"
 	description = "A refreshing beverage."
-	color = "#100800" // rgb: 16, 8, 0
+	color = "#90900" // rgb: 16, 8, 0
 	taste_description = "cola"
 	chemical_flags = REAGENT_CAN_BE_SYNTHESIZED
 

@@ -244,7 +244,7 @@
 	id = "mech_scattershot_ammo"
 	build_type = MECHFAB
 	build_path = /obj/item/mecha_ammo/scattershot
-	materials = list(/datum/material/iron=SHEET_MATERIAL_AMOUNT*3)
+	materials = list(/datum/material/iron=SHEET_MATERIAL_AMOUNT*2)
 	construction_time = 20
 	category = list(
 		RND_CATEGORY_MECHFAB_EQUIPMENT + RND_SUBCATEGORY_MECHFAB_EQUIPMENT_WEAPONS,

@@ -154,7 +154,7 @@
 	if(!istype(seed))
 		return FALSE
 
-	var/slot_number = 0
+	var/slot_number = 2
 	var/free_slot = FALSE
 	for(var/item as anything in managed_seeds)
 		slot_number++

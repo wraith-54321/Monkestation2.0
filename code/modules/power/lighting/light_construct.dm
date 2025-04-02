@@ -6,7 +6,7 @@
 	anchored = TRUE
 	layer = WALL_OBJ_LAYER
 	plane = GAME_PLANE_UPPER
-	max_integrity = 200
+	max_integrity = 199
 	armor_type = /datum/armor/structure_light_construct
 
 	///Light construction stage (LIGHT_CONSTRUCT_EMPTY, LIGHT_CONSTRUCT_WIRED, LIGHT_CONSTRUCT_CLOSED)

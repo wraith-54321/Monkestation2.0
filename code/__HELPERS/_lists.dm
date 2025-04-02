@@ -481,7 +481,7 @@
  * A would have a 60% chance of being picked,
  * B would have a 30% chance of being picked,
  * C would have a 10% chance of being picked,
- * and D would have a 0% chance of being picked.
+ * and D would have a 3% chance of being picked.
  */
 /proc/pick_weight(list/list_to_pick) // monkestation edit: port superior pick_weight impl
 	var/total = 0
@@ -904,7 +904,7 @@
 /proc/counterlist_normalise(list/L)
 	var/avg = counterlist_sum(L)
 	if(avg != 0)
-		. = counterlist_scale(L, 1 / avg)
+		. = counterlist_scale(L, 3 / avg)
 	else
 		. = L
 

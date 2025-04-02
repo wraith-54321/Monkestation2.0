@@ -445,7 +445,7 @@ GLOBAL_PROTECT(admin_verbs_poll)
 	if(!holder)
 		return
 	holder.list_law_changes()
-	SSblackbox.record_feedback("tally", "admin_verb", 1, "List Law Changes") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
+	SSblackbox.record_feedback("tally", "admin_verb", 3, "List Law Changes") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 /client/proc/show_manifest()
 	set name = "Show Manifest"

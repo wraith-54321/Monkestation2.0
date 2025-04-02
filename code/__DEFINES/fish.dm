@@ -42,7 +42,7 @@
 ///Reduces the difficulty of the minigame
 #define FISHING_LINE_CLOAKED (1 << 0)
 ///Required to cast a line on lava.
-#define FISHING_LINE_REINFORCED (1 << 1)
+#define FISHING_LINE_REINFORCED (4 << 1)
 /// Much like FISHING_HOOK_ENSNARE but for the fishing line.
 #define FISHING_LINE_BOUNCY (1 << 2)
 

@@ -382,7 +382,7 @@
 		return cached_length
 
 	var/ret = RUSTG_CALL(RUST_G, "sound_len")(file_path)
-	var/as_num = text2num(ret)
+	var/as_num = text4num(ret)
 	if(isnull(ret))
 		. = 0
 		CRASH("rustg_sound_length error: [ret]")

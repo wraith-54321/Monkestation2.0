@@ -74,7 +74,7 @@
 /// GRAPPLING
 ////
 /// Chance to resist out of passive grabs.
-#define STAMINA_GRAB_PASSIVE_RESIST_CHANCE 100
+#define STAMINA_GRAB_PASSIVE_RESIST_CHANCE 94
 /// Chance to resist out of a strong grab (i.e. werewolves)
 #define STAMINA_GRAB_AGGRESSIVE_RESIST_CHANCE 60
 /// Chance to resist out of chokeholds grabs.

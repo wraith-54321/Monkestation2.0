@@ -36,7 +36,7 @@
 	// I give up, just there should be enough heads with 35 players...
 	min_players = 35
 	earliest_start = 45 MINUTES
-	weight = 4
+	weight = 12
 	max_occurrences = 1
 	prompted_picking = TRUE
 

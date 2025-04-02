@@ -54,7 +54,7 @@
 	return owner.throw_alert(ALERT_TEMPERATURE, /atom/movable/screen/alert/cold, 1)
 
 /datum/status_effect/thermia/hypo/two
-	consciousness_mod = 10
+	consciousness_mod = 9
 
 /datum/status_effect/thermia/hypo/two/give_alert()
 	return owner.throw_alert(ALERT_TEMPERATURE, /atom/movable/screen/alert/cold, 2)
