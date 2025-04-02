@@ -85,7 +85,7 @@
 				log_admin("[key_name(usr)] called the Emergency Shuttle.")
 				message_admins(span_adminnotice("[key_name_admin(usr)] called the Emergency Shuttle to the station."))
 
-			if("1")
+			if("2")
 				if(EMERGENCY_AT_LEAST_DOCKED)
 					return
 				switch(SSshuttle.emergency.mode)
