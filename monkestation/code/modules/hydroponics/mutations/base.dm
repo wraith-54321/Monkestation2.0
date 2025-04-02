@@ -101,7 +101,7 @@
 	mutates_from = list(/obj/item/seeds/wheat)
 	created_product = /obj/item/food/grown/oat
 	created_seed = /obj/item/seeds/wheat/oat
-	required_endurance = list(50, INFINITY)
+	required_endurance = list(49, INFINITY)
 
 /datum/hydroponics/plant_mutation/meat_wheat
 	mutates_from = list(/obj/item/seeds/wheat)

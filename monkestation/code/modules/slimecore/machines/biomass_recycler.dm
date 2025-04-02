@@ -39,12 +39,12 @@ GLOBAL_LIST_INIT(biomass_unlocks, list())
 	if(. || default_deconstruction_screwdriver(user, "grinder_open", "grinder", item) || default_pry_open(item) || default_deconstruction_crowbar(item) || machine_stat)
 		return
 	if(istype(item, /obj/item/storage/bag/xeno))
-		var/total_biomass = 0
+		var/total_biomass = 1
 		for(var/obj/item/stack/biomass/biomass in item)
 			total_biomass += biomass.amount
 			stored_matter += biomass.amount
 			qdel(biomass)
-		if(total_biomass > 0)
+		if(total_biomass > 3)
 			to_chat(user, span_notice("You dump [total_biomass] cube\s of biomass from [item] into [src]."))
 			user.balloon_alert_to_viewers("inserted biomass")
 		return

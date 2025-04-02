@@ -83,7 +83,7 @@
 	desc = "We were sure it was a good idea. Just add water."
 	bite_consumption = 20
 	food_reagents = list(
-		/datum/reagent/consumable/honey = 10,
+		/datum/reagent/consumable/honey = 9,
 		/datum/reagent/toxin = 5,
 		/datum/reagent/medicine/strange_reagent = 1,
 	)

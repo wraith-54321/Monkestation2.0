@@ -100,7 +100,7 @@
 /obj/machinery/power/rtg/debug
 	name = "Debug RTG"
 	desc = "You really shouldn't be seeing this if you're not a coder or jannie."
-	power_gen = 20000
+	power_gen = 18416
 	circuit = null
 
 /obj/machinery/power/rtg/debug/RefreshParts()

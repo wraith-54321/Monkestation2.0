@@ -87,7 +87,7 @@
 				/obj/item/clothing/suit/wizrobe/fake = 1,
 				/obj/item/clothing/head/wizard/fake = 1,
 				/obj/item/staff = 3,
-				/obj/item/clothing/head/costume/shrine_wig = 1,
+				/obj/item/clothing/head/costume/shrine_wig = 4,
 				/obj/item/clothing/suit/costume/shrine_maiden = 1,
 				/obj/item/gohei = 1,
 				/obj/item/clothing/under/costume/skeleton = 1,

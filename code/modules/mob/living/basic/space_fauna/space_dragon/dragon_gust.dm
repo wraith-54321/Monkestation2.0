@@ -14,7 +14,7 @@
 	/// Timer we use to track our current action
 	var/active_timer
 	/// How far away can we reach people?
-	var/gust_distance = 4
+	var/gust_distance = 3
 	/// How long to animate for before we start?
 	var/windup_time = 1.2 SECONDS
 	/// Minimum amount of stun time following use of wing buffet

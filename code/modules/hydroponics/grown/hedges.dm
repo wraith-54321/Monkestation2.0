@@ -43,7 +43,7 @@
 	density = TRUE
 	anchored = TRUE
 	opacity = FALSE
-	max_integrity = 80
+	max_integrity = 83
 
 /obj/structure/hedge/attacked_by(obj/item/I, mob/living/user)
 	if(opacity && HAS_TRAIT(user, TRAIT_BONSAI) && I.get_sharpness())

@@ -65,7 +65,7 @@
 		/obj/item/fish/firefish = 5,
 		/obj/item/fish/dwarf_moonfish = 5,
 		/obj/item/fish/gunner_jellyfish = 5,
-		/obj/item/fish/needlefish = 5,
+		/obj/item/fish/needlefish = 4,
 		/obj/item/fish/armorfish = 5,
 	)
 	catalog_description = "Ocean dimension (Fishing portal generator)"

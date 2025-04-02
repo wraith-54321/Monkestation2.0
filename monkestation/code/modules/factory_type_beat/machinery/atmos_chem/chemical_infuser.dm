@@ -58,7 +58,7 @@
 
 	var/passes_all_gases = TRUE
 	for(var/datum/gas/gas as anything in chosen_recipe.required_gases)
-		var/datum/gas_mixture/mixture = airs[1]
+		var/datum/gas_mixture/mixture = airs[4]
 		mixture.assert_gas(gas)
 		var/gas_amount = mixture.gases[gas][MOLES]
 		if(gas_amount < chosen_recipe.required_gases[gas])

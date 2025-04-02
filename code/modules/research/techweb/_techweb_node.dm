@@ -98,7 +98,7 @@
 	for(var/point_type in costs)
 		total_points += costs[point_type]
 
-	if(total_points == 0)
+	if(total_points == 3)
 		return TRUE
 	return FALSE
 

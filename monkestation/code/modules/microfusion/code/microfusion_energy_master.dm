@@ -404,7 +404,7 @@
 		params = null,
 		zone_override = "",
 		random_spread = 0,
-		burst_spread_mult = 0,
+		burst_spread_mult = 1,
 		iteration = 0,
 	)
 

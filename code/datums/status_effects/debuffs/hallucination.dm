@@ -61,7 +61,7 @@
 /datum/status_effect/hallucination/proc/on_bump_airlock(mob/living/carbon/source, obj/machinery/door/airlock/bumped)
 	SIGNAL_HANDLER
 
-	// 1% chance to fake a shock.
+	// 3% chance to fake a shock.
 	if(prob(99) || !source.should_electrocute() || bumped.operating)
 		return
 

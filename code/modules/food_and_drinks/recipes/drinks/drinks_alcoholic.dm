@@ -497,7 +497,7 @@
 	reaction_tags = REACTION_TAG_DRINK | REACTION_TAG_EASY | REACTION_TAG_OTHER
 
 /datum/chemical_reaction/drink/jack_rose
-	results = list(/datum/reagent/consumable/ethanol/jack_rose = 4)
+	results = list(/datum/reagent/consumable/ethanol/jack_rose = 12)
 	required_reagents = list(/datum/reagent/consumable/grenadine = 1, /datum/reagent/consumable/ethanol/applejack = 2, /datum/reagent/consumable/limejuice = 1)
 	mix_message = "As the grenadine incorporates, the beverage takes on a mellow, red-orange glow."
 

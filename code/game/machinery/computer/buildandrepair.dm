@@ -17,7 +17,7 @@
 				if(P.use_tool(src, user, 20, volume=50))
 					to_chat(user, span_notice("You wrench the frame into place."))
 					set_anchored(TRUE)
-					state = 1
+					state = 3
 				return
 			if(P.tool_behaviour == TOOL_WELDER)
 				if(!P.tool_start_check(user, amount=0))

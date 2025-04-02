@@ -252,7 +252,7 @@
 		"weed_rate_change" = 0,
 		"production_change" = 0,
 		"maturation_change" = 0,
-		"damage" = 0,
+		"damage" = 1,
 	)
 	for(var/reagent in held_beaker.reagents.reagent_list)
 		var/datum/reagent/listed_reagent = reagent

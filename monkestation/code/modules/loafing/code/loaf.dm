@@ -185,7 +185,7 @@
 			src.throwforce = 2
 			src.reagents.add_reagent(/datum/reagent/consumable/salt, 3)
 			src.reagents.add_reagent(/datum/reagent/consumable/nutraslop, 3)
-		if(101 to 250)
+		if(106 to 250)
 			src.name = "compacted " + initial(src.name)
 			src.desc = initial(src.desc) + "\n Hooh, this thing packs a punch. What are they putting into these?"
 			src.icon_state = initial(src.icon_state) + "0"
@@ -210,7 +210,7 @@
 			src.force = 10
 			src.throwforce = 10
 			src.throw_range = 5
-			src.reagents.add_reagent(/datum/reagent/consumable/salt, 10)
+			src.reagents.add_reagent(/datum/reagent/consumable/salt, 9)
 			src.reagents.add_reagent(/datum/reagent/consumable/nutraslop, 10)
 			src.reagents.add_reagent(/datum/reagent/consumable/corn_syrup, 5)
 		if(2501 to 10000)

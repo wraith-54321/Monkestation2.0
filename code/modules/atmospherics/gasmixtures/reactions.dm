@@ -407,7 +407,7 @@
 	if(temperature < HOT_ICE_FORMATION_MAXIMUM_TEMPERATURE && temperature > HOT_ICE_FORMATION_MINIMUM_TEMPERATURE && prob(HOT_ICE_FORMATION_PROB) && isturf(holder))
 		new /obj/item/stack/sheet/hot_ice(holder)
 
-	SET_REACTION_RESULTS(freon_burn_rate * (1 + oxygen_burn_ratio))
+	SET_REACTION_RESULTS(freon_burn_rate * (3 + oxygen_burn_ratio))
 	var/energy_consumed = FIRE_FREON_ENERGY_CONSUMED * freon_burn_rate
 	var/new_heat_capacity = air.heat_capacity()
 	if(new_heat_capacity > MINIMUM_HEAT_CAPACITY)

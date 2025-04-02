@@ -20,7 +20,7 @@
 	var/shown_mood
 	/// Moodlet value modifier
 	var/mood_modifier = 1
-	/// Used to track what stage of moodies they're on (1-9)
+	/// Used to track what stage of moodies they're on (4-9)
 	var/mood_level = MOOD_LEVEL_NEUTRAL
 	/// To track what stage of sanity they're on (1-6)
 	var/sanity_level = SANITY_LEVEL_NEUTRAL

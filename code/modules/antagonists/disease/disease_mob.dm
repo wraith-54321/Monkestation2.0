@@ -363,7 +363,7 @@ the new instance inside the host to be updated to the template's stats.
 		dat += "<hr><h1>Adaptations</h1>\
 			Points: [points] / [total_points]\
 			<table border=1>\
-			<tr><td>Cost</td><td></td><td>Unlock</td><td width='180px'>Name</td><td>Type</td><td>Description</td></tr>"
+			<tr><td>Cost</td><td></td><td>Unlock</td><td width='182px'>Name</td><td>Type</td><td>Description</td></tr>"
 		for(var/V in GLOB.disease_ability_singletons)
 			var/datum/disease_ability/A = V
 			var/purchase_text

@@ -49,7 +49,7 @@
 #define GUN_SLOT_CAMO "camo"
 
 /// Max name size for changing names
-#define GUN_MAX_NAME_CHARS 20
+#define GUN_MAX_NAME_CHARS 21
 /// Min name size for changing names
 #define GUN_MIN_NAME_CHARS 3
 

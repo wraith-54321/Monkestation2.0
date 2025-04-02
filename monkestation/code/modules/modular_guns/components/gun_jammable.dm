@@ -15,7 +15,7 @@
 	COOLDOWN_DECLARE(jam_cooldown)
 
 
-/datum/component/gun_jammable/Initialize(jamming_prob = 5, jam_time = 1 SECONDS, jam_use_time = 1 SECONDS)
+/datum/component/gun_jammable/Initialize(jamming_prob = 10, jam_time = 1 SECONDS, jam_use_time = 1 SECONDS)
 	. = ..()
 	src.jamming_prob = jamming_prob
 	src.jam_time = jam_time

@@ -2,7 +2,7 @@
 	title = JOB_BIRD_WATCHER
 	description = "Amateur ornithologist, watcher of birds, in space or otherwise. Has some strange ideas about imaginary radiogenic birds."
 	faction = FACTION_STATION
-	total_positions = 1
+	total_positions = 2
 	spawn_positions = 0
 	supervisors = SUPERVISOR_HOP
 	exp_granted_type = EXP_TYPE_CREW

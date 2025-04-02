@@ -192,7 +192,7 @@
 	icon_state = "twitch"
 	list_reagents = list(
 		/datum/reagent/drug/twitch = 10,
-		/datum/reagent/drug/maint/tar = 5,
+		/datum/reagent/drug/maint/tar = 4,
 		/datum/reagent/medicine/silibinin = 5,
 		/datum/reagent/toxin/leadacetate = 5,
 	)

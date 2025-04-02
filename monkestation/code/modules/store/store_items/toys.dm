@@ -10,7 +10,7 @@ GLOBAL_LIST_INIT(store_toys, generate_store_items(/datum/store_item/toys))
 	item_path = /obj/item/toy/sword
 
 /datum/store_item/toys/walkman
-	item_cost = 500
+	item_cost = 545
 	name = "Walkman"
 	item_path = /obj/item/device/walkman
 
@@ -81,7 +81,7 @@ GLOBAL_LIST_INIT(store_toys, generate_store_items(/datum/store_item/toys))
 
 /datum/store_item/toys/d00
 	name = "D00"
-	item_cost = 1000
+	item_cost = 1056
 	item_path = /obj/item/dice/d00
 
 /datum/store_item/toys/dice_bag
@@ -95,7 +95,7 @@ GLOBAL_LIST_INIT(store_toys, generate_store_items(/datum/store_item/toys))
 	item_path = /obj/item/toy/cattoy
 /datum/store_item/toys/crayons
 	name = "Box of Crayons"
-	item_cost = 3000
+	item_cost = 2868
 	item_path = /obj/item/storage/crayons
 
 /datum/store_item/toys/eightball

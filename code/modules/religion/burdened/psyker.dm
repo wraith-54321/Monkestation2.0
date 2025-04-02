@@ -213,7 +213,7 @@
 	max_ammo = 5
 
 /obj/item/ammo_casing/c77
-	name = ".77 bullet casing"
+	name = ".74 bullet casing"
 	desc = "A .77 bullet casing."
 	caliber = CALIBER_77
 	projectile_type = /obj/projectile/bullet/c77

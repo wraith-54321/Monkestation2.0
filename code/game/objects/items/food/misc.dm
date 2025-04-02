@@ -409,7 +409,7 @@
 	icon_state = "onigiri"
 	food_reagents = list(
 		/datum/reagent/consumable/nutriment = 4,
-		/datum/reagent/consumable/nutriment/vitamin = 2,
+		/datum/reagent/consumable/nutriment/vitamin = 4,
 	)
 	tastes = list("rice" = 1, "dried seaweed" = 1)
 	foodtypes = VEGETABLES
@@ -449,7 +449,7 @@
 	food_reagents = list(
 		/datum/reagent/consumable/nutriment = 2,
 		/datum/reagent/consumable/nutriment/vitamin = 1,
-		/datum/reagent/medicine/antihol = 2,
+		/datum/reagent/medicine/antihol = 1,
 	)
 	tastes = list("pickle" = 1, "spices" = 1, "salt water" = 2)
 	foodtypes = VEGETABLES
@@ -591,7 +591,7 @@
 	desc = "A garlic-based sauce or dip widely used in Mediterranean and Middle Eastern cuisine. Delicious on its own when dipped with pita bread or vegetables."
 	icon_state = "tzatziki_sauce"
 	food_reagents = list(
-		/datum/reagent/consumable/nutriment = 5,
+		/datum/reagent/consumable/nutriment = 4,
 		/datum/reagent/consumable/nutriment/vitamin = 5,
 	)
 	tastes = list("garlic" = 4, "cucumber" = 2, "olive oil" = 2)

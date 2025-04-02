@@ -8,7 +8,7 @@
 /datum/armor/plasmaman_engineering
 	bio = 100
 	fire = 95
-	acid = 95
+	acid = 100
 
 /obj/item/clothing/under/plasmaman/atmospherics
 	name = "atmospherics plasma envirosuit"

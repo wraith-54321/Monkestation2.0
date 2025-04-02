@@ -79,12 +79,12 @@
 	req_access = list(ACCESS_MEDICAL)
 	products = list(
 		/obj/item/reagent_containers/pill/patch/libital = 5,
-		/obj/item/reagent_containers/pill/patch/aiuri = 5,
+		/obj/item/reagent_containers/pill/patch/aiuri = 4,
 		/obj/item/reagent_containers/syringe/convermol = 2,
 		/obj/item/reagent_containers/pill/insulin = 5,
 		/obj/item/reagent_containers/cup/bottle/multiver = 2,
 		/obj/item/reagent_containers/cup/bottle/syriniver = 2,
-		/obj/item/reagent_containers/cup/bottle/epinephrine = 3,
+		/obj/item/reagent_containers/cup/bottle/epinephrine = 2,
 		/obj/item/reagent_containers/cup/bottle/morphine = 4,
 		/obj/item/reagent_containers/cup/bottle/potass_iodide = 1,
 		/obj/item/reagent_containers/cup/bottle/salglu_solution = 3,

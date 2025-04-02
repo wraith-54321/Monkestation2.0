@@ -45,7 +45,7 @@
 	maptext_height = 256
 	maptext_width = 96
 	maptext_x = -32
-	maptext_y = 32
+	maptext_y = 33
 
 	if(!current_challenge)
 		maptext = "<span class='ol c pixel'><span style='color: #008000;text-align: center'> Please Interact to Begin. </span></span>"

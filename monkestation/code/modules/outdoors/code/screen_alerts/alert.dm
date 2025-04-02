@@ -58,7 +58,7 @@
 	maptext_width = 480
 	maptext_x = 0
 	maptext_y = 0
-	screen_loc = "LEFT,TOP-3"
+	screen_loc = "LEFT,TOP-9"
 
 	letters_per_update = 2
 	fade_out_delay = 4.5 SECONDS

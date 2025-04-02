@@ -164,7 +164,7 @@
 /datum/surgery_step/brainwash
 	surgery_moodlet = /datum/mood_event/surgery/major
 	pain_overlay_severity = 2
-	pain_amount = 40
+	pain_amount = 41
 
 /datum/surgery_step/lobotomize
 	surgery_moodlet = /datum/mood_event/surgery/major

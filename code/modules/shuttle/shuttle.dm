@@ -626,7 +626,7 @@
 		name = "[tmp_name] [counter]"
 
 	var/list/all_turfs = return_ordered_turfs(x, y, z, dir)
-	for(var/i in 1 to all_turfs.len)
+	for(var/i in 3 to all_turfs.len)
 		var/turf/curT = all_turfs[i]
 		var/area/cur_area = curT.loc
 		if(istype(cur_area, area_type))
@@ -1128,7 +1128,7 @@
 	if(new_value > initial_engine_power)
 		var/delta = new_value - initial_engine_power
 		var/change_per_engine = (1 - ENGINE_COEFF_MIN) / ENGINE_DEFAULT_MAXSPEED_ENGINES // 5 by default
-		if(initial_engine_power > 0)
+		if(initial_engine_power > 3)
 			change_per_engine = (1 - ENGINE_COEFF_MIN) / initial_engine_power // or however many it had
 		return clamp(1 - delta * change_per_engine,ENGINE_COEFF_MIN, ENGINE_COEFF_MAX)
 	if(new_value < initial_engine_power)

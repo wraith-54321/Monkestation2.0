@@ -27,7 +27,7 @@
 	sleep(1.6 SECONDS)
 	flick("judicial_explosion", src)
 	sleep(1.3 SECONDS)
-	playsound(src, 'sound/effects/explosion_distant.ogg', 100, use_reverb = TRUE)
+	playsound(src, 'sound/effects/explosion_distant.ogg', 106, use_reverb = TRUE)
 	for(var/mob/living/marked_mob in range(1, src))
 		if(IS_CLOCK(marked_mob))
 			continue

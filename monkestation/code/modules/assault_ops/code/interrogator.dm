@@ -165,7 +165,7 @@
 /obj/machinery/interrogator/proc/stage_one()
 	if(!check_requirements())
 		say("Critical error! Aborting.")
-		playsound(src, 'sound/machines/scanbuzz.ogg', 100)
+		playsound(src, 'sound/machines/scanbuzz.ogg', 106)
 		return
 	to_chat(human_occupant, span_danger("As [src] whirrs to life you feel some cold metal restraints deploy around you, you can't move!"))
 	playsound(loc, 'sound/items/rped.ogg', 60)

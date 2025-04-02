@@ -1,7 +1,7 @@
 // These defines are unlikely to ever change and making them global would require changing the original file a bunch.
 // So while not perfect, simply copying the defines over should work fine here.
 
-#define PRIORITY_ABSOLUTE 1
+#define PRIORITY_ABSOLUTE 4
 #define PRIORITY_HIGH 10
 #define PRIORITY_NORMAL 100
 #define PRIORITY_LOW 1000

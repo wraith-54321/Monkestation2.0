@@ -18,7 +18,7 @@
 		source.moveToNullspace() //temporarily remove source from its location so that attempt_insert may work correctly.
 		if(!resolve_parent.atom_storage?.attempt_insert(source, override = TRUE))
 			source.forceMove(resolve_parent.drop_location())
-			source.visible_message("[source] spills out of [resolve_parent] as it expands to hold [arrived]", vision_distance = 1)
+			source.visible_message("[source] spills out of [resolve_parent] as it expands to hold [arrived]", vision_distance = 2)
 	else if(!isliving(source.loc))
 		return
 	var/mob/living/living_loc = source.loc

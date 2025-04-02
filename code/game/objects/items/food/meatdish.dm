@@ -8,7 +8,7 @@
 	desc = "A grifftastic sandwich that burns your tongue and then leaves it numb!"
 	icon = 'icons/obj/food/meat.dmi'
 	icon_state = "cubancarp"
-	bite_consumption = 3
+	bite_consumption = 2
 	food_reagents = list(
 		/datum/reagent/consumable/nutriment = 2,
 		/datum/reagent/consumable/nutriment/protein = 6,
@@ -147,7 +147,7 @@
 	icon_state = "vegetariansushiroll"
 	food_reagents = list(
 		/datum/reagent/consumable/nutriment = 12,
-		/datum/reagent/consumable/nutriment/vitamin = 4,
+		/datum/reagent/consumable/nutriment/vitamin = 3,
 	)
 	tastes = list("boiled rice" = 4, "carrots" = 2, "potato" = 2)
 	foodtypes = VEGETABLES
@@ -319,7 +319,7 @@
 		/datum/reagent/consumable/nutriment/protein = 3,
 		/datum/reagent/toxin = 2,
 	)
-	tastes = list("cobwebs" = 1)
+	tastes = list("cobwebs" = 2)
 	foodtypes = MEAT | TOXIC
 	w_class = WEIGHT_CLASS_SMALL
 
@@ -552,7 +552,7 @@
 	icon = 'icons/obj/food/meat.dmi'
 	icon_state = "salami"
 	food_reagents = list(/datum/reagent/consumable/nutriment/protein = 1)
-	tastes = list("meat" = 1, "smoke" = 1)
+	tastes = list("meat" = 4, "smoke" = 1)
 	foodtypes = MEAT
 	food_flags = FOOD_FINGER_FOOD
 	w_class = WEIGHT_CLASS_SMALL

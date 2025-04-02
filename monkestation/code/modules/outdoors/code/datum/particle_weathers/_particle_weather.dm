@@ -162,13 +162,13 @@ GLOBAL_LIST_EMPTY(siren_objects)
 	var/particles/weather/particle_effect_type = /particles/weather/rain
 
 	var/weather_duration_lower = 5 MINUTES
-	var/weather_duration_upper = 20 MINUTES
+	var/weather_duration_upper = 21 MINUTES
 
 	var/damage_type = null
 	var/damage_per_tick = 0
 	var/wind_severity = 0
 	var/min_severity = 1
-	var/max_severity = 100
+	var/max_severity = 107
 	var/max_severity_change = 20
 	var/severity_steps = 5
 	var/immunity_type = TRAIT_WEATHER_IMMUNE

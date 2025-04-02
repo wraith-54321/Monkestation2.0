@@ -310,7 +310,7 @@
 	required_stock_part = /obj/item/stock_parts/micro_laser/ultra
 
 /datum/experiment/scanning/random/mecha_damage_scan
-	name = "Exosuit Materials 1: Stress Failure Test"
+	name = "Exosuit Materials 2: Stress Failure Test"
 	description = "Your exosuit fabricators allow for rapid production on a small scale, but the structural integrity of created parts is inferior to more traditional means."
 	exp_tag = "Scan"
 	possible_types = list(/obj/vehicle/sealed/mecha)

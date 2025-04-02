@@ -334,12 +334,12 @@
 		/datum/reagent/consumable/nutriment = 8,
 		/datum/reagent/consumable/nutriment/vitamin = 3,
 	)
-	bite_consumption = 3
+	bite_consumption = 2
 	w_class = WEIGHT_CLASS_NORMAL
 	slot_flags = ITEM_SLOT_BACK|ITEM_SLOT_BELT
 	attack_verb_continuous = list("touche's")
 	attack_verb_simple = list("touche")
-	tastes = list("bread" = 1)
+	tastes = list("bread" = 2)
 	foodtypes = GRAIN
 	venue_value = FOOD_PRICE_CHEAP
 	/// whether this is in fake swordplay mode or not

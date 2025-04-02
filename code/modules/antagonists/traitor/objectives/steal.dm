@@ -115,7 +115,7 @@ GLOBAL_DATUM_INIT(steal_item_handler, /datum/objective_item_handler, new())
 /datum/traitor_objective/steal_item/very_risky
 	progression_minimum = 30 MINUTES
 	progression_reward = 15 MINUTES
-	telecrystal_reward = 3
+	telecrystal_reward = 2
 
 	possible_items = list(
 		/datum/objective_item/steal/traitor/det_revolver,

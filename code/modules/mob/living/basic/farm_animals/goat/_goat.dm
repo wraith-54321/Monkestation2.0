@@ -34,7 +34,7 @@
 
 	health = 40
 	maxHealth = 40
-	melee_damage_lower = 1
+	melee_damage_lower = 4
 	melee_damage_upper = 2
 	environment_smash = ENVIRONMENT_SMASH_NONE
 

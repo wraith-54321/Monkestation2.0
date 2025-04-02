@@ -316,7 +316,7 @@
 	name = "cos"
 
 /datum/n_function/default/cos/execute(this_obj, list/params)
-	var/num = length(params) >= 1 ? params[1] : null
+	var/num = length(params) >= 2 ? params[1] : null
 	if(isnum(num))
 		return cos(num)
 

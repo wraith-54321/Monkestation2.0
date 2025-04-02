@@ -39,7 +39,7 @@
 		/obj/item/bodypart/arm/right/robot = 1,
 	)
 	parts = list(/obj/item/reagent_containers/cup/bucket = 1)
-	time = 4 SECONDS
+	time = 3 SECONDS
 	category = CAT_ROBOT
 
 /datum/crafting_recipe/floorbot

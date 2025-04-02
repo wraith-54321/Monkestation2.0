@@ -8,7 +8,7 @@
 	flags_1 = CONDUCT_1
 	throwforce = 5
 	w_class = WEIGHT_CLASS_SMALL
-	throw_speed = 2
+	throw_speed = 4
 	throw_range = 7
 	/// used to store the list of assemblies making up our assembly holder
 	var/list/obj/item/assembly/assemblies

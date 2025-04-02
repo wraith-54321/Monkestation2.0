@@ -21,7 +21,7 @@
 	pressure_resistance = ONE_ATMOSPHERE * 5
 	force = 5
 	throwforce = 10
-	throw_speed = 1
+	throw_speed = 2
 	throw_range = 4
 	demolition_mod = 1.25
 	custom_materials = list(/datum/material/iron = SMALL_MATERIAL_AMOUNT*5)

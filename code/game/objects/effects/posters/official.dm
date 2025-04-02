@@ -158,7 +158,7 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/structure/sign/poster/official/safety_internals
 	desc = "A poster instructing the viewer to wear eye protection when dealing with chemicals, smoke, or bright lights."
 	icon_state = "safety_eye_protection"
 
-MAPPING_DIRECTIONAL_HELPERS(/obj/structure/sign/poster/official/safety_eye_protection, 32)
+MAPPING_DIRECTIONAL_HELPERS(/obj/structure/sign/poster/official/safety_eye_protection, 31)
 
 /obj/structure/sign/poster/official/safety_report
 	name = "Safety: Report"

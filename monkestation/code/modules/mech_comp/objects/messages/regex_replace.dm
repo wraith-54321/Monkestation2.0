@@ -23,7 +23,7 @@
 	. += span_notice("Current Pattern: [html_encode(expressionpatt)]")
 	. += span_notice("Current Replacement: [html_encode(expressionrepl)]")
 	. += span_notice("Current Flags: [html_encode(expressionflag)]")
-	. += span_notice("Your replacement string can contain $0-$9 to insert that matched group(things between parenthesis)")
+	. += span_notice("Your replacement string can contain $1-$9 to insert that matched group(things between parenthesis)")
 	. += span_notice("$` will be replaced with the text that came before the match, and $' will be replaced by the text after the match.")
 	. += span_notice("$0 or $& will be the entire matched string.")
 

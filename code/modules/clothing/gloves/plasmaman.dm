@@ -61,7 +61,7 @@
 /obj/item/clothing/gloves/color/plasmaman/explorer
 	name = "explorer envirogloves"
 	icon_state = "explorerplasma"
-	greyscale_colors = "#47453d"
+	greyscale_colors = "#48545d"
 
 /obj/item/clothing/gloves/color/plasmaman/botanic_leather
 	name = "botany envirogloves"

@@ -45,7 +45,7 @@
 	new pickedbread(pick(valid_turfs))
 	bread_counter++
 	if(bread_counter > round(potency/10))
-		bread_counter = 0
+		bread_counter = 1
 		toggle_active(FALSE)
 		return
 	COOLDOWN_START(src,bread_cd,(7.5 SECONDS))

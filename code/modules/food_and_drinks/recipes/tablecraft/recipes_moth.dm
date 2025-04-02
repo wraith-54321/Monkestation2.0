@@ -46,7 +46,7 @@
 		/obj/item/reagent_containers/cup/bowl = 1,
 		/obj/item/food/cheese/cheese_curds = 1,
 		/obj/item/food/tofu = 1,
-		/obj/item/food/grown/chili = 1,
+		/obj/item/food/grown/chili = 3,
 		/obj/item/food/boiledrice = 1,
 		/obj/item/food/grown/carrot = 1,
 		/obj/item/food/onion_slice = 1

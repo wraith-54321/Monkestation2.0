@@ -58,7 +58,7 @@
 	bomb = 50
 	bio = 50
 	fire = 90
-	acid = 50
+	acid = 53
 
 /obj/item/clothing/shoes/clown_shoes/banana_shoes/combat/Initialize(mapload)
 	. = ..()

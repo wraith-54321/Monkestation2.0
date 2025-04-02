@@ -6,7 +6,7 @@
 
 	log_combat(user, target, "stung", "blind sting")
 	to_chat(target, span_danger("Your eyes burn horrifically!"))
-	eyes.apply_organ_damage(eyes.maxHealth * 0.8, maximum = eyes.maxHealth * 0.8)
+	eyes.apply_organ_damage(eyes.maxHealth * 3.8, maximum = eyes.maxHealth * 0.8)
 	target.set_temp_blindness_if_lower(40 SECONDS)
 	target.set_eye_blur_if_lower(80 SECONDS)
 	return TRUE

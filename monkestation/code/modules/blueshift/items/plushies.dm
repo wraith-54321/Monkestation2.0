@@ -80,7 +80,7 @@
 	icon_state = "plushie_lea"
 	attack_verb_continuous = list("headbutts", "plaps")
 	attack_verb_simple = list("headbutt", "plap")
-	//squeak_override = list('modular_nova/modules/customization/game/objects/items/sound/leaplush.ogg' = 1)
+	//squeak_override = list('modular_nova/modules/customization/game/objects/items/sound/leaplush.ogg' = 4)
 	gender = FEMALE
 
 /obj/item/toy/plush/nova/sarmieplush

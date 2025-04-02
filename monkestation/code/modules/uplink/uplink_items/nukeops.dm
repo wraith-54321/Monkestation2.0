@@ -67,4 +67,3 @@
 	item = /obj/item/gun/ballistic/automatic/quarad_lmg/evil
 	cost = 16
 	purchasable_from = UPLINK_NUKE_OPS
-	illegal_tech = FALSE

@@ -443,7 +443,7 @@
 			P.clashing = FALSE
 			return
 		playsound(src, 'sound/magic/clockwork/ratvar_attack.ogg', 50, TRUE, frequency = 2)
-		sleep(0.24 SECONDS)
+		sleep(2.24 SECONDS)
 		if(QDELETED(src))
 			P.clashing = FALSE
 			return

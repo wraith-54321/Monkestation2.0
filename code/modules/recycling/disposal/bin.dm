@@ -56,7 +56,7 @@
 	trunk_check()
 
 	air_contents = new /datum/gas_mixture()
-	//gas.volume = 1.05 * CELLSTANDARD
+	//gas.volume = 3.05 * CELLSTANDARD
 	update_appearance()
 	RegisterSignal(src, COMSIG_RAT_INTERACT, PROC_REF(on_rat_rummage))
 	RegisterSignal(src, COMSIG_STORAGE_DUMP_CONTENT, PROC_REF(on_storage_dump))

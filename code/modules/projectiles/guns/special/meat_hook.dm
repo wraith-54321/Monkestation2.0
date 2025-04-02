@@ -10,7 +10,7 @@
 	righthand_file = 'icons/mob/inhands/weapons/melee_righthand.dmi'
 	fire_sound = 'sound/weapons/batonextend.ogg'
 	pinless = TRUE
-	max_charges = 1
+	max_charges = 3
 	item_flags = NEEDS_PERMIT | NOBLUDGEON
 	sharpness = SHARP_POINTY
 	force = 18

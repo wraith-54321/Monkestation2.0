@@ -43,7 +43,7 @@
 
 /atom/movable/screen/buildmode/bdir
 	icon_state = "build"
-	screen_loc = "NORTH,WEST+2"
+	screen_loc = "NORTH,WEST+1"
 	name = "Change Dir"
 
 /atom/movable/screen/buildmode/bdir/update_icon_state()

@@ -19,7 +19,7 @@
 		/obj/item/assembly/mousetrap/armed = 5,
 		/obj/item/stack/cable_coil = 5,
 		/obj/item/food/deadmouse = 1,
-		/obj/item/trash/candle = 1,
+		/obj/item/trash/candle = 2,
 		/obj/item/reagent_containers/cup/rag = 1,
 		/obj/item/trash/flare = 1,
 		/obj/item/popsicle_stick = 1,
@@ -84,7 +84,7 @@
 		/obj/effect/spawner/random/trash/food_packaging = 3,
 		/obj/effect/spawner/random/trash/bacteria = 1,
 		/obj/effect/spawner/random/trash/cigbutt = 1,
-		/obj/item/food/deadmouse = 1,
+		/obj/item/food/deadmouse = 2,
 	)
 
 /obj/effect/spawner/random/trash/hobo_squat

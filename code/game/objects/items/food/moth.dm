@@ -10,7 +10,7 @@
 	icon = 'icons/obj/food/moth.dmi'
 	icon_state = "herby_cheese"
 	food_reagents = list(/datum/reagent/consumable/nutriment/protein = 6)
-	tastes = list("cheese" = 1, "herbs" = 1)
+	tastes = list("cheese" = 3, "herbs" = 1)
 	foodtypes = DAIRY | VEGETABLES
 	w_class = WEIGHT_CLASS_SMALL
 
@@ -44,7 +44,7 @@
 		Salt, sugar, or even some more exotic flavours may be added for some extra pep."
 	icon = 'icons/obj/food/moth.dmi'
 	icon_state = "toasted_seeds"
-	food_reagents = list(/datum/reagent/consumable/nutriment/vitamin = 5)
+	food_reagents = list(/datum/reagent/consumable/nutriment/vitamin = 10)
 	tastes = list("seeds" = 1)
 	foodtypes = GRAIN
 	w_class = WEIGHT_CLASS_SMALL

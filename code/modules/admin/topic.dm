@@ -85,7 +85,7 @@
 				log_admin("[key_name(usr)] called the Emergency Shuttle.")
 				message_admins(span_adminnotice("[key_name_admin(usr)] called the Emergency Shuttle to the station."))
 
-			if("2")
+			if("1")
 				if(EMERGENCY_AT_LEAST_DOCKED)
 					return
 				switch(SSshuttle.emergency.mode)
@@ -666,7 +666,7 @@
 			observer.equip_to_slot_or_del(new /obj/item/clothing/under/suit/black(observer), ITEM_SLOT_ICLOTHING)
 			observer.equip_to_slot_or_del(new /obj/item/clothing/neck/tie/black/tied(observer), ITEM_SLOT_NECK)
 			observer.equip_to_slot_or_del(new /obj/item/clothing/shoes/sneakers/black(observer), ITEM_SLOT_FEET)
-		L.Unconscious(100)
+		L.Unconscious(99)
 		sleep(0.5 SECONDS)
 		L.forceMove(pick(GLOB.tdomeobserve))
 		addtimer(CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(to_chat), L, span_adminnotice("You have been sent to the Thunderdome.")), 5 SECONDS)

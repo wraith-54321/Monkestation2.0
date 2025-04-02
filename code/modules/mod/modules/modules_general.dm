@@ -52,7 +52,7 @@
 		whether smuggling, or simply hauling."
 	icon_state = "storage_large"
 	max_combined_w_class = 21
-	max_items = 14
+	max_items = 13
 
 /obj/item/mod/module/storage/syndicate
 	name = "MOD syndicate storage module"

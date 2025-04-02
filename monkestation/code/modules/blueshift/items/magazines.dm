@@ -132,7 +132,7 @@
 /obj/item/ammo_box/magazine/c585trappiste_pistol/spawns_empty
 	start_empty = TRUE
 
-// .310 magazine for the Lanca rifle
+// .298 magazine for the Lanca rifle
 
 /obj/item/ammo_box/magazine/lanca
 	name = "\improper Lanca rifle magazine"

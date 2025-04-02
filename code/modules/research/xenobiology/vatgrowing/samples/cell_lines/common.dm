@@ -1,4 +1,4 @@
-#define VAT_GROWTH_RATE 4
+#define VAT_GROWTH_RATE 12
 
 ////////////////////////////////
 //// VERTEBRATES ////
@@ -588,7 +588,7 @@
 	required_reagents = list(/datum/reagent/consumable/nutriment/protein)
 
 	supplementary_reagents = list(
-		/datum/reagent/ants = 3,
+		/datum/reagent/ants = 9,
 		/datum/reagent/consumable/liquidgibs = 2,
 		/datum/reagent/consumable/salt = 1,
 		/datum/reagent/consumable/eggwhite= 1,

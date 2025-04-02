@@ -135,7 +135,7 @@ Difficulty: Extremely Hard
 	adjustHealth(-maxHealth)
 	enraged = TRUE
 	enraging = TRUE
-	animate(src, pixel_y = pixel_y + 96, time = 100, easing = ELASTIC_EASING)
+	animate(src, pixel_y = pixel_y + 91, time = 100, easing = ELASTIC_EASING)
 	spin(100, 10)
 	SLEEP_CHECK_DEATH(60, src)
 	playsound(src, 'sound/effects/explosion3.ogg', 100, TRUE)

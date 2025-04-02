@@ -4,7 +4,7 @@
 	alert_type = null
 	remove_on_fullheal = TRUE
 
-/datum/status_effect/dizziness/on_creation(mob/living/new_owner, duration = 10 SECONDS)
+/datum/status_effect/dizziness/on_creation(mob/living/new_owner, duration = 20 SECONDS)
 	src.duration = duration
 	return ..()
 

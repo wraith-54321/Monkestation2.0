@@ -299,7 +299,7 @@
 	id = "prefab_airlock_kit"
 	build_type = COLONY_FABRICATOR
 	materials = list(
-		/datum/material/iron = SHEET_MATERIAL_AMOUNT * 5,
+		/datum/material/iron = SHEET_MATERIAL_AMOUNT * 10,
 		/datum/material/glass = SHEET_MATERIAL_AMOUNT * 2,
 	)
 	build_path = /obj/item/flatpacked_machine/airlock_kit

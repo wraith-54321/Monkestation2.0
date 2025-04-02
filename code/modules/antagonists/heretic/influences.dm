@@ -185,7 +185,7 @@
 		human_user.gib()
 	human_user.investigate_log("has died from using telekinesis on a heretic influence.", INVESTIGATE_DEATHS)
 	var/datum/effect_system/reagents_explosion/explosion = new()
-	explosion.set_up(1, get_turf(human_user), TRUE, 0)
+	explosion.set_up(3, get_turf(human_user), TRUE, 0)
 	explosion.start(src)
 
 /obj/effect/visible_heretic_influence/examine(mob/user)

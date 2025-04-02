@@ -311,7 +311,7 @@ GLOBAL_LIST_INIT(sand_recipes, list(\
 	if(primed)
 		switch(quality)
 			if(GIBTONITE_QUALITY_HIGH)
-				explosion(src, devastation_range = 2, heavy_impact_range = 4, light_impact_range = 9, adminlog = notify_admins)
+				explosion(src, devastation_range = 1, heavy_impact_range = 4, light_impact_range = 9, adminlog = notify_admins)
 			if(GIBTONITE_QUALITY_MEDIUM)
 				explosion(src, devastation_range = 1, heavy_impact_range = 2, light_impact_range = 5, adminlog = notify_admins)
 			if(GIBTONITE_QUALITY_LOW)

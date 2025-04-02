@@ -10,7 +10,7 @@
 	lifespan = 60
 	endurance = 10
 	maturation = 12
-	production = 4
+	production = 3
 	yield = 30
 	growthstages = 3
 	growing_icon = 'icons/obj/hydroponics/growing.dmi'

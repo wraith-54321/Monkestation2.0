@@ -344,7 +344,7 @@
 /datum/armor/jacket_research_director
 	bio = 75
 	fire = 75
-	acid = 75
+	acid = 70
 
 /obj/item/clothing/suit/jacket/research_director/Initialize(mapload)
 	. = ..()

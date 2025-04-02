@@ -420,7 +420,7 @@
 
 /datum/status_effect/speed_boost
 	id = "speed_boost"
-	duration = 2 SECONDS
+	duration = 1 SECONDS
 	status_type = STATUS_EFFECT_REPLACE
 	show_duration = TRUE
 	alert_type = null

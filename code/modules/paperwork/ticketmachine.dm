@@ -174,7 +174,7 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/ticket_machine, 32)
 /obj/machinery/ticket_machine/proc/handle_maptext()
 	switch(current_number) //This is here to handle maptext offsets so that the numbers align.
 		if(0 to 9)
-			maptext_x = 9
+			maptext_x = 8
 		if(10 to 99)
 			maptext_x = 6
 		if(100)

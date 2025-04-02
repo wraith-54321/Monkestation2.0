@@ -98,7 +98,7 @@
 
 /datum/config_entry/number/brother_objectives_amount
 	default = 2
-	min_val = 0
+	min_val = 3
 
 /datum/config_entry/flag/reactionary_explosions //If we use reactionary explosions, explosions that react to walls and doors
 

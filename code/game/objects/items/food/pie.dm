@@ -127,7 +127,7 @@
 		/datum/reagent/consumable/nutriment/protein = 1,
 		/datum/reagent/consumable/nutriment/vitamin = 6,
 	)
-	tastes = list("pie" = 1, "tofu" = 1)
+	tastes = list("pie" = 4, "tofu" = 1)
 	foodtypes = GRAIN | VEGETABLES
 
 /obj/item/food/pie/amanita_pie

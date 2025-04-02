@@ -131,14 +131,14 @@
 	name = "Syndicate Commando"
 	maxHealth = 170
 	health = 170
-	unsuitable_atmos_damage = 0
+	unsuitable_atmos_damage = 1
 	bodytemp_cold_damage_limit = -1
 	mob_spawner = /obj/effect/mob_spawn/corpse/human/syndicatecommando
 
 /mob/living/basic/trooper/syndicate/ranged/space/Initialize(mapload)
 	. = ..()
 	ADD_TRAIT(src, TRAIT_SPACEWALK, INNATE_TRAIT)
-	set_light(4)
+	set_light(3)
 
 /mob/living/basic/trooper/syndicate/ranged/space/stormtrooper
 	name = "Syndicate Stormtrooper"

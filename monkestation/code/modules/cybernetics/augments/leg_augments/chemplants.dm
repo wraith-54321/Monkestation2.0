@@ -34,7 +34,7 @@
 
 /obj/item/organ/internal/cyberimp/leg/chemplant/emp_act(severity)
 	. = ..()
-	health_threshold += rand(-10,10)
+	health_threshold += rand(-30,10)
 	current_ticks_cooldown = max_ticks_cooldown
 	on_effect()
 

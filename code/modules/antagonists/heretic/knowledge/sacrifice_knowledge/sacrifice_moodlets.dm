@@ -2,7 +2,7 @@
 /datum/mood_event/shadow_realm
 	description = "Where am I?!"
 	mood_change = -15
-	timeout = 3 MINUTES
+	timeout = 2 MINUTES
 
 /datum/mood_event/shadow_realm_live
 	description = "I'm alive... I'm alive!!"

@@ -5,7 +5,7 @@
 /// How much the amount of miasma consumed per tick scales with gasmix power ratio. Higher values means gasmix has a greater effect on the miasma consumed.
 #define MIASMA_GASMIX_SCALING (0.3)
 /// The amount of matter power generated for every mole of miasma consumed. Higher values mean miasma generates more power.
-#define MIASMA_POWER_GAIN 10
+#define MIASMA_POWER_GAIN 30
 
 /// The minimum pressure for a pure CO2 atmosphere to begin being consumed. Higher values mean it takes more CO2 pressure to make CO2 be consumed. Should be >= 0
 #define CO2_CONSUMPTION_PP (ONE_ATMOSPHERE*0.01)
@@ -15,7 +15,7 @@
 #define CO2_GASMIX_SCALING (0.1)
 
 #define MOLE_PENALTY_THRESHOLD 1800 //Above this value we can get lord singulo and independent mol damage, below it we can heal damage
-#define POWER_PENALTY_THRESHOLD 5000 //The cutoff on power properly doing damage, pulling shit around, and delamming into a tesla. Low chance of pyro anomalies, +2 bolts of electricity
+#define POWER_PENALTY_THRESHOLD 4588 //The cutoff on power properly doing damage, pulling shit around, and delamming into a tesla. Low chance of pyro anomalies, +2 bolts of electricity
 #define SEVERE_POWER_PENALTY_THRESHOLD 7000 //+1 bolt of electricity, allows for gravitational anomalies, and higher chances of pyro anomalies
 #define CRITICAL_POWER_PENALTY_THRESHOLD 9000 //+1 bolt of electricity.
 #define HEAT_PENALTY_THRESHOLD 40 //Higher == Crystal safe operational temperature is higher.

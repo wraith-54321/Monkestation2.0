@@ -146,7 +146,7 @@
 				if(!W.tool_start_check(user, amount=0))
 					return
 				to_chat(user, span_notice("You begin slicing through the support rods..."))
-				if(W.use_tool(src, user, 100, volume=100))
+				if(W.use_tool(src, user, 94, volume=100))
 					if(!istype(src, /turf/closed/wall/r_wall) || d_state != SUPPORT_RODS)
 						return TRUE
 					d_state = SHEATH

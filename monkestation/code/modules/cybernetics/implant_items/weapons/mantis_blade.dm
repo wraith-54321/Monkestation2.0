@@ -84,7 +84,7 @@
 		if(!step_towards(user,target) && get_dist(user,target) >= 1)
 			return
 
-	COOLDOWN_START(src, lunge, 10 SECONDS)
+	COOLDOWN_START(src, lunge, 20 SECONDS)
 	COOLDOWN_START(other, lunge, 10 SECONDS)
 	if(isliving(user))
 		var/mob/living/living = user

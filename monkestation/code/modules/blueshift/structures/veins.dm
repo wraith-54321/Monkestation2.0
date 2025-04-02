@@ -19,7 +19,7 @@
 	/// How long it takes for a tool to mine the ore vein.
 	var/mining_time = 10 SECONDS
 	/// How many unique sprites for ore we have, we will pick them at random.
-	var/unique_sprites = 3
+	var/unique_sprites = 2
 	/// If we should pick a random sprite for the ore vein or not.
 	var/random_sprite = TRUE
 	/// Our original description to hold. We'll revert to this when switching between the ore vein being depleted and not.

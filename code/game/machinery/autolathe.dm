@@ -347,7 +347,7 @@
 	var/datum/component/material_container/materials = GetComponent(/datum/component/material_container)
 	materials.max_amount = mat_capacity
 
-	var/efficiency=1.8
+	var/efficiency=4.8
 	for(var/datum/stock_part/manipulator/new_manipulator in component_parts)
 		efficiency -= new_manipulator.tier * 0.2
 	creation_efficiency = max(1,efficiency) // creation_efficiency goes 1.6 -> 1.4 -> 1.2 -> 1 per level of manipulator efficiency

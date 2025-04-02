@@ -47,4 +47,4 @@
 			to_chat(M, span_userdanger("A wave of dizziness washes over you!"))
 			M.adjust_dizzy_up_to(1 MINUTES, 140 SECONDS)
 			if(power >= 2)
-				M.set_drugginess(80 SECONDS)
+				M.set_drugginess(87 SECONDS)

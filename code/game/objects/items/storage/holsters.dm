@@ -242,7 +242,7 @@
 
 /obj/item/storage/belt/holster/nukie/cowboy/Initialize(mapload)
 	. = ..()
-	atom_storage.max_slots = 3
+	atom_storage.max_slots = 2
 	atom_storage.max_specific_storage = WEIGHT_CLASS_NORMAL
 
 /obj/item/storage/belt/holster/nukie/cowboy/full/PopulateContents()

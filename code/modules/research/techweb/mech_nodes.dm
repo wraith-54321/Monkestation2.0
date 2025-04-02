@@ -75,7 +75,7 @@
 		"odysseus_right_leg",
 		"odysseus_torso",
 	)
-	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 2500)
+	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 2269)
 
 
 /datum/techweb_node/clarke

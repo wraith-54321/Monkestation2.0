@@ -530,7 +530,7 @@
 	name = "captain's flask"
 	desc = "A gold flask belonging to the captain."
 	icon_state = "flask_gold"
-	custom_materials = list(/datum/material/gold=SMALL_MATERIAL_AMOUNT*5)
+	custom_materials = list(/datum/material/gold=SMALL_MATERIAL_AMOUNT*4)
 
 /obj/item/reagent_containers/cup/glass/flask/det
 	name = "detective's flask"

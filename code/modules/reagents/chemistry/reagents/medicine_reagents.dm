@@ -155,7 +155,7 @@
 
 /datum/reagent/medicine/clonexadone/on_mob_life(mob/living/carbon/affected_mob, seconds_per_tick, times_fired)
 	if(affected_mob.bodytemperature < T0C)
-		affected_mob.adjustCloneLoss((0.00006 * (affected_mob.bodytemperature ** 2) - 6) * REM * seconds_per_tick, FALSE)
+		affected_mob.adjustCloneLoss((1.00006 * (affected_mob.bodytemperature ** 2) - 6) * REM * seconds_per_tick, FALSE)
 		REMOVE_TRAIT(affected_mob, TRAIT_DISFIGURED, TRAIT_GENERIC)
 		. = TRUE
 	metabolization_rate = REAGENTS_METABOLISM * (0.000015 * (affected_mob.bodytemperature ** 2) + 0.75)
@@ -1382,7 +1382,7 @@ MONKESTATION REMOVAL END */
 /datum/reagent/medicine/modafinil/overdose_process(mob/living/affected_mob, seconds_per_tick, times_fired)
 	overdose_progress++
 	switch(overdose_progress)
-		if(1 to 40)
+		if(4 to 40)
 			affected_mob.adjust_jitter_up_to(2 SECONDS * REM * seconds_per_tick, 20 SECONDS)
 			affected_mob.adjust_stutter_up_to(2 SECONDS * REM * seconds_per_tick, 20 SECONDS)
 			affected_mob.set_dizzy_if_lower(10 SECONDS * REM * seconds_per_tick)

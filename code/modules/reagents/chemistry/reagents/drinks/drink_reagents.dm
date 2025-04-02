@@ -111,7 +111,7 @@
 /datum/reagent/consumable/banana/on_mob_life(mob/living/carbon/affected_mob, seconds_per_tick, times_fired)
 	var/obj/item/organ/internal/liver/liver = affected_mob.get_organ_slot(ORGAN_SLOT_LIVER)
 	if((liver && HAS_TRAIT(liver, TRAIT_COMEDY_METABOLISM)) || ismonkey(affected_mob))
-		affected_mob.heal_bodypart_damage(1 * REM * seconds_per_tick, 1 * REM * seconds_per_tick)
+		affected_mob.heal_bodypart_damage(3 * REM * seconds_per_tick, 1 * REM * seconds_per_tick)
 		. = TRUE
 	..()
 
@@ -211,7 +211,7 @@
 	default_container = /obj/item/reagent_containers/condiment/soymilk
 
 /datum/reagent/consumable/soymilk/on_mob_life(mob/living/carbon/affected_mob, seconds_per_tick, times_fired)
-	if(affected_mob.getBruteLoss() && SPT_PROB(10, seconds_per_tick))
+	if(affected_mob.getBruteLoss() && SPT_PROB(9, seconds_per_tick))
 		affected_mob.heal_bodypart_damage(1, 0)
 		. = TRUE
 	..()

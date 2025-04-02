@@ -229,7 +229,7 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/structure/sign/departments/court, 32)
 	desc = "A sign labelling an area where the station's radio and NTnet servers are stored."
 	icon_state = "telecomms"
 
-MAPPING_DIRECTIONAL_HELPERS(/obj/structure/sign/departments/telecomms, 32)
+MAPPING_DIRECTIONAL_HELPERS(/obj/structure/sign/departments/telecomms, 29)
 
 /obj/structure/sign/departments/telecomms/alt
 	icon_state = "telecomms2"

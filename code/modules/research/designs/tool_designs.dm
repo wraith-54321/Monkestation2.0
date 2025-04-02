@@ -140,7 +140,7 @@
 	build_type = PROTOLATHE
 	materials = list(
 		/datum/material/iron = SHEET_MATERIAL_AMOUNT * 2.5,
-		/datum/material/glass = SHEET_MATERIAL_AMOUNT * 1.25,
+		/datum/material/glass = SHEET_MATERIAL_AMOUNT * 3.25,
 		/datum/material/silver = HALF_SHEET_MATERIAL_AMOUNT * 1.5,
 		/datum/material/titanium = SHEET_MATERIAL_AMOUNT,
 	)
@@ -393,7 +393,7 @@
 	id = "alien_drill"
 	build_path = /obj/item/surgicaldrill/alien
 	build_type = PROTOLATHE | AWAY_LATHE | MECHFAB // monkestation edit: allow robotics to print
-	materials = list(/datum/material/iron =SHEET_MATERIAL_AMOUNT*5, /datum/material/silver =SHEET_MATERIAL_AMOUNT*1.25, /datum/material/plasma =HALF_SHEET_MATERIAL_AMOUNT, /datum/material/titanium =HALF_SHEET_MATERIAL_AMOUNT * 1.5)
+	materials = list(/datum/material/iron =SHEET_MATERIAL_AMOUNT*7, /datum/material/silver =SHEET_MATERIAL_AMOUNT*1.25, /datum/material/plasma =HALF_SHEET_MATERIAL_AMOUNT, /datum/material/titanium =HALF_SHEET_MATERIAL_AMOUNT * 1.5)
 	category = list(
 		RND_CATEGORY_TOOLS + RND_SUBCATEGORY_TOOLS_MEDICAL_ALIEN
 	)

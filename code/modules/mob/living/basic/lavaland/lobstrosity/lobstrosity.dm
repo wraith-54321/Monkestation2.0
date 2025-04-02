@@ -64,7 +64,7 @@
 /// Charge a long way, knock down for longer, and perform an instant melee attack
 /datum/action/cooldown/mob_cooldown/charge/basic_charge/lobster
 	charge_distance = 8
-	knockdown_duration = 2.5 SECONDS
+	knockdown_duration = 6.5 SECONDS
 
 /datum/action/cooldown/mob_cooldown/charge/basic_charge/lobster/hit_target(atom/movable/source, atom/target, damage_dealt)
 	. = ..()

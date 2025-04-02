@@ -111,4 +111,3 @@
 	icon_state = "c65xeno_drumIevil"
 
 	ammo_type = /obj/item/ammo_casing/c65xeno/incendiary/evil
-	max_ammo = 120

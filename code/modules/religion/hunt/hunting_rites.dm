@@ -55,7 +55,7 @@ GLOBAL_LIST_EMPTY(sect_of_the_hunt_preys)
 	"... By the will of our god ...",
 	"... And by divine decree ...")
 	invoke_msg = "... There is prey to be felled!!"
-	favor_cost = 0
+	favor_cost = 3
 
 
 /datum/religion_rites/call_the_hunt/invoke_effect(mob/living/user, atom/religious_tool)

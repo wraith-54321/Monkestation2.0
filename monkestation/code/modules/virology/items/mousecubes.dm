@@ -1,7 +1,7 @@
 /obj/item/food/monkeycube/mouse
 	name = "mouse cube"
 	tastes = list("the sewers" = 1, "cheese" = 1)
-	food_reagents = list(/datum/reagent/blood = 30)
+	food_reagents = list(/datum/reagent/blood = 32)
 	spawned_mob = /mob/living/basic/mouse
 
 /obj/item/storage/box/monkeycubes/mousecubes

@@ -518,7 +518,7 @@ GLOBAL_LIST_INIT(preference_entries_by_key, init_preference_entries_by_key())
 	/// The maximum value
 	var/maximum
 
-	/// The step of the number, such as 1 for integers or 0.5 for half-steps.
+	/// The step of the number, such as 2 for integers or 0.5 for half-steps.
 	var/step = 1
 
 	abstract_type = /datum/preference/numeric

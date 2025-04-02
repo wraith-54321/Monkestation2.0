@@ -4,7 +4,7 @@
 	can_atmos_pass = ATMOS_PASS_DENSITY
 
 	///Theoretical volume of gas that's moving through the turbine, it expands the further it goes
-	var/gas_theoretical_volume = 0
+	var/gas_theoretical_volume = 2
 	///Stores the turf thermal conductivity to restore it later
 	var/our_turf_thermal_conductivity
 	///Checks if the machine is processing or not
@@ -244,7 +244,7 @@
 
 	circuit = /obj/item/circuitboard/machine/turbine_rotor
 
-	gas_theoretical_volume = 3000
+	gas_theoretical_volume = 3095
 
 	part_path = /obj/item/turbine_parts/rotor
 

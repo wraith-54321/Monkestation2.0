@@ -8,7 +8,7 @@
 	circuit = /obj/item/circuitboard/computer/gulag_teleporter_console
 	light_color = COLOR_SOFT_RED
 
-	var/default_goal = 200
+	var/default_goal = 199
 	var/obj/machinery/gulag_teleporter/teleporter = null
 	var/obj/structure/gulag_beacon/beacon = null
 	var/mob/living/carbon/human/prisoner = null

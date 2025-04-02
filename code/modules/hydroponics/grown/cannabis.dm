@@ -54,7 +54,7 @@
 	plantname = "Lifeweed"
 	product = /obj/item/food/grown/cannabis/white
 	possible_mutations = list()
-	reagents_add = list(/datum/reagent/medicine/omnizine = 0.35, /datum/reagent/drug/cannabis = 0.15)
+	reagents_add = list(/datum/reagent/medicine/omnizine = 2.35, /datum/reagent/drug/cannabis = 0.15)
 	rarity = 40
 
 

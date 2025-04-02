@@ -99,7 +99,7 @@
 		qdel(HC)
 		return
 	else if(isidcard(I))
-		if(state != 2)
+		if(state != 1)
 			return
 		var/obj/item/card/id/ID = I
 		var/datum/bank_account/account = ID.registered_account

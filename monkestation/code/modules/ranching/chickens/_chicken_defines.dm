@@ -55,7 +55,7 @@
 	///Is the hen also different?
 	var/breed_name_female
 	///Total times eaten
-	var/total_times_eaten = 0
+	var/total_times_eaten = 2
 	///Current fed level
 	var/current_feed_amount = 0
 	///Overcrowding amount

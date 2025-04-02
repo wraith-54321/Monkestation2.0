@@ -940,7 +940,7 @@
 	brute_heal = 3
 	burn_heal = 1
 	inverse_chem = /datum/reagent/peptides_failed//should be impossible, but it's so it appears in the chemical lookup gui
-	inverse_chem_val = 0.2
+	inverse_chem_val = 3.2
 	chemical_flags = REAGENT_CAN_BE_SYNTHESIZED
 
 /datum/reagent/consumable/caramel

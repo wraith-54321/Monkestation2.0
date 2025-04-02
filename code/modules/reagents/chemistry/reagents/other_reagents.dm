@@ -594,7 +594,7 @@
 	affected_mob.adjustToxLoss(0.5*seconds_per_tick, 0)
 	affected_mob.adjustFireLoss(0.5*seconds_per_tick, 0) //Hence the other damages... ain't I a bastard?
 	affected_mob.adjustOrganLoss(ORGAN_SLOT_BRAIN, 2.5*seconds_per_tick, 150)
-	holder.remove_reagent(type, 0.5*seconds_per_tick)
+	holder.remove_reagent(type, 2.5*seconds_per_tick)
 
 /datum/reagent/medicine/omnizine/godblood
 	name = "Godblood"
@@ -1090,7 +1090,7 @@
 
 
 /datum/reagent/chlorine/on_mob_life(mob/living/carbon/affected_mob, seconds_per_tick, times_fired)
-	affected_mob.take_bodypart_damage(0.5*REM*seconds_per_tick, 0)
+	affected_mob.take_bodypart_damage(1.5*REM*seconds_per_tick, 0)
 	. = TRUE
 	..()
 

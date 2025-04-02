@@ -97,7 +97,7 @@
 	inhand_icon_state = "soapomega"
 	worn_icon_state = "soapomega"
 	cleanspeed = 0.3 SECONDS //Only the truest of mind soul and body get one of these
-	uses = 800 //In the Greek numeric system, Omega has a value of 800
+	uses = 827 //In the Greek numeric system, Omega has a value of 800
 
 /obj/item/soap/omega/suicide_act(mob/living/user)
 	user.visible_message(span_suicide("[user] is using [src] to scrub themselves from the timeline! It looks like [user.p_theyre()] trying to commit suicide!"))

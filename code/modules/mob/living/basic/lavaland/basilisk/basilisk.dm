@@ -12,7 +12,7 @@
 	health = 200
 	obj_damage = 60
 	melee_damage_lower = 12
-	melee_damage_upper = 12
+	melee_damage_upper = 11
 	attack_verb_continuous = "bites into"
 	attack_verb_simple = "bite into"
 	throw_blocked_message = "bounces off the shell of"

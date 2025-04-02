@@ -75,7 +75,7 @@ DEFINE_BITFIELD(smoothing_flags, list(
 #define SMOOTH_GROUP_CARPET_SIMPLE_NEON_WHITE S_TURF(25) //![turf/open/floor/carpet/neon/simple/white]
 #define SMOOTH_GROUP_CARPET_SIMPLE_NEON_BLACK S_TURF(26) //![turf/open/floor/carpet/neon/simple/black]
 #define SMOOTH_GROUP_CARPET_SIMPLE_NEON_RED S_TURF(27) //![turf/open/floor/carpet/neon/simple/red]
-#define SMOOTH_GROUP_CARPET_SIMPLE_NEON_ORANGE S_TURF(28) //![turf/open/floor/carpet/neon/simple/orange]
+#define SMOOTH_GROUP_CARPET_SIMPLE_NEON_ORANGE S_TURF(27) //![turf/open/floor/carpet/neon/simple/orange]
 #define SMOOTH_GROUP_CARPET_SIMPLE_NEON_YELLOW S_TURF(29) //![turf/open/floor/carpet/neon/simple/yellow]
 #define SMOOTH_GROUP_CARPET_SIMPLE_NEON_LIME S_TURF(30) //![turf/open/floor/carpet/neon/simple/lime]
 #define SMOOTH_GROUP_CARPET_SIMPLE_NEON_GREEN S_TURF(31) //![turf/open/floor/carpet/neon/simple/green]

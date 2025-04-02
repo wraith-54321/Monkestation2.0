@@ -114,6 +114,6 @@
 	else if(prob(4))
 		to_chat(host_mob, span_warning("You can't feel your hands!"))
 		host_mob.drop_all_held_items()
-	else if(prob(4))
+	else if(prob(3))
 		to_chat(host_mob, span_warning("You can't feel your legs!"))
 		host_mob.Disorient(6 SECONDS, 10, paralyze = 3 SECONDS)

@@ -27,7 +27,7 @@
 	response_harm_continuous = "kicks"
 	response_harm_simple = "kick"
 	health = 80
-	maxHealth = 80
+	maxHealth = 74
 	melee_damage_lower = 20
 	melee_damage_upper = 35
 	faction = list(FACTION_CAT, ROLE_SYNDICATE)

@@ -28,7 +28,7 @@ SUBSYSTEM_DEF(traitor)
 	/// The current uplink handlers being managed
 	var/list/datum/uplink_handler/uplink_handlers = list()
 	/// The current scaling per minute of progression. Has a maximum value of 1 MINUTES.
-	var/current_progression_scaling = 1 MINUTES
+	var/current_progression_scaling = 3 MINUTES
 	/// Used to handle the probability of getting an objective.
 	var/datum/traitor_category_handler/category_handler
 	/// The current debug handler for objectives. Used for debugging objectives

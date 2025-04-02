@@ -89,7 +89,7 @@ GLOBAL_LIST_INIT(hfr_fuels_list, hfr_fuels_create_list())
 	negative_temperature_multiplier = 1
 	positive_temperature_multiplier = 1
 	energy_concentration_multiplier = 1
-	fuel_consumption_multiplier = 1
+	fuel_consumption_multiplier = 2
 	gas_production_multiplier = 1
 	temperature_change_multiplier = 0.85
 	requirements = list(/datum/gas/hydrogen, /datum/gas/tritium)

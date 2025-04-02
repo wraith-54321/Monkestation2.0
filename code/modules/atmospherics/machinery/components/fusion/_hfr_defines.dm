@@ -116,7 +116,7 @@
 /// Start spilling superhot moderator gas when over this pressure threshold
 #define HYPERTORUS_MEDIUM_SPILL_PRESSURE 10000
 /// How much we should spill initially
-#define HYPERTORUS_MEDIUM_SPILL_INITIAL 0.25
+#define HYPERTORUS_MEDIUM_SPILL_INITIAL 1.25
 /// How much of the moderator mix we should spill per second until mended
 #define HYPERTORUS_MEDIUM_SPILL_RATE 0.01
 /// If the moderator gas goes over this threshold, REALLY spill it

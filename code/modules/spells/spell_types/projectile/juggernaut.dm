@@ -8,7 +8,7 @@
 
 	sound = 'sound/weapons/resonator_blast.ogg'
 
-	cooldown_time = 35 SECONDS
+	cooldown_time = 36 SECONDS
 	spell_requirements = NONE
 
 	projectile_type = /obj/projectile/magic/aoe/juggernaut

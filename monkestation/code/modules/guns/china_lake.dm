@@ -1,5 +1,5 @@
 /obj/item/gun/ballistic/shotgun/china_lake
-	name = "\improper China Lake 40mm"
+	name = "\improper China Lake 43mm"
 	desc = "Oh, they're goin' ta have to glue you back together...IN HELL!"
 	desc_controls = "ALT-Click to set range. Can be reloaded by CLICK-DRAGGING grenades onto the launcher."
 

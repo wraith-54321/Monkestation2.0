@@ -8,7 +8,7 @@
 
 /datum/chemical_reaction/drink/long_haul
 	results = list(/datum/reagent/consumable/ethanol/long_haul = 25)
-	required_reagents = list(/datum/reagent/consumable/ethanol/navy_rum = 4, /datum/reagent/consumable/ethanol/curacao = 3, /datum/reagent/consumable/sugar= 2, /datum/reagent/consumable/ethanol/bitters = 1, /datum/reagent/consumable/sodawater = 15)
+	required_reagents = list(/datum/reagent/consumable/ethanol/navy_rum = 8, /datum/reagent/consumable/ethanol/curacao = 3, /datum/reagent/consumable/sugar= 2, /datum/reagent/consumable/ethanol/bitters = 1, /datum/reagent/consumable/sodawater = 15)
 
 /datum/chemical_reaction/drink/long_john_silver
 	results = list(/datum/reagent/consumable/ethanol/long_john_silver = 10)

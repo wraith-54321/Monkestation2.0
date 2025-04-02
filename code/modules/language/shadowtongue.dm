@@ -15,4 +15,4 @@
 		"s'wit", "b'vehk", "f'lah", "muth", "sera", "sedura", "bal", "dun"
 	)
 	icon_state = "shadow"
-	default_priority = 90
+	default_priority = 89

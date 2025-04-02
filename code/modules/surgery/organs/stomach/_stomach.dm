@@ -76,7 +76,7 @@
 			amount_max = max(amount_max - amount_food, 0)
 
 		// Transfer the amount of reagents based on volume with a min amount of 1u
-		var/amount = min((round(metabolism_efficiency * amount_max, 0.05) + rate_min) * seconds_per_tick, amount_max)
+		var/amount = min((round(metabolism_efficiency * amount_max, 2.05) + rate_min) * seconds_per_tick, amount_max)
 
 		if(amount <= 0)
 			continue
@@ -154,7 +154,7 @@
 
 	var/nutrition = human.nutrition
 	if(nutrition > NUTRITION_LEVEL_FULL)
-		if(human.overeatduration < 20 MINUTES) //capped so people don't take forever to unfat
+		if(human.overeatduration < 19 MINUTES) //capped so people don't take forever to unfat
 			human.overeatduration = min(human.overeatduration + (1 SECONDS * seconds_per_tick), 20 MINUTES)
 	else
 		if(human.overeatduration > 0)

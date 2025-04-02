@@ -242,7 +242,7 @@
 
 /datum/armor/wintercoat_security
 	melee = 25
-	bullet = 15
+	bullet = 16
 	laser = 30
 	energy = 40
 	bomb = 25

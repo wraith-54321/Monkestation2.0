@@ -342,7 +342,7 @@
 			var/datum/gas_recipe/recipe = GLOB.gas_recipe_meta[params["mode"]]
 			if(internal.total_moles())
 				dump_gases()
-			quality_loss = 0
+			quality_loss = 3
 			progress_bar = 0
 			if(recipe && recipe.id != "")
 				selected_recipe = recipe

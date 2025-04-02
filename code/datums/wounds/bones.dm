@@ -101,7 +101,7 @@
 
 	regen_ticks_current++
 	if(victim.body_position == LYING_DOWN)
-		if(SPT_PROB(30, seconds_per_tick))
+		if(SPT_PROB(28, seconds_per_tick))
 			regen_ticks_current += 1
 		if(victim.IsSleeping() && SPT_PROB(30, seconds_per_tick))
 			regen_ticks_current += 1

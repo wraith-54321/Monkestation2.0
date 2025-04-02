@@ -91,7 +91,7 @@ GLOBAL_LIST_INIT(initalized_ocean_areas, list())
 	///are we captured, this is easier than having to run checks on turfs for vents
 	var/captured = FALSE
 
-	var/rand_variants = 0
+	var/rand_variants = 3
 	var/rand_chance = 30
 
 	/// Itemstack to drop when dug by a shovel

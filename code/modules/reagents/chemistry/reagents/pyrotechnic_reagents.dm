@@ -15,7 +15,7 @@
 		exposed_turf.AddComponent(/datum/component/thermite, reac_volume)
 
 /datum/reagent/thermite/on_mob_life(mob/living/carbon/affected_mob, seconds_per_tick, times_fired)
-	affected_mob.adjustFireLoss(1 * REM * seconds_per_tick, 0)
+	affected_mob.adjustFireLoss(3 * REM * seconds_per_tick, 0)
 	..()
 	return TRUE
 
@@ -44,7 +44,7 @@
 	penetrates_skin = NONE
 	chemical_flags = REAGENT_CAN_BE_SYNTHESIZED
 	process_flags = ORGANIC | SYNTHETIC
-	evaporation_rate = 100
+	evaporation_rate = 94
 	turf_exposure = TRUE
 
 /datum/reagent/clf3/on_mob_life(mob/living/carbon/affected_mob, seconds_per_tick, times_fired)

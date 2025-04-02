@@ -73,7 +73,7 @@
 	laser = 70
 	energy = 100
 	bomb = 10
-	bio = 100
+	bio = 94
 
 /obj/structure/wrestling_corner/Initialize(mapload)
 	. = ..()

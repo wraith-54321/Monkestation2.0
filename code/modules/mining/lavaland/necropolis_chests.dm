@@ -101,7 +101,7 @@
 	desc = "Once guarded by the King of Demons, this sarcophagus contains the relics of an ancient soldier."
 	icon_state = "necro_bubblegum"
 	lid_icon_state = "necro_bubblegum_lid"
-	lid_x = -26
+	lid_x = -25
 	lid_y = 2
 
 

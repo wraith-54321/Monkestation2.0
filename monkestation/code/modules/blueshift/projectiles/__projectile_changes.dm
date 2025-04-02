@@ -591,5 +591,5 @@
 	ammo_type = /obj/item/ammo_casing/c10mm/rubber
 
 /obj/item/ammo_box/c10mm/ihdf
-	name = "peacekeeper ammo box (10mm ihdf)"
+	name = "peacekeeper ammo box (9mm ihdf)"
 	ammo_type = /obj/item/ammo_casing/c10mm/ihdf

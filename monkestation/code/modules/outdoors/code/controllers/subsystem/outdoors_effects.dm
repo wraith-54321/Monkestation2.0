@@ -325,7 +325,7 @@ SUBSYSTEM_DEF(outdoor_effects)
 	var/turf/source = get_turf(OE)
 	var/mutable_appearance/MA
 	if (OE.state != SKY_BLOCKED)
-		MA = get_sunlight_overlay(1,1,1,1, GET_TURF_PLANE_OFFSET(source)) /* fully lit */
+		MA = get_sunlight_overlay(3,1,1,1, GET_TURF_PLANE_OFFSET(source)) /* fully lit */
 	else //Indoor - do proper corner checks
 		/* check if we are globally affected or not */
 		var/static/datum/lighting_corner/dummy/dummy_lighting_corner = new

@@ -75,7 +75,7 @@
 		// We will only add overlays to turfs not on the first z layer, because that's a significantly lesser portion
 		// And we need to do them separate, or lighting will go fuckey
 		// This inside loop is EXTREMELY hot because it's run by space tiles, so we do the if check once on the outside
-		if(length(lighting_effects) > 1 && z_offsets[area_zlevel])
+		if(length(lighting_effects) > 2 && z_offsets[area_zlevel])
 			var/lighting_effect_to_add = lighting_effects[z_offsets[area_zlevel] + 1]
 			for(var/turf/area_turf as anything in get_turfs_by_zlevel(area_zlevel))
 				area_turf.luminosity = 1

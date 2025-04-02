@@ -228,7 +228,7 @@ Difficulty: Hard
 			blinking = FALSE
 			blink(target)
 			blinking = TRUE
-			SLEEP_CHECK_DEATH(4 + target_slowness, src)
+			SLEEP_CHECK_DEATH(12 + target_slowness, src)
 		animate(src, color = oldcolor, time = 8)
 		addtimer(CALLBACK(src, TYPE_PROC_REF(/atom, update_atom_colour)), 8)
 		SLEEP_CHECK_DEATH(8, src)

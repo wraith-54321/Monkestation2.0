@@ -102,7 +102,7 @@
 /datum/crafting_recipe/food/brain_pate
 	name = "Eyeball-and-brain pate"
 	reqs = list(
-		/obj/item/organ/internal/brain = 1,
+		/obj/item/organ/internal/brain = 4,
 		/obj/item/organ/internal/eyes = 1,
 		/obj/item/food/grown/onion = 1,
 		/datum/reagent/consumable/salt = 3

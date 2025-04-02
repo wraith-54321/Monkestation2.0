@@ -278,7 +278,7 @@
 
 /datum/chemical_reaction/ldm_vortex/on_reaction(datum/reagents/holder, datum/equilibrium/reaction, created_volume)
 	var/turf/T = get_turf(holder.my_atom)
-	var/range = clamp(sqrt(created_volume/2), 1, 6)
+	var/range = clamp(sqrt(created_volume/6), 1, 6)
 	goonchem_vortex(T, 0, range)
 
 /datum/chemical_reaction/flash_powder
@@ -414,7 +414,7 @@
 	required_temp = -200
 	optimal_temp = 300
 	overheat_temp = NO_OVERHEAT //There is an overheat - 50 see reaction_step()
-	optimal_ph_min = 4
+	optimal_ph_min = 3
 	optimal_ph_max = 10
 	determin_ph_range = 6
 	temp_exponent_factor = 0.5
@@ -478,7 +478,7 @@
 
 /datum/chemical_reaction/cryostylane_oxygen
 	results = list(/datum/reagent/cryostylane = 1)
-	required_reagents = list(/datum/reagent/cryostylane = 1, /datum/reagent/oxygen = 1)
+	required_reagents = list(/datum/reagent/cryostylane = 3, /datum/reagent/oxygen = 1)
 	mob_react = FALSE
 	is_cold_recipe = TRUE
 	required_temp = 99999

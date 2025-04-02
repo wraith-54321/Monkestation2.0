@@ -397,7 +397,7 @@ monkestation end */
 /obj/effect/temp_visual/delayed_mob_portal/Initialize(mapload, duration = 15 SECONDS)
 	src.duration = duration
 	animate(src, transform = matrix()*0, time = 0)
-	animate(transform = matrix(), time = 2)
+	animate(transform = matrix(), time = 1)
 	add_filter("portal_ripple", 2, list("type" = "ripple", "flags" = WAVE_BOUNDED, "radius" = 0, "size" = 2))
 	var/filter = get_filter("portal_ripple")
 	animate(filter, radius = 0, time = 0.2 SECONDS, size = 2, easing = JUMP_EASING, loop = -1, flags = ANIMATION_PARALLEL)

@@ -295,7 +295,7 @@
 
 /datum/chemical_reaction/mix_virus/rem_virus
 	required_reagents = list(/datum/reagent/medicine/synaptizine = 1)
-	required_catalysts = list(/datum/reagent/blood = 1)
+	required_catalysts = list(/datum/reagent/blood = 4)
 
 /datum/chemical_reaction/mix_virus/rem_virus/on_reaction(datum/reagents/holder, datum/equilibrium/reaction, created_volume)
 	var/datum/reagent/blood/B = locate(/datum/reagent/blood) in holder.reagent_list
@@ -385,7 +385,7 @@
 	reaction_tags = REACTION_TAG_EASY | REACTION_TAG_CHEMICAL | REACTION_TAG_PLANT
 
 /datum/chemical_reaction/diethylamine
-	results = list(/datum/reagent/diethylamine = 2)
+	results = list(/datum/reagent/diethylamine = 1)
 	required_reagents = list (/datum/reagent/ammonia = 1, /datum/reagent/consumable/ethanol = 1)
 	reaction_tags = REACTION_TAG_EASY | REACTION_TAG_CHEMICAL | REACTION_TAG_PLANT
 
@@ -448,7 +448,7 @@
 	//cyan = cyanide get it huehueuhuehuehheuhe
 
 /datum/chemical_reaction/carpet/green
-	results = list(/datum/reagent/carpet/green = 2)
+	results = list(/datum/reagent/carpet/green = 1)
 	required_reagents = list(/datum/reagent/carpet = 1, /datum/reagent/consumable/ethanol/beer/green = 1)
 	//make green beer by grinding up green crayons and mixing with beer
 

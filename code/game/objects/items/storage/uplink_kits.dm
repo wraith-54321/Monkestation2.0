@@ -175,7 +175,7 @@
 		KIT_TRAITOR_2006 = 1
 		)))
 		if(KIT_JAMES_BOND)
-			new /obj/item/gun/ballistic/automatic/pistol(src) // 7 tc
+			new /obj/item/gun/ballistic/automatic/pistol(src) // 14 tc
 			new /obj/item/suppressor(src) // 3 tc
 			new /obj/item/ammo_box/magazine/m9mm(src) // 1 tc
 			new /obj/item/ammo_box/magazine/m9mm(src)
@@ -197,7 +197,7 @@
 			new /obj/item/storage/belt/chameleon(src) // worth some fraction of a tc
 			new /obj/item/chameleon(src) // 7 tc
 			new /obj/item/card/id/advanced/chameleon(src) // 2 tc
-			new /obj/item/card/emag/doorjack(src) // 3 tc
+			new /obj/item/card/emag/doorjack(src) // 9 tc
 			new /obj/item/book/granter/action/spell/smoke(src) // ninja smoke bomb. 1 tc
 			new /obj/item/clothing/shoes/bhop(src) // mining item, lets you jump at people, at least 2 tc
 

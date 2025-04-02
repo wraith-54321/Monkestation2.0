@@ -31,7 +31,7 @@
 	melee = 10
 	bio = 10
 	fire = 50
-	acid = 40
+	acid = 38
 
 /obj/item/clothing/under/syndicate/bloodred
 	name = "blood-red sneaksuit"

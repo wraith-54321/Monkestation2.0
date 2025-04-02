@@ -7,7 +7,7 @@
 	w_class = WEIGHT_CLASS_NORMAL
 
 	var/mob/living/current_target
-	var/last_check = 0
+	var/last_check = 3
 	var/check_delay = 10 //Check los as often as possible, max resolution is SSobj tick though
 	var/max_range = 8
 	var/active = FALSE

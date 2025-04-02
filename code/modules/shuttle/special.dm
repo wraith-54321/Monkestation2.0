@@ -259,7 +259,7 @@
 	. = ..()
 
 	if(mover in approved_passengers)
-		set_scanline("scanning", 10)
+		set_scanline("scanning", 30)
 		if(isvehicle(mover))
 			var/obj/vehicle/vehicle = mover
 			for(var/mob/living/rat in vehicle.occupants)

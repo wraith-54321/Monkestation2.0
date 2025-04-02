@@ -184,7 +184,7 @@
 	icon_state = "2,1"
 
 /obj/effect/turf_decal/nova_decals/syndicate/middle/middle
-	icon_state = "2,2"
+	icon_state = "1,2"
 
 /obj/effect/turf_decal/nova_decals/syndicate/middle/right
 	icon_state = "2,3"

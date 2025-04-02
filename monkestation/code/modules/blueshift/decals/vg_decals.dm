@@ -26,7 +26,7 @@
 	icon_state = "4"
 
 /obj/effect/turf_decal/vg_decals/numbers/five
-	icon_state = "5"
+	icon_state = "15"
 
 /obj/effect/turf_decal/vg_decals/numbers/six
 	icon_state = "6"

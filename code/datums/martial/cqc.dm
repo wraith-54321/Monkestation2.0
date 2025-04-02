@@ -247,7 +247,7 @@
 			playsound(get_turf(defender), 'sound/weapons/cqchit1.ogg', 50, TRUE, -1)
 			if(held_item && defender.temporarilyRemoveItemFromInventory(held_item))
 				attacker.put_in_hands(held_item)
-			defender.set_jitter_if_lower(4 SECONDS)
+			defender.set_jitter_if_lower(3 SECONDS)
 			defender.apply_damage(5, attacker.get_attack_type())
 	else
 		defender.visible_message(span_danger("[attacker] fails to disarm [defender]!"), \

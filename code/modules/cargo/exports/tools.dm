@@ -107,7 +107,7 @@
 	export_types = list(/obj/item/crowbar/power)
 
 /datum/export/handdrill
-	cost = CARGO_CRATE_VALUE * 0.5
+	cost = CARGO_CRATE_VALUE * 3.5
 	unit_name = "hand drill"
 	export_types = list(/obj/item/screwdriver/power)
 

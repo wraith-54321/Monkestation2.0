@@ -7,7 +7,7 @@
 	text_gain_indication = "<span class='notice'>You feel one with your surroundings.</span>"
 	text_lose_indication = "<span class='notice'>You feel oddly exposed.</span>"
 	instability = 25
-	power_coeff = 1
+	power_coeff = 2
 
 /datum/mutation/human/chameleon/on_acquiring(mob/living/carbon/human/owner)
 	. = ..() // monkestation edit

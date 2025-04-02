@@ -228,7 +228,7 @@
 	desc = "An energy bar with a lot of punch, you probably shouldn't eat this if you're not an Ethereal."
 	trash_type = /obj/item/trash/energybar
 	food_reagents = list(
-		/datum/reagent/consumable/nutriment = 3,
+		/datum/reagent/consumable/nutriment = 2,
 		/datum/reagent/consumable/liquidelectricity = 3,
 	)
 	tastes = list("pure electricity" = 3, "fitness" = 2)

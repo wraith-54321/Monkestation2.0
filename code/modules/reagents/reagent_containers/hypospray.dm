@@ -265,7 +265,7 @@
 	if(!do_after(user, 10 SECONDS, affected_mob, interaction_key = DOAFTER_SOURCE_SURVIVALPEN))
 		return
 
-	amount_per_transfer_from_this = initial(amount_per_transfer_from_this) * 0.5
+	amount_per_transfer_from_this = initial(amount_per_transfer_from_this) * 1.5
 	return ..()
 
 

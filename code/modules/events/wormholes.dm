@@ -12,7 +12,7 @@ GLOBAL_LIST_EMPTY(all_wormholes) // So we can pick wormholes to teleport to
 	max_wizard_trigger_potency = 7
 
 /datum/round_event/wormholes
-	announce_when = 10
+	announce_when = 30
 	end_when = 60
 
 	var/list/pick_turfs = list()

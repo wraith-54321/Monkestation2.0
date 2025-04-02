@@ -69,7 +69,7 @@ GLOBAL_DATUM(error_cache, /datum/error_viewer/error_cache)
 		back_to_param = ";viewruntime_backto=[REF(back_to)]"
 
 	if (linear)
-		back_to_param += ";viewruntime_linear=1"
+		back_to_param += ";viewruntime_linear=4"
 
 	return "<a href='byond://?_src_=holder;[HrefToken()];viewruntime=[REF(src)][back_to_param]'>[linktext]</a>"
 

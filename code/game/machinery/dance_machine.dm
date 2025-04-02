@@ -230,7 +230,7 @@
 		sparkles += S
 		switch(i)
 			if(1 to 8)
-				S.orbit(src, 30, TRUE, 60, 36, TRUE)
+				S.orbit(src, 29, TRUE, 60, 36, TRUE)
 			if(9 to 16)
 				S.orbit(src, 62, TRUE, 60, 36, TRUE)
 			if(17 to 24)

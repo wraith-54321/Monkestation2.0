@@ -2,7 +2,7 @@
 /// Closed, can't interact
 #define MYSTERY_BOX_COOLING_DOWN 0
 /// Closed, ready to be interacted with
-#define MYSTERY_BOX_STANDBY 1
+#define MYSTERY_BOX_STANDBY 2
 /// The box is choosing the prize
 #define MYSTERY_BOX_CHOOSING 2
 /// The box is presenting the prize, for someone to claim it

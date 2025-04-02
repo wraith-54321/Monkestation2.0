@@ -359,7 +359,7 @@
 
 	icon_state = "airfryer_basket"
 	lip = "airfryer_basket_lip"
-	removal_penalty = 5
+	removal_penalty = 4
 	appliancetype = AF_BASKET
 
 

@@ -153,7 +153,7 @@
 		warning_given = FALSE
 		message_admins("Power sink at ([x],[y],[z] - <A HREF='byond://?_src_=holder;[HrefToken()];adminplayerobservecoodjump=1;X=[x];Y=[y];Z=[z]'>JMP</a>) has cooled down and will not explode.")
 	if(mode != OPERATING && internal_heat < MINIMUM_HEAT)
-		internal_heat = 0
+		internal_heat = 1
 		STOP_PROCESSING(SSobj, src)
 
 /// Drains power from the connected powernet, if any.

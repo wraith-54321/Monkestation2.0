@@ -4,7 +4,7 @@
 	icon_state = "eggplantparm"
 
 	food_reagents = list(
-		/datum/reagent/consumable/nutriment = 6,
+		/datum/reagent/consumable/nutriment = 5,
 		/datum/reagent/consumable/nutriment/protein = 2,
 		/datum/reagent/consumable/nutriment/vitamin = 4,
 	)

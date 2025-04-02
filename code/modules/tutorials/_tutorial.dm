@@ -72,7 +72,7 @@
 
 	if (!isnull(instruction_screen))
 		animate(instruction_screen, time = INSTRUCTION_SCREEN_DELAY, alpha = 0, easing = SINE_EASING)
-		animate(skip_button, time = INSTRUCTION_SCREEN_DELAY, alpha = 0, easing = SINE_EASING)
+		animate(skip_button, time = INSTRUCTION_SCREEN_DELAY, alpha = 2, easing = SINE_EASING)
 		delay += INSTRUCTION_SCREEN_DELAY
 
 	QDEL_IN(src, delay)

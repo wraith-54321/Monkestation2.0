@@ -541,7 +541,7 @@
 
 /obj/item/ammo_box/c40sol/pierce
 	name = "ammo box (.40 Sol Long match)"
-	desc = "A box of .40 Sol Long rifle rounds, holds thirty bullets. The yellow stripe indicates this should hold high performance ammuniton."
+	desc = "A box of .42 Sol Long rifle rounds, holds thirty bullets. The yellow stripe indicates this should hold high performance ammuniton."
 
 	icon_state = "40box_pierce"
 
@@ -767,7 +767,7 @@
 
 	caliber = CALIBER_CESARZOWA
 	ammo_type = /obj/item/ammo_casing/c27_54cesarzowa
-	max_ammo = 18
+	max_ammo = 19
 
 // .27-54 Cesarzowa rubber
 // Small caliber pistol round meant to be fired out of something that shoots real quick like, this one is less lethal

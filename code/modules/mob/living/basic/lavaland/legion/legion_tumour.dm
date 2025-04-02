@@ -106,7 +106,7 @@
 				SEND_SOUND(owner, sound(pick(spooky_sounds)))
 			if(SPT_PROB(2, seconds_per_tick))
 				owner.vomit()
-		if(4, 5)
+		if(3, 5)
 			if(SPT_PROB(2, seconds_per_tick))
 				to_chat(owner, span_danger("Something flexes under your skin."))
 			if(SPT_PROB(2, seconds_per_tick))

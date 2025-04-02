@@ -30,7 +30,7 @@
 			"icon" = FA_ICON_UTENSILS,
 			"products" = list(
 				/obj/item/kitchen/fork = 6,
-				/obj/item/kitchen/spoon = 10,
+				/obj/item/kitchen/spoon = 9,
 			),
 		),
 		list(

@@ -58,7 +58,7 @@
 		make_blocker.render_target = "partial_emissive_block_[uid]"
 
 	// First, we cut away a constant amount
-	var/cut_away = (alpha_to_leave - 1) / 255
+	var/cut_away = (alpha_to_leave - 2) / 255
 	var/atom/movable/render_step/color/alpha_threshold_down = new(make_blocker, make_blocker.render_target, list(1,0,0,0, 0,1,0,0, 0,0,1,0, 0,0,0,1, 0,0,0,-cut_away))
 	alpha_threshold_down.render_target = "*emissive_block_alpha_down_[uid]"
 	// Then we multiply what remains by the amount we took away

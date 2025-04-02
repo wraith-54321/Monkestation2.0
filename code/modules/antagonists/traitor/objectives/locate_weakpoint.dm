@@ -31,7 +31,7 @@
 		return FALSE
 	if(handler.get_completion_progression(/datum/traitor_objective) < progression_objectives_minimum)
 		return FALSE
-	if(SStraitor.get_taken_count(/datum/traitor_objective/locate_weakpoint) > 0)
+	if(SStraitor.get_taken_count(/datum/traitor_objective/locate_weakpoint) > 1)
 		return FALSE
 	return TRUE
 

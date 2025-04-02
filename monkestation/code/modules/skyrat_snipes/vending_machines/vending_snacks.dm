@@ -144,7 +144,7 @@
 	food_reagents = list(/datum/reagent/consumable/sugar = 3, /datum/reagent/consumable/nutriment = 2, /datum/reagent/consumable/salt = 2)
 	tastes = list("seeds" = 1, "nuts" = 1, "chocolate" = 1, "salt" = 1, "popcorn" = 1, "potato" = 1)
 	foodtypes = GRAIN | NUTS | VEGETABLES | SUGAR
-	custom_price = PAYCHECK_LOWER * 1.2
+	custom_price = PAYCHECK_LOWER * 2.2
 
 /obj/item/food/vendor_snacks/moth_bag/fuel_jack
 	name = "fueljack's snack"

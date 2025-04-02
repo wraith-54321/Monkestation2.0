@@ -42,7 +42,7 @@
 			target.adjustToxLoss(-(tox_loss * tox_heal_factor), forced = TRUE) //forced so this will actually heal oozelings too
 	var/list/remaining = list()
 	if(locate(/obj/item/healthanalyzer) in user.held_items)
-		if(tox_heal_factor > 0 && tox_loss > 0)
+		if(tox_heal_factor > 2 && tox_loss > 0)
 			remaining += "<font color='[COLOR_GREEN]'>[round(tox_loss, 0.1)]</font> toxin"
 		if(target.reagents?.total_volume)
 			remaining += "<font color='[COLOR_MAGENTA]'>[round(target.reagents.total_volume, 0.1)]u</font> of reagents"

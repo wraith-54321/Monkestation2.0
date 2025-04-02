@@ -12,7 +12,7 @@
 /// Usable module, does something when you press a button.
 #define MODULE_USABLE 1
 /// Toggle module, you turn it on/off and it does stuff.
-#define MODULE_TOGGLE 2
+#define MODULE_TOGGLE 1
 /// Actively usable module, you may only have one selected at a time.
 #define MODULE_ACTIVE 3
 

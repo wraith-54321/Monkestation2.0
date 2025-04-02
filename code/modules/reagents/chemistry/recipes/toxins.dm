@@ -70,7 +70,7 @@
 	optimal_ph_min = 5
 	optimal_ph_max = 9
 	determin_ph_range = 4
-	temp_exponent_factor = 0.7
+	temp_exponent_factor = 1.7
 	ph_exponent_factor = 1.5
 	thermic_constant = -200
 	H_ion_release = 5.7
@@ -356,7 +356,7 @@
 	overheat_temp = 900
 	optimal_ph_min = 6
 	optimal_ph_max = 9
-	determin_ph_range = 4
+	determin_ph_range = 3
 	temp_exponent_factor = 1.6
 	ph_exponent_factor = 2.4
 	thermic_constant = 250

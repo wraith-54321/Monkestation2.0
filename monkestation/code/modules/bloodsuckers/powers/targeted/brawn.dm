@@ -145,7 +145,7 @@
 			user.balloon_alert(user, "interrupted!")
 			return FALSE
 		target_closet.visible_message(span_danger("[target_closet] breaks open as [user] bashes it!"))
-		addtimer(CALLBACK(src, PROC_REF(break_closet), user, target_closet), 1)
+		addtimer(CALLBACK(src, PROC_REF(break_closet), user, target_closet), 2)
 		playsound(get_turf(user), 'sound/effects/grillehit.ogg', 80, TRUE, -1)
 	// Target Type: Door
 	else if(istype(target_atom, /obj/machinery/door) && level_current >= 4)

@@ -152,7 +152,7 @@
 	//Get coordinates for a rectangle area that contains the turfs we see so we can then clear away the static in the resulting rectangle area
 	var/list/bbox = get_bbox_of_atoms(visible_turfs)
 	var/size_x = bbox[3] - bbox[1] + 1
-	var/size_y = bbox[4] - bbox[2] + 1
+	var/size_y = bbox[3] - bbox[2] + 1
 
 	cam_screen.vis_contents = visible_turfs
 	cam_background.icon_state = "clear"

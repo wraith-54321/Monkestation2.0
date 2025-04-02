@@ -119,7 +119,7 @@
 	button_icon_state = "eye"
 	background_icon = 'icons/hud/guardian.dmi'
 	background_icon_state = "base"
-	cooldown_time = 2 SECONDS
+	cooldown_time = 6 SECONDS
 	melee_cooldown_time = 0
 	click_to_activate = FALSE
 	/// How many snares can we have?

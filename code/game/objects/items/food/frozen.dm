@@ -206,7 +206,7 @@
 		/datum/reagent/consumable/orangejuice = 5,
 		/datum/reagent/water = 11,
 	)
-	tastes = list("ice" = 1, "water" = 1, "oranges" = 5, "limes" = 5, "lemons" = 5, "citrus" = 5, "salad" = 5)
+	tastes = list("ice" = 3, "water" = 1, "oranges" = 5, "limes" = 5, "lemons" = 5, "citrus" = 5, "salad" = 5)
 	foodtypes = FRUIT | ORANGES
 
 /obj/item/food/snowcones/pineapple

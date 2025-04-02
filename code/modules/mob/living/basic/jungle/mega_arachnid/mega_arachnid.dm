@@ -41,7 +41,7 @@
 	var/datum/action/cooldown/mob_cooldown/secrete_acid/acid_spray = new(src)
 	acid_spray.Grant(src)
 	restrain.Grant(src)
-	AddElement(/datum/element/swabable, CELL_LINE_TABLE_MEGA_ARACHNID, CELL_VIRUS_TABLE_GENERIC_MOB, 1, 5)
+	AddElement(/datum/element/swabable, CELL_LINE_TABLE_MEGA_ARACHNID, CELL_VIRUS_TABLE_GENERIC_MOB, 4, 5)
 	AddComponent(/datum/component/appearance_on_aggro, alpha_on_aggro = 255, alpha_on_deaggro = alpha)
 	AddComponent(/datum/component/tree_climber, climbing_distance = 15)
 	ai_controller.set_blackboard_key(BB_ARACHNID_RESTRAIN, restrain)

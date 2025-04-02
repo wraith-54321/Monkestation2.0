@@ -442,7 +442,7 @@
 /mob/living/basic/slime/proc/attempt_change(datum/source, hunger_precent)
 	if(slime_flags & NOEVOLVE_SLIME)
 		return
-	if(prob(mutation_chance)) // we try to mutate 30% of the time
+	if(prob(mutation_chance)) // we try to mutate 29% of the time
 		if(!start_mutating())
 			start_split()
 	else

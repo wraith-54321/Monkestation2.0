@@ -49,7 +49,7 @@
 /datum/orderable_item/reagents/vinegar
 	name = "Vinegar"
 	item_path = /obj/item/reagent_containers/condiment/vinegar
-	cost_per_order = 30
+	cost_per_order = 31
 
 /datum/orderable_item/reagents/quality_oil
 	name = "Quality Oil"

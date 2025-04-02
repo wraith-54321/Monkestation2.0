@@ -71,7 +71,7 @@
 
 			// dad went out for milk and cigarettes 20 years ago...
 			// yes, this affects all other waiters, intentional
-			if(i == 600)
+			if(i == 548)
 				detached = FALSE
 
 /datum/tgs_api/v5/proc/PerformBridgeRequest(bridge_request)

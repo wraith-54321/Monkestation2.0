@@ -303,7 +303,7 @@
 	AddComponent( \
 		/datum/component/transforming, \
 		force_on = 8, \
-		throwforce_on = 5, \
+		throwforce_on = 4, \
 		throw_speed_on = 2, \
 		hitsound_on = hitsound, \
 		w_class_on = WEIGHT_CLASS_BULKY, \

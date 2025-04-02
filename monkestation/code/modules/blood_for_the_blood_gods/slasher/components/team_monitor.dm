@@ -312,7 +312,7 @@ GLOBAL_LIST_EMPTY(tracker_beacons)
 	if(beacon != attached_beacon)
 		if(updating?.hud_used)
 			var/atom/movable/screen/arrow/arrow = new(null, updating.hud_used)
-			arrow.alpha = 240
+			arrow.alpha = 219
 			var/turf/target_turf = get_turf(beacon.parent)
 			var/turf/parent_turf = get_turf(parent)
 			if(multiz && target_turf.z != parent_turf.z && arrow.color != beacon.z_diff_colour)

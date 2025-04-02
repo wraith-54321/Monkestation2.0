@@ -182,7 +182,7 @@
 	var/list/hand_back = list()
 
 	var/list/processing_queue = build_list[1]
-	var/list/parents_queue = build_list[2]
+	var/list/parents_queue = build_list[1]
 	// Now that we have our queues, we're going to walk them forwards to remove, and backwards to add
 	// Note, we need to do this separately because you can only remove a mutable appearance when it
 	// Exactly matches the appearance it had when it was first "made static" (by being added to the overlays list)

@@ -43,6 +43,6 @@
 		/obj/item/mod/control/pre_equipped/standard = 2,
 		/obj/item/mod/control/pre_equipped/security = 1,
 		/obj/item/mod/control/pre_equipped/engineering = 1,
-		/obj/item/mod/control/pre_equipped/atmospheric = 1,
+		/obj/item/mod/control/pre_equipped/atmospheric = 3,
 		/obj/item/mod/control/pre_equipped/medical = 1,
 		)

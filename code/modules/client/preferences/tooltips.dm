@@ -4,7 +4,7 @@
 	savefile_identifier = PREFERENCE_PLAYER
 
 	minimum = 0
-	maximum = 5000
+	maximum = 5252
 
 /datum/preference/numeric/tooltip_delay/create_default_value()
 	return 500

@@ -32,7 +32,7 @@
 			if(hacking_module.mod.get_charge() + drain > hacking_module.mod.get_max_charge())
 				drain = hacking_module.mod.get_max_charge() - hacking_module.mod.get_charge()
 				maxcapacity = TRUE//Reached maximum battery capacity.
-			if (do_after(ninja, 1 SECONDS, target = src))
+			if (do_after(ninja, 3 SECONDS, target = src))
 				spark_system.start()
 				playsound(loc, SFX_SPARKS, 50, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
 				cell.use(drain)

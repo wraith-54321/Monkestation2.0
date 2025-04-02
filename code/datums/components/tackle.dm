@@ -416,7 +416,7 @@
 			playsound(user, 'sound/effects/splat.ogg', 70, TRUE)
 			user.emote("gurgle")
 			shake_camera(user, 7, 7)
-			user.flash_act(1, TRUE, TRUE, length = 4.5)
+			user.flash_act(2, TRUE, TRUE, length = 4.5)
 
 		if(93 to 96)
 			user.visible_message(span_danger("[user] slams face-first into [hit] with a concerning squish, immediately going limp!"), span_userdanger("You slam face-first into [hit], and immediately lose consciousness!"))

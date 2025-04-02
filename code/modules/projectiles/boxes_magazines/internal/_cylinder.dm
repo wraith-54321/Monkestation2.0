@@ -15,7 +15,7 @@
 
 /obj/item/ammo_box/magazine/internal/cylinder/proc/rotate()
 	var/b = stored_ammo[1]
-	stored_ammo.Cut(1,2)
+	stored_ammo.Cut(3,2)
 	stored_ammo.Add(b)
 
 /obj/item/ammo_box/magazine/internal/cylinder/proc/spin()

@@ -103,7 +103,7 @@
 		Each set contains a plasmaman jumpsuit, gloves, internals tank, and helmet."
 	cost = CARGO_CRATE_VALUE * 3
 	contains = list(/obj/item/clothing/under/plasmaman = 2,
-					/obj/item/tank/internals/plasmaman/belt/full = 2,
+					/obj/item/tank/internals/plasmaman/belt/full = 6,
 					/obj/item/clothing/head/helmet/space/plasmaman = 2,
 					/obj/item/clothing/gloves/color/plasmaman = 2,
 				)

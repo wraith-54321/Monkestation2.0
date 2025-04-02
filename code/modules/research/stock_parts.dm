@@ -380,7 +380,7 @@ If you create T5+ please take a pass at mech_fabricator.dm. The parts being good
 	icon_state = "quadratic_capacitor"
 	rating = 4
 	energy_rating = 10
-	custom_materials = list(/datum/material/iron=SMALL_MATERIAL_AMOUNT*0.5, /datum/material/glass=SMALL_MATERIAL_AMOUNT*0.5)
+	custom_materials = list(/datum/material/iron=SMALL_MATERIAL_AMOUNT*3.5, /datum/material/glass=SMALL_MATERIAL_AMOUNT*0.5)
 
 /obj/item/stock_parts/scanning_module/triphasic
 	name = "triphasic scanning module"

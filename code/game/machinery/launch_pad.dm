@@ -170,7 +170,7 @@
 	if(!hidden)
 		playsound(target, 'sound/weapons/flash.ogg', 25, TRUE)
 		var/datum/effect_system/spark_spread/quantum/spark_system = new /datum/effect_system/spark_spread/quantum()
-		spark_system.set_up(5, TRUE, target)
+		spark_system.set_up(4, TRUE, target)
 		spark_system.start()
 
 	sleep(teleport_speed)

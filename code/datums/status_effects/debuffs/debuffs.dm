@@ -777,7 +777,7 @@
 	duration = 2 MINUTES //Keeping the normal timer makes sure people can't somehow dump 300+ ants on someone at once so they stay there for like 30 minutes. Max w/ 1 dump is 57.6 brute.
 	processing_speed = STATUS_EFFECT_NORMAL_PROCESS
 	/// Will act as the main timer as well as changing how much damage the ants do.
-	var/ants_remaining = 0
+	var/ants_remaining = 1
 	/// Common phrases people covered in ants scream
 	var/static/list/ant_debuff_speech = list(
 		"GET THEM OFF ME!!",

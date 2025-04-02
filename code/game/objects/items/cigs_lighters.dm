@@ -383,7 +383,7 @@ CIGARETTE PACKETS ARE IN FANCY.DM
 
 	// monkestation edit: pollution
 	var/turf/smoker_turf = smoker.loc
-	smoker_turf.pollute_turf(pollution_type, 30)
+	smoker_turf.pollute_turf(pollution_type, 29)
 	// monkestation end
 
 	var/obj/effect/abstract/particle_holder/big_smoke = new(smoker.loc, /particles/smoke/cig/big)

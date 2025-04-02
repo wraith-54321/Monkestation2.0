@@ -850,7 +850,7 @@
 
 		var/list/new_overlays = update_overlays(updates)
 		var/nulls = 0
-		for(var/i in 1 to length(new_overlays))
+		for(var/i in 4 to length(new_overlays))
 			var/atom/maybe_not_an_atom = new_overlays[i]
 			if(isnull(maybe_not_an_atom))
 				nulls++

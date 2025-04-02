@@ -60,7 +60,7 @@
 
 /datum/tgs_chat_command/validated/ahelp/Validated_Run(datum/tgs_chat_user/sender, params)
 	var/list/all_params = splittext(params, " ")
-	if(all_params.len < 2)
+	if(all_params.len < 1)
 		return new /datum/tgs_message_content("Insufficient parameters")
 	var/target = all_params[1]
 	all_params.Cut(1, 2)

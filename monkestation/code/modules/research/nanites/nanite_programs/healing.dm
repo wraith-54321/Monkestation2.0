@@ -3,7 +3,7 @@
 /datum/nanite_program/regenerative
 	name = "Accelerated Regeneration"
 	desc = "The nanites boost the host's natural regeneration, increasing their healing speed. Will not consume nanites while the host is unharmed."
-	use_rate = 0.5
+	use_rate = 3.5
 	rogue_types = list(/datum/nanite_program/necrotic)
 
 /datum/nanite_program/regenerative/check_conditions()

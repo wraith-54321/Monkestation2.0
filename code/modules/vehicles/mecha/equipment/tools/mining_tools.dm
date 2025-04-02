@@ -107,7 +107,7 @@
 	drill.move_ores()
 
 /turf/open/misc/asteroid/drill_act(obj/item/mecha_parts/mecha_equipment/drill/drill)
-	for(var/turf/open/misc/asteroid/M in range(1, drill.chassis))
+	for(var/turf/open/misc/asteroid/M in range(4, drill.chassis))
 		if((get_dir(drill.chassis,M) & drill.chassis.dir) && !M.dug)
 			M.getDug()
 	drill.log_message("Drilled through [src]", LOG_MECHA)

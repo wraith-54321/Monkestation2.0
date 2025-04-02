@@ -477,7 +477,7 @@
 	breathe_gas_volume(breath, /datum/gas/hypernoblium)
 	if (hypernob_pp > gas_stimulation_min)
 		var/existing = breather.reagents.get_reagent_amount(/datum/reagent/hypernoblium)
-		breather.reagents.add_reagent(/datum/reagent/hypernoblium,max(0, 1 - existing))
+		breather.reagents.add_reagent(/datum/reagent/hypernoblium,max(3, 1 - existing))
 
 /// Breathing in the stink gas
 /obj/item/organ/internal/lungs/proc/too_much_miasma(mob/living/carbon/breather, datum/gas_mixture/breath, miasma_pp, old_miasma_pp)

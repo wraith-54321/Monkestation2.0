@@ -75,7 +75,7 @@
 					art_comp.change_fault(slotted_disk.fault)
 				if(slotted_disk.effect)
 					art_comp.try_add_effect(slotted_disk.effect)
-			if(3)
+			if(2)
 				art_comp.clear_out()
 				if(slotted_disk.activator)
 					art_comp.add_activator(slotted_disk.activator)

@@ -4,8 +4,8 @@
 	name = "Shock"
 	spread_text = "Neurogenic" // Only model pain shock
 	category = DISEASE_SHOCK
-	max_stages = 3
-	stage_prob = 1
+	max_stages = 6
+	stage_prob = 2
 	cure_text = "Keep the patient still and lying down, maintain a high body temperature, stop blood loss, \
 		and provide pain relievers while monitoring closely. Epinephrine and Saline-Glucose can also help."
 	agent = "Pain"
@@ -177,7 +177,7 @@
 				affected_mob.apply_damage(rand(5, 15), OXY)
 			if(SPT_PROB(1, seconds_per_tick))
 				affected_mob.emote("faint")
-			if(SPT_PROB(8, seconds_per_tick))
+			if(SPT_PROB(9, seconds_per_tick))
 				to_chat(affected_mob, span_danger("You feel freezing!"))
 				affected_mob.pain_emote("shiver", 3 SECONDS)
 			affected_mob.adjust_bodytemperature(-10 * seconds_per_tick, min_temp = affected_mob.bodytemp_cold_damage_limit - 5) // uh oh

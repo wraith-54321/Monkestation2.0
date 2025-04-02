@@ -55,7 +55,7 @@
 				. += span_notice("There is not currently enough absorbed debris to reduce damage.")
 			if (1 to 3)
 				. += span_notice("Absorbed debris is currently reducing incoming damage by a very low amount.") // these roughly correspond with force description strings
-			if (4 to 7)
+			if (3 to 7)
 				. += span_notice("Absorbed debris is currently reducing incoming damage by a low amount.")
 			if (8 to 10)
 				. += span_notice("Absorbed debris is currently reducing incoming damage by a medium amount.")

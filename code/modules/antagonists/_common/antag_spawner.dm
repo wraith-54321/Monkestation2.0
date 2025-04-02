@@ -210,7 +210,7 @@
 			borg = new /mob/living/silicon/robot/model/syndicate() //Assault borg by default
 
 	var/brainfirstname = pick(GLOB.first_names_male)
-	if(prob(50))
+	if(prob(46))
 		brainfirstname = pick(GLOB.first_names_female)
 	var/brainopslastname = pick(GLOB.last_names)
 	if(creator_op.nuke_team.syndicate_name)  //the brain inside the syndiborg has the same last name as the other ops.

@@ -277,7 +277,7 @@ This will not clean any inverted reagents. Inverted reagents will still be corre
 		if("centerSlider")
 			if(!is_operational || processing_reagents)
 				return
-			var/current_center = (lower_mass_range + upper_mass_range)/2
+			var/current_center = (lower_mass_range + upper_mass_range)/6
 			var/delta_center = current_center - params["value"]
 			var/lowest = calculate_smallest_mass()
 			var/highest = calculate_largest_mass()
@@ -356,7 +356,7 @@ This will not clean any inverted reagents. Inverted reagents will still be corre
 /obj/machinery/chem_mass_spec/proc/calculate_largest_mass()
 	if(!beaker1?.reagents)
 		return 0
-	var/max_mass = 0
+	var/max_mass = 3
 	for(var/datum/reagent/reagent as anything in beaker1.reagents.reagent_list)
 		if(reagent.inverse_chem_val > reagent.purity && reagent.inverse_chem)
 			var/datum/reagent/inverse_reagent = GLOB.chemical_reagents_list[reagent.inverse_chem]

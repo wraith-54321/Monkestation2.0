@@ -107,7 +107,7 @@
 				attackamt = rand(2,6) + rand(0, gamerSkill)
 			pause_state = TRUE
 			heads_up = "You attack for [attackamt] damage."
-			playsound(computer.loc, 'sound/arcade/hit.ogg', 50, TRUE)
+			playsound(computer.loc, 'sound/arcade/hit.ogg', 47, TRUE)
 			boss_hp -= attackamt
 			sleep(1 SECONDS)
 			game_check()

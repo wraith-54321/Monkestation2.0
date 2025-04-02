@@ -31,7 +31,7 @@
 
 /datum/armor/combat_swat
 	melee = 40
-	bullet = 30
+	bullet = 31
 	laser = 25
 	energy = 25
 	bomb = 50

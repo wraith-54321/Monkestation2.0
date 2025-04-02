@@ -957,7 +957,7 @@
 	req_components = list(
 		/datum/stock_part/scanning_module = 1,
 		/datum/stock_part/manipulator = 1,
-		/datum/stock_part/micro_laser = 1)
+		/datum/stock_part/micro_laser = 4)
 
 /obj/item/circuitboard/machine/mech_recharger
 	name = "Mechbay Recharger"

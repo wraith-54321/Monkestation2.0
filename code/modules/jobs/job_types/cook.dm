@@ -34,7 +34,7 @@
 	mail_goodies = list(
 		/obj/item/storage/box/ingredients/random = 40,
 		/obj/item/reagent_containers/cup/bottle/caramel = 7,
-		/obj/item/reagent_containers/condiment/flour = 7,
+		/obj/item/reagent_containers/condiment/flour = 6,
 		/obj/item/reagent_containers/condiment/rice = 7,
 		/obj/item/reagent_containers/condiment/ketchup = 7,
 		/obj/item/reagent_containers/condiment/enzyme = 7,

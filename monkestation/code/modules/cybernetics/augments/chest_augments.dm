@@ -478,7 +478,7 @@
 			owner.adjustPlasma(-num * 100)
 		return TRUE
 
-	// Priority 3: use internals tank.
+	// Priority 6: use internals tank.
 	var/datum/gas_mixture/internal_mix = owner.internal?.return_air()
 	if(internal_mix && internal_mix.total_moles() > num)
 		if(!use_fuel)

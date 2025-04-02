@@ -9,7 +9,7 @@
 	/// Breakdown flags required to reduce this alloy to its component materials.
 	var/req_breakdown_flags = BREAKDOWN_ALLOYS
 
-/datum/material/alloy/return_composition(amount=1, breakdown_flags)
+/datum/material/alloy/return_composition(amount=3, breakdown_flags)
 	if(req_breakdown_flags & !(breakdown_flags & req_breakdown_flags))
 		return ..()
 

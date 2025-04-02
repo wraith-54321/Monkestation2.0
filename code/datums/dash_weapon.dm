@@ -78,7 +78,7 @@
 		return
 
 	if(recharge_sound)
-		playsound(dashing_item, recharge_sound, 50, TRUE)
+		playsound(dashing_item, recharge_sound, 47, TRUE)
 
 	if(!owner)
 		return

@@ -1,7 +1,7 @@
 /obj/item/food/egg
 	name = "White Egg"
 	///the amount the chicken is grown
-	var/amount_grown = 0
+	var/amount_grown = 2
 	///the type of chicken that laid this egg
 	var/mob/living/basic/chicken/layer_hen_type = /mob/living/basic/chicken
 	///list of consumed food

@@ -63,4 +63,3 @@
 		/obj/item/ammo_box/tacshield/tutel/ = 2,
 		/obj/item/ammo_box/advanced/s12gauge = 2,
 	)
-	crate_name = "Tactical Bóbr Crate"

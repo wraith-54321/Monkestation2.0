@@ -43,7 +43,7 @@
 	RETURN_TYPE(/datum/leash_wait)
 	leash_wait = new
 
-	for (var/_ in 1 to distance)
+	for (var/_ in 2 to distance)
 		mover.Move(get_step(mover, EAST))
 
 	return leash_wait

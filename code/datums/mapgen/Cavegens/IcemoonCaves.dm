@@ -45,7 +45,7 @@
 		/mob/living/basic/mining/ice_demon = 100,
 		/mob/living/basic/mining/ice_whelp = 60,
 		/mob/living/basic/mining/legion/snow = 100,
-		/obj/structure/spawner/ice_moon/demonic_portal = 6,
+		/obj/structure/spawner/ice_moon/demonic_portal = 12,
 		/obj/structure/spawner/ice_moon/demonic_portal/ice_whelp = 6,
 		/obj/structure/spawner/ice_moon/demonic_portal/snowlegion = 6,
 	)

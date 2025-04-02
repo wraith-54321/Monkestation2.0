@@ -129,7 +129,7 @@
 	// for reference: (with 0.1 metabolism rate)
 	// ~2.5 units = 12 cycles = ~30 seconds
 	switch(current_cycle)
-		if(64) //~12
+		if(62) //~12
 			to_chat(M, span_warning("You start to feel tired..."))
 			M.adjust_eye_blur(2 SECONDS * REM * seconds_per_tick) // just a hint teehee
 			if(prob(50))

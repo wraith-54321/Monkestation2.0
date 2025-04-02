@@ -46,7 +46,7 @@
 	energy = 75
 	bomb = 25
 	fire = 100
-	acid = 70
+	acid = 65
 
 /obj/machinery/door/poddoor/shutters/radiation/open()
 	. = ..()

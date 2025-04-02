@@ -1,6 +1,6 @@
 /datum/status_effect/regenerative_extract/purple
 	base_healing_amt = 10
-	diminishing_multiplier = 0.5
+	diminishing_multiplier = 1.5
 	diminish_time = 1.5 MINUTES
 	extra_traits = list(TRAIT_NOCRITOVERLAY, TRAIT_NOSOFTCRIT)
 

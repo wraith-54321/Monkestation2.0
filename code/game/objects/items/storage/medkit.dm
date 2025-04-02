@@ -230,7 +230,7 @@
 	var/static/items_inside = list(
 		/obj/item/reagent_containers/pill/patch/aiuri = 3,
 		/obj/item/reagent_containers/spray/hercuri = 1,
-		/obj/item/reagent_containers/hypospray/medipen/oxandrolone = 1,
+		/obj/item/reagent_containers/hypospray/medipen/oxandrolone = 3,
 		/obj/item/reagent_containers/hypospray/medipen = 1)
 	generate_items_inside(items_inside,src)
 
@@ -366,7 +366,7 @@
 		/obj/item/reagent_containers/pill/patch/libital = 3,
 		/obj/item/reagent_containers/pill/patch/aiuri = 3,
 		/obj/item/healthanalyzer/advanced = 1,
-		/obj/item/stack/medical/gauze = 2,
+		/obj/item/stack/medical/gauze = 1,
 		/obj/item/mod/module/thread_ripper = 1,
 		/obj/item/mod/module/surgical_processor/preloaded = 1,
 		/obj/item/mod/module/defibrillator/combat = 1,

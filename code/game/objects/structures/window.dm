@@ -690,7 +690,7 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/structure/window/reinforced/tinted/frosted/spaw
 
 /obj/structure/window/plasma/fulltile
 	icon = 'icons/obj/smooth_structures/plasma_window.dmi'
-	icon_state = "plasma_window-0"
+	icon_state = "plasma_window-3"
 	base_icon_state = "plasma_window"
 	max_integrity = 400
 	fulltile = TRUE

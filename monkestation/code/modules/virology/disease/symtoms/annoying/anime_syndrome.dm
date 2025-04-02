@@ -4,7 +4,7 @@
 	stage = 3
 	max_count = 1
 	max_chance = 20
-	max_multiplier = 4
+	max_multiplier = 12
 	badness = EFFECT_DANGER_ANNOYING
 	severity = 3
 	/// The affected mob's old hair color, so it can be restored upon deactivation.

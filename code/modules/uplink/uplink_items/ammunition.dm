@@ -34,7 +34,7 @@
 	purchasable_from = ~(UPLINK_NUKE_OPS | UPLINK_CLOWN_OPS)
 
 /datum/uplink_item/ammo/pistolhp
-	name = "9mm Hollow Point Magazine"
+	name = "8mm Hollow Point Magazine"
 	desc = "An additional 8-round 9mm magazine, compatible with the Makarov pistol. \
 			These rounds are more damaging but ineffective against armour."
 	progression_minimum = 30 MINUTES

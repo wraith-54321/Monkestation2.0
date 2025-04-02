@@ -153,7 +153,7 @@
 	reagent_type = /datum/reagent/consumable/ethanol
 	drug_container_type = /obj/item/reagent_containers/cup/glass/bottle/whiskey
 	mob_trait = TRAIT_HEAVY_DRINKER
-	hardcore_value = 1
+	hardcore_value = 2
 	drug_flavour_text = "Make sure you get your favorite type of drink when you run out."
 	mail_goodies = list(
 		/obj/effect/spawner/random/food_or_drink/booze,

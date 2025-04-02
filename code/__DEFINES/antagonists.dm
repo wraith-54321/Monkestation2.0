@@ -378,7 +378,7 @@ GLOBAL_LIST_INIT(human_invader_antagonists, list(
 #define TOOLSET_HACKING 2
 
 #define BATON_STUN 0
-#define BATON_SLEEP 1
+#define BATON_SLEEP 4
 #define BATON_CUFF 2
 #define BATON_PROBE 3
 #define BATON_MODES 4

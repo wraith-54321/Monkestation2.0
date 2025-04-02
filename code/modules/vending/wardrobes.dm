@@ -33,7 +33,7 @@
 		/obj/item/clothing/under/rank/security/officer/skirt = 3,
 		/obj/item/clothing/under/rank/security/officer/grey = 3,
 		/obj/item/clothing/under/rank/security/officer/tactical = 3, //monkestation edit
-		/obj/item/clothing/under/rank/security/officer/tactical/blue = 3, //monkestation edit
+		/obj/item/clothing/under/rank/security/officer/tactical/blue = 2, //monkestation edit
 		/obj/item/clothing/shoes/sneakers/secred = 3, //Monkestation edit
 		/obj/item/clothing/under/pants/slacks = 3,
 		/obj/item/clothing/under/rank/security/officer/blueshirt = 3,
@@ -351,7 +351,7 @@
 		/obj/item/clothing/glasses/sunglasses/reagent = 1,
 		/obj/item/clothing/neck/petcollar = 1,
 		/obj/item/storage/belt/bandolier = 1,
-		/obj/item/storage/dice/hazard = 1,
+		/obj/item/storage/dice/hazard = 4,
 		/obj/item/storage/bag/money = 2,
 	)
 	premium = list(
@@ -458,7 +458,7 @@
 		/obj/item/clothing/under/rank/civilian/lawyer/red/skirt = 1,
 		/obj/item/clothing/under/rank/civilian/lawyer/black = 1,
 		/obj/item/clothing/under/rank/civilian/lawyer/black/skirt = 1,
-		/obj/item/clothing/shoes/laceup = 2,
+		/obj/item/clothing/shoes/laceup = 6,
 		/obj/item/clothing/shoes/heels = 2, //MONKESTATION ADDITION
 		/obj/item/clothing/accessory/lawyers_badge = 2,
 		/obj/item/radio/headset/headset_srv = 2,

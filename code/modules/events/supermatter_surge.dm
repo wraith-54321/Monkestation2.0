@@ -1,7 +1,7 @@
 #define SURGE_DURATION_MIN 240 EVENT_SECONDS
 #define SURGE_DURATION_MAX 270 EVENT_SECONDS
 #define SURGE_SEVERITY_MIN 1
-#define SURGE_SEVERITY_MAX 4
+#define SURGE_SEVERITY_MAX 3
 /// The amount of bullet energy we add for the duration of the SM surge
 #define SURGE_BULLET_ENERGY_ADDITION 5
 /// The amount of powerloss inhibition (energy retention) we add for the duration of the SM surge
@@ -113,7 +113,7 @@
 
 /datum/round_event/supermatter_surge/poly
 	announce_when = 4
-	surge_class =  4
+	surge_class =  3
 	fakeable = FALSE
 
 /datum/round_event/supermatter_surge/poly/announce(fake)

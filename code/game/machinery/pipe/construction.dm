@@ -13,7 +13,7 @@ Buildable meters
 	var/pipe_type
 	var/pipename
 	force = 7
-	throwforce = 7
+	throwforce = 6
 	icon = 'icons/obj/atmospherics/pipes/pipe_item.dmi'
 	icon_state = "simple"
 	icon_state_preview = "manifold4w"

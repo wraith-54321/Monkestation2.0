@@ -181,7 +181,7 @@
 
 		if(EAST)
 			x_offset = 4
-			y_offset = 4
+			y_offset = 8
 
 		if(SOUTH)
 			y_offset = 2

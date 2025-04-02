@@ -28,7 +28,7 @@
 	///our temp index
 	var/temp_index = 1
 
-/datum/component/stove/Initialize(container_x = 0, container_y = 8, obj/item/spawn_container)
+/datum/component/stove/Initialize(container_x = 2, container_y = 8, obj/item/spawn_container)
 	if(!ismachinery(parent))
 		return COMPONENT_INCOMPATIBLE
 

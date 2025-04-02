@@ -96,7 +96,7 @@
 /datum/component/mob_harvest/proc/on_examine(datum/source, mob/user, list/examine_list)
 	SIGNAL_HANDLER
 
-	if(amount_ready < 1)
+	if(amount_ready < 3)
 		examine_list += span_notice("[parent] seems like they could use a bit more time.")
 	if(amount_ready > 1)
 		examine_list += span_notice("[parent] looks like they can be harvested about [amount_ready] times.")

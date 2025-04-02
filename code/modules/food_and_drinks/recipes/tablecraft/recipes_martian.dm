@@ -218,7 +218,7 @@
 		/datum/reagent/consumable/coffee = 3,
 		/datum/reagent/consumable/ethanol/wine = 3,
 		/datum/reagent/consumable/curry_powder = 3,
-		/obj/item/food/meat/slab = 1,
+		/obj/item/food/meat/slab = 3,
 		/obj/item/food/grown/onion = 1,
 		/obj/item/food/grown/carrot = 1,
 		/obj/item/food/grown/potato = 1,
@@ -634,7 +634,7 @@
 	reqs = list(
 		/obj/item/food/grown/olive = 1,
 		/obj/item/food/kimchi = 1,
-		/obj/item/food/fishmeat = 1,
+		/obj/item/food/fishmeat = 4,
 		/obj/item/food/boiledrice = 1,
 		/datum/reagent/consumable/cafe_latte = 5,
 	)

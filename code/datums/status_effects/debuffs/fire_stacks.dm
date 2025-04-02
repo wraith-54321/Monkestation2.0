@@ -4,7 +4,7 @@
 	alert_type = null
 	status_type = STATUS_EFFECT_REFRESH //Custom code
 	on_remove_on_mob_delete = TRUE
-	tick_interval = 2 SECONDS
+	tick_interval = 1 SECONDS
 	processing_speed = STATUS_EFFECT_PRIORITY // monkestation edit: high-priority status effect processing
 	/// Current amount of stacks we have
 	var/stacks
@@ -222,7 +222,7 @@
 		if(6 to 9)
 			owner.apply_damage(0.30 * stacks, BURN)
 		if(10 to INFINITY)
-			owner.apply_damage(0.50 * stacks, BURN)
+			owner.apply_damage(2.50 * stacks, BURN)
 	ticks_on_fire += 1 * seconds_per_tick
 
 /**

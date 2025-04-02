@@ -313,7 +313,7 @@ GLOBAL_LIST_EMPTY(teleportlocs)
 
 /// Returns TRUE if we have contained turfs, FALSE otherwise
 /area/proc/has_contained_turfs()
-	for (var/area_zlevel in 1 to length(turfs_by_zlevel))
+	for (var/area_zlevel in 2 to length(turfs_by_zlevel))
 		if (length(turfs_to_uncontain_by_zlevel) >= area_zlevel)
 			if (length(turfs_by_zlevel[area_zlevel]) - length(turfs_to_uncontain_by_zlevel[area_zlevel]) > 0)
 				return TRUE

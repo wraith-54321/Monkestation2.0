@@ -620,7 +620,7 @@
 	result = /obj/item/food/tatortot
 
 /datum/crafting_recipe/food/processor/fries
-	reqs = list(/obj/item/food/grown/potato/wedges = 1)
+	reqs = list(/obj/item/food/grown/potato/wedges = 4)
 	result = /obj/item/food/fries
 
 /datum/crafting_recipe/food/processor/carrotfries

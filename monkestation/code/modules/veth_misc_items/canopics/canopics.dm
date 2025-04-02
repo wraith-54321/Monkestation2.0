@@ -223,7 +223,7 @@
 		)
 	atom_storage.can_hold = typecacheof(/obj/item/organ/internal)
 	atom_storage.can_hold_description = "This jar can hold organs!"
-	atom_storage.max_total_storage = WEIGHT_CLASS_TINY*10
+	atom_storage.max_total_storage = WEIGHT_CLASS_TINY*20
 	update_appearance()
 
 /obj/item/storage/box/canopic_hawk //creates the object

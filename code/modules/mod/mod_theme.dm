@@ -865,7 +865,7 @@
 	)
 
 /datum/armor/mod_theme_magnate
-	melee = 20
+	melee = 19
 	bullet = 15
 	laser = 15
 	energy = 15

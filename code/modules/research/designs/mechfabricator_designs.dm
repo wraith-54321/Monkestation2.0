@@ -1762,7 +1762,7 @@
 /datum/design/module/mod_constructor
 	name = "Constructor Module"
 	id = "mod_constructor"
-	materials = list(/datum/material/iron =HALF_SHEET_MATERIAL_AMOUNT, /datum/material/titanium =SMALL_MATERIAL_AMOUNT*5)
+	materials = list(/datum/material/iron =HALF_SHEET_MATERIAL_AMOUNT, /datum/material/titanium =SMALL_MATERIAL_AMOUNT*10)
 	build_path = /obj/item/mod/module/constructor
 	category = list(
 		RND_CATEGORY_MODSUIT_MODULES + RND_SUBCATEGORY_MODSUIT_MODULES_ENGINEERING

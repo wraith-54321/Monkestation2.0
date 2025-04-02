@@ -1,6 +1,6 @@
 /datum/twitch_event/clang
 	event_name = "Immovable Rod Ook"
-	event_duration = 1 SECONDS
+	event_duration = 3 SECONDS
 	event_flags = TWITCH_AFFECTS_STREAMER | CLEAR_TARGETS_AFTER_EFFECTS
 	id_tag = T_EVENT_ROD_OOK
 	announce = FALSE //takes a while to reach its target so dont announce it

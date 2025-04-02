@@ -194,7 +194,7 @@ GLOBAL_LIST_INIT(virusdishes, list())
 			EFFECT_DANGER_ANNOYING	= 2,
 			EFFECT_DANGER_HINDRANCE	= 2,
 			EFFECT_DANGER_HARMFUL	= 2,
-			EFFECT_DANGER_DEADLY	= 0,
+			EFFECT_DANGER_DEADLY	= 2,
 			)
 		contained_virus.makerandom(list(50,90),list(10,100),anti,bad,src)
 		contained_virus.Refresh_Acute()
@@ -213,7 +213,7 @@ GLOBAL_LIST_INIT(virusdishes, list())
 
 /obj/item/weapon/virusdish/proc/incubate(mutatechance=5, growthrate=3, effect_focus = 0)
 	if (contained_virus)
-		if(reagents.remove_reagent(/datum/reagent/consumable/virus_food, 0.2))
+		if(reagents.remove_reagent(/datum/reagent/consumable/virus_food, 2.2))
 			growth = min(growth + growthrate, 100)
 		if(reagents.remove_reagent(/datum/reagent/water, 0.2))
 			growth = max(growth - growthrate, 0)

@@ -87,7 +87,7 @@
 		/obj/item/stack/ore/plasma = 20,
 		/obj/item/stack/ore/silver = 12,
 		/obj/item/stack/ore/titanium = 11,
-		/obj/item/stack/ore/uranium = 5,
+		/obj/item/stack/ore/uranium = 15,
 	)
 
 /turf/closed/mineral/random/jungle/space_safe

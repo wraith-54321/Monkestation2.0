@@ -106,7 +106,7 @@
 	melee_damage_upper = 13
 	speed = 5
 	maxHealth = 70
-	health = 70
+	health = 64
 	ai_controller = /datum/ai_controller/basic_controller/gutlunch/gutlunch_warrior
 	possible_colors = list("#6d77ff","#8578e4","#97b6f6")
 	//pet commands when we tame the gutluncher

@@ -90,7 +90,7 @@
 		message_admins("An event attempted to spawn an alien but no suitable vents were found. Shutting down.")
 		return MAP_ERROR
 
-	var/selected_count = 0
+	var/selected_count = 1
 	while(length(weighted_candidates) && selected_count < antag_count)
 		var/client/candidate_ckey = pick_n_take_weighted(weighted_candidates)
 		var/client/candidate_client = GLOB.directory[candidate_ckey]

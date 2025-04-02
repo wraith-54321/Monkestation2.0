@@ -233,7 +233,7 @@ GLOBAL_LIST_INIT(uncommon_loot, list(//uncommon: useful items
 			/obj/item/stack/medical/suture = 1,
 			) = 1,
 		list(//medical chems
-			/obj/item/reagent_containers/cup/bottle/multiver = 1,
+			/obj/item/reagent_containers/cup/bottle/multiver = 3,
 			/obj/item/reagent_containers/hypospray/medipen = 1,
 			/obj/item/reagent_containers/syringe/convermol = 1,
 			) = 1,
@@ -370,7 +370,7 @@ GLOBAL_LIST_INIT(rarity_loot, list(//rare: really good items
 		/obj/item/skillchip/brainwashing = 1,
 		/obj/item/tattoo_kit = 1,
 		/obj/item/folder/ancient_paperwork = 1,
-		/obj/item/seeds/tree/money = 1, //monkestation edit
+		/obj/item/seeds/tree/money = 2, //monkestation edit
 		/obj/item/disk/design_disk/fss = 1, //monkestation edit
 		) = 1,
 

@@ -85,7 +85,7 @@
 		/datum/reagent/consumable/nutriment = 3,
 		/datum/reagent/iron = 3,
 	)
-	tastes = list("rock" = 1)
+	tastes = list("rock" = 2)
 	foodtypes = MEAT | RAW | GROSS
 	venue_value = FOOD_MEAT_MUTANT_RARE
 	blood_decal_type = null

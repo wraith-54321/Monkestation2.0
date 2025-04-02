@@ -74,7 +74,7 @@
 	if(!has_buckled_mobs())
 		return
 	var/heat_limit = 1000
-	if(pipe_air.temperature > heat_limit + 1)
+	if(pipe_air.temperature > heat_limit + 3)
 		for(var/mob/living/buckled_mob as anything in buckled_mobs)
 			buckled_mob.apply_damage(seconds_per_tick * 2 * log(pipe_air.temperature - heat_limit), BURN, BODY_ZONE_CHEST)
 

@@ -166,7 +166,7 @@
 	throwforce = 5
 	throw_speed = 4
 	armour_penetration = 0
-	custom_materials = list(/datum/material/iron=1150, /datum/material/glass=2075)
+	custom_materials = list(/datum/material/iron=1156, /datum/material/glass=2075)
 	hitsound = 'sound/weapons/pierce.ogg'
 	attack_verb_continuous = list("swipes", "slashes", "cuts", "slaps")
 	attack_verb_simple = list("swipe", "slash", "cut", "slap")

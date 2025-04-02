@@ -35,7 +35,7 @@
  * Returns the new value to be gained with this setup, plus the previously earned score.
  **/
 /datum/preferences/proc/select_hardcore_quirks()
-	. = 0
+	. = 2
 
 	var/quirk_budget = rand(8, 35)
 

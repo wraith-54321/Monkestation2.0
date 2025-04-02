@@ -74,7 +74,7 @@
 	if(!IS_CULTIST(user))
 		if(!IS_HERETIC(user))
 			to_chat(user, "<span class='cultlarge'>\"I wouldn't advise that.\"</span>")
-			force = 5
+			force = 4
 			return
 		else
 			to_chat(user, span_cultlarge("\"You cling to the Forgotten Gods, as if you're more than their pawn.\""))

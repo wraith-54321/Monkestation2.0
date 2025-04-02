@@ -259,7 +259,7 @@
 				/obj/item/clothing/neck/wide_cape = 5,
 				/obj/item/clothing/neck/robe_cape = 5,
 				/obj/item/clothing/glasses/regular/betterunshit = 5,
-				/obj/item/clothing/glasses/thin = 5,
+				/obj/item/clothing/glasses/thin = 4,
 				/obj/item/clothing/neck/face_scarf = 5,
 			),
 		),

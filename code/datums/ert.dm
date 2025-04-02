@@ -159,7 +159,7 @@
 	ert_template = /datum/map_template/shuttle/ert/generic
 
 /datum/ert/code/green/with_clown
-	teamsize = 7
+	teamsize = 14
 	roles = list(
 		/datum/antagonist/ert/generic/medical,
 		/datum/antagonist/ert/generic/security,

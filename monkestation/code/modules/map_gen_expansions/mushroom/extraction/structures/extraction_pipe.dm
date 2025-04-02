@@ -10,7 +10,7 @@
 	move_resist = MOVE_FORCE_STRONG
 	dir = NONE // we will set the direction ourselves in placement.
 
-	pixel_y = 8
+	pixel_y = 7
 
 	///The extraction hub pipenet we're connected to, which also has us in their own list.
 	var/obj/structure/plasma_extraction_hub/part/pipe/connected_hub

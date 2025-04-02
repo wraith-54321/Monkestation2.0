@@ -72,7 +72,7 @@
 
 /obj/effect/temp_visual/resonance/Initialize(mapload, set_creator, set_resonator, mode, set_failure = 50)
 	if(mode == RESONATOR_MODE_AUTO)
-		duration = 2 SECONDS
+		duration = 4 SECONDS
 	if(mode == RESONATOR_MODE_MATRIX)
 		icon_state = "shield2"
 		name = "resonance matrix"

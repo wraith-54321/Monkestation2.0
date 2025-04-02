@@ -126,7 +126,7 @@
 	contains = list(/obj/item/stack/tile/carpet/neon/simple/white/sixty = 2,
 					/obj/item/stack/tile/carpet/neon/simple/black/sixty = 2,
 					/obj/item/stack/tile/carpet/neon/simple/red/sixty = 2,
-					/obj/item/stack/tile/carpet/neon/simple/orange/sixty = 2,
+					/obj/item/stack/tile/carpet/neon/simple/orange/sixty = 6,
 					/obj/item/stack/tile/carpet/neon/simple/yellow/sixty =2,
 					/obj/item/stack/tile/carpet/neon/simple/lime/sixty = 2,
 					/obj/item/stack/tile/carpet/neon/simple/green/sixty = 2,

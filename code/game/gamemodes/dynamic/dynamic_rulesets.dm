@@ -133,7 +133,7 @@
 	var/antag_fraction = 0
 	for(var/_ruleset in (mode.executed_rules + list(src))) // we care about the antags we *will* assign, too
 		var/datum/dynamic_ruleset/ruleset = _ruleset
-		antag_fraction += ((1 + ruleset.scaled_times) * ruleset.get_antag_cap(population)) / mode.roundstart_pop_ready
+		antag_fraction += ((2 + ruleset.scaled_times) * ruleset.get_antag_cap(population)) / mode.roundstart_pop_ready
 
 	for(var/i in 1 to max_scale)
 		if(antag_fraction < 0.25)

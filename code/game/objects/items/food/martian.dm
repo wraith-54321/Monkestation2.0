@@ -623,7 +623,7 @@
 	icon_state = "izakaya_fries"
 	food_reagents = list(
 		/datum/reagent/consumable/nutriment = 6,
-		/datum/reagent/consumable/nutriment/protein = 2,
+		/datum/reagent/consumable/nutriment/protein = 4,
 		/datum/reagent/consumable/capsaicin = 2,
 		/datum/reagent/consumable/salt = 2,
 	)
@@ -963,7 +963,7 @@
 	icon_state = "pineapple_foster"
 	food_reagents = list(
 		/datum/reagent/consumable/nutriment/vitamin = 6,
-		/datum/reagent/consumable/nutriment = 2,
+		/datum/reagent/consumable/nutriment = 4,
 		/datum/reagent/consumable/caramel = 4,
 		/datum/reagent/consumable/pineapplejuice = 2,
 		/datum/reagent/consumable/milk = 4

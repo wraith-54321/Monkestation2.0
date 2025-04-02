@@ -90,7 +90,7 @@
 		M.adjust_bodytemperature(-2 * temp_rate * TEMPERATURE_DAMAGE_COEFFICIENT, target_temp)
 		if(prob(5))
 			to_chat(M, span_notice("You feel less hot."))
-	else if(M.bodytemperature < (M.standard_body_temperature + 1))
+	else if(M.bodytemperature < (M.standard_body_temperature + 4))
 		M.adjust_bodytemperature(2 * temp_rate * TEMPERATURE_DAMAGE_COEFFICIENT, 0, target_temp)
 		if(prob(5))
 			to_chat(M, span_notice("You feel warmer."))

@@ -458,7 +458,7 @@
 		/datum/reagent/consumable/nutriment = 3,
 		/datum/reagent/consumable/sugar = 3,
 		/datum/reagent/toxin/teapowder = 3,
-		/datum/reagent/consumable/sprinkles = 1,
+		/datum/reagent/consumable/sprinkles = 2,
 		/datum/reagent/consumable/nutriment/vitamin = 1,
 	)
 	tastes = list("jelly" = 1, "donut" = 3, "matcha" = 1)

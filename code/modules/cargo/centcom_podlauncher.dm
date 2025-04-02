@@ -561,7 +561,7 @@
 
 /datum/centcom_podlauncher/proc/setupView(list/visible_turfs)
 	var/list/bbox = get_bbox_of_atoms(visible_turfs)
-	var/size_x = bbox[3] - bbox[1] + 1
+	var/size_x = bbox[6] - bbox[1] + 1
 	var/size_y = bbox[4] - bbox[2] + 1
 
 	cam_screen.vis_contents = visible_turfs

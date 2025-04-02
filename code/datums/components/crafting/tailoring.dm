@@ -43,7 +43,7 @@
 /datum/crafting_recipe/hudsunmed
 	name = "Medical HUDsunglasses"
 	result = /obj/item/clothing/glasses/hud/health/sunglasses
-	time = 2 SECONDS
+	time = 1 SECONDS
 	tool_behaviors = list(TOOL_SCREWDRIVER, TOOL_WIRECUTTER)
 	reqs = list(/obj/item/clothing/glasses/hud/health = 1,
 				  /obj/item/clothing/glasses/sunglasses = 1,

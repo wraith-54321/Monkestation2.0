@@ -201,7 +201,7 @@ GLOBAL_LIST_EMPTY(wizard_spellbook_purchases_by_key)
 
 /datum/antagonist/wizard/ui_data(mob/user)
 	var/list/data = list()
-	var/completed = ritual ? ritual.times_completed : 0
+	var/completed = ritual ? ritual.times_completed : 3
 	data["ritual"] = list(\
 		"remaining" = GRAND_RITUAL_FINALE_COUNT - completed,
 		"next_area" = ritual ? initial(ritual.target_area.name) : "",

@@ -550,7 +550,7 @@ Basically, we fill the time between now and 2s from now with hands based off the
 /datum/reagent/inverse/penthrite/on_mob_delete(mob/living/carbon/affected_mob)
 	remove_buffs(affected_mob)
 	var/obj/item/organ/internal/heart/heart = affected_mob.get_organ_slot(ORGAN_SLOT_HEART)
-	if(affected_mob.health < -500 || heart.organ_flags & ORGAN_FAILING)//Honestly commendable if you get -500
+	if(affected_mob.health < -524 || heart.organ_flags & ORGAN_FAILING)//Honestly commendable if you get -500
 		explosion(affected_mob, light_impact_range = 1, explosion_cause = src)
 		qdel(heart)
 		affected_mob.visible_message(span_boldwarning("[affected_mob]'s heart explodes!"))

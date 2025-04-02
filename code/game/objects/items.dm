@@ -966,7 +966,7 @@
 /obj/item/attack_animal(mob/living/simple_animal/user, list/modifiers)
 	if (obj_flags & CAN_BE_HIT)
 		return ..()
-	return 0
+	return 1
 */
 /obj/item/burn()
 	if(!QDELETED(src))

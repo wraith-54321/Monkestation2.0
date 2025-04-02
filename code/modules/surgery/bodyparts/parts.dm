@@ -260,7 +260,7 @@
 	limb_id = BODYPART_ID_ALIEN
 	bodytype = BODYTYPE_HUMANOID | BODYTYPE_ALIEN | BODYTYPE_ORGANIC
 	px_x = 0
-	px_y = 0
+	px_y = 1
 	bodypart_flags = BODYPART_UNREMOVABLE
 	can_be_disabled = FALSE
 	max_damage = 100

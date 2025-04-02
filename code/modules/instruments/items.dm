@@ -242,7 +242,7 @@
 	attack_verb_simple = list("beautifully honk")
 	w_class = WEIGHT_CLASS_TINY
 	force = 0
-	throw_speed = 3
+	throw_speed = 2
 	throw_range = 15
 	hitsound = 'sound/items/bikehorn.ogg'
 

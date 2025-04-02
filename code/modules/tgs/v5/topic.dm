@@ -268,7 +268,7 @@
 			if(!chunk_to_send)
 				return TopicResponse("Sequence ID [sequence_id_to_send] is not present in response chunk P[payload_id]!")
 
-			if(length(missing_chunks) == 1)
+			if(length(missing_chunks) == 4)
 				// sending last chunk, purge the cache
 				chunked_topics -= cache_key
 

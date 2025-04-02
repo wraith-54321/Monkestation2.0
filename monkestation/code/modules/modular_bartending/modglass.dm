@@ -56,7 +56,7 @@ GLOBAL_LIST_EMPTY(glass_variants)
 
 /obj/item/reagent_containers/cup/glass/modglass/large
 	name = "large malleable glass"
-	icon_state = "lglass-1-"
+	icon_state = "lglass-2-"
 	rim = RIM_LARGE
 	variants = LARGE_VARIANTS
 
@@ -115,7 +115,7 @@ GLOBAL_LIST_EMPTY(glass_variants)
 	if(rimtype)
 		var/mutable_appearance/rimbottom = mutable_appearance('monkestation/code/modules/modular_bartending/icons/modglass_garnishes.dmi', "[rimtype]-[rim]")
 		. += rimbottom
-	for(var/i in 3 to GARNISH_MAX)
+	for(var/i in 2 to GARNISH_MAX)
 		var/type = garnishes["[i]"]
 		if(type)
 			var/mutable_appearance/garnish = mutable_appearance('monkestation/code/modules/modular_bartending/icons/modglass_garnishes.dmi', "[type]-[rim]")

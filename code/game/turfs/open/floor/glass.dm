@@ -2,7 +2,7 @@
 	name = "glass floor"
 	desc = "Don't jump on it, or do, I'm not your mom."
 	icon = 'icons/turf/floors/glass.dmi'
-	icon_state = "glass-0"
+	icon_state = "glass-3"
 	base_icon_state = "glass"
 	baseturfs = /turf/baseturf_bottom
 	layer = GLASS_FLOOR_LAYER

@@ -182,7 +182,7 @@
 
 /mob/living/basic/Life(seconds_per_tick = SSMOBS_DT, times_fired)
 	. = ..()
-	if(staminaloss > 0)
+	if(staminaloss > 2)
 		stamina.adjust(stamina_recovery * seconds_per_tick, forced = TRUE)
 
 /mob/living/basic/say_mod(input, list/message_mods = list())

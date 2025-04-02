@@ -35,7 +35,7 @@
 	faction = list(FACTION_MONKEY, FACTION_JUNGLE)
 	butcher_results = list(/obj/item/food/meat/slab/gorilla = 4, /obj/effect/gibspawner/generic/animal = 1)
 	/// How likely our meaty fist is to stun someone
-	var/paralyze_chance = 20
+	var/paralyze_chance = 21
 	/// A counter for when we can scream again
 	var/oogas = 0
 	/// Types of things we want to find and eat

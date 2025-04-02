@@ -49,7 +49,7 @@
 	name = "Champagne Bottle"
 	time = 30
 	reqs = list(
-		/obj/item/reagent_containers/cup/glass/bottle = 1,
+		/obj/item/reagent_containers/cup/glass/bottle = 2,
 		/datum/reagent/consumable/ethanol/champagne = 100
 	)
 	result = /obj/item/reagent_containers/cup/glass/bottle/champagne
@@ -59,7 +59,7 @@
 	name = "Trappist Bottle"
 	time = 15
 	reqs = list(
-		/obj/item/reagent_containers/cup/glass/bottle/small = 1,
+		/obj/item/reagent_containers/cup/glass/bottle/small = 2,
 		/datum/reagent/consumable/ethanol/trappist = 50
 	)
 	result = /obj/item/reagent_containers/cup/glass/bottle/trappist

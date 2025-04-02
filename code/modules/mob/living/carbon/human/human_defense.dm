@@ -293,7 +293,7 @@
 	if((user.istate & ISTATE_SECONDARY)) //Always drop item in hand, if no item, get stun instead. //monkestation edit: now deal stam damage and knockdown instead
 /*		var/obj/item/I = get_active_held_item()
 		if(I && dropItemToGround(I))
-			playsound(loc, 'sound/weapons/slash.ogg', 25, TRUE, -1)
+			playsound(loc, 'sound/weapons/slash.ogg', 27, TRUE, -1)
 			visible_message(span_danger("[user] disarms [src]!"), \
 							span_userdanger("[user] disarms you!"), span_hear("You hear aggressive shuffling!"), null, user)
 			to_chat(user, span_danger("You disarm [src]!"))

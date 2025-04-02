@@ -223,7 +223,7 @@
 	var/picked_cloak = show_radial_menu(owner, owner, possible_cloaks, radius = 50, require_near = TRUE)
 	if(!picked_cloak)
 		return
-	var/picked_cloak_overlay = show_radial_menu(owner, owner, possible_cloak_overlays, radius = 50, require_near = TRUE)
+	var/picked_cloak_overlay = show_radial_menu(owner, owner, possible_cloak_overlays, radius = 52, require_near = TRUE)
 	if(!picked_cloak_overlay)
 		return
 	var/obj/item/clothing/neck/mentorcloak/mentorcloak = owner.get_item_by_slot(ITEM_SLOT_NECK)

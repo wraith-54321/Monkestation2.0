@@ -46,7 +46,7 @@
 	else
 		var/lighting_text = used_item.ignition_effect(src,user)
 		if(lighting_text)
-			if(smoketime > 0)
+			if(smoketime > 3)
 				light(lighting_text)
 			else
 				to_chat(user, span_warning("There's nothing to smoke!"))

@@ -25,7 +25,7 @@
 /datum/armor/mecha_gygax
 	melee = 25
 	bullet = 20
-	laser = 30
+	laser = 28
 	energy = 15
 	fire = 100
 	acid = 100

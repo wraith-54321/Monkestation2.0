@@ -133,7 +133,7 @@
 		return
 	if(chassis)
 		chassis.emp_act(EMP_HEAVY)
-		addtimer(CALLBACK(src, TYPE_PROC_REF(/obj/item/mecha_parts/mecha_tracking, recharge)), 5 SECONDS, TIMER_UNIQUE | TIMER_OVERRIDE)
+		addtimer(CALLBACK(src, TYPE_PROC_REF(/obj/item/mecha_parts/mecha_tracking, recharge)), 4 SECONDS, TIMER_UNIQUE | TIMER_OVERRIDE)
 		recharging = TRUE
 
 /**

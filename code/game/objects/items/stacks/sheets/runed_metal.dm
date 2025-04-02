@@ -61,7 +61,7 @@ GLOBAL_LIST_INIT(runed_metal_recipes, list( \
 	new /datum/stack_recipe/radial( \
 		title = "runed girder", \
 		result_type = /obj/structure/girder/cult, \
-		time = 5 SECONDS, \
+		time = 4 SECONDS, \
 		one_per_turf = TRUE, \
 		on_solid_ground = TRUE, \
 		desc = span_cultbold("Runed Girder: A weak girder that can be instantly destroyed by ritual daggers. Not a recommended usage of runed metal."), \

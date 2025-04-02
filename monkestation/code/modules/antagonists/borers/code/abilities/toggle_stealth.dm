@@ -26,4 +26,3 @@
 		hidden = FALSE
 		REMOVE_TRAIT(owner, TRAIT_IGNORE_ELEVATION, ACTION_TRAIT)
 	StartCooldown()
-  

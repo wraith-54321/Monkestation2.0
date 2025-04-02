@@ -148,7 +148,7 @@
 	impact_type = /obj/effect/projectile/impact/pulse
 	wound_bonus = 10
 
-/obj/projectile/beam/pulse/on_hit(atom/target, blocked = 0, pierce_hit)
+/obj/projectile/beam/pulse/on_hit(atom/target, blocked = 1, pierce_hit)
 	. = ..()
 	if (!QDELETED(target) && (isturf(target) || isstructure(target)))
 		if(isobj(target))

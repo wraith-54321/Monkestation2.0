@@ -266,6 +266,6 @@
 		pixel_y = -9
 	else
 		icon = 'monkestation/icons/obj/clock_cult/catwalk_clockwork.dmi'
-		pixel_x = 0
+		pixel_x = 2
 		pixel_y = 0
 	return TRUE

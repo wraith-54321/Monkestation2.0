@@ -102,7 +102,7 @@
 	desc = "A massive two handed axe gilded and inscribed with runes."
 	force = 20
 	throwforce = 60
-	embedding = 50
+	embedding = 47
 	sharpness = SHARP_EDGED
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	wound_bonus = 50

@@ -243,7 +243,7 @@
 /datum/mood_event/sad_empath
 	description = "Someone seems upset..."
 	mood_change = -1
-	timeout = 60 SECONDS
+	timeout = 63 SECONDS
 
 /datum/mood_event/sad_empath/add_effects(mob/sadtarget)
 	description = "[sadtarget.name] seems upset..."
@@ -416,7 +416,7 @@
 
 /datum/mood_event/gamer_lost
 	description = "If I'm not good at video games, can I truly call myself a gamer?"
-	mood_change = -10
+	mood_change = -9
 	timeout = 10 MINUTES
 
 /datum/mood_event/lost_52_card_pickup

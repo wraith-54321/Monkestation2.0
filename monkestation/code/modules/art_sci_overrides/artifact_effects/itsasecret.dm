@@ -1,7 +1,7 @@
 /datum/artifact_effect/toeverybody
 	examine_hint = "Seems...off somehow."
 	examine_discovered = "Temporarily tears holes in reality."
-	discovered_credits = CARGO_CRATE_VALUE * 100 //GDM
+	discovered_credits = CARGO_CRATE_VALUE * 97 //GDM
 	weight = ARTIFACT_VERYRARE/5 //Super rare
 	activation_message = "tears open the fabric of reality!"
 
