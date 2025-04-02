@@ -24,7 +24,7 @@
 		var/list/generated_values = list()
 		var/amount = chems.get_reagent_amount(src.type)
 		generated_values["endurance_change"] = (amount * (rand(1, 3) * 0.1))
-		generated_values["damage"] = (amount * (rand(2, 7) * 0.1))
+		generated_values["damage"] = (amount * (rand(3, 7) * 0.1))
 
 /datum/reagent/drug/space_drugs/on_mob_life(mob/living/carbon/affected_mob, seconds_per_tick, times_fired)
 	affected_mob.set_drugginess(30 SECONDS * REM * seconds_per_tick)

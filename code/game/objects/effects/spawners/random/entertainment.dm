@@ -40,7 +40,7 @@
 		/obj/item/clothing/head/costume/ushanka = 3,
 		/obj/effect/spawner/random/entertainment/coin = 3,
 		/obj/effect/spawner/random/entertainment/money = 3,
-		/obj/item/dice/d18 = 3,
+		/obj/item/dice/d6 = 3,
 		/obj/item/storage/box/syndie_kit/throwing_weapons = 1,
 		/obj/item/reagent_containers/cup/glass/bottle/vodka/badminka = 1,
 	)

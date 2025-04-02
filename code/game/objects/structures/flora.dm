@@ -367,7 +367,7 @@
 	icon_state = "tree3"
 
 /obj/structure/flora/tree/jungle/style_4
-	icon_state = "tree12"
+	icon_state = "tree4"
 
 /obj/structure/flora/tree/jungle/style_5
 	icon_state = "tree5"
@@ -398,7 +398,7 @@
 	icon_state = "tree4"
 
 /obj/structure/flora/tree/jungle/small/style_5
-	icon_state = "tree4"
+	icon_state = "tree5"
 
 /obj/structure/flora/tree/jungle/small/style_6
 	icon_state = "tree6"
@@ -651,7 +651,7 @@
 	icon_state = "leafybush_2"
 
 /obj/structure/flora/bush/leavy/style_3
-	icon_state = "leafybush_2"
+	icon_state = "leafybush_3"
 
 /obj/structure/flora/bush/leavy/style_random/Initialize(mapload)
 	. = ..()

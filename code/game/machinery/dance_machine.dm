@@ -428,7 +428,7 @@
 				animate(M, transform = initial_matrix, time = 1, loop = 0)
 			if (WEST)
 				initial_matrix = matrix(M.transform)
-				initial_matrix.Translate(-2,0)
+				initial_matrix.Translate(-3,0)
 				animate(M, transform = initial_matrix, time = 1, loop = 0)
 		sleep(1 SECONDS)
 	M.lying_fix()

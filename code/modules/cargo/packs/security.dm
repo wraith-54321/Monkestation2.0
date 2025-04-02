@@ -290,7 +290,7 @@
 	desc = "Contains two vests of highly reflective material. Each armor piece \
 		diffuses a laser's energy by over half, as well as offering a good chance \
 		to reflect the laser entirely."
-	cost = CARGO_CRATE_VALUE * 10
+	cost = CARGO_CRATE_VALUE * 5
 	contains = list(/obj/item/clothing/suit/armor/laserproof = 2)
 	crate_name = "reflector vest crate"
 	crate_type = /obj/structure/closet/crate/secure/plasma

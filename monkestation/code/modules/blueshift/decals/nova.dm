@@ -217,7 +217,7 @@
 	icon_state = "e2,1"
 
 /obj/effect/turf_decal/nova_decals/enclave/middle/middle
-	icon_state = "e1,2"
+	icon_state = "e2,2"
 
 /obj/effect/turf_decal/nova_decals/enclave/middle/right
 	icon_state = "e2,3"

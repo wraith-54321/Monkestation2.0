@@ -633,7 +633,7 @@
 
 /obj/item/reagent_containers/cup/bottle/nutrient/Initialize(mapload)
 	. = ..()
-	pixel_x = base_pixel_x + rand(-4, 5)
+	pixel_x = base_pixel_x + rand(-5, 5)
 	pixel_y = base_pixel_y + rand(-5, 5)
 
 

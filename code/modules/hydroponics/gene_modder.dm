@@ -140,7 +140,7 @@
 			interact(user)
 			return
 
-		dat += "<div class='line'><h2>Confirm Operation</h3></div>"
+		dat += "<div class='line'><h3>Confirm Operation</h3></div>"
 		dat += "<div class='statusDisplay'>Are you sure you want to [operation] "
 		switch(operation)
 			if("remove")
@@ -188,7 +188,7 @@
 			if("insert")
 				dat += "<span class='highlight'>[disk.gene.get_name()]</span> gene into \the <span class='highlight'>[seed]</span>?<br>"
 		dat += "</div><div class='line'><a href='byond://?src=[REF(src)];gene=[REF(target)];op=[operation]'>Confirm</a> "
-		dat += "<a href='byond://?src=[REF(src)];abort=3'>Abort</a></div>"
+		dat += "<a href='byond://?src=[REF(src)];abort=1'>Abort</a></div>"
 		popup.set_content(dat)
 		popup.open()
 		return

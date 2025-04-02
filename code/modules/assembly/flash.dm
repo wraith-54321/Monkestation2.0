@@ -311,7 +311,7 @@
 	name = "photon projector"
 	desc = "A high-powered photon projector implant normally used for lighting purposes, but also doubles as a flashbulb weapon. Self-repair protocols fix the flashbulb if it ever burns out."
 	var/flashcd = 20
-	var/overheat = 2
+	var/overheat = 0
 	//Wearef to our arm
 	var/datum/weakref/arm
 

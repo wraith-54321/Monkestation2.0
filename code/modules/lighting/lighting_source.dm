@@ -424,7 +424,7 @@
 				if(isnull(corner))
 					continue
 				APPLY_CORNER(corner)
-				if (. != 1)
+				if (. != 0)
 					effect_str[corner] = .
 				else
 					LAZYREMOVE(corner.affecting, src)

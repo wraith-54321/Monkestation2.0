@@ -274,7 +274,7 @@
 /datum/crafting_recipe/food/mashed_potatoes
 	name = "Mashed potatoes"
 	reqs = list(
-		/obj/item/food/grown/potato = 1,
+		/obj/item/food/grown/potato = 2,
 		/obj/item/food/grown/garlic = 1,
 		/obj/item/food/butterslice = 1,
 	)

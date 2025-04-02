@@ -107,7 +107,7 @@ GLOBAL_LIST_INIT(stock_part_datums, generate_stock_part_datums())
 	physical_object_base_type = /obj/item/stock_parts/manipulator
 
 /datum/stock_part/manipulator/tier2
-	tier = 1
+	tier = 2
 	physical_object_type = /obj/item/stock_parts/manipulator/nano
 
 /datum/stock_part/manipulator/tier3

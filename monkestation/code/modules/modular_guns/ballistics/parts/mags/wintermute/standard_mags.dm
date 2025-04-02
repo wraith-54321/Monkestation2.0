@@ -43,7 +43,7 @@
 /obj/item/attachment/mag/wintermute/mag_128_20
 	name = "wintermute mag 128.20"
 
-	icon_state = "mag_125.20"
+	icon_state = "mag_128.20"
 	attachment_icon_state = "well_srifle"
 
 /obj/item/attachment/mag/wintermute/mag_8_40_magnum

@@ -52,7 +52,7 @@
 #define CHEWIN_CHOICE_CANCEL 	2 //The user opted to cancel when given a choice
 #define CHEWIN_SUCCESS 		3 //The user decided to use the item and the step was followed
 #define CHEWIN_PARTIAL_SUCCESS	4 //The user decided to use the item but the qualifications for the step was not fulfilled
-#define CHEWIN_COMPLETE		4 //The meal has been completed!
+#define CHEWIN_COMPLETE		5 //The meal has been completed!
 #define CHEWIN_LOCKOUT			6 //Someone tried starting the function while a prompt was running. Jerk.
 #define CHEWIN_BURNT			7 //The meal was ruined by burning the food somehow.
 

@@ -6,7 +6,7 @@
 
 #define TGS4_TOPIC_CHANGE_PORT "tgs_port"
 #define TGS4_TOPIC_CHANGE_REBOOT_MODE "tgs_rmode"
-#define TGS3_TOPIC_CHAT_COMMAND "tgs_chat_comm"
+#define TGS4_TOPIC_CHAT_COMMAND "tgs_chat_comm"
 #define TGS4_TOPIC_EVENT "tgs_event"
 #define TGS4_TOPIC_INTEROP_RESPONSE "tgs_interop"
 

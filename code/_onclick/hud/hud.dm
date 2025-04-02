@@ -625,7 +625,7 @@ GLOBAL_LIST_INIT(available_ui_styles, list(
 	/// Indexes at 1
 	var/row_offset = 0
 	/// How many rows of actions we can have at max before we just stop hiding
-	/// Indexes at 3
+	/// Indexes at 1
 	var/max_rows = INFINITY
 	/// The screen location we go by
 	var/location

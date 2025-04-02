@@ -547,7 +547,7 @@ SUBSYSTEM_DEF(explosions)
 			if(creaking)
 				listener.playsound_local(epicenter, null, far_volume, TRUE, frequency, pressure_affected = pressure_affected, sound_to_use = creaking_sound, distance_multiplier = 0) // monkestation edit: pressure_affected
 			else if(prob(FAR_SOUND_PROB)) // Sound variety during meteor storm/tesloose/other bad event
-				listener.playsound_local(epicenter, null, far_volume, TRUE, frequency, pressure_affected = pressure_affected, sound_to_use = far_sound, distance_multiplier = 3) // monkestation edit: pressure_affected
+				listener.playsound_local(epicenter, null, far_volume, TRUE, frequency, pressure_affected = pressure_affected, sound_to_use = far_sound, distance_multiplier = 0) // monkestation edit: pressure_affected
 			else
 				listener.playsound_local(epicenter, null, far_volume, TRUE, frequency, pressure_affected = pressure_affected, sound_to_use = echo_sound, distance_multiplier = 0) // monkestation edit: pressure_affected
 

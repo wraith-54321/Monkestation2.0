@@ -215,7 +215,7 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/computer/vitals_reader/no_hand, 32)
 		returned_overlays += construct_overlay("bar9", COLOR_GRAY, LOWER_BAR_OFFSET)
 	else
 		var/tox_percent = patient.getToxLoss() / patient.maxHealth
-		returned_overlays += construct_overlay(percent_to_bar(tox_percent), "#15d9c11", LOWER_BAR_OFFSET)
+		returned_overlays += construct_overlay(percent_to_bar(tox_percent), "#5d9c11", LOWER_BAR_OFFSET)
 
 	return returned_overlays
 
@@ -276,7 +276,7 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/computer/vitals_reader/no_hand, 32)
 /obj/machinery/computer/vitals_reader/proc/percent_to_bar(percent)
 	if(machine_stat & (EMPED|EMAGGED|BROKEN))
 		percent = rand(1, 100) * 0.01
-	if(percent >= 2)
+	if(percent >= 1)
 		return "bar9"
 	if(percent <= 0)
 		return "bar1"

@@ -93,7 +93,7 @@
 	if(HAS_TRAIT(slime, TRAIT_SLIME_HYDROPHOBIA))
 		return
 	if(istype(wetness) && wetness.stacks > (DAMAGE_WATER_STACKS))
-		slime.blood_volume -= 6 * seconds_per_tick
+		slime.blood_volume -= 2 * seconds_per_tick
 		if (SPT_PROB(25, seconds_per_tick))
 			slime.visible_message(span_danger("[slime]'s form begins to lose cohesion, seemingly diluting with the water!"), span_warning("The water starts to dilute your body, dry it off!"))
 

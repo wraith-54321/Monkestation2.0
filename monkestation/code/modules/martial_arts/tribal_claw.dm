@@ -71,7 +71,7 @@
 	defender.visible_message(span_warning("[attacker] scratches [defender]'s face with their claws!"), \
 						span_userdanger("[attacker] scratches your face with their claws!"))
 	defender.apply_damage(30, BRUTE, BODY_ZONE_HEAD, def_check)
-	defender.adjust_confusion(4 SECONDS)
+	defender.adjust_confusion(5 SECONDS)
 	defender.adjust_eye_blur(5 SECONDS)
 	attacker.do_attack_animation(defender, ATTACK_EFFECT_CLAW)
 	playsound(get_turf(defender), 'sound/weapons/slash.ogg', 50, 1, -1)

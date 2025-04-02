@@ -291,7 +291,7 @@
 
 /turf/open/floor/mineral/abductor/Initialize(mapload)
 	. = ..()
-	icon_state = "alienpod[rand(4,9)]"
+	icon_state = "alienpod[rand(1,9)]"
 
 /turf/open/floor/mineral/abductor/break_tile()
 	return //unbreakable

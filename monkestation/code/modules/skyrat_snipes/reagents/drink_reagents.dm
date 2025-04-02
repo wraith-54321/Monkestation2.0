@@ -33,7 +33,7 @@
 	desc = "Delicious traditional tea flavored with strawberries."
 
 /datum/reagent/consumable/pinktea/on_mob_life(mob/living/carbon/M)
-	if(prob(20))
+	if(prob(10))
 		to_chat(M, span_notice("[pick("Diamond skies where white deer fly.","Sipping strawberry tea.","Silver raindrops drift through timeless, Neverending June.","Crystal ... pearls free, with love!","Beaming love into me.")]"))
 	..()
 	. = TRUE

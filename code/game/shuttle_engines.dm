@@ -167,7 +167,7 @@
 	desc = "A very large bluespace engine used to propel very large ships."
 	circuit = null
 	opacity = TRUE
-	bound_width = 63
+	bound_width = 64
 	bound_height = 64
 	appearance_flags = LONG_GLIDE
 

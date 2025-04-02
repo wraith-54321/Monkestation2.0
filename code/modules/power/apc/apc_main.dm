@@ -607,7 +607,7 @@
 
 		else // chargemode off
 			charging = APC_NOT_CHARGING
-			chargecount = 1
+			chargecount = 0
 
 		// MONKESTATION ADDITION START - CLOCK CULT
 		if(integration_cog && GLOB.clock_power < GLOB.max_clock_power)

@@ -23,7 +23,7 @@
 	damage = 60
 	armour_penetration = 10
 	wound_bonus = -45
-	wound_falloff_tile = 3
+	wound_falloff_tile = 0
 
 /obj/projectile/bullet/a762/surplus
 	name = "7.62 surplus bullet"

@@ -395,7 +395,7 @@
 						if(1) //A specific job
 							message = "ONLY THE [ioncrew1] ARE HUMAN"
 						if(2) //Two specific jobs
-							message = "ONLY THE [ioncrew2] AND [ioncrew2] ARE HUMAN"
+							message = "ONLY THE [ioncrew1] AND [ioncrew2] ARE HUMAN"
 						if(3) //Threats
 							message = "ONLY [ionadjectiveshalf][ionthreats] ARE HUMAN"
 						if(4) // Objects

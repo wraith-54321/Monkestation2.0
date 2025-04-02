@@ -3,7 +3,7 @@
 	maxHealth = 45
 	health = 45
 	melee_damage_lower = 8
-	melee_damage_upper = 16
+	melee_damage_upper = 15
 	melee_attack_cooldown = 1.5 SECONDS
 
 /mob/living/basic/trooper/syndicate/melee/space/stormtrooper/lesser

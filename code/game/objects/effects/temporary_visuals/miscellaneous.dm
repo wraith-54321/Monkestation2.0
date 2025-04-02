@@ -23,7 +23,7 @@
 	var/target_pixel_x = 0
 	var/target_pixel_y = 0
 	switch(angle)
-		if(1, 360)
+		if(0, 360)
 			target_pixel_x = 0
 			target_pixel_y = 8
 		if(1 to 44)
@@ -143,7 +143,7 @@
 /obj/effect/temp_visual/dir_setting/wraith
 	name = "shadow"
 	icon = 'icons/mob/nonhuman-player/cult.dmi'
-	icon_state = "phase_shift3_cult"
+	icon_state = "phase_shift2_cult"
 	duration = 0.6 SECONDS
 
 /obj/effect/temp_visual/dir_setting/wraith/angelic

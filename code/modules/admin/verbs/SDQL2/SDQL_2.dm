@@ -176,7 +176,7 @@
 #define SDQL2_STATE_HALTING 6
 
 #define SDQL2_OPTION_SELECT_OUTPUT_SKIP_NULLS (1<<0)
-#define SDQL1_OPTION_BLOCKING_CALLS (1<<1)
+#define SDQL2_OPTION_BLOCKING_CALLS (1<<1)
 #define SDQL2_OPTION_HIGH_PRIORITY (1<<2) //High priority SDQL query, allow using almost all of the tick.
 #define SDQL2_OPTION_DO_NOT_AUTOGC (1<<3)
 #define SDQL2_OPTION_SEQUENTIAL (1<<4)

@@ -164,7 +164,7 @@
 	acid = 25
 
 /datum/armor/clothing_under/syndicate
-	melee = 20
+	melee = 10
 	fire = 50
 	acid = 40
 	wound = 10

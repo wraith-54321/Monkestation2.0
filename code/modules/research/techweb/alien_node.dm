@@ -68,7 +68,7 @@
 	)
 
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 12500)
-	discount_experiments = list(/datum/experiment/scanning/points/slime/hard = 10420)
+	discount_experiments = list(/datum/experiment/scanning/points/slime/hard = 10000)
 	hidden = TRUE
 
 /datum/techweb_node/alien_engi

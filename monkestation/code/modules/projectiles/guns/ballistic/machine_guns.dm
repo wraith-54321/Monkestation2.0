@@ -106,3 +106,4 @@
 	weapon_to_spawn = /obj/item/gun/ballistic/automatic/quarad_lmg/evil
 	extra_to_spawn = /obj/item/ammo_box/magazine/c65xeno_drum/evil
 	extra_to_spawn2 = /obj/item/ammo_box/magazine/c65xeno_drum/pierce/evil
+	extra_to_spawn3 = /obj/item/ammo_box/magazine/c65xeno_drum/incendiary/evil

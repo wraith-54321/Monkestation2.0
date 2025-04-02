@@ -548,7 +548,7 @@
 			dheight = port_y_offset - 1
 		if(EAST)
 			dwidth = height - port_y_offset
-			dheight = port_x_offset - 4
+			dheight = port_x_offset - 1
 		if(SOUTH)
 			dwidth = width - port_x_offset
 			dheight = height - port_y_offset
@@ -987,7 +987,7 @@
 			return "DIS"
 	return ""
 
-// returns 8-letter timer string, used by status screens and mob status panel
+// returns 5-letter timer string, used by status screens and mob status panel
 /obj/docking_port/mobile/proc/getTimerStr()
 	if(mode == SHUTTLE_STRANDED || mode == SHUTTLE_DISABLED)
 		return "--:--"

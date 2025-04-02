@@ -408,7 +408,7 @@
 		/datum/reagent/consumable/nutriment = 4,
 		/datum/reagent/consumable/nutriment/protein = 6,
 		/datum/reagent/consumable/nutriment/vitamin = 6,
-		/datum/reagent/consumable/capsaicin = 4,
+		/datum/reagent/consumable/capsaicin = 1,
 	)
 	tastes = list("meat" = 1, "bacon" = 1, "kimchi" = 1, "salad" = 1, "rice bread" = 1)
 	foodtypes = MEAT | GRAIN | VEGETABLES
@@ -779,7 +779,7 @@
 	icon_state = "po_kok_gai"
 	food_reagents = list(
 		/datum/reagent/consumable/nutriment = 4,
-		/datum/reagent/consumable/nutriment/protein = 24,
+		/datum/reagent/consumable/nutriment/protein = 8,
 		/datum/reagent/consumable/nutriment/vitamin = 2,
 	)
 	tastes = list("chicken" = 1, "coconut" = 1, "curry" = 1)
@@ -980,7 +980,7 @@
 	food_reagents = list(
 		/datum/reagent/consumable/nutriment/protein = 4,
 		/datum/reagent/consumable/nutriment = 4,
-		/datum/reagent/consumable/sugar = 3,
+		/datum/reagent/consumable/sugar = 4,
 	)
 	tastes = list("custard" = 1, "vanilla" = 1, "sweet pastry" = 1)
 	foodtypes = DAIRY | GRAIN

@@ -20,7 +20,7 @@
 
 /datum/armor/utility_welding
 	melee = 10
-	fire = 99
+	fire = 100
 	acid = 60
 
 /obj/item/clothing/head/utility/welding/attack_self(mob/user)

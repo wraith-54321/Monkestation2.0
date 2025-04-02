@@ -13,7 +13,7 @@
 	name = "Grand9K Pixel 6pt"
 	height = 12
 	ascent = 10
-	descent = 1
+	descent = 2
 	average_width = 4
 	max_width = 9
 	overhang = 0
@@ -142,7 +142,7 @@
 		0, 1, 1, // char 146
 		0, 3, 1, // char 147
 		0, 3, 1, // char 148
-		1, 1, 1, // char 149
+		0, 1, 1, // char 149
 		0, 5, 1, // char 150
 		0, 5, 1, // char 151
 		0, 5, 1, // char 152
@@ -189,7 +189,7 @@
 		0, 5, 1, // char 193
 		0, 5, 1, // char 194
 		0, 6, 0, // char 195
-		3, 5, 1, // char 196
+		0, 5, 1, // char 196
 		0, 5, 1, // char 197
 		0, 6, 1, // char 198
 		0, 4, 1, // char 199

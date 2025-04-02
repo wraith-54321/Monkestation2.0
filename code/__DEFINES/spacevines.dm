@@ -21,7 +21,7 @@
 
 /// Kudzu severity values for traits, based on severity in terms of how severely it impacts the game, the lower the severity, the more likely it is to appear
 #define SEVERITY_TRIVIAL 1
-#define SEVERITY_MINOR 1
+#define SEVERITY_MINOR 2
 #define SEVERITY_AVERAGE 4
 #define SEVERITY_ABOVE_AVERAGE 7
 #define SEVERITY_MAJOR 10

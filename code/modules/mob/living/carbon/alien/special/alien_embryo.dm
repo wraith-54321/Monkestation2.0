@@ -32,7 +32,7 @@
 
 	switch(stage)
 		if(3, 4)
-			if(SPT_PROB(2, seconds_per_tick))
+			if(SPT_PROB(1, seconds_per_tick))
 				owner.emote("sneeze")
 			if(SPT_PROB(1, seconds_per_tick))
 				owner.emote("cough")

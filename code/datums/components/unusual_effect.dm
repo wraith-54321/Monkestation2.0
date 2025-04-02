@@ -50,7 +50,7 @@
 	var/atom/movable/parent_movable = parent
 	var/filter = parent_movable.get_filter("unusual_effect")
 	if (!filter)
-		parent_movable.add_filter("unusual_effect", 4, list("type" = "outline", "color" = color, "size" = 2))
+		parent_movable.add_filter("unusual_effect", 2, list("type" = "outline", "color" = color, "size" = 2))
 		return
 	if(!COOLDOWN_FINISHED(src, glow_cooldown))
 		return

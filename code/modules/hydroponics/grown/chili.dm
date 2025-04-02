@@ -110,4 +110,4 @@
 	foodtypes = FRUIT
 
 /obj/item/food/grown/bell_pepper/make_bakeable()
-	AddComponent(/datum/component/bakeable, /obj/item/food/roasted_bell_pepper, rand(16 SECONDS, 25 SECONDS), TRUE, TRUE)
+	AddComponent(/datum/component/bakeable, /obj/item/food/roasted_bell_pepper, rand(15 SECONDS, 25 SECONDS), TRUE, TRUE)

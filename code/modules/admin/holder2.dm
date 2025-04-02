@@ -495,4 +495,4 @@ you will have to do something like if(client.rights & R_ADMIN) yourself.
 	return "<input type='hidden' name='admin_token' value='[RawHrefToken(forceGlobal)]'>"
 
 #undef RESULT_2FA_VALID
-#undef RESULT_1FA_ID
+#undef RESULT_2FA_ID

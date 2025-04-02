@@ -248,5 +248,5 @@
 	flipped = TRUE
 
 /obj/machinery/atmospherics/components/trinary/mixer/airmix/flipped/inverse
-	node3_concentration = O2STANDARD
+	node1_concentration = O2STANDARD
 	node2_concentration = N2STANDARD

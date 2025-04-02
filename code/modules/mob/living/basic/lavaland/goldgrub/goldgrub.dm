@@ -119,7 +119,7 @@
 		/obj/item/food/egg/green/grub_egg,\
 		list(/obj/item/stack/ore/bluespace_crystal),\
 		lay_messages = EGG_LAYING_MESSAGES,\
-		eggs_left = 2,\
+		eggs_left = 0,\
 		eggs_added_from_eating = 1,\
 		max_eggs_held = 1,\
 	)

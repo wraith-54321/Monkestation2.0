@@ -21,7 +21,7 @@
 	melee = 15
 	bomb = 40
 	fire = 60
-	acid = 99
+	acid = 100
 	wound = 0
 
 /datum/armor/hardsuit/hop

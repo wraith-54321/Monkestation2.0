@@ -61,7 +61,7 @@
 	butcher_results = list(/obj/item/stack/ore/diamond = 5, /obj/item/stack/sheet/sinew = 5, /obj/item/stack/sheet/bone = 30)
 	guaranteed_butcher_results = list(/obj/item/stack/sheet/animalhide/ashdrake = 10)
 	var/swooping = NONE
-	var/player_cooldown = 1
+	var/player_cooldown = 0
 	gps_name = "Fiery Signal"
 	achievement_type = /datum/award/achievement/boss/drake_kill
 	crusher_achievement_type = /datum/award/achievement/boss/drake_crusher
@@ -245,7 +245,7 @@
 	desc = "An ash drakes true flame."
 	name = "Fire Barrier"
 	icon = 'icons/effects/fire.dmi'
-	icon_state = "4"
+	icon_state = "1"
 	anchored = TRUE
 	opacity = FALSE
 	density = TRUE

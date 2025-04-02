@@ -151,7 +151,7 @@
 
 	working_power = power //used in the amount of moles processed
 
-	efficiency = (cap + 2) * 0.5 //used in the amount of charge in power cell uses
+	efficiency = (cap + 1) * 0.5 //used in the amount of charge in power cell uses
 
 /obj/machinery/electrolyzer/screwdriver_act(mob/living/user, obj/item/tool)
 	tool.play_tool_sound(src, 50)

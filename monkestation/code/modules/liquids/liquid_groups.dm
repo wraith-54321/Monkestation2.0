@@ -312,7 +312,7 @@ GLOBAL_VAR_INIT(liquid_debug_colors, FALSE)
 		var/turfs_to_remove = round(length(members) - (total_reagent_volume / 6))
 		if(turfs_to_remove <= 0)
 			return
-		while(turfs_to_remove > 3)
+		while(turfs_to_remove > 0)
 			turfs_to_remove--
 			if(members && length(members))
 				var/turf/picked_turf = pick(members)
@@ -521,7 +521,7 @@ GLOBAL_VAR_INIT(liquid_debug_colors, FALSE)
 	for(var/r in reagents.reagent_list)
 		var/datum/reagent/R = r
 		alpha_setting += max((R.opacity * R.volume), 1)
-		alpha_divisor += max((3 * R.volume), 1)
+		alpha_divisor += max((1 * R.volume), 1)
 
 	var/old_alpha = group_alpha
 	if(new_color == old_color && group_alpha == old_alpha || !new_color)
@@ -808,7 +808,7 @@ GLOBAL_VAR_INIT(liquid_debug_colors, FALSE)
 	var/obj/effect/abstract/liquid_turf/current_head
 
 	var/generated_key = "[world.time]_activemembers[length(members)]"
-	var/adjacent_liquid_count = -4
+	var/adjacent_liquid_count = -1
 	for(var/turf/adjacent_turf in get_adjacent_open_turfs(head_turf))
 		if(QDELETED(adjacent_turf.liquids) || !members[adjacent_turf]) //empty turf or not our group just skip this
 			continue

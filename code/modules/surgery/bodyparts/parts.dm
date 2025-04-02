@@ -87,7 +87,7 @@
 	bodytype = BODYTYPE_MONKEY | BODYTYPE_ORGANIC
 	wound_resistance = -10
 	px_x = -5
-	px_y = -6
+	px_y = -3
 	dmg_overlay_type = SPECIES_MONKEY
 	unarmed_damage_low = 2 /// monkey punches must be really weak, considering they bite people instead and their bites are weak as hell.
 	unarmed_damage_high = 2

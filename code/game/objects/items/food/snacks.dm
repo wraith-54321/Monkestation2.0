@@ -471,7 +471,7 @@ GLOBAL_LIST_INIT(safe_peanut_types, populate_safe_peanut_types())
 	icon_state = "boritos"
 	trash_type = /obj/item/trash/boritos
 	food_reagents = list(
-		/datum/reagent/consumable/nutriment = 2,
+		/datum/reagent/consumable/nutriment = 3,
 		/datum/reagent/consumable/cooking_oil = 2,
 		/datum/reagent/consumable/salt = 3,
 		/datum/reagent/consumable/yoghurt = 1,

@@ -737,7 +737,7 @@
 	)
 
 /datum/armor/mod_theme_security
-	melee = 14
+	melee = 15
 	bullet = 15
 	laser = 15
 	energy = 15
@@ -1639,7 +1639,7 @@
 	laser = 50
 	energy = 50
 	bomb = 50
-	bio = 105
+	bio = 100
 	fire = 100
 	acid = 100
 	wound = 15
@@ -1767,7 +1767,7 @@
 	default_skin = "debug"
 	armor_type = /datum/armor/mod_theme_administrative
 	resistance_flags = INDESTRUCTIBLE|LAVA_PROOF|FIRE_PROOF|UNACIDABLE|ACID_PROOF
-	atom_flags = PREVENT_CONTENTS_EXPLOSION_4
+	atom_flags = PREVENT_CONTENTS_EXPLOSION_1
 	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
 	complexity_max = 1000
 	charge_drain = DEFAULT_CHARGE_DRAIN * 0

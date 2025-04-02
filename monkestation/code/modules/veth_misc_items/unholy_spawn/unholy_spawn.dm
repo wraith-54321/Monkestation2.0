@@ -24,7 +24,7 @@
         var/delay = (dist * 0.1) SECONDS  // 0.1 seconds delay per tile distance
 
         // Animate with calculated delay
-        animate(heaven, alpha = 247, time = 2 SECONDS, delay = delay)
+        animate(heaven, alpha = 255, time = 2 SECONDS, delay = delay)
         // Fade out and delete after animation
         animate(alpha = 0, time = 2 SECONDS, delay = 4 SECONDS)
         QDEL_IN(heaven, 6 SECONDS)

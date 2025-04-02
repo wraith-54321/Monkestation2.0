@@ -222,7 +222,7 @@ xxx xxx xxx
 		if(SOUTH_JUNCTION|WEST_JUNCTION)
 			replace_smooth_overlays("d-ne","d-ne-0")
 		if(SOUTH_JUNCTION|EAST_JUNCTION)
-			replace_smooth_overlays("d-nw","d-nw-1")
+			replace_smooth_overlays("d-nw","d-nw-0")
 
 		if(NORTH_JUNCTION|WEST_JUNCTION|NORTHWEST_JUNCTION)
 			replace_smooth_overlays("d-se","d-se-1")

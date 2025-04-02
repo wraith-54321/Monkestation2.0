@@ -104,7 +104,7 @@
 	energy = 30
 	bomb = 60
 	fire = 100
-	acid = 91
+	acid = 100
 
 /obj/vehicle/sealed/mecha/working/ripley/mk2/generate_actions()
 	initialize_passenger_action_type(/datum/action/vehicle/sealed/mecha/mech_eject)

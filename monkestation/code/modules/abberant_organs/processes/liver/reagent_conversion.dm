@@ -4,7 +4,7 @@
 
 	process_flags = ORGAN_LIVER
 	var/datum/reagent/converted_reagent
-	var/conversion_precent = 1.5
+	var/conversion_precent = 0.5
 
 /datum/organ_process/reagent_conversion/New()
 	. = ..()

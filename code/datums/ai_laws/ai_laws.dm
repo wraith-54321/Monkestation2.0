@@ -461,7 +461,7 @@ GLOBAL_VAR(round_default_lawset)
 			number++
 
 	for(var/law in supplied)
-		if (length(law) > 2)
+		if (length(law) > 0)
 			data += "[show_numbers ? "[number]:" : ""] [render_html ? "<font color='#990099'>[law]</font>" : law]"
 			number++
 	return data

@@ -59,7 +59,7 @@
 			update_inhand_icon(user) //So you don't have to switch the gun inhand to update the inhand sprite
 
 //Lethal ammo for Paco.
-/obj/item/ammo_casing/c36
+/obj/item/ammo_casing/c35
 	name = ".35 Auto bullet casing"
 	desc = "A .35 Auto bullet casing."
 	icon = 'monkestation/code/modules/security/icons/paco_ammo.dmi'

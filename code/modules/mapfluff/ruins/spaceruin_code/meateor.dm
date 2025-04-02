@@ -83,7 +83,7 @@
 		/obj/item/organ/internal/heart/gland/slime = 4,
 		/obj/item/organ/internal/heart/gland/trauma = 4,
 		/obj/item/organ/internal/heart/carp = 3,
-		/obj/item/organ/internal/heart/rat = 9,
+		/obj/item/organ/internal/heart/rat = 3,
 		/obj/item/organ/internal/heart/gland/electric = 3,
 		/obj/item/organ/internal/monster_core/brimdust_sac = 3,
 		/obj/item/organ/internal/monster_core/regenerative_core = 3,

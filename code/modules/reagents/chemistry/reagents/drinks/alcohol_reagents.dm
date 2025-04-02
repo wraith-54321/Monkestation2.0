@@ -694,7 +694,7 @@
 	quality = DRINK_GOOD
 	metabolization_rate = 1.25 * REAGENTS_METABOLISM
 	taste_description = "JUSTICE"
-	overdose_threshold = 43
+	overdose_threshold = 40
 	ph = 2
 	chemical_flags = REAGENT_CAN_BE_SYNTHESIZED
 	bypass_restriction = TRUE
@@ -1154,7 +1154,7 @@
 	quality = DRINK_GOOD
 	taste_description = "your brain coming out your nose"
 	chemical_flags = REAGENT_CAN_BE_SYNTHESIZED
-	metabolization_rate = 2.2 // monkestation edit
+	metabolization_rate = 0.2 // monkestation edit
 
 /datum/reagent/consumable/ethanol/changelingsting/on_mob_life(mob/living/carbon/target, seconds_per_tick, times_fired)
 	var/datum/antagonist/changeling/changeling = target.mind?.has_antag_datum(/datum/antagonist/changeling)
@@ -2032,7 +2032,7 @@
 
 /datum/reagent/consumable/ethanol/bug_spray/on_mob_life(mob/living/carbon/drinker, seconds_per_tick, times_fired)
 	// Does some damage to bug biotypes
-	var/did_damage = drinker.adjustToxLoss(3 * REM * seconds_per_tick, updating_health = FALSE, required_biotype = MOB_BUG)
+	var/did_damage = drinker.adjustToxLoss(1 * REM * seconds_per_tick, updating_health = FALSE, required_biotype = MOB_BUG)
 	// Random chance of causing a screm if we did some damage
 	if(did_damage && SPT_PROB(2, seconds_per_tick))
 		drinker.emote("scream")
@@ -2177,7 +2177,7 @@
 	// Heats the user up while the reagent is in the body. Occasionally makes you burst into flames.
 	drinker.adjust_bodytemperature(2.5 * WARM_DRINK * REM * seconds_per_tick)
 	if (SPT_PROB(2.5, seconds_per_tick))
-		drinker.adjust_fire_stacks(3)
+		drinker.adjust_fire_stacks(1)
 		drinker.ignite_mob()
 	..()
 
@@ -2595,7 +2595,7 @@
 	var/mob/living/carbon/exposed_carbon = exposed_mob
 	var/obj/item/organ/internal/stomach/ethereal/stomach = exposed_carbon.get_organ_slot(ORGAN_SLOT_STOMACH)
 	if(istype(stomach))
-		stomach.adjust_charge(reac_volume * 6)
+		stomach.adjust_charge(reac_volume * 2)
 
 /datum/reagent/consumable/ethanol/pod_tesla
 	name = "Pod Tesla"

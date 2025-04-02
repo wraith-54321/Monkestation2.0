@@ -5,7 +5,7 @@
 #define ascii_DOLLAR 36 // $
 #define ascii_ZERO 48
 #define ascii_NINE 57
-#define ascii_UNDERSCORE 89	// _
+#define ascii_UNDERSCORE 95	// _
 
 /*
  * n_scriptOptions

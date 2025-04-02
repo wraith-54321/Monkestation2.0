@@ -25,7 +25,7 @@
 /// If the rider is disabled or loses their needed limbs, do they fall off?
 #define UNBUCKLE_DISABLED_RIDER (1<<3)
 // For fireman carries, the carrying human needs an arm
-#define CARRIER_NEEDS_ARM (3<<4)
+#define CARRIER_NEEDS_ARM (1<<4)
 
 //car_traits flags
 ///Will this car kidnap people by ramming into them?

@@ -507,7 +507,7 @@
 	default_raw_text = {"
 		<b>Instructions on your new prototype teleporter:</b><br>
 		<br>
-		This teleporter will teleport the user 3-8 meters in the direction they are facing.<br>
+		This teleporter will teleport the user 4-8 meters in the direction they are facing.<br>
 		<br>
 		It has 4 charges, and will recharge over time randomly. No, sticking the teleporter into an APC, microwave, or electrified airlock will not make it charge faster.<br>
 		<br>

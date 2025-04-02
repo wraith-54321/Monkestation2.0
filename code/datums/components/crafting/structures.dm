@@ -71,6 +71,6 @@
 		/obj/item/stack/sheet/iron = 5,
 		/obj/item/stack/cable_coil = 5,
 		/obj/item/beacon = 1,
-		/obj/item/stack/ore/bluespace_crystal = 3,
+		/obj/item/stack/ore/bluespace_crystal = 1,
 	)
 	category = CAT_STRUCTURE

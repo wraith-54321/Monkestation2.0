@@ -349,7 +349,7 @@ GLOBAL_VAR_INIT(nt_fax_department, pick("NT HR Department", "NT Legal Department
 		FAX.receive(loaded, fax_name)
 		history_add("Send", FAX.fax_name)
 		INVOKE_ASYNC(src, PROC_REF(animate_object_travel), loaded, "fax_receive", find_overlay_state(loaded, "send"))
-		playsound(src, 'sound/machines/high_tech_confirm.ogg', 49, FALSE)
+		playsound(src, 'sound/machines/high_tech_confirm.ogg', 50, FALSE)
 		return TRUE
 	return FALSE
 

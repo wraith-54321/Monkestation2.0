@@ -15,7 +15,7 @@
 	idle_power_usage = BASE_MACHINE_IDLE_CONSUMPTION * 0.25
 
 	///Rate of operation of the device
-	var/volume_rate = 46
+	var/volume_rate = 50
 
 /obj/machinery/atmospherics/components/unary/outlet_injector/Initialize(mapload)
 	if(isnull(id_tag))

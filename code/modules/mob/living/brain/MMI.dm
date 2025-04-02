@@ -89,7 +89,7 @@
 			playsound(src, 'sound/machines/synth_no.ogg', 5, TRUE)
 		else
 			to_chat(user, span_warning("[src]'s indicator light turns red and its brainwave activity alarm beeps softly. Perhaps you should check [newbrain] again."))
-			playsound(src, 'sound/machines/triple_beep.ogg', 4, TRUE)
+			playsound(src, 'sound/machines/triple_beep.ogg', 5, TRUE)
 
 		brainmob.reset_perspective()
 		brain = newbrain
@@ -228,7 +228,7 @@
 				brainmob.emp_damage = min(brainmob.emp_damage + rand(20,30), 30)
 			if(2)
 				brainmob.emp_damage = min(brainmob.emp_damage + rand(10,20), 30)
-			if(2)
+			if(3)
 				brainmob.emp_damage = min(brainmob.emp_damage + rand(0,10), 30)
 		brainmob.emote("alarm")
 

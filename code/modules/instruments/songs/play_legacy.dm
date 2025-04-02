@@ -58,7 +58,7 @@
 			oct++
 		note++
 		acc = "n"
-	else if(acc == "#" && (note == 6)) //G#
+	else if(acc == "#" && (note == 7)) //G#
 		note = 1
 		acc = "b"
 	else if(acc == "#") // mass convert all sharps to flats, octave jump already handled

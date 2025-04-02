@@ -128,7 +128,7 @@
 	if(hacking_time > 4.5 SECONDS)
 		// Another multitool sound if the hacking time is long.
 		queue_fake_sound(source, 'sound/weapons/empty.ogg', delay = 3 SECONDS)
-		if(prob(54))
+		if(prob(50))
 			// Bonus multitool sound, rapidly after the last.
 			queue_fake_sound(source, 'sound/weapons/empty.ogg', delay = 3.5 SECONDS)
 

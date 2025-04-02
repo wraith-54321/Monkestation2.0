@@ -60,7 +60,7 @@
 	name = "Frontier Satchel"
 	id = "frontier_satchel"
 	build_type = BIOGENERATOR
-	materials = list(/datum/material/biomass = 109)
+	materials = list(/datum/material/biomass = 100)
 	build_path = /obj/item/storage/backpack/satchel/eng/frontier_colonist
 	category = list(
 		RND_CATEGORY_INITIAL,

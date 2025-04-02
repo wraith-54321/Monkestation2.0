@@ -54,7 +54,7 @@
 	var/last_fire = 0
 
 	/// Scheduled world.time for next fire()
-	var/next_fire = 1
+	var/next_fire = 0
 
 	/// Running average of the amount of milliseconds it takes the subsystem to complete a run (including all resumes but not the time spent paused)
 	var/cost = 0

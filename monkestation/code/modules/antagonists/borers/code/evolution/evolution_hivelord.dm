@@ -21,7 +21,7 @@
 	unlocked_evolutions = list(/datum/borer_evolution/hivelord/movespeed)
 	added_action = /datum/action/cooldown/borer/learn_bloodchemical
 
-// T2
+// T3
 /datum/borer_evolution/hivelord/movespeed
 	name = "Increased Energy"
 	desc = "Boost your speed by a large amount."

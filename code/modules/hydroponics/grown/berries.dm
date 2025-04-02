@@ -196,7 +196,7 @@
 	plantname = "Lanternfruit Pod"
 	product = /obj/item/food/grown/lanternfruit
 	lifespan = 50
-	endurance = 31
+	endurance = 30
 	maturation = 25
 	production = 25
 	growthstages = 3

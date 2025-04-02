@@ -218,7 +218,7 @@
 	icon_state = "filter_on_f_map-2"
 /obj/machinery/atmospherics/components/trinary/filter/flipped/on/layer4
 	piping_layer = 4
-	icon_state = "filter_on_f_map-3"
+	icon_state = "filter_on_f_map-4"
 
 /obj/machinery/atmospherics/components/trinary/filter/atmos //Used for atmos waste loops
 	on = TRUE

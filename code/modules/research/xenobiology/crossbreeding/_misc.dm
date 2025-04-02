@@ -89,7 +89,7 @@ Slimecrossing Items
 /obj/item/stock_parts/cell/emproof/slime/hypercharged // monke edit: make hypercharged slime cells EMP-proof, by changing their parent from cell/high to cell/emproof
 	name = "hypercharged slime core"
 	desc = "A charged yellow slime extract, infused with plasma. It almost hurts to touch. Its organic nature makes it immune to EMPs."
-	rating = 21
+	rating = 7
 	maxcharge = 50000
 	chargerate = 2500
 

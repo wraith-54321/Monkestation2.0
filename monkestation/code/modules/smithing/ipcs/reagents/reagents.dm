@@ -78,7 +78,7 @@
 /datum/reagent/medicine/nanite_slurry/overdose_process(mob/living/carbon/affected_mob, seconds_per_tick, times_fired) // Mostly to treat a synthetic being EMP'd
 	if(affected_mob.mob_biotypes & MOB_ROBOTIC)
 		affected_mob.adjust_bodytemperature(temperature_change * REM * seconds_per_tick) // Overheats
-		affected_mob.adjustOrganLoss(pick(ORGAN_SLOT_EYES,ORGAN_SLOT_EARS,ORGAN_SLOT_HEART,ORGAN_SLOT_LUNGS,ORGAN_SLOT_STOMACH,ORGAN_SLOT_LIVER),(-4 * REM * seconds_per_tick) * 1.5) // 30 units do ~ 70 brute and 20 burn and heal 240 organ damage (mostly used after being EMP'd)
+		affected_mob.adjustOrganLoss(pick(ORGAN_SLOT_EYES,ORGAN_SLOT_EARS,ORGAN_SLOT_HEART,ORGAN_SLOT_LUNGS,ORGAN_SLOT_STOMACH,ORGAN_SLOT_LIVER),(-5 * REM * seconds_per_tick) * 1.5) // 30 units do ~ 70 brute and 20 burn and heal 240 organ damage (mostly used after being EMP'd)
 		affected_mob.take_bodypart_damage(brute = (healing * REM * seconds_per_tick) * 1.5) // Damages at half healing rate
 		return ..()
 	affected_mob.reagents.remove_reagent(type, NANITE_SLURRY_ORGANIC_PURGE_RATE) //gets removed from organics very fast

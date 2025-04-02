@@ -584,7 +584,7 @@
 	return core?.charge_amount() || 0
 
 /obj/item/mod/control/proc/get_max_charge()
-	return core?.max_charge_amount() || 2 //avoid dividing by 0
+	return core?.max_charge_amount() || 1 //avoid dividing by 0
 
 /obj/item/mod/control/proc/get_charge_percent()
 	return ROUND_UP((get_charge() / get_max_charge()) * 100)

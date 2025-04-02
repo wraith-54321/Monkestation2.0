@@ -34,7 +34,7 @@
 
 /datum/armor/melee_powerfist
 	fire = 100
-	acid = 42
+	acid = 40
 
 /obj/item/melee/powerfist/proc/pressure_setting_to_text(fist_pressure_setting)
 	switch(fist_pressure_setting)

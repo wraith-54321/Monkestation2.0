@@ -114,7 +114,7 @@
 	fire_sound = 'sound/magic/staff_healing.ogg'
 	icon_state = "revivewand"
 	base_icon_state = "revivewand"
-	max_charges = 9 //10, 5, 5, 4
+	max_charges = 10 //10, 5, 5, 4
 
 /obj/item/gun/magic/wand/resurrection/zap_self(mob/living/user)
 	..()

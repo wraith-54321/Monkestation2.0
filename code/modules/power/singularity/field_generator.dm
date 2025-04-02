@@ -284,7 +284,7 @@ no power level overlay is currently in the overlays list.
 	air_update_turf(TRUE, TRUE)
 	addtimer(CALLBACK(src, PROC_REF(setup_field), 1), 1)
 	addtimer(CALLBACK(src, PROC_REF(setup_field), 2), 2)
-	addtimer(CALLBACK(src, PROC_REF(setup_field), 12), 3)
+	addtimer(CALLBACK(src, PROC_REF(setup_field), 4), 3)
 	addtimer(CALLBACK(src, PROC_REF(setup_field), 8), 4)
 	addtimer(VARSET_CALLBACK(src, active, FG_ONLINE), 5)
 

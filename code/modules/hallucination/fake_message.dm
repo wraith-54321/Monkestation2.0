@@ -61,7 +61,7 @@
 	if(prob(10))
 		message_pool[span_warning("Behind you.")] = 1
 		message_pool[span_warning("You hear a faint laughter.")] = 1
-		message_pool[span_warning("You hear skittering on the ceiling.")] = 3
+		message_pool[span_warning("You hear skittering on the ceiling.")] = 1
 		message_pool[span_warning("You see an inhumanly tall silhouette moving in the distance.")] = 2
 
 	if(prob(30))

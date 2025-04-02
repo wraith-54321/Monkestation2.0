@@ -8,4 +8,4 @@
 #define PIPE_STATUS_OFF 0
 #define PIPE_STATUS_ON 1
 
-#define MAX_PIPE_DISTANCE 9
+#define MAX_PIPE_DISTANCE 10

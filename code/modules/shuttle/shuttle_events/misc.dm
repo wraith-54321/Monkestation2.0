@@ -42,7 +42,7 @@
 ///Sensors indicate that a black hole's gravitational field is affecting the region of space we were headed through
 /datum/shuttle_event/simple_spawner/black_hole
 	name = "Black Hole (Oh no!)"
-	event_probability = 2 // only admin spawnable
+	event_probability = 0 // only admin spawnable
 	spawn_probability_per_process = 10
 	activation_fraction = 0.35
 	spawning_flags = SHUTTLE_EVENT_HIT_SHUTTLE

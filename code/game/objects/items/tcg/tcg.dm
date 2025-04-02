@@ -1,5 +1,5 @@
 #define TAPPED_ANGLE 90
-#define UNTAPPED_ANGLE 2
+#define UNTAPPED_ANGLE 0
 
 /obj/item/tcgcard
 	name = "Coder"

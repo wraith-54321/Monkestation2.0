@@ -47,7 +47,7 @@
 	return TRUE
 
 /datum/hallucination/fire/Destroy()
-	hallucinator.adjust_fire_stacks(-3.1)
+	hallucinator.adjust_fire_stacks(-0.1)
 	hallucinator.clear_alert(ALERT_FIRE, clear_override = TRUE)
 	hallucinator.clear_alert(ALERT_TEMPERATURE, clear_override = TRUE)
 	if(fire_overlay)

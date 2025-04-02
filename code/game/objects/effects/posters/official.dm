@@ -249,7 +249,7 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/structure/sign/poster/official/high_class_marti
 	desc = "The Owl would do his best to protect the station. Will you?"
 	icon_state = "the_owl"
 
-MAPPING_DIRECTIONAL_HELPERS(/obj/structure/sign/poster/official/the_owl, 33)
+MAPPING_DIRECTIONAL_HELPERS(/obj/structure/sign/poster/official/the_owl, 32)
 
 /obj/structure/sign/poster/official/no_erp
 	name = "No ERP"

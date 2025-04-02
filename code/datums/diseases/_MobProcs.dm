@@ -79,7 +79,7 @@
 				if(isobj(infecting_human.wear_suit))
 					passed = prob(100-infecting_human.wear_suit.get_armor_rating(BIO))
 				if(passed && isobj(infecting_human.w_uniform))
-					passed = prob(94-infecting_human.w_uniform.get_armor_rating(BIO))
+					passed = prob(100-infecting_human.w_uniform.get_armor_rating(BIO))
 			if(BODY_ZONE_L_ARM, BODY_ZONE_R_ARM)
 				if(isobj(infecting_human.wear_suit) && infecting_human.wear_suit.body_parts_covered&HANDS)
 					passed = prob(100-infecting_human.wear_suit.get_armor_rating(BIO))

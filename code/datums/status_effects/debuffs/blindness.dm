@@ -111,7 +111,7 @@
 	// Knocks 2 seconds off of our duration
 	// If we should be deleted, give a message letting them know
 	var/mob/living/stored_owner = owner
-	if(remove_duration(6 SECONDS))
+	if(remove_duration(2 SECONDS))
 		to_chat(stored_owner, span_green("Your eyes start to feel better!"))
 		return
 

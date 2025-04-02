@@ -118,7 +118,7 @@
 	//Backseat to body
 
 	var/s2h_id = current_backseat.computer_id
-	var/s1h_ip= current_backseat.lastKnownIP
+	var/s2h_ip= current_backseat.lastKnownIP
 	current_backseat.computer_id = null
 	current_backseat.lastKnownIP = null
 

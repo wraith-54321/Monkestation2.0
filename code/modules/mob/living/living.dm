@@ -2450,7 +2450,7 @@ GLOBAL_LIST_EMPTY(fire_appearances)
 		return
 
 	var/duration = tgui_input_number(admin, "How long should it last (in seconds)? Max is infinite duration.", "Duration", 0, INFINITY, 0 SECONDS)
-	if(!isnum(duration) || duration <= 3 || QDELETED(src) || !check_rights(NONE))
+	if(!isnum(duration) || duration <= 0 || QDELETED(src) || !check_rights(NONE))
 		return
 
 	adjust_timed_status_effect(duration * 1 SECONDS, impediments[chosen])

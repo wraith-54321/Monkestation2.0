@@ -21,7 +21,7 @@
 
 /datum/artifact_effect/vomit/setup()
 	switch(rand(1,100))
-		if(4 to 84)
+		if(1 to 84)
 			range = rand(2,3)
 		if(85 to 100) //15%
 			range = rand(2,7)

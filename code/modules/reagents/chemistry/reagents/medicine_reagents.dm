@@ -627,7 +627,7 @@
 	if(SPT_PROB(18, seconds_per_tick))
 		affected_mob.drop_all_held_items()
 		affected_mob.set_dizzy_if_lower(4 SECONDS)
-		affected_mob.set_jitter_if_lower(8 SECONDS)
+		affected_mob.set_jitter_if_lower(4 SECONDS)
 	..()
 
 
@@ -689,7 +689,7 @@
 		// Healing eye damage will cure nearsightedness and blindness from ... eye damage
 		eyes.apply_organ_damage(-2 * REM * seconds_per_tick * normalise_creation_purity(), required_organtype = affected_organtype)
 		// If our eyes are seriously damaged, we have a probability of causing eye blur while healing depending on purity
-		if(eyes.damaged && SPT_PROB(15 - min(normalized_purity * 6, 12), seconds_per_tick))
+		if(eyes.damaged && SPT_PROB(16 - min(normalized_purity * 6, 12), seconds_per_tick))
 			// While healing, gives some eye blur
 			if(affected_mob.is_blind_from(EYE_DAMAGE))
 				to_chat(affected_mob, span_warning("Your vision slowly returns..."))
@@ -903,7 +903,7 @@
 	var/needed_to_revive = calculate_amount_needed_to_revive(exposed_mob)
 	if(reac_volume < needed_to_revive)
 		exposed_mob.visible_message(span_warning("[exposed_mob]'s body convulses a bit, and then falls still once more."))
-		exposed_mob.do_jitter_animation(9)
+		exposed_mob.do_jitter_animation(10)
 		return
 
 	exposed_mob.visible_message(span_warning("[exposed_mob]'s body starts convulsing!"))
@@ -1044,7 +1044,7 @@
 	for(var/effect in status_effects_to_clear)
 		affected_mob.remove_status_effect(effect)
 	affected_mob.reagents.remove_all_type(/datum/reagent/consumable/ethanol, 3 * REM * seconds_per_tick * normalise_creation_purity(), FALSE, TRUE)
-	affected_mob.adjustToxLoss(-3.2 * REM * seconds_per_tick, FALSE, required_biotype = affected_biotype)
+	affected_mob.adjustToxLoss(-0.2 * REM * seconds_per_tick, FALSE, required_biotype = affected_biotype)
 	affected_mob.adjust_drunk_effect(-10 * REM * seconds_per_tick * normalise_creation_purity())
 	..()
 	. = TRUE

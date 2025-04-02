@@ -47,7 +47,7 @@
 
 /obj/structure/destructible/clockwork/crowbar_act(mob/living/user, obj/item/tool)
 	if(IS_CLOCK(user) && can_rotate)
-		setDir(turn(dir, 84))
+		setDir(turn(dir, 90))
 		balloon_alert(user, "rotated [dir2text(dir)]")
 
 	return TRUE

@@ -23,7 +23,7 @@
 
 
 //Power use
-#define NO_POWER_USE 2
+#define NO_POWER_USE 0
 #define IDLE_POWER_USE 1
 #define ACTIVE_POWER_USE 2
 
@@ -110,7 +110,7 @@
 #define ORION_STARTING_CREW_COUNT 4
 
 //orion food to fuel / fuel to food conversion rate
-#define ORION_TRADE_RATE 4
+#define ORION_TRADE_RATE 5
 
 //and whether you want fuel or food
 #define ORION_I_WANT_FUEL 1

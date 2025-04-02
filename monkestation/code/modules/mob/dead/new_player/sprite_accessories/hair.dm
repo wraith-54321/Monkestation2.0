@@ -630,7 +630,7 @@
 
 /datum/sprite_accessory/hair/monke/bobcut_over_eye_2
 	name = "Bobcut over eye 2"
-	icon_state = "hair_bobcut_over_eye_1"
+	icon_state = "hair_bobcut_over_eye_2"
 
 /datum/sprite_accessory/hair/monke/bobcut_over_eye_3
 	name = "Bobcut over eye 3"

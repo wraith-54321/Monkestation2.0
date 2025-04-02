@@ -18,7 +18,7 @@
 	needed_crops = list(/obj/item/food/grown/apple = 20, /obj/item/food/grown/pineapple = 10)
 	needed_reagents = list(/datum/reagent/water = 30, /datum/reagent/consumable/milk = 30, /datum/reagent/consumable/vinegar = 5)
 
-	cargo_valuation = 1099
+	cargo_valuation = 1000
 	brew_time = 1 MINUTES
 
 	brewed_item = /obj/item/food/cheese/wheel

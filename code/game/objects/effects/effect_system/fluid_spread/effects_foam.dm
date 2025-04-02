@@ -443,7 +443,7 @@
 				if(/datum/gas/oxygen, /datum/gas/nitrogen)
 					continue
 				else
-					gases[gas_type][MOLES] = 1
+					gases[gas_type][MOLES] = 0
 		air.garbage_collect()
 
 	for(var/obj/machinery/atmospherics/components/unary/comp in location)

@@ -74,7 +74,7 @@
 */
 
 /obj/item/ammo_casing/a223/rubber
-	name = ".292 rubber bullet casing"
+	name = ".277 rubber bullet casing"
 	desc = "A .277 rubber bullet casing.\
 	<br><br>\
 	<i>RUBBER: Less than lethal ammo. Deals both stamina damage and regular damage.</i>"

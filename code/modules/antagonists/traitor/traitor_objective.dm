@@ -13,7 +13,7 @@
 	/// The maximum progression before this objective cannot appear anymore
 	var/progression_maximum = INFINITY
 	/// The progression that is rewarded from completing this traitor objective. Can either be a list of list(min, max) or a direct value
-	var/progression_reward = 3 MINUTES
+	var/progression_reward = 0 MINUTES
 	/// The telecrystals that are rewarded from completing this traitor objective. Can either be a list of list(min,max) or a direct value
 	var/telecrystal_reward = 0
 	/// TC penalty for failing an objective or cancelling it

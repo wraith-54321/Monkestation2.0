@@ -535,7 +535,7 @@
 		if(EAST)
 			emitter.layer = 4.1
 			user.pixel_x = -14
-			user.pixel_y = 1
+			user.pixel_y = 0
 		if(SOUTHEAST)
 			emitter.layer = 3.9
 			user.pixel_x = -8

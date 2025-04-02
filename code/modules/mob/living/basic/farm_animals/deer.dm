@@ -30,7 +30,7 @@
 	AddElement(/datum/element/footstep, footstep_type = FOOTSTEP_MOB_SHOE)
 	var/time_to_freeze_for = (rand(5, 10) SECONDS)
 	ai_controller.blackboard[BB_STATIONARY_SECONDS] = time_to_freeze_for
-	ai_controller.blackboard[BB_STATIONARY_COOLDOWN] = (time_to_freeze_for * (rand(9, 5)))
+	ai_controller.blackboard[BB_STATIONARY_COOLDOWN] = (time_to_freeze_for * (rand(3, 5)))
 	ai_controller.blackboard[BB_STATIONARY_TARGETS] = stationary_scary_things
 
 /datum/ai_controller/basic_controller/deer

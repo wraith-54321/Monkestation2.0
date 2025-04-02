@@ -969,7 +969,7 @@ generate/load female uniform sprites matching all previously decided variables
 	var/icon/cut_torso_mask = masks[1]
 	var/icon/cut_legs_mask = masks[2]
 	var/icon/lengthen_torso_mask = masks[3]
-	var/icon/lengthen_legs_mask = masks[3]
+	var/icon/lengthen_legs_mask = masks[4]
 	var/icon/lengthen_ankles_mask = masks[5]
 //MONKESTATION EDIT END
 
@@ -993,7 +993,7 @@ generate/load female uniform sprites matching all previously decided variables
 			appearance.add_filters(list(
 				list(
 					"name" = "Monkey_Gnome_Cut_Torso",
-					"priority" = 4,
+					"priority" = 1,
 					"params" = displacement_map_filter(cut_torso_mask, x = 0, y = adjust_y, size = 3),
 				),
 				list(

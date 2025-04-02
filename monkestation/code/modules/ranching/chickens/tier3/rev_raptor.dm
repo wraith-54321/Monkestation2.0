@@ -8,7 +8,7 @@
 
 	ai_controller = /datum/ai_controller/chicken/hostile
 	health = 150
-	maxHealth = 98
+	maxHealth = 100
 	melee_damage_upper = 6
 	melee_damage_lower = 2
 	obj_damage = 10

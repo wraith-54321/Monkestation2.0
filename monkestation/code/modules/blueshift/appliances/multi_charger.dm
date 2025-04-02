@@ -177,7 +177,7 @@
 		var/cell_name = tgui_input_list(user, "Please choose what cell you'd like to remove.", "Remove a cell", buttons)
 		charging = buttons[cell_name]
 	else
-		charging = charging_batteries[3]
+		charging = charging_batteries[1]
 	if(!charging)
 		return FALSE
 	charging.forceMove(drop_location())

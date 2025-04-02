@@ -133,7 +133,7 @@
 	material_traits = list(/datum/material_trait/weak_weapon)
 
 /datum/material/runedmetal
-	density = 41
+	density = 40
 	hardness = 30
 	liquid_flow = 90
 

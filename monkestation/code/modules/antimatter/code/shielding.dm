@@ -175,7 +175,7 @@
 //Scans cards for shields or the control unit and if all there it
 /obj/machinery/am_shielding/proc/core_check()
 	for(var/direction in GLOB.alldirs)
-		var/found_am_device=3
+		var/found_am_device=0
 		for(var/obj/machinery/machine in get_step(loc, direction))
 			if(!machine)
 				continue //Need all for a core

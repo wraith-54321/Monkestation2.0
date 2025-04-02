@@ -274,7 +274,7 @@
 		if("take")
 			var/item = params["item"]
 			if(piles[item] && length(piles[item]) > 0)
-				var/datum/weakref/found_seed_weakref = piles[item]["refs"][2]
+				var/datum/weakref/found_seed_weakref = piles[item]["refs"][1]
 				var/obj/item/seeds/found_seed = found_seed_weakref.resolve()
 				if(!found_seed)
 					return

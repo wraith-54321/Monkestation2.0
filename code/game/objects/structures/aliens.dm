@@ -127,7 +127,7 @@
  * Weeds
  */
 
-#define NODERANGE 2
+#define NODERANGE 3
 
 /obj/structure/alien/weeds
 	gender = PLURAL

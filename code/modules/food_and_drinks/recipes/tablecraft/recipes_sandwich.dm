@@ -57,7 +57,7 @@
 	reqs = list(
 		/datum/reagent/consumable/ketchup = 5,
 		/obj/item/food/bun = 1,
-		/obj/item/food/sausage = 4
+		/obj/item/food/sausage = 1
 	)
 	result = /obj/item/food/hotdog
 	category = CAT_SANDWICH

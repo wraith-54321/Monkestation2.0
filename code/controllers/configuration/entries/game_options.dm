@@ -53,7 +53,7 @@
 /datum/config_entry/flag/disable_warops
 
 /datum/config_entry/number/traitor_scaling_coeff //how much does the amount of players get divided by to determine traitors
-	default = 5
+	default = 6
 	integer = FALSE
 	min_val = 0
 

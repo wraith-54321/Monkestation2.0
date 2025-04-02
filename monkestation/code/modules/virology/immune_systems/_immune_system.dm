@@ -88,7 +88,7 @@
 	to_chat(host, span_danger("A terrible fever assails your host, you feel ill as your immune system kicks into overdrive to drive away your infections."))
 	if (ishuman(host))
 		var/mob/living/carbon/human/H = host
-		H.vomit(1,1)//hope you're wearing a biosuit or you'll get reinfected from your vomit, lol
+		H.vomit(0,1)//hope you're wearing a biosuit or you'll get reinfected from your vomit, lol
 	for(var/ID in host.diseases)
 		var/datum/disease/acute/D = host.diseases[ID]
 		D.cure(target = host)
@@ -170,7 +170,7 @@
 			tally *= boost
 
 			if (antibodies[A] < 69)
-				antibodies[A] = min(antibodies[A] + tally * strength, 68)
+				antibodies[A] = min(antibodies[A] + tally * strength, 70)
 			else
 				if(strength < 0.7) //stop trying at all once below 70% strength and above 70% antibodies
 					return

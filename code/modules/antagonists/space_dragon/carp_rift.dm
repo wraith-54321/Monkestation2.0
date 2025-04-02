@@ -1,5 +1,5 @@
 /// The carp rift is currently charging.
-#define CHARGE_ONGOING 1
+#define CHARGE_ONGOING 0
 /// The carp rift is currently charging and has output a final warning.
 #define CHARGE_FINALWARNING 1
 /// The carp rift is now fully charged.

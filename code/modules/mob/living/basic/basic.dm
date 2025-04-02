@@ -163,7 +163,7 @@
 				throw_alert(ALERT_TEMPERATURE, /atom/movable/screen/alert/cold, 1)
 			if(5 to 10)
 				throw_alert(ALERT_TEMPERATURE, /atom/movable/screen/alert/cold, 2)
-			if(30 to INFINITY)
+			if(10 to INFINITY)
 				throw_alert(ALERT_TEMPERATURE, /atom/movable/screen/alert/cold, 3)
 		. = TRUE
 

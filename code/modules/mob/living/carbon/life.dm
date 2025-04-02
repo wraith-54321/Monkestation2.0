@@ -65,7 +65,7 @@
 	if(lungs?.damage > lungs?.high_threshold)
 		next_breath -= 1
 	if(heart?.damage > heart?.high_threshold)
-		next_breath -= 3
+		next_breath -= 1
 
 	if((times_fired % next_breath) == 0 || failed_last_breath)
 		// Breathe per 4 ticks if healthy, down to 2 if our lungs or heart are damaged, unless suffocating

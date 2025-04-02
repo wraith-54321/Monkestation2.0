@@ -100,7 +100,7 @@
 	desc = "A basic energy-based laser carbine that fires concentrated beams of light which pass through glass and thin metal."
 
 /obj/item/gun/energy/laser/carbine
-	name = "\improper Allstar SC-4A laser auto-carbine"
+	name = "\improper Allstar SC-1A laser auto-carbine"
 	desc = "An basic energy-based laser auto-carbine that rapidly fires weakened, concentrated beams of light which pass through glass and thin metal."
 
 /obj/item/gun/energy/e_gun

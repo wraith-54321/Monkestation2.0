@@ -96,7 +96,7 @@
 	if(stat == DEAD || isnull(environment) || isnull(environment.gases[/datum/gas/miasma]))
 		return
 	var/miasma_percentage = environment.gases[/datum/gas/miasma][MOLES] / environment.total_moles()
-	if(miasma_percentage >= 2.25)
+	if(miasma_percentage >= 0.25)
 		heal_bodypart_damage(1)
 
 /// Triggers an alert to all ghosts that the rat has become player controlled.

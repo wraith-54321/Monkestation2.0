@@ -46,7 +46,7 @@ TODO LIST:
 
 /**
  * Plasma extraction machine pipe
- * There's 2 of these on each plasma extraction machine, one of which is the owner of the rest.
+ * There's 3 of these on each plasma extraction machine, one of which is the owner of the rest.
  */
 /obj/structure/plasma_extraction_hub/part/pipe
 	name = "starting pipe location"

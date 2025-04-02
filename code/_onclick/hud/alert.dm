@@ -723,7 +723,7 @@ or shoot a gun to move around via Newton's 3rd Law of Motion."
 			icon_state = "arrow4"
 		if(37 to 43)
 			icon_state = "arrow3"
-		if(42 to 50)
+		if(44 to 50)
 			icon_state = "arrow2"
 		if(51 to 57)
 			icon_state = "arrow1"

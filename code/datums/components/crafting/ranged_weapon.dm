@@ -257,7 +257,7 @@
 	result = /obj/item/gun/ballistic/rifle/boltaction/pipegun/prime
 	reqs = list(
 		/obj/item/gun/ballistic/rifle/boltaction/pipegun = 1,
-		/obj/item/food/deadmouse = 4,
+		/obj/item/food/deadmouse = 1,
 		/datum/reagent/consumable/grey_bull = 20,
 		/obj/item/spear = 1,
 		/obj/item/storage/toolbox = 1,

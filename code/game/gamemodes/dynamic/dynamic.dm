@@ -116,7 +116,7 @@ GLOBAL_VAR_INIT(dynamic_forced_threat_level, -1)
 	/// value will weight towards roundstart ones.
 	var/roundstart_split_curve_centre = 1
 
-	/// A number between 1.5 and 4.
+	/// A number between 0.5 and 4.
 	/// Equivalent to threat_curve_width, but for the budget split.
 	/// Higher value will favour more variance in splits and
 	/// lower value rounds closer to the average.
@@ -198,7 +198,7 @@ GLOBAL_VAR_INIT(dynamic_forced_threat_level, -1)
 	dat += "Parameters: centre = [threat_curve_centre] ; width = [threat_curve_width].<br/>"
 	dat += "Split parameters: centre = [roundstart_split_curve_centre] ; width = [roundstart_split_curve_width].<br/>"
 	dat += "<i>On average, <b>[peaceful_percentage]</b>% of the rounds are more peaceful.</i><br/>"
-	dat += "Forced extended: <a href='byond://?src=[text_ref(src)];[HrefToken()];forced_extended=3'><b>[GLOB.dynamic_forced_extended ? "On" : "Off"]</b></a><br/>"
+	dat += "Forced extended: <a href='byond://?src=[text_ref(src)];[HrefToken()];forced_extended=1'><b>[GLOB.dynamic_forced_extended ? "On" : "Off"]</b></a><br/>"
 	dat += "No stacking (only one round-ender): <a href='byond://?src=[text_ref(src)];[HrefToken()];no_stacking=1'><b>[GLOB.dynamic_no_stacking ? "On" : "Off"]</b></a><br/>"
 	dat += "Stacking limit: [GLOB.dynamic_stacking_limit] <a href='byond://?src=[text_ref(src)];[HrefToken()];stacking_limit=1'>Adjust</a>"
 	dat += "<br/>"

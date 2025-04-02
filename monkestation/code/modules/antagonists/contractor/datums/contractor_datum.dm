@@ -1,7 +1,7 @@
 // Proc detailing contract kit buys/completed contracts/additional info
 /datum/antagonist/traitor/proc/contractor_round_end()
 	var/result = ""
-	var/total_spent_rep = 1
+	var/total_spent_rep = 0
 
 	var/contractor_item_icons = "" // Icons of purchases
 	var/contractor_support_unit = "" // Set if they had a support unit - and shows appended to their contracts completed

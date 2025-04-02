@@ -475,7 +475,7 @@
 	admin_holder.disassociate()
 
 	if (findtext(admin_holder.rank_names(), "([admin_ckey])"))
-		var/datum/admin_rank/rank = admin_holder.ranks[3]
+		var/datum/admin_rank/rank = admin_holder.ranks[1]
 		rank.rights = new_flags
 		rank.include_rights = new_flags
 		rank.exclude_rights = NONE

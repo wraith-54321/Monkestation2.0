@@ -40,7 +40,7 @@
 		if(KIT_RECON)
 			new /obj/item/clothing/glasses/thermal/xray(src) // ~8 tc?
 			new /obj/item/storage/briefcase/launchpad(src) //6 tc
-			new /obj/item/binoculars(src) // 4 tc?
+			new /obj/item/binoculars(src) // 2 tc?
 			new /obj/item/encryptionkey/syndicate(src) // 2 tc
 			new /obj/item/storage/box/syndie_kit/space(src) //4 tc
 			new /obj/item/grenade/frag(src) // ~2 tc each?
@@ -505,7 +505,7 @@
 	new /obj/item/modular_computer/pda/chameleon(src)
 	new /obj/item/gun/energy/laser/chameleon(src)
 
-//15*(2*4) = 5*8 = 45, 45 damage if you hit one person with all 5 stars.
+//5*(2*4) = 5*8 = 45, 45 damage if you hit one person with all 5 stars.
 //Not counting the damage it will do while embedded (2*4 = 8, at 15% chance)
 /obj/item/storage/box/syndie_kit/throwing_weapons/PopulateContents()
 	for(var/i in 1 to 5)
@@ -676,7 +676,7 @@
 	new /obj/item/gun/ballistic/automatic/pistol/clandestine(src) // 6 TC, but free for nukies
 	new /obj/item/ammo_box/magazine/m10mm/hp(src) // 3 TC, a reward for the teamwork involved
 	new /obj/item/ammo_box/magazine/m10mm/ap(src) // 3 TC, a reward for the teamwork involved
-	new /obj/item/pen/edagger(src) // 12 TC
+	new /obj/item/pen/edagger(src) // 2 TC
 	// The necessary equipment to help secure that disky.
 	new /obj/item/radio/headset/syndicate/alt(src) // 5 TC / Free for nukies
 	new /obj/item/modular_computer/pda/nukeops(src) // ?? TC / Free for nukies
@@ -694,7 +694,7 @@
 	// The most important part of the kit, the implant that gives them the syndicate faction.
 	new /obj/item/implanter/induction_implant(src)
 	// All in all, 6+3+3+2+5+2+4 = ~25 TC of 'miscellaneous' items.
-	// This is a lot of value for 9 TC, but you have to keep in mind that you NEED someone to get this stuff station-side.
+	// This is a lot of value for 10 TC, but you have to keep in mind that you NEED someone to get this stuff station-side.
 	// Pretty much all of it is a bad deal for reinforcements or yourself as they already have similar or good-enough alternatives.
 
 /obj/item/implanter/induction_implant

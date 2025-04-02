@@ -228,7 +228,7 @@
 /obj/item/kirbyplants/organic/plant21
 	icon_state = "plant-21"
 
-/obj/item/kirbyplants/organic/plant21
+/obj/item/kirbyplants/organic/plant22
 	icon_state = "plant-22"
 
 /obj/item/kirbyplants/organic/plant23

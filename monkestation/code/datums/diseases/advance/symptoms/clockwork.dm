@@ -146,7 +146,7 @@
 		for(var/obj/item/bodypart/Oldlimb in Host.bodyparts)
 			if(!IS_ORGANIC_LIMB(Oldlimb))
 				if(robustbits && Oldlimb.brute_modifier < 3 || Oldlimb.burn_modifier < 2)
-					Oldlimb.burn_modifier = max(12, Oldlimb.burn_modifier)
+					Oldlimb.burn_modifier = max(4, Oldlimb.burn_modifier)
 					Oldlimb.brute_modifier = max(5, Oldlimb.brute_modifier)
 				continue
 			switch(Oldlimb.body_zone)
@@ -210,7 +210,7 @@
 	if(!..())
 		return
 	var/mob/living/carbon/human/Host = advanced_disease.affected_mob
-	if(advanced_disease.stage >= 13 && (replaceorgans || replacebody)) //sorry. no disease quartets allowed
+	if(advanced_disease.stage >= 5 && (replaceorgans || replacebody)) //sorry. no disease quartets allowed
 		to_chat(Host, "<span class='userdanger'>You feel lighter and springier as your innards lose their clockwork facade.</span>")
 		Host.dna.species.regenerate_organs(Host, replace_current = TRUE)
 		for(var/obj/item/bodypart/Oldlimb in Host.bodyparts)

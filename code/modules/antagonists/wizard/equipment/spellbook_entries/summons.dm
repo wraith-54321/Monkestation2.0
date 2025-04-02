@@ -29,7 +29,7 @@
 
 /datum/spellbook_entry/summon/guns/buy_spell(mob/living/carbon/human/user, obj/item/spellbook/book, log_buy = TRUE)
 	summon_guns(user, 10)
-	playsound(get_turf(user), 'sound/magic/castsummon.ogg', 46, TRUE)
+	playsound(get_turf(user), 'sound/magic/castsummon.ogg', 50, TRUE)
 	return ..()
 
 /datum/spellbook_entry/summon/magic

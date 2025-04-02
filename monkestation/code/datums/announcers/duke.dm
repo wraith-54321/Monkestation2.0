@@ -2,7 +2,7 @@
 /datum/centcom_announcer/duke
 	welcome_sounds = list('monkestation/sound/ai/duke/welcome/bonus1.ogg',
 						'monkestation/sound/ai/duke/welcome/welcome1.ogg',
-						'monkestation/sound/ai/duke/welcome/welcome1.ogg')
+						'monkestation/sound/ai/duke/welcome/welcome2.ogg')
 
 	alert_sounds = list('monkestation/sound/ai/duke/alerts/bonus2.ogg',
 						'monkestation/sound/ai/duke/alerts/headsup1.ogg',

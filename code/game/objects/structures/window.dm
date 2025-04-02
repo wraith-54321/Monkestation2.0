@@ -429,7 +429,7 @@
 
 
 	var/ratio = atom_integrity / max_integrity
-	ratio = CEILING(ratio*3, 1) * 25
+	ratio = CEILING(ratio*4, 1) * 25
 	cut_overlay(crack_overlay)
 	if(ratio > 75)
 		return
@@ -617,7 +617,7 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/structure/window/reinforced/unanchored/spawner,
 	. = ..()
 	RemoveElement(/datum/element/atmos_sensitive)
 
-MAPPING_DIRECTIONAL_HELPERS(/obj/structure/window/plasma/spawner, 2)
+MAPPING_DIRECTIONAL_HELPERS(/obj/structure/window/plasma/spawner, 0)
 
 /obj/structure/window/plasma/unanchored
 	anchored = FALSE

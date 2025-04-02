@@ -3,7 +3,7 @@
 	desc = "The PlasmaCore-6e is the newest gun in Nanotrasen's cutting edge line of laser weaponry. Featuring an experimental plasma based cell that can be mechanically recharged. Glory to Nanotrasen."
 	icon = 'monkestation/icons/obj/weapons/guns/plasmacoresixe.dmi'
 	icon_state = "plasma_core_six"
-	charge_sections = 18
+	charge_sections = 6
 	cell_type = /obj/item/stock_parts/cell/plasmacore
 	w_class = WEIGHT_CLASS_NORMAL
 	ammo_type = list(/obj/item/ammo_casing/energy/laser/hellfire)

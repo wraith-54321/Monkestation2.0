@@ -25,6 +25,6 @@
 		lightCycle++
 		addtimer(CALLBACK(src, PROC_REF(lightUp)), 0.5 SECONDS)
 	else
-		lightCycle = 2
+		lightCycle = 0
 		active = FALSE
 		set_light_on(active)

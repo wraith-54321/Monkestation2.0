@@ -11,7 +11,7 @@
 	melee = 30
 	bullet = 50
 	laser = 30
-	energy = 43
+	energy = 40
 	bomb = 30
 	bio = 30
 	fire = 60

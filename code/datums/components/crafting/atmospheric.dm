@@ -323,7 +323,7 @@
 	result = /obj/item/pipe/directional/he_exchanger
 	reqs = list(
 		/obj/item/pipe = 1,
-		/obj/item/stack/sheet/plasteel = 3,
+		/obj/item/stack/sheet/plasteel = 1,
 	)
 	time = 2 SECONDS
 	category = CAT_ATMOSPHERIC

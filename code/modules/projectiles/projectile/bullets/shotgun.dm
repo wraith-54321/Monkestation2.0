@@ -69,7 +69,7 @@
 /obj/projectile/bullet/shotgun_stunslug
 	name = "stunslug"
 	damage = 5
-	paralyze = 99
+	paralyze = 100
 	stutter = 10 SECONDS
 	jitter = 40 SECONDS
 	range = 7

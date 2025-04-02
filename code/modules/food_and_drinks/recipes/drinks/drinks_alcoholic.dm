@@ -315,7 +315,7 @@
 
 /datum/chemical_reaction/drink/hippiesdelight
 	results = list(/datum/reagent/consumable/ethanol/hippies_delight = 2)
-	required_reagents = list(/datum/reagent/drug/mushroomhallucinogen = 2, /datum/reagent/consumable/ethanol/gargle_blaster = 1)
+	required_reagents = list(/datum/reagent/drug/mushroomhallucinogen = 1, /datum/reagent/consumable/ethanol/gargle_blaster = 1)
 	reaction_tags = REACTION_TAG_DRINK | REACTION_TAG_EASY | REACTION_TAG_OTHER
 
 /datum/chemical_reaction/drink/bananahonk

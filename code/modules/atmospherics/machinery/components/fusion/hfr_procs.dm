@@ -46,7 +46,7 @@
 				. = FALSE
 			linked_interface = object
 
-	for(var/obj/machinery/atmospherics/components/unary/hypertorus/object in orange(4,src))
+	for(var/obj/machinery/atmospherics/components/unary/hypertorus/object in orange(1,src))
 		if(. == FALSE)
 			break
 

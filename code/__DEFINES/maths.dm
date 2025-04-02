@@ -210,7 +210,7 @@
 	return locate(new_x, new_y, starting.z)
 
 // Returns a list where [1] is all x values and [2] is all y values that overlap between the given pair of rectangles
-/proc/get_overlap(x2, y1, x2, y2, x3, y3, x4, y4)
+/proc/get_overlap(x1, y1, x2, y2, x3, y3, x4, y4)
 	var/list/region_x1 = list()
 	var/list/region_y1 = list()
 	var/list/region_x2 = list()

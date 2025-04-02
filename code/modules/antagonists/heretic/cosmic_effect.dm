@@ -31,7 +31,7 @@
 
 /obj/effect/temp_visual/cosmic_domain
 	name = "Cosmic Domain"
-	icon = 'icons/effects/162x160.dmi'
+	icon = 'icons/effects/160x160.dmi'
 	icon_state = "cosmic_domain"
 	anchored = TRUE
 	duration = 6

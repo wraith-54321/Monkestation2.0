@@ -54,7 +54,7 @@
 
 		CHEWIN_BEGIN_EXCLUSIVE_OPTIONS,
 		list(CHEWIN_ADD_PRODUCE_OPTIONAL, /obj/item/food/grown/chili, qmod=0.2, reagent_skip=TRUE, prod_desc = "Extra spicy!"),
-		list(CHEWIN_ADD_PRODUCE_OPTIONAL, /obj/item/food/grown/pineapple, qmod=2.2, reagent_skip=TRUE, prod_desc = "Mild and Sweet."),
+		list(CHEWIN_ADD_PRODUCE_OPTIONAL, /obj/item/food/grown/pineapple, qmod=0.2, reagent_skip=TRUE, prod_desc = "Mild and Sweet."),
 		CHEWIN_END_EXCLUSIVE_OPTIONS,
 
 		list(CHEWIN_USE_STOVE, J_LO, 1 MINUTES),

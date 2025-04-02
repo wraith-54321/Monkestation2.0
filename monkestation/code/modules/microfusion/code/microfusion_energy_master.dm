@@ -346,7 +346,7 @@
 
 	//Vary by at least this much
 	var/randomized_bonus_spread = rand(base_bonus_spread, bonus_spread)
-	var/randomized_gun_spread = spread ? rand(2, spread) : 0
+	var/randomized_gun_spread = spread ? rand(0, spread) : 0
 	var/total_random_spread = max(0, randomized_bonus_spread + randomized_gun_spread)
 	var/burst_spread_mult = rand()
 

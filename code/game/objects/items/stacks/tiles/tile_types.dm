@@ -933,7 +933,7 @@
 	amount = 10
 
 /obj/item/stack/tile/carpet/neon/simple/cyan/nodots/thirty
-	amount = 28
+	amount = 30
 
 /obj/item/stack/tile/carpet/neon/simple/cyan/nodots/sixty
 	amount = 60

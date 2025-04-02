@@ -191,7 +191,7 @@ Warning the icebox version is being overridden in monkestation/code/modules/mob/
 			if(target)
 				shockwave.original = target
 			shockwave.fire()
-	update_cooldowns(list(COOLDOWN_UPDATE_SET_MELEE = 3 SECONDS, COOLDOWN_UPDATE_SET_RANGED = 0 SECONDS))
+	update_cooldowns(list(COOLDOWN_UPDATE_SET_MELEE = 0 SECONDS, COOLDOWN_UPDATE_SET_RANGED = 0 SECONDS))
 
 /mob/living/simple_animal/hostile/megafauna/wendigo/proc/teleport(range = 6)
 	var/list/possible_ends = view(range, target.loc) - view(range - 1, target.loc)

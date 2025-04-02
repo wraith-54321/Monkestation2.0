@@ -965,7 +965,7 @@
 
 						// creates a new selected equipment datum using a type gotten from the given equipment type via SSopposing_force.equipment_list
 						var/datum/opposing_force_selected_equipment/opfor_equipment = select_equipment(importer, \
-						locate(text1path(equipment["equipment_parent_type"])) in SSopposing_force.equipment_list[equipment["equipment_parent_category"]])
+						locate(text2path(equipment["equipment_parent_type"])) in SSopposing_force.equipment_list[equipment["equipment_parent_category"]])
 
 						if(!opfor_equipment)
 							continue

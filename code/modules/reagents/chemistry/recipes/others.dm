@@ -241,7 +241,7 @@
 /datum/chemical_reaction/mix_virus/mix_virus_2
 	required_reagents = list(/datum/reagent/toxin/mutagen = 1)
 	level_min = 2
-	level_max = 12
+	level_max = 4
 
 /datum/chemical_reaction/mix_virus/mix_virus_3
 	required_reagents = list(/datum/reagent/toxin/plasma = 1)
@@ -518,7 +518,7 @@
 	required_reagents = list(/datum/reagent/carpet = 1, /datum/reagent/consumable/tinlux = 1, /datum/reagent/medicine/c2/helbital = 1)
 
 /datum/chemical_reaction/carpet/simple_neon_pink
-	results = list(/datum/reagent/carpet/neon/simple_pink = 10)
+	results = list(/datum/reagent/carpet/neon/simple_pink = 2)
 	required_reagents = list(/datum/reagent/carpet = 1, /datum/reagent/consumable/tinlux = 1, /datum/reagent/impedrezene = 1)
 
 /datum/chemical_reaction/carpet/simple_neon_black
@@ -732,7 +732,7 @@
 	new /obj/item/slime_extract/grey(location)
 
 /datum/chemical_reaction/metalgen_imprint
-	required_reagents = list(/datum/reagent/metalgen = 4, /datum/reagent/liquid_dark_matter = 1)
+	required_reagents = list(/datum/reagent/metalgen = 1, /datum/reagent/liquid_dark_matter = 1)
 	results = list(/datum/reagent/metalgen = 1)
 
 	reaction_tags = REACTION_TAG_EASY | REACTION_TAG_UNIQUE

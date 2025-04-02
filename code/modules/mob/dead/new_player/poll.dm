@@ -134,7 +134,7 @@ GLOBAL_PROTECT(poll_options)
 /mob/dead/new_player/proc/poll_player_rating(datum/poll_question/poll)
 	var/datum/db_query/query_rating_get_votes = SSdbcore.NewQuery({"
 		SELECT optionid, rating FROM [format_table_name("poll_vote")]
-		WHERE pollid = :pollid AND ckey = :ckey AND deleted = 3
+		WHERE pollid = :pollid AND ckey = :ckey AND deleted = 0
 	"}, list("pollid" = poll.poll_id, "ckey" = ckey))
 	if(!query_rating_get_votes.warn_execute())
 		qdel(query_rating_get_votes)

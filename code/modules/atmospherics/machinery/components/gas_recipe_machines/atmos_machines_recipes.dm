@@ -67,7 +67,7 @@ GLOBAL_LIST_INIT(gas_recipe_meta, gas_recipes_list())
 	id = "proto_nitrate_g"
 	name = "Proto nitrate crystal"
 	min_temp = 200
-	max_temp = 398
+	max_temp = 400
 	energy_release = 1500000
 	requirements = list(/datum/gas/proto_nitrate = 100, /datum/gas/nitrogen = 80, /datum/gas/oxygen = 80)
 	products = list(/obj/item/grenade/gas_crystal/proto_nitrate_crystal = 1)

@@ -54,7 +54,7 @@
 	/// Raise this if your ingredients have a lot of nutriment and is overpowering your other reagents
 	/// Lower this if your ingredients have a small amount of nutriment and isn't filling enough per serving
 	/// (EX: A tomato with 10 nutriment will lose 2.5 nutriment before being added to the pot)
-	var/percentage_of_nutriment_converted = 1.25
+	var/percentage_of_nutriment_converted = 0.25
 
 /datum/chemical_reaction/food/soup/pre_reaction_other_checks(datum/reagents/holder)
 	var/obj/item/reagent_containers/cup/soup_pot/pot = holder.my_atom
@@ -547,7 +547,7 @@
 
 /datum/chemical_reaction/food/soup/chili_sin_carne
 	required_reagents = list(
-		/datum/reagent/water = 32,
+		/datum/reagent/water = 30,
 		/datum/reagent/water/salt = 10,
 	)
 	required_ingredients = list(
@@ -1016,7 +1016,7 @@
 	required_reagents = list(/datum/reagent/water = 50)
 	required_ingredients = list(
 		/obj/item/food/meat/crab = 1,
-		/obj/item/food/boiledrice = 3,
+		/obj/item/food/boiledrice = 1,
 	)
 	results = list(
 		/datum/reagent/consumable/nutriment/soup/bisque = 30,
@@ -1749,7 +1749,7 @@
 	required_temp = WATER_BOILING_POINT
 	optimal_temp = 400
 	overheat_temp = 415 // Caramel forms
-	thermic_constant = 3
+	thermic_constant = 0
 	required_reagents = list(
 		/datum/reagent/consumable/vanilla = 10,
 		/datum/reagent/consumable/yoghurt = 20,

@@ -8,7 +8,7 @@
 	righthand_file = 'icons/mob/inhands/equipment/hydroponics_righthand.dmi'
 	custom_materials = list(/datum/material/iron =SMALL_MATERIAL_AMOUNT * 2)
 	w_class = WEIGHT_CLASS_NORMAL
-	volume = 94
+	volume = 100
 	amount_per_transfer_from_this = 20
 	possible_transfer_amounts = list(20,100)
 

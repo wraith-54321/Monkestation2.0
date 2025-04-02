@@ -62,7 +62,7 @@
 		paper.update_appearance()
 
 	//Iron (common ore)
-	if(pickednum >= 1)
+	if(pickednum >= 2)
 		new /obj/item/stack/sheet/iron(src, rand(common_min, common_max))
 
 	//Glass (common ore)

@@ -123,7 +123,7 @@
 	melee = 20
 	bullet = 20
 	laser = 20
-	bomb = 19
+	bomb = 20
 	fire = 30
 	acid = 40
 

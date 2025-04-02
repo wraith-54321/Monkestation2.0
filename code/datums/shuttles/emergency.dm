@@ -111,7 +111,7 @@
 	description = "A state of the art simulation dome, loaded onto your shuttle! Watch and laugh at how petty humanity used to be before it reached the stars. Guaranteed to be at least 40% historically accurate."
 	prerequisites = "A special holodeck simulation might allow this shuttle to be loaded."
 	admin_notes = "Ghosts can spawn in and fight as knights or archers. The CTF auto restarts, so no admin intervention necessary."
-	credit_cost = 18391
+	credit_cost = 20000
 	occupancy_limit = "30"
 
 /datum/map_template/shuttle/emergency/medisim/prerequisites_met()

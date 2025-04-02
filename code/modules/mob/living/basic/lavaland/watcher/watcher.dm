@@ -81,7 +81,7 @@
 	icon_living = "watcher_magmawing"
 	icon_dead = "watcher_magmawing_dead"
 	eye_glow = "fire_glow"
-	maxHealth = 164 //Compensate for the lack of slowdown on projectiles with a bit of extra health
+	maxHealth = 175 //Compensate for the lack of slowdown on projectiles with a bit of extra health
 	health = 175
 	projectile_type = /obj/projectile/temp/watcher/magma_wing
 	gaze_attack = /datum/action/cooldown/mob_cooldown/watcher_gaze/fire
@@ -101,4 +101,4 @@
 	gaze_attack = /datum/action/cooldown/mob_cooldown/watcher_gaze/ice
 	butcher_results = list(/obj/item/stack/ore/diamond = 5, /obj/item/stack/sheet/bone = 1)
 	crusher_loot = /obj/item/crusher_trophy/watcher_wing/ice_wing
-	crusher_drop_chance = 109
+	crusher_drop_chance = 100

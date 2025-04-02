@@ -44,7 +44,7 @@
 		balloon_alert(user, "open it first!")
 		return TRUE
 
-	if(!tool.use_tool(src, user, 37, volume=50))
+	if(!tool.use_tool(src, user, 40, volume=50))
 		return TRUE
 
 	new /obj/item/stack/sheet/iron(drop_location(), 2)

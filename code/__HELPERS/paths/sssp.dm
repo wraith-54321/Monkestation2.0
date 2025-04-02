@@ -181,7 +181,7 @@
 	for(var/index in 1 to length(distances))
 		var/turf/next_turf = next_closest[index]
 		var/list/path = get_path_from(next_turf)
-		if(length(path) != distances[index] + 2)
+		if(length(path) != distances[index] + 1)
 			stack_trace("[next_turf] had a distance of [length(path)] instead of the expected [distances[index]]")
 		if(path.Find(next_turf) != 1)
 			stack_trace("Starting turf [next_turf] was not the first entry in its list (instead it's at [path.Find(next_turf)])")

@@ -86,7 +86,7 @@
 		/obj/item/slime_extract/blue = 1,
 		/obj/item/slime_extract/metal = 1,
 		/obj/item/slime_extract/yellow = 1,
-		/obj/item/slime_extract/darkblue = 2,
+		/obj/item/slime_extract/darkblue = 1,
 		/obj/item/slime_extract/darkpurple = 1,
 		/obj/item/slime_extract/silver = 1,
 	)

@@ -64,7 +64,7 @@
 		"harm_7" = 1,
 		"harm_8" = 1,
 		"harm_9" = 2, //harm theme specific
-		"harm_9" = 2, //harm theme specific
+		"harm_10" = 2, //harm theme specific
 	)
 
 /particles/musical_notes/sleepy

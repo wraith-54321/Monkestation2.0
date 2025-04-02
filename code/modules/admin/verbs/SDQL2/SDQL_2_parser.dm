@@ -87,7 +87,7 @@
 
 /datum/sdql_parser/proc/parse()
 	tree = list()
-	query_options(2, tree)
+	query_options(1, tree)
 
 	if(error)
 		return list()

@@ -11,7 +11,7 @@
 	complexity = 3
 	use_power_cost = DEFAULT_CHARGE_DRAIN * 3
 	incompatible_modules = list(/obj/item/mod/module/anomaly_locked/kinesis)
-	cooldown_time = 3.5 SECONDS
+	cooldown_time = 0.5 SECONDS
 	overlay_state_inactive = "module_kinesis"
 	overlay_state_active = "module_kinesis_on"
 	accepted_anomalies = list(/obj/item/assembly/signaler/anomaly/grav)

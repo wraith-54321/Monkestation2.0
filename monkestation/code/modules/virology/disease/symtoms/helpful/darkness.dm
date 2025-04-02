@@ -3,7 +3,7 @@
 	desc = "The virus is able to mend the host's flesh when in conditions of low light, repairing physical damage. More effective against brute damage."
 	max_multiplier = 8
 	stage = 3
-	max_chance = 34
+	max_chance = 33
 	severity = 0
 	var/passive_message = span_notice("You feel tingling on your skin as light passes over it.")
 

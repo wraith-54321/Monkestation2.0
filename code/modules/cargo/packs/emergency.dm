@@ -156,7 +156,7 @@
 /datum/supply_pack/emergency/mothic_rations
 	name = "Surplus Mothic Rations Triple-Pak"
 	desc = "Crew starving? Chef slacking off? Keep everyone fed on the barest minimum of what can be considered food \
-		with surplus ration packs, directly from the Mothic Fleet! Pack includes 9 packs of 3 bars each."
+		with surplus ration packs, directly from the Mothic Fleet! Pack includes 3 packs of 3 bars each."
 	cost = CARGO_CRATE_VALUE * 3
 	contains = list(/obj/item/storage/box/mothic_rations = 3)
 	crate_name = "surplus rations box"
