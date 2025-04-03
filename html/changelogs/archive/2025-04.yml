@@ -8,3 +8,6 @@
   Ice-Type:
   - bugfix: Sleeping carp and awakened dragon now apply stamina damage properly again!
       :)
+2025-04-03:
+  Gw0sty:
+  - rscadd: Adds holiday checks for events that aren't too spammy in their nature
