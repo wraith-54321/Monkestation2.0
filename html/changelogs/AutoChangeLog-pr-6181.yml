@@ -1,4 +1,0 @@
-author: "Absolucy"
-delete-after: True
-changes:
-  - code_imp: "Heavily optimized code related to the roundend process."
