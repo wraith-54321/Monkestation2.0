@@ -1,0 +1,9 @@
+author: "Absolucy"
+delete-after: True
+changes:
+  - bugfix: "The effects of revenant blight shouldn't be much weaker than intended anymore."
+  - balance: "Revenant blight now makes people easier to wound."
+  - balance: "Revenants can now drain stamcritted people."
+  - balance: "Revenant blight now drains sanity."
+  - rscadd: "Revenant blight victims in the final stage will be soft spoken."
+  - code_imp: "The protection from revenant blight after being cured is now a trait, rather than a status effect"
