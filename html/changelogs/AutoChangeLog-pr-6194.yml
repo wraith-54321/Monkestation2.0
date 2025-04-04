@@ -1,0 +1,4 @@
+author: "Absolucy"
+delete-after: True
+changes:
+  - bugfix: "Jukebox and lobby screen music should now play on BYOND 516. Jukeboxes won't have directional audio, however."
