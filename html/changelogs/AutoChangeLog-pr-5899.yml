@@ -1,4 +1,0 @@
-author: "Absolucy"
-delete-after: True
-changes:
-  - rscdel: "Removed the TEG and SM-TEG from Box Station's random engine rotation."

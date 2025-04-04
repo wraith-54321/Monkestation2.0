@@ -1,5 +1,0 @@
-author: "TheMrGlasses"
-delete-after: True
-changes:
-  - rscadd: "Adds rescue hooks to the medical vendor, mining lockers, and mining vendor."
-  - balance: "Changes the price of rescue hooks to a more reasonable 300 credits."

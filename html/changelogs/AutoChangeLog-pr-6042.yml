@@ -1,7 +1,0 @@
-author: "Gw0sty"
-delete-after: True
-changes:
-  - rscadd: "Cassettes can be made on central command"
-  - map: "Icebox surgery is more spacious"
-  - map: "Tramstation no longer has a spaced sealed area in its rock"
-  - bugfix: "Tramstation pet sanctuary apc is no longer disconnected roundstart"
