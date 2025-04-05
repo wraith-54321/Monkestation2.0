@@ -1,0 +1,4 @@
+author: "Absolucy"
+delete-after: True
+changes:
+  - refactor: "The cargo imports console and assault op armaments uplink now use a more efficient method of displaying icons."
