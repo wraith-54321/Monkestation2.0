@@ -60,3 +60,12 @@
   - balance: Changes the price of rescue hooks to a more reasonable 300 credits.
   Wisemonster:
   - rscdel: Removed the stolen CC clothes from the nanotrasen reps closet.
+2025-04-05:
+  Absolucy:
+  - refactor: The cargo imports console and assault op armaments uplink now use a
+      more efficient method of displaying icons.
+  Absolucy, hry-gh:
+  - bugfix: fix chat fixed?
+  Absolucy, timothymtorres:
+  - qol: Add more glasses to the nearsighted pref menu with icons.
+  - qol: Add UI preference menus for AI hologram and status displays.
