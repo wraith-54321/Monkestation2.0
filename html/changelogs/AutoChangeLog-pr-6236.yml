@@ -1,0 +1,4 @@
+author: "Absolucy"
+delete-after: True
+changes:
+  - bugfix: "Replay subsystem initialization should no longer seemingly freeze the server for players waiting in the lobby."
