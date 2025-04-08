@@ -135,6 +135,9 @@
   Guillaume Prata:
   - balance: The Atmospheric MODsuit now comes pre equipped with the quick carry module.
       Go save some lives!
+  Gw0sty:
+  - balance: Research now generates at 1 point per second, all other metrics based
+      on this number follow suite.
   Jacquerel:
   - rscadd: pAIs can be inserted into MODsuits and can control suit modules (but are
       not capable of moving the suit).
