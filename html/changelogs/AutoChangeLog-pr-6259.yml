@@ -1,0 +1,5 @@
+author: "flleeppyy"
+delete-after: True
+changes:
+  - rscadd: "Observe verb"
+  - rscdel: "Replying to mentorhelps via Discord"
