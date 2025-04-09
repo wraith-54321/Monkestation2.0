@@ -1,4 +1,0 @@
-author: "Tostah"
-delete-after: True
-changes:
-  - rscadd: "When something is implanted with a hive node, grant them the ability to speak Xenocommon"
