@@ -197,3 +197,6 @@
   flleeppyy:
   - rscadd: Observe verb
   - rscdel: Replying to mentorhelps via Discord
+2025-04-11:
+  MomoBerri:
+  - bugfix: Mailing on Theseus now works properly.
