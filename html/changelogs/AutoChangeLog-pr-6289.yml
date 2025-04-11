@@ -1,4 +1,0 @@
-author: "Singul0"
-delete-after: True
-changes:
-  - bugfix: "Walls take armor penetration into account now"
