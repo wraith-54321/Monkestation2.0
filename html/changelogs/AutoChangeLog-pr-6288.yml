@@ -1,0 +1,4 @@
+author: "flleeppyy"
+delete-after: True
+changes:
+  - admin: "You can now restart the MC/Failsafe from the discord with /restartcontroller"
