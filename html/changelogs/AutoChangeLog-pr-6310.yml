@@ -1,0 +1,5 @@
+author: "Absolucy"
+delete-after: True
+changes:
+  - bugfix: "Fixed some lighting-related code:"
+  - bugfix: "The admin Break/Fix Lights buttons now don't take half an eternity to complete."
