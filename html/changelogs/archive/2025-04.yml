@@ -226,3 +226,10 @@
   - bugfix: IPC reboot surgery now displays the correct error/complete messages.
   - balance: IPC reboot surgery now requires 5 iron in the step, not 15.
   - bugfix: IPCs now use the correct wings when drinking a flight potion
+2025-04-12:
+  Absolucy:
+  - refactor: Cached generated preview icons for antags, hopefully increasing performance
+  - bugfix: The "Report Bugs" button is red once more.
+  Absolucy, Gaxeer:
+  - refactor: replace bubble sort with timsort for cameralist, move global procs to
+      `cameranet` datum
