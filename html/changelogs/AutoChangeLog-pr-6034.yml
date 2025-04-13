@@ -1,6 +1,0 @@
-author: "Ziiro"
-delete-after: True
-changes:
-  - bugfix: "IPCs now die without a brain"
-  - bugfix: "IPCs are no longer sent to null space in some revival circumstances"
-  - bugfix: "IPC death/revival screen manipulation now checks if they have a screen first."

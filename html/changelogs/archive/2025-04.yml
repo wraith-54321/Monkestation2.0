@@ -301,5 +301,10 @@
       the player panel
   - bugfix: Psyker Zombie no longer has round removing chasms.
   - bugfix: Psyker shuffle has more appriopate totally real crates and preopened ones.
+  Ziiro:
+  - bugfix: IPCs now die without a brain
+  - bugfix: IPCs are no longer sent to null space in some revival circumstances
+  - bugfix: IPC death/revival screen manipulation now checks if they have a screen
+      first.
   flleeppyy:
   - bugfix: change discord verification code format
