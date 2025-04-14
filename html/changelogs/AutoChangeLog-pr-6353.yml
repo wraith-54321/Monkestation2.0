@@ -1,0 +1,4 @@
+author: "Addust"
+delete-after: True
+changes:
+  - bugfix: "the engineering outpost ruin no longer needs all its atmos room windows dismantled in order to keep a PERPETUAL FIRE ALARM from occuring"
