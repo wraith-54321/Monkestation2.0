@@ -1,4 +1,0 @@
-author: "The-Hotline-System"
-delete-after: True
-changes:
-  - bugfix: "Logs now properly display ckeys in regards to fireman carries and piggyback rides."
