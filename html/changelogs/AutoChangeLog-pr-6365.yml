@@ -1,0 +1,4 @@
+author: "Absolucy"
+delete-after: True
+changes:
+  - bugfix: "Fixed the Monster Hunter UI always showing a red X next to objectives, regardless of if they are actually completed or not."
