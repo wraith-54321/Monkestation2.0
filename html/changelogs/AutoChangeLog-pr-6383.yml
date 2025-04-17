@@ -1,0 +1,5 @@
+author: "Absolucy"
+delete-after: True
+changes:
+  - bugfix: "Coffins now protect bloodsuckers from temperature and heat, preventing a potential softlock from being stuck infinitely healing while being damaged, if your coffin was in a superheated room or something."
+  - balance: "Bloodsuckers in torpor while in a coffin will now have their body temperature rapidly stabilized."
