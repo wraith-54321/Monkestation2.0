@@ -1,0 +1,5 @@
+author: "Absolucy"
+delete-after: True
+changes:
+  - bugfix: "IPCs, androids, and bloodsuckers can no longer be cloned."
+  - bugfix: "Bloodsuckers can no longer give changelings infinite free absorbs using Veil of Many Faces."
