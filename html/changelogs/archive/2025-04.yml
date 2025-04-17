@@ -370,3 +370,8 @@
   - bugfix: IPCs, androids, and bloodsuckers can no longer be cloned.
   - bugfix: Bloodsuckers can no longer give changelings infinite free absorbs using
       Veil of Many Faces.
+  - bugfix: Coffins now protect bloodsuckers from temperature and heat, preventing
+      a potential softlock from being stuck infinitely healing while being damaged,
+      if your coffin was in a superheated room or something.
+  - balance: Bloodsuckers in torpor while in a coffin will now have their body temperature
+      rapidly stabilized.
