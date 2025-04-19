@@ -1,7 +1,0 @@
-author: "TheColorCyan"
-delete-after: True
-changes:
-  - balance: "Void chill had it's slowdown reduced"
-  - rscadd: "Void chill stacks are now purged by holy water"
-  - rscadd: "Holy water reduces the cooling effect of void storm and void chill"
-  - balance: "Ascension ritual now requires bodies that at any point had a mind."
