@@ -1,0 +1,4 @@
+author: "Absolucy"
+delete-after: True
+changes:
+  - bugfix: "Reverted a previous change to tgui-panel/chat to see if it fixes chat failing to load settings sometimes."
