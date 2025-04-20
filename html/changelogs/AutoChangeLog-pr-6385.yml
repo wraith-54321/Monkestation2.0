@@ -1,4 +1,0 @@
-author: "Addust"
-delete-after: True
-changes:
-  - bugfix: "Whiteships can now land on lavaland without getting obliterated by regrowing rocks."
