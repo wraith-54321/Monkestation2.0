@@ -1,0 +1,6 @@
+author: "Shoddd"
+delete-after: True
+changes:
+  - rscadd: "weeping kudzu trait"
+  - bugfix: "several helio station bugs"
+  - bugfix: "heliostation has a labor camp shuttle again"
