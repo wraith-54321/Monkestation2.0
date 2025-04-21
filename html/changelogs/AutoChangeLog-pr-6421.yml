@@ -1,0 +1,5 @@
+author: "MomoBerri"
+delete-after: True
+changes:
+  - bugfix: "Theseus mail delivery should now work through the disposal chute like proper."
+  - bugfix: "Theseus engineering wiring has been updated, and a new window has been added to make accessing the powernet easier."
