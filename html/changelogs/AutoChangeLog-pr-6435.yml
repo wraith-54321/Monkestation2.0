@@ -1,0 +1,5 @@
+author: "RandomDudeFromTheRim"
+delete-after: True
+changes:
+  - bugfix: "fixed a shuttle respawn exploit"
+  - map: "Added true chasms (no z level stuff), and modified the Medsim shuttle by adding them to it."
