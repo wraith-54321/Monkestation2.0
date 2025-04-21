@@ -434,3 +434,7 @@
   - bugfix: '[Theseus] Fixes a missing disposal tube at evac.'
   Melbert:
   - bugfix: You can't fax unfaxable things by putting them in faxable things
+2025-04-21:
+  RandomDudeFromTheRim:
+  - map: The "Plasma to Pure" pump is now on the right layer on IceBox station. Atmosians
+      rejoice!
