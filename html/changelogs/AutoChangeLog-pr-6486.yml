@@ -1,5 +1,0 @@
-author: "RealityOverseer"
-delete-after: True
-changes:
-  - bugfix: "(distributivgesetz) Fixed a rare bug that let you spam bluespace bodybags everywhere."
-  - bugfix: "(Sealed101) Fixed bluespace bodybags consuming xenomorphs when folded."
