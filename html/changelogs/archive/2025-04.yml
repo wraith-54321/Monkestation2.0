@@ -524,3 +524,17 @@
       racks)
   - qol: Items that are dryable now have examine text for knowing if you can put it
       in a drying rack
+2025-04-27:
+  Absolucy:
+  - admin: Added a warning for admins using the "Shake" VV when doing so might accidentally
+      cause a bunch of lag.
+  - map: Disconnected aux power SMES from Box grid at roundstart.
+  - bugfix: (Maurukas) Removed a power loop on Icebox.
+  - map: (Maurukas) Disconnected aux power SMES from Icebox grid at roundstart.
+  - map: (Maurukas) Removed some power cables connecting Deltastation's aux power
+  - bugfix: (Maurukas) Fixed Tramstation's gravity generator SMES, now functions and
+      charged at roundstart.
+  - map: 'Blueshift: Most major hallways, alongside dorms, have a fully charged 10k
+      power cell in their APCs roundstart now.'
+  - map: 'Blueshift: Engineering spawns with an oxygen canister now.'
+  - map: 'Blueshift: Art Supply Storage''s APC is now properly wired to the grid.'
