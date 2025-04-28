@@ -1,4 +1,0 @@
-author: "Absolucy"
-delete-after: True
-changes:
-  - bugfix: "Fix some jobs (assistant, cargo tech, nt rep, secass) not getting the proper implants during cybernetic revolution."
