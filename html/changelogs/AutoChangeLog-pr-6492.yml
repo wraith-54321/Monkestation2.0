@@ -1,0 +1,5 @@
+author: "Absolucy"
+delete-after: True
+changes:
+  - qol: "Made the output of the genetic sequencer scanner look much better."
+  - qol: "The genetic sequencer scanner now shows genetic stability."
