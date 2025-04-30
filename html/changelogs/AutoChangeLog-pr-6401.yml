@@ -1,5 +1,0 @@
-author: "EssentialTomato"
-delete-after: True
-changes:
-  - rscadd: "Added the ability to research and print artifact zapper boards"
-  - bugfix: "Vatgrown queen bees can now be used in the apiary"
