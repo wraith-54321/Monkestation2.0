@@ -1,0 +1,7 @@
+author: "Ice-Type"
+delete-after: True
+changes:
+  - balance: "Crew printable eyes now are severely flash weak, compared to being identical to standard eyes before."
+  - balance: "All uplinks can now purchase thermal and x-ray eyes. These are not flash weak, unlike the crew versions."
+  - balance: "Thermal eyes now only cost 5TC."
+  - balance: "Thermal eyes now only come with a single use autosurgeon - if you want a reusable one you're going to have to cough up x-ray TC."
