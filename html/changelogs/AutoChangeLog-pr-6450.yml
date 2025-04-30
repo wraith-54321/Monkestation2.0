@@ -1,0 +1,7 @@
+author: "Shoddd"
+delete-after: True
+changes:
+  - bugfix: "veil of many faces now works properly"
+  - balance: "veil of many faces now changes hud status"
+  - balance: "feed now has a message for the person being fed on, increased range people can tell you are feeding"
+  - balance: "Go home power can no longer be used while dead"
