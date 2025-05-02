@@ -1,0 +1,4 @@
+author: "TheMrGlasses"
+delete-after: True
+changes:
+  - balance: "Changed the overall cooldown of the Joker function in genetics, as well as replaced the needed matter bin with a capacitor instead."
