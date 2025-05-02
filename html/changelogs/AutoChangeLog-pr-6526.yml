@@ -1,0 +1,4 @@
+author: "Absolucy"
+delete-after: True
+changes:
+  - bugfix: "Fixed oozelings duping translation gloves and prosthetic limbs when revived."
