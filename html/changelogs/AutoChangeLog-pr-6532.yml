@@ -1,4 +1,0 @@
-author: "Gw0sty"
-delete-after: True
-changes:
-  - bugfix: "Airborne virus's now will respect internals, because of course they would"
