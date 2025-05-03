@@ -1,0 +1,7 @@
+author: "BingusSS13"
+delete-after: True
+changes:
+  - rscadd: "Added hydroponics equipment to service cyborg."
+  - rscadd: "Added cooking equipment to service cyborg."
+  - qol: "Cyborgs are now capable of interacting with kitchen machinery."
+  - qol: "Service cyborgs and drones can now use the crafting menu."
