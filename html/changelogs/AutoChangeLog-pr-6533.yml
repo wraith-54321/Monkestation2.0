@@ -1,0 +1,4 @@
+author: "Absolucy"
+delete-after: True
+changes:
+  - bugfix: "Bags no longer have their slowdown reset whenever (un)equipped, so that speed potions on dufflebags won't be undone whenever you take it off."
