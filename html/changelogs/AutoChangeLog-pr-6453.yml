@@ -1,4 +1,0 @@
-author: "Evalence0"
-delete-after: True
-changes:
-  - code_imp: "copied draw_length and other logic from lizard tongues to floran tongues"
