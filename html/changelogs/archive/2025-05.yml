@@ -8,6 +8,9 @@
   Gw0sty:
   - bugfix: Airborne virus's now will respect internals, because of course they would
 2025-05-03:
+  Absolucy:
+  - rscadd: Added a new music player implementation for BYOND 516 (used by jukeboxes
+      and lobby music)
   Evalence0:
   - code_imp: copied draw_length and other logic from lizard tongues to floran tongues
   RandomDudeFromTheRim:
