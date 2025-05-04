@@ -1,5 +1,0 @@
-author: "Addust"
-delete-after: True
-changes:
-  - rscadd: "Deep Storage has been reinforced by Johnson & Co Architecture's finest engineers, and should now be slightly (keyword slightly) harder to cheese."
-  - bugfix: "Deep Storage now has the correct type of blackbox, because I forgot to give it a syndicate blackbox last time oopsies."

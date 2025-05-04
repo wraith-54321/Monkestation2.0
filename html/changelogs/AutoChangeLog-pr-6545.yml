@@ -1,5 +1,0 @@
-author: "Shoddd"
-delete-after: True
-changes:
-  - bugfix: "bloodsucker feed forget no longer happens early"
-  - balance: "bloodsucker feed forget message accompied by a small stun"
