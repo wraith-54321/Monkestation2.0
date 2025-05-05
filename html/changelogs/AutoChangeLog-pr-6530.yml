@@ -1,0 +1,4 @@
+author: "steelphoenix4"
+delete-after: True
+changes:
+  - bugfix: "Fixed the Recolorable Oversized Jacket not being recolorable on lizards."
