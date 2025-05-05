@@ -1,5 +1,0 @@
-author: "Absolucy"
-delete-after: True
-changes:
-  - bugfix: "Fixed some weird edge cases with helmets/masks/etc that are supposed to cover your eyes or mouth."
-  - bugfix: "The Damned Rabbit Mask now actually blocks facehuggers like the examine says it should."
