@@ -1,0 +1,4 @@
+author: "Absolucy"
+delete-after: True
+changes:
+  - bugfix: "Fixed the Plasma Fixation symptom causing a lot of runtime errors in mice."
