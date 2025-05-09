@@ -1,0 +1,4 @@
+author: "Absolucy"
+delete-after: True
+changes:
+  - bugfix: "The broadcast() function for NTSL now properly sanitizes frequencies."
