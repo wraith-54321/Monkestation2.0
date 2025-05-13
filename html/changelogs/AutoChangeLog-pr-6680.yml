@@ -1,0 +1,4 @@
+author: "Absolucy"
+delete-after: True
+changes:
+  - bugfix: "Fixed the loadout briefcase preference spawning an extra unusual in your backpack when you had one selected."
