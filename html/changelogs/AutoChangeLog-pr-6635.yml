@@ -1,0 +1,5 @@
+author: "SirNightKnight"
+delete-after: True
+changes:
+  - rscadd: "Ported TG's monkey cube expand animation."
+  - server: "Mouse cubes respect the ratcap."
