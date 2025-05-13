@@ -1,9 +1,0 @@
-author: "notghosti"
-delete-after: True
-changes:
-  - bugfix: "Anchored medical beds now should have their brake lights on."
-  - map: "Boxstation Xenobio now should have connected deathsposals."
-  - map: "Blueshift Atmospherics now has a air alarm."
-  - map: "Blueshift Engineering no longer has a paradox clone Poppy"
-  - map: "Lead poisoning now allows maintenance drones to additionally suffer."
-  - map: "Syndicate Biolab has a few more access helpers for air alarms."

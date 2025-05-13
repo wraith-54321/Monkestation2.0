@@ -132,9 +132,17 @@
       Faces Abilities, which they weren't intended to have anyways.
   - bugfix: Nosferatu bloodsuckers now always resemble a crushed, empty juice pouch,
       as intended.
+  - bugfix: Fixed the loadout briefcase preference spawning an extra unusual in your
+      backpack when you had one selected.
+  - code_imp: Cleaned up some code related to unusuals.
   Absolucy, Comxy:
   - rscadd: Added big slappy
   - image: Added big slappy parts and big slappy sprites
+  EssentialTomato:
+  - bugfix: Fixed insulated floor's tooltip.
+  SirNightKnight:
+  - rscadd: Ported TG's monkey cube expand animation.
+  - server: Mouse cubes respect the ratcap.
   notghosti:
   - rscdel: Halloween and Spring jobs can no longer overflow
   - code_imp: Moved Halloween jobs to a single folder
@@ -147,3 +155,9 @@
   - bugfix: Various things have been renamed from Charlie station to where their more
       appriopate name would be.
   - bugfix: Ramboo the cleanbot is now unlocked natively.
+  - bugfix: Anchored medical beds now should have their brake lights on.
+  - map: Boxstation Xenobio now should have connected deathsposals.
+  - map: Blueshift Atmospherics now has a air alarm.
+  - map: Blueshift Engineering no longer has a paradox clone Poppy
+  - map: Lead poisoning now allows maintenance drones to additionally suffer.
+  - map: Syndicate Biolab has a few more access helpers for air alarms.
