@@ -1,6 +1,0 @@
-author: "Absolucy"
-delete-after: True
-changes:
-  - balance: "Nosferatu bloodsuckers will always have a broken masquerade (albeit they will not give malkavian bloodsuckers a kill objective)"
-  - bugfix: "Nosferatu bloodsuckers can no longer buy the Masquerade and Veil of Many Faces Abilities, which they weren't intended to have anyways."
-  - bugfix: "Nosferatu bloodsuckers now always resemble a crushed, empty juice pouch, as intended."

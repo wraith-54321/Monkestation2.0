@@ -1,6 +1,0 @@
-author: "notghosti"
-delete-after: True
-changes:
-  - qol: "Oldstations cameras now run on a separate camera network."
-  - bugfix: "Various things have been renamed from Charlie station to where their more appriopate name would be."
-  - bugfix: "Ramboo the cleanbot is now unlocked natively."

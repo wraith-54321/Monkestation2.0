@@ -1,6 +1,0 @@
-author: "notghosti"
-delete-after: True
-changes:
-  - map: "Blueshift Medsec outpost is no longer accessible via medical access."
-  - map: "Tramstation distribution has been improved. Connecting areas such as bridge, vault, and forge to the distro."
-  - map: "Less roundstart turf differences. Makes game happy."
