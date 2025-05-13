@@ -124,3 +124,7 @@
   - bugfix: Hivelords Borers now can self reproduce as intended.
   - bugfix: Stopped an edge case where borers would lose chemicals but produce no
       eggs
+2025-05-13:
+  Absolucy, Comxy:
+  - rscadd: Added big slappy
+  - image: Added big slappy parts and big slappy sprites
