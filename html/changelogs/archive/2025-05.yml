@@ -175,3 +175,10 @@
       ingame) and delete the unneeded ones. Despite some of the tags, changelogs should
       generally represent how a player might be affected by the changes rather than
       a summary of the PR''s contents. -->'
+2025-05-15:
+  Absolucy:
+  - map: The two middle xenobio pens on Box Station are now linked to their proper
+      ooze suckers, instead of the opposite ones.
+  Absolucy, Melbert:
+  - refactor: Stack merging has much less potential for causing large amounts of server
+      lag now.
