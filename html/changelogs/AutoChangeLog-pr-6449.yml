@@ -1,6 +1,0 @@
-author: "PineappleMan929"
-delete-after: True
-changes:
-  - balance: "TWitch no longer lets you dodge bullets."
-  - balance: "TWitch is now feasibly makeable."
-  - admin: "Removed warning for admins about TWitch letting you dodge bullets, as it no longer does."
