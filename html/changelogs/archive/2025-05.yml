@@ -212,6 +212,9 @@
   notghosti:
   - rscadd: Updated Nanite Species Sensor to include new/more common races
 2025-05-18:
+  Absolucy:
+  - map: Fixed some stacked lights in the KS13 ruin.
+  - map: Fixed some space tiles in the Anomaly Research ruin.
   PineappleMan929:
   - balance: TWitch no longer lets you dodge bullets.
   - balance: TWitch is now feasibly makeable.
