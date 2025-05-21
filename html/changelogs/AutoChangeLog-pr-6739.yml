@@ -1,0 +1,4 @@
+author: "Absolucy"
+delete-after: True
+changes:
+  - bugfix: "Monster Hunter objectives now properly update their explanation text when their target chooses a clan/path."
