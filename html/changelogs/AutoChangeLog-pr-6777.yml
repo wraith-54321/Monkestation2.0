@@ -1,7 +1,0 @@
-author: "SirNightKnight"
-delete-after: True
-changes:
-  - rscadd: "added an antag preference for junior lone operatives."
-  - bugfix: "fixed and made the junior lone operative role more distinct. it appears on round end reports."
-  - bugfix: "junior lone operatives now have their internals and thermal regulators on when spawned."
-  - qol: "junior lone operatives memorize their code and can safely(ish) ditch their mission instructions now."

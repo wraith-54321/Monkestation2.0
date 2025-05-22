@@ -1,5 +1,0 @@
-author: "Absolucy"
-delete-after: True
-changes:
-  - qol: "Changed the Slime Link message color to a slightly brighter shade of blue."
-  - qol: "Slime Link messages now notify listeners with a balloon alert."

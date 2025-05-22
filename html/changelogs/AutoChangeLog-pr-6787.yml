@@ -1,4 +1,0 @@
-author: "Absolucy"
-delete-after: True
-changes:
-  - config: "The webmap URL can now be set via the config."
