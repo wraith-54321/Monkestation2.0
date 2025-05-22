@@ -1,0 +1,4 @@
+author: "Aritepes"
+delete-after: True
+changes:
+  - bugfix: "UwUifcation speech now better applies capitalization"
