@@ -1,0 +1,4 @@
+author: "Absolucy"
+delete-after: True
+changes:
+  - bugfix: "The Delightful Effect symptom now properly shows a message when it deactivates."
