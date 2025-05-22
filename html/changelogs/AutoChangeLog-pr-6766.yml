@@ -1,5 +1,0 @@
-author: "Absolucy"
-delete-after: True
-changes:
-  - refactor: "Refactored how the Heavy Bleeder challenge works."
-  - bugfix: "The Heavy Bleeder challenge should no longer instantly drain all of your blood when wounded."

@@ -298,3 +298,19 @@
   - bugfix: Fixed old DNA data disks not rolling species-specific mutations.
   - refactor: Refactored how roundend rewards are distributed. Hopefully this should
       ensure everyone gets their roundend rewards, even if they die soon after roundend.
+2025-05-22:
+  Absolucy:
+  - bugfix: Revolutionary Raptors can no longer straight-up delete people.
+  - rscadd: You can now punch/kick borgs under certain conditions!
+  - rscadd: Robotic limbs can always punch borgs - metal can punch metal.
+  - rscadd: If your punches deal enough damage to knockdown normally, then you can
+      punch borgs.
+  - rscadd: Strong-Arm implants now allow you to punch borgs (with arms that have
+      the implant).
+  - rscadd: The Strength gene now allows you to punch borgs.
+  - refactor: Refactored how the Heavy Bleeder challenge works.
+  - bugfix: The Heavy Bleeder challenge should no longer instantly drain all of your
+      blood when wounded.
+  Siro:
+  - code_imp: Crit health check for oozling decapitations restored. Head decapitations
+      match other species.
