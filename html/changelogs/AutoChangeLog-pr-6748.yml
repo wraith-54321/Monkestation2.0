@@ -1,0 +1,8 @@
+author: "Absolucy"
+delete-after: True
+changes:
+  - rscadd: "You can now punch/kick borgs under certain conditions!"
+  - rscadd: "Robotic limbs can always punch borgs - metal can punch metal."
+  - rscadd: "If your punches deal enough damage to knockdown normally, then you can punch borgs."
+  - rscadd: "Strong-Arm implants now allow you to punch borgs (with arms that have the implant)."
+  - rscadd: "The Strength gene now allows you to punch borgs."
