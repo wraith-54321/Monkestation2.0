@@ -1,0 +1,4 @@
+author: "Siro"
+delete-after: True
+changes:
+  - code_imp: "Crit health check for oozling decapitations restored. Head decapitations match other species."
