@@ -1,0 +1,4 @@
+author: "Absolucy"
+delete-after: True
+changes:
+  - bugfix: "Revolutionary Raptors can no longer straight-up delete people."
