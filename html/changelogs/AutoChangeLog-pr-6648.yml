@@ -1,8 +1,0 @@
-author: "SirNightKnight"
-delete-after: True
-changes:
-  - rscadd: "added explorer eva kits to mining order consoles."
-  - rscadd: "added advanced GPSs to mining order consoles."
-  - rscadd: "added basic medkits to mining order consoles."
-  - balance: "dropped the price of fire medkits to 600 points in the mining order console for OCD reasons."
-  - bugfix: "fixed a system glitch sending explorers to planetary stations."
