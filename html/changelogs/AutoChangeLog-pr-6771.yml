@@ -1,5 +1,0 @@
-author: "notghosti"
-delete-after: True
-changes:
-  - rscadd: "Robotic limbs can now be adjusted to fit satyrs and orthinid's by using a wrench on the limbs"
-  - bugfix: "All of satyrs and orthinids limbs will now fit, a satyr or orthinid"
