@@ -1,0 +1,5 @@
+author: "Xander3359"
+delete-after: True
+changes:
+  - bugfix: "Void ascension storm now respects antimagic"
+  - bugfix: "Void chill can no longer be applied to people with antimagic"
