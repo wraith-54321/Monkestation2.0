@@ -1,0 +1,7 @@
+author: "SirNightKnight"
+delete-after: True
+changes:
+  - rscadd: "added new alarms to the station to signify a Delta alert."
+  - rscadd: "added more status displays for the new alert levels."
+  - qol: "status displays set to an alert level display will update to the current alert level if it changes."
+  - bugfix: " fixed fire alarms not displaying the correct alert level light."
