@@ -1,0 +1,11 @@
+author: "Siro"
+delete-after: True
+changes:
+  - bugfix: "Oozlings don,t delete items in hand when dying or get round removed when dying in cryo."
+  - bugfix: "Borg surgeries that require hands can now be completed. (Cavity implant/Stomach Pump)"
+  - bugfix: "Siman Wizards are no longer attacked by their own casted monkeys."
+  - bugfix: "Fixed pipe and wire connecting Theseus Southwest Solar maintence APC back to the system.\nfix. Mech internal tank UI runtime fixed and user dialog when no internal tank is present."
+  - bugfix: "Insealed condifential Biscuit now acts like a normal biscuit when sealed. (No longer resealable.)"
+  - code_imp: "Mechpad lieform restriction defaults to off."
+  - qol: "NIFSoft menu now scrolls so long descriptions don't hide options."
+  - qol: "Ports tgstation#85379 movement fixes for mobs moving in the same direction at same speed."
