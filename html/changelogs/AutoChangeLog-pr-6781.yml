@@ -1,0 +1,6 @@
+author: "notghosti"
+delete-after: True
+changes:
+  - rscadd: "Chemical kits now come with a new chemical vial. Changeling Immunoglobulin, harvested from its namesake, a powerful antipathogen that can instantly cure most diseases."
+  - balance: "Heretic Eldritch Flask now cleanses heretics of negative diseases and heathens of any positive ones. Reinfection is still possible in both cases."
+  - balance: "Monster Hunter blood flask now cures the drinker of any negative diseases upon consumption. Reinfection is still possible."
