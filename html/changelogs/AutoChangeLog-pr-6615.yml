@@ -1,0 +1,5 @@
+author: "BingusSS13"
+delete-after: True
+changes:
+  - balance: "thederelict (KS13) and oldstation (Charlie Station) are now less likely to spawn near telecommunication relays."
+  - bugfix: "You can now repair bullet holes in walls easily again."
