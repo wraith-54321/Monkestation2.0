@@ -1,0 +1,7 @@
+author: "Absolucy"
+delete-after: True
+changes:
+  - map: "Swapped the position of the biomass recycler and the intergalactic market pad in xenobio on HelioStation, allowing the pad to automatically link to the market roundstart."
+  - map: "Added liquid barriers to all the entrances to xenobio on HelioStation."
+  - map: "Removed the floating lightbulbs in xenobio on HelioStation."
+  - map: "Fixed the weird fluid duct positioning in xenobio on HelioStation, also fixing the top left ooze sucker not being connected at all."
