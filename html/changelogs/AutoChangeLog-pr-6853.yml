@@ -1,5 +1,0 @@
-author: "notghosti"
-delete-after: True
-changes:
-  - bugfix: "Revivers will no longer spam chat that they are attempting to revive you."
-  - bugfix: "Revivers... Will actually revive you now."

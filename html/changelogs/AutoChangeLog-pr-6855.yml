@@ -1,5 +1,0 @@
-author: "ghosti, SirNightKnight"
-delete-after: True
-changes:
-  - rscadd: "Penlight Holobarriers now have a separate sprite for when biometrics are disabled."
-  - qol: "Medical Kiosks no longer tell you if your sick with a dormant disease"
