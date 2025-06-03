@@ -1,0 +1,4 @@
+author: "Aniantan, FlufflesTheDog"
+delete-after: True
+changes:
+  - bugfix: "Species without blood and species that don't breathe can no longer be blood deficient."
