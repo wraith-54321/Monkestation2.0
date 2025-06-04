@@ -1,0 +1,4 @@
+author: "Absolucy"
+delete-after: True
+changes:
+  - qol: "Being contracted no longer injects omnizine, it instead applies a short-lived healing status effect, which doesn't kill oozelings."
