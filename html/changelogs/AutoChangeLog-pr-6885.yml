@@ -1,0 +1,4 @@
+author: "Absolucy"
+delete-after: True
+changes:
+  - bugfix: "Hopefully actually fixed nanite cloud IDs not syncing (try 2)"
