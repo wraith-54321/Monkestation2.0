@@ -96,3 +96,6 @@
   - bugfix: Hopefully actually fixed nanite cloud IDs not syncing (try 2)
   - qol: Being contracted no longer injects omnizine, it instead applies a short-lived
       healing status effect, which doesn't kill oozelings.
+  notghosti:
+  - bugfix: NIGHTMARES. Will work. You will be evil and not some dude, actually this
+      time
