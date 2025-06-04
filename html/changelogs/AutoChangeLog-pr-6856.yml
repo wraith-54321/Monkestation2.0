@@ -1,0 +1,4 @@
+author: "Absolucy"
+delete-after: True
+changes:
+  - map: "voidraptor xenobio's APC now has a fully charged 10k cell so the 500 neon lights don't instantly depower it"
