@@ -1,0 +1,4 @@
+author: "Absolucy"
+delete-after: True
+changes:
+  - rscadd: "Bloodsucker cloaking (Cloak of Darkness or Auspex) now hides your identity while active."
