@@ -1,4 +1,0 @@
-author: "Absolucy"
-delete-after: True
-changes:
-  - bugfix: "Homeostasis levels (i.e stabilized orange extracts, sub-dermal cooler/heater implants, leporazine, fevers, gaseous holoparasites) now account for the seconds between ticks, meaning they should be more \"accurate\" in adjusting body temperature."
