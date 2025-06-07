@@ -1,0 +1,4 @@
+author: "Absolucy"
+delete-after: True
+changes:
+  - rscadd: "Mentors now get an extra 500 monkecoins at roundend if they were a head of staff."
