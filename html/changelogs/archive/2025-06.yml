@@ -180,3 +180,18 @@
       prefrences for observers.
   - sound: (Kapu, StrangeWeirdKitten) Ambience buzz requires APC enviorment power
       to function.
+2025-06-11:
+  Absolucy:
+  - bugfix: The Crew Manifest UI no longer incorrectly labels the Quartermaster as
+      a member of command.
+  MissClassyPineapple:
+  - rscadd: New spooks in maints
+  - rscadd: New secrets in maints
+  - balance: rebalanced maint loot tables
+  Siro:
+  - qol: Health Analyzer readout improvements.
+  - qol: Alerts to consume alcohol if they have the living_drunk component.
+  - code_imp: Ports tgstation#76350 organ_flags and status merged. Fixes purist issues.
+  - bugfix: Spleen organ now properly handled by the Health Analyzer readout.
+  - bugfix: Properly displays when the heart is missing.
+  - bugfix: DNA Infuser will not remove organs with the ORGAN_UNREMOVABLE flag

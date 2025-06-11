@@ -1,4 +1,0 @@
-author: "Absolucy"
-delete-after: True
-changes:
-  - bugfix: "The Crew Manifest UI no longer incorrectly labels the Quartermaster as a member of command."
