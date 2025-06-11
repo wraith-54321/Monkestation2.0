@@ -1,0 +1,8 @@
+author: "F-e-r-n"
+delete-after: True
+changes:
+  - balance: "nerfs combat shotguns fire delay from 0.8 seconds to 1.2 seconds"
+  - balance: "rebalances crew-accessible shotgun lethals to be 3 hit crits from 2."
+  - rscdel: "removes APDS shells from imports. Planned to add back to the game somewhere else"
+  - balance: "combat shotguns no longer wallslam."
+  - balance: "changes stun baton click cooldown to 1 sec from 1.5 sec"
