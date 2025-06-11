@@ -1,0 +1,5 @@
+author: "Ice-Type"
+delete-after: True
+changes:
+  - rscdel: "Removes the light all bullets are given"
+  - bugfix: "Bullet casings do not glow anymore"
