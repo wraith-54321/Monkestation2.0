@@ -1,6 +1,0 @@
-author: "Absolucy"
-delete-after: True
-changes:
-  - bugfix: "Golem species now have their proper damage resistances again."
-  - bugfix: "Ethereals properly take 25% more brute damage again."
-  - bugfix: "Plasmamen now take 50% more brute and burn damage instead of 125%."

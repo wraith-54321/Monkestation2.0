@@ -1,5 +1,0 @@
-author: "Absolucy"
-delete-after: True
-changes:
-  - refactor: "The Slimeperson, Stargazer, and Luminescent xenobiology species are now Oozeling subspecies."
-  - admin: "Admins can now easily aheal dead oozelings via the new \"Heal Oozeling Core\" verb."

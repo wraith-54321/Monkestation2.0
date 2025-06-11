@@ -184,6 +184,16 @@
   Absolucy:
   - bugfix: The Crew Manifest UI no longer incorrectly labels the Quartermaster as
       a member of command.
+  - bugfix: Fixed black market auctions not processing.
+  - bugfix: Golem species now have their proper damage resistances again.
+  - bugfix: Ethereals properly take 25% more brute damage again.
+  - bugfix: Plasmamen now take 50% more brute and burn damage instead of 125%.
+  - map: The botany, chemistry, R&D, genetics, robotics, and cargo shutters are now
+      opened by default on Box.
+  - refactor: The Slimeperson, Stargazer, and Luminescent xenobiology species are
+      now Oozeling subspecies.
+  - admin: Admins can now easily aheal dead oozelings via the new "Heal Oozeling Core"
+      verb.
   MissClassyPineapple:
   - rscadd: New spooks in maints
   - rscadd: New secrets in maints
