@@ -1,0 +1,4 @@
+author: "Salted-Zen"
+delete-after: True
+changes:
+  - qol: "Wastes pin locked weapons now works AFTER ROUND ENDS ANYWHERE"
