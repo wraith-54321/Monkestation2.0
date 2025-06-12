@@ -232,3 +232,11 @@
   - bugfix: DNA Infuser will not remove organs with the ORGAN_UNREMOVABLE flag
   tvesion:
   - image: Slims down the ballgown side sprites
+2025-06-12:
+  Absolucy:
+  - qol: Bloodsucker vassals now get an arrow near the center of their screen pointing
+      towards their master, instead of a dinky pinpointer at the top right.
+  - qol: HUD tracking arrows (i.e vassals, assops with goldeneye cards, and some slasher
+      thing) now fade when you're right next to your target.
+  - qol: Stargazers (the species) can now manually disconnect someone from their Slime
+      Link, by right clicking the "Link Minds" action.
