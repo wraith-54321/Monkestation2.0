@@ -1,4 +1,0 @@
-author: "Absolucy"
-delete-after: True
-changes:
-  - refactor: "Refactored how the ghost duel arena is reset/loaded."

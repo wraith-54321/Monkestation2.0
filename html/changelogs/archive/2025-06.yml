@@ -257,6 +257,15 @@
   - bugfix: (Rhials) Revenants can no longer be fake-eaten by the recycler.
   - bugfix: (JohnFulpWillard) Revenants (and other flying mobs) will not make noise
       when walking into pools of gibs,
+  - code_imp: Improved how pressure tanks handle updating their gas visuals.
+  - code_imp: Improved the performance of how starlight is enabled/updated.
+  - refactor: Refactored how the ghost duel arena is reset/loaded.
+  - bugfix: The lobby screen now properly fades out during roundstart/latejoin/
+  - bugfix: Roundstart setup now properly immediately triggers the storyteller to
+      process.
+  SirNightKnight:
+  - qol: the chaplain rite burning offering is now called cleansed offering and takes
+      husks instead of corpses that have to be on fire.
   notghosti:
   - balance: '"Camera Obscura" (crafted with holy water + camera) will now steal the
       soul of ghostly apparitions when a picture is taken causing damage. This will

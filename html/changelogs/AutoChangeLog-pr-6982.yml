@@ -1,4 +1,0 @@
-author: "Absolucy"
-delete-after: True
-changes:
-  - code_imp: "Improved the performance of how starlight is enabled/updated."
