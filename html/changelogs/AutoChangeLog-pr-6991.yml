@@ -1,0 +1,5 @@
+author: "Absolucy"
+delete-after: True
+changes:
+  - bugfix: "The lobby screen now properly fades out during roundstart/latejoin/"
+  - bugfix: "Roundstart setup now properly immediately triggers the storyteller to process."
