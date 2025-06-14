@@ -240,3 +240,24 @@
       thing) now fade when you're right next to your target.
   - qol: Stargazers (the species) can now manually disconnect someone from their Slime
       Link, by right clicking the "Link Minds" action.
+2025-06-14:
+  Absolucy:
+  - code_imp: Dried gibs now merge into one object, hopefully reducing the lag from
+      large amounts of blood tomatoes or monkeys being gibbed.
+  - qol: Revenant malfunction will now ignore tiles that have nothing that it can
+      actually potentially screw with on them, meaning it'll hopefully hit something
+      interesting far more often.
+  - rscadd: (Melbert) Revenants can now use Ouija Boards.
+  - rscadd: (Melbert) Ouija Boards now have more options to select from by default.
+      (and admins can VV it to even more options)
+  - bugfix: (Melbert) Blind people are now worse at using Ouija Boards.
+  - bugfix: (aaaa1023) Revenants can now again emag Medibots, Cleanbots, and Hygienebots.
+  - bugfix: (Wayland-Smithy) Fixed revenant spawning next to brains and other unharvestable
+      dead mobs.
+  - bugfix: (Rhials) Revenants can no longer be fake-eaten by the recycler.
+  - bugfix: (JohnFulpWillard) Revenants (and other flying mobs) will not make noise
+      when walking into pools of gibs,
+  notghosti:
+  - balance: '"Camera Obscura" (crafted with holy water + camera) will now steal the
+      soul of ghostly apparitions when a picture is taken causing damage. This will
+      also stun and reveal revenants briefly.'
