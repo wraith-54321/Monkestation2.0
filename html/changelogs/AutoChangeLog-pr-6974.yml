@@ -1,4 +1,0 @@
-author: "Addust"
-delete-after: True
-changes:
-  - rscadd: "To further discourage poor behaviour from ghostroles, a warning has been added that will appear on spawn. I will make this even more in-your-face if you don't listen."

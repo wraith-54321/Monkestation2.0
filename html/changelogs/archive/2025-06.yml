@@ -270,3 +270,15 @@
   - balance: '"Camera Obscura" (crafted with holy water + camera) will now steal the
       soul of ghostly apparitions when a picture is taken causing damage. This will
       also stun and reveal revenants briefly.'
+2025-06-15:
+  Absolucy:
+  - rscadd: Completing the station goal now rewards monkecoins to all crew.
+  Addust:
+  - rscadd: To further discourage poor behaviour from ghostroles, a warning has been
+      added that will appear on spawn. I will make this even more in-your-face if
+      you don't listen.
+  Bisar Xander3359:
+  - balance: Construction bags can now carry stacks of material up to size 'small',
+      and can now also carry RCD ammo.
+  SirNightKnight:
+  - balance: made fire less deadly
