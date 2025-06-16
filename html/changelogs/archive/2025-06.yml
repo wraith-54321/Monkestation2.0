@@ -282,3 +282,11 @@
       and can now also carry RCD ammo.
   SirNightKnight:
   - balance: made fire less deadly
+2025-06-16:
+  Absolucy:
+  - qol: The BSA station goal is now completed by FIRING the BSA, rather than having
+      it just exist + be powered.
+  Ice-Type:
+  - balance: cardboard golems have tongues now
+  - balance: weak punching golems no longer get 1 hit knockdowns
+  - bugfix: fixes golem numbers that might have made sense at one point maybe
