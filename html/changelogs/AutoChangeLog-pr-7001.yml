@@ -1,5 +1,0 @@
-author: "Absolucy"
-delete-after: True
-changes:
-  - bugfix: "Fixed not being able to set keybindings."
-  - bugfix: "Fixed keys not properly passing through tgui windows."

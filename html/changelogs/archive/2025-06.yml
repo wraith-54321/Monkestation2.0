@@ -291,5 +291,12 @@
   - balance: weak punching golems no longer get 1 hit knockdowns
   - bugfix: fixes golem numbers that might have made sense at one point maybe
 2025-06-17:
+  Absolucy:
+  - bugfix: Fixed not being able to set keybindings.
+  - bugfix: Fixed keys not properly passing through tgui windows.
+  Salted-Zen:
+  - rscadd: Griddle Toast in monkestore for 2500, its a mask slot item.
+  Shoddd:
+  - bugfix: renames "a reflector trenchcoat" to "the ablative trenchcoat" in tot objective
   ThePooba:
   - bugfix: fixed gravity for top level shipbreaker not powerslamming you anymore
