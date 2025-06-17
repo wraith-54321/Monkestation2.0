@@ -1,0 +1,4 @@
+author: "Shoddd"
+delete-after: True
+changes:
+  - bugfix: "renames \"a reflector trenchcoat\" to \"the ablative trenchcoat\" in tot objective"
