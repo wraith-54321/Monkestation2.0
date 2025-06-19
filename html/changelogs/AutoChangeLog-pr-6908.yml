@@ -1,4 +1,0 @@
-author: "Absolucy"
-delete-after: True
-changes:
-  - balance: "Stabilized rainbow extracts now have a cooldown of 1.5 minutes (90 seconds) between activations."

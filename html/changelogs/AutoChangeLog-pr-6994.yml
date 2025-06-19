@@ -1,6 +1,0 @@
-author: "Absolucy, Arturlang"
-delete-after: True
-changes:
-  - bugfix: "Fixed not being able to forcefeed bloodsuckers and such from blood bags."
-  - bugfix: "Fixed bloodsuckers bleeding forever."
-  - qol: "Bloodsuckers now just can't be zombified or facehugged (they already ejected xeno larvae and zombie tumors during eepy time anyways, so there's practically zero difference)"
