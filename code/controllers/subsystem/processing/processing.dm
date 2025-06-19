@@ -27,8 +27,9 @@ SUBSYSTEM_DEF(processing)
 	//cache for sanic speed (lists are references anyways)
 	var/list/current_run = currentrun
 
-	for(var/datum/thing as anything in current_run)
-		current_run -= thing
+	while(length(current_run))
+		var/datum/thing = current_run[length(current_run)]
+		current_run.len--
 		if(QDELETED(thing))
 			processing -= thing
 		else if(thing.process(wait * 0.1) == PROCESS_KILL)
