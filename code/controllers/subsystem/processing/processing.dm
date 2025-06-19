@@ -28,7 +28,7 @@ SUBSYSTEM_DEF(processing)
 	var/list/current_run = currentrun
 
 	for(var/datum/thing as anything in current_run)
-		current_run -= current_run[1]
+		current_run -= thing
 		if(QDELETED(thing))
 			processing -= thing
 		else if(thing.process(wait * 0.1) == PROCESS_KILL)
