@@ -1,8 +1,0 @@
-author: "Xander3359"
-delete-after: True
-changes:
-  - rscadd: "Re-adds the old hardsuit jetpack upgrade"
-  - rscadd: "Boxed space suits now fit back in their original box"
-  - balance: "Cargo teleporter weight class has lowered from 3 -> 2"
-  - code_imp: "Updates some storage code"
-  - bugfix: "You can no longer bypass weight limits of things that fit in storages by merging stacks"

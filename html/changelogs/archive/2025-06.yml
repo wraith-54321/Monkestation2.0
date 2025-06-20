@@ -316,3 +316,19 @@
   - balance: D-swords now ignore basic sec armor, as intended
   Xander3359:
   - bugfix: Fixed nukies getting discounts on items they are unable to use
+2025-06-20:
+  EssentialTomato:
+  - rscadd: Added Pipe Scrubber portable atmos machine
+  - qol: Portable scrubber, pump and pipe scrubber are now buildable as any other
+      machine
+  - qol: You can now repair portable scrubbers and pumps.
+  - sound: Added compressed air sound for when air tanks are inserted into machinery
+  - qol: Portable scrubbers, pumps and canisters are now climbable
+  - bugfix: Fixed the processing logic on portable atmos devices
+  Xander3359:
+  - rscadd: Re-adds the old hardsuit jetpack upgrade
+  - rscadd: Boxed space suits now fit back in their original box
+  - balance: Cargo teleporter weight class has lowered from 3 -> 2
+  - code_imp: Updates some storage code
+  - bugfix: You can no longer bypass weight limits of things that fit in storages
+      by merging stacks
