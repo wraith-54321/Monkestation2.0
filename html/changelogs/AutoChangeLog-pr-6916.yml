@@ -1,0 +1,5 @@
+author: "Addust"
+delete-after: True
+changes:
+  - balance: "The Syndicate Depot and Deep Storage have had their budgets reduced (and some equipment confiscated by J&C) due to bad behaviour."
+  - balance: "This means no more depot telecrystals, no more depot imprinter or lathe, and no more deep storage techfab either. You've been given frontier surplus as compensation."
