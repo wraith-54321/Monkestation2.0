@@ -352,6 +352,14 @@
   Absolucy:
   - bugfix: Fixed messages in the ticket viewer sometimes having messed up apostrophes
       and similar symbols.
+  - qol: You can now alt-click with the xenobio vacuum pack in order to get a selection
+      of valid mobs to suck up on that tile.
+  Absolucy, Scrambledeggs00, Tractor Mann (Original Code by Gandalf2k15, GoldenAlpharex, and others from Nova Sector/Skyrat):
+  - rscadd: 3 New AI VOXes! Pick from Black Mesa/Black Mesa Military or Half Life
+      VOX! or just keep using the normal one!
+  - rscadd: '"Display Word String" AI Verb, to quickly print the pushed VOX words
+      from Announcement Help into chat.'
+  - rscadd: New UI for VOX announcements, by Scrambledeggs00.
   Addust:
   - balance: The Syndicate Depot and Deep Storage have had their budgets reduced (and
       some equipment confiscated by J&C) due to bad behaviour.
