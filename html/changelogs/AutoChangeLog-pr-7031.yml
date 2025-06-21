@@ -1,0 +1,5 @@
+author: "flleeppyy"
+delete-after: True
+changes:
+  - bugfix: "Setting storytellers should now actually set, before the round starts"
+  - bugfix: "Storytellers changed after roundstart will now tick instead of doing nothing"
