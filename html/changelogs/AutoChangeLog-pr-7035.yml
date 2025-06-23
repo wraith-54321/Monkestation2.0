@@ -1,0 +1,5 @@
+author: "Absolucy"
+delete-after: True
+changes:
+  - bugfix: "Voice Activator circuit components now properly decode messages, meaning apostrophes and such no longer make the message look weird."
+  - balance: "Voice Activator circuit components can now only understand roundstart languages - languages such as codespeak, xenomorph, blah-tongue, shadowtongue, etc will not be translated."
