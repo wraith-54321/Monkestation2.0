@@ -1,0 +1,4 @@
+author: "Absolucy"
+delete-after: True
+changes:
+  - rscadd: "Silver forged weapons now deal bonus damage against bloodsuckers, werewolves, and the vampire species."
