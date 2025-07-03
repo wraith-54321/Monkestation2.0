@@ -9,6 +9,11 @@
       work properly midround when you need at least 2 people to sign up.
   - balance: Tweaked the weights for antags that might spawn alongside roundstart
       BBs, for variety's sake.
+  - balance: The curator whip disarm no longer instantly tosses the item into your
+      other hand.
+  - balance: Instead, the disarm tosses the item away from the both of you, potentially
+      into a nearby bin or clown.
+  - balance: Halved the curator's whip tripping time to 2 seconds.
   Absolucy, Mothblocks:
   - balance: Instead of too much damage to the head beheading someone, it will now
       split their skull in half. While their skull is open, you can rip out their
@@ -44,6 +49,8 @@
       be comboed with their neck snap.
 
       :cl:'
+  Helixsix:
+  - balance: Reduces stamina drain to 5 from 15 by order of pooba -pooba wrote this
   Ice Type, Sian:
   - rscadd: Adds a new Syndicate Fireaxe, 12 TC from the uplink, bulky and obvious,
       but packs a mean punch and can cut through even rwalls.
@@ -60,9 +67,15 @@
       ammo explosion and 33% chance for an item to be crushed
   - image: added some supermatter icons for delamination from yogstation - not implemented
       yet tho
+  Veth-s:
+  - rscadd: Added five new modsuits for drags event.
   flleeppyy:
   - admin: stealthed admin logs now show the key they are/were under
   - rscadd: OOC pronouns
+  iamcooldan:
+  - rscadd: more biogenerator items
+  - rscadd: cow cubes and pig cubes
+  - config: caps cows and pigs to 35 each
   notghosti:
   - balance: Anti-Magic Vacuoles now caps at a total of 5 uses
   - rscadd: Headache syndrome is now a mixture of old viro and new patho.
@@ -91,5 +104,11 @@
       in code
   - rscdel: Fever, nano-symboysis, silliconisis, and voice change have been code blocked
       for being nonfunctional. And wont show in play until fixed
+  - map: Thesues now uses AI minisat access for the minisat.
+  - map: Fixed a missing pipe in medical  Thesues
+  - map: ' Tramstation has received a expansion to pathology'
+  - map: Reorganized several pathology workplaces.
+  - map: Added pathology consoles in pathology and in medical.
+  - map: More pathology runs on their own distro.
   throwawayuseless:
   - qol: Increases max program limit of nanites from 20 -> 50.
