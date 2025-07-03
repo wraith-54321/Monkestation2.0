@@ -1,5 +1,0 @@
-author: "Absolucy"
-delete-after: True
-changes:
-  - bugfix: "Oozelings will no longer literally lose their brain upon being sacrificed by a heretic."
-  - bugfix: "Tracking a target who's beheaded or an oozeling core using your living heart as a heretic will now actually show the brain/core sprite, instead of nothing at all."
