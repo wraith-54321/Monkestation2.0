@@ -1,4 +1,0 @@
-author: "flleeppyy"
-delete-after: True
-changes:
-  - admin: "stealthed admin logs now show the key they are/were under"

@@ -1,7 +1,0 @@
-author: "BValon"
-delete-after: True
-changes:
-  - spellcheck: "ooze.dm; all instances of var/mob/living/vored_mob -> var/mob/living/devoured_mob, as well as comments referencing the same."
-  - spellcheck: "clowncar.dm; all instance of voreman -> victim (thank you Shion for the recommendation!)"
-  - spellcheck: "industrial_lift.dm; comment - vore -> devour"
-  - spellcheck: "archived changelogs; two instances - changed vore -> devour"
