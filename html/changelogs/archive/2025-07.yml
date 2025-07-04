@@ -135,5 +135,6 @@
 2025-07-04:
   Absolucy:
   - qol: Hopefully restored the original quick-equip behavior somewhat.
+  - bugfix: Jacob's ladder now skips the colony and reebe Z-levels.
   EssentialTomato:
   - bugfix: Fixed extreme case of empathy while relocating someone's limb.
