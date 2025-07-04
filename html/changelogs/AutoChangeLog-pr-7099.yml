@@ -1,4 +1,0 @@
-author: "EssentialTomato"
-delete-after: True
-changes:
-  - bugfix: "Fixed extreme case of empathy while relocating someone's limb."
