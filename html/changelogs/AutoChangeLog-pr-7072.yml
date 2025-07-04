@@ -1,0 +1,4 @@
+author: "Absolucy"
+delete-after: True
+changes:
+  - qol: "Hopefully restored the original quick-equip behavior somewhat."
