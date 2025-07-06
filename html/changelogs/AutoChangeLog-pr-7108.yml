@@ -1,0 +1,4 @@
+author: "Absolucy"
+delete-after: True
+changes:
+  - bugfix: "The air on the planet used for the the hermit/colony ghost role will no longer kill you."
