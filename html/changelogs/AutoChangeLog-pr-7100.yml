@@ -1,4 +1,0 @@
-author: "Absolucy"
-delete-after: True
-changes:
-  - bugfix: "Fixed bloodsuckers being able to spam their coffin to open a bunch of blood thickening prompts to rank up when they really shouldn't be able to."
