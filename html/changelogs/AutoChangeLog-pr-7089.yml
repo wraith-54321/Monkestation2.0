@@ -1,0 +1,5 @@
+author: "Cmpwarrior"
+delete-after: True
+changes:
+  - rscadd: "Added a new AI Core design based off of Tenna (from Deltarune)"
+  - bugfix: "Removed stray white pixels from some AI core sprites."
