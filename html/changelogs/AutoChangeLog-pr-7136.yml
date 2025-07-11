@@ -1,5 +1,0 @@
-author: "Coll6"
-delete-after: True
-changes:
-  - bugfix: "Uncapped organs can be repaired again like brains."
-  - code_imp: "Force maxhealth to default to organ's maxHealth when argument is null."
