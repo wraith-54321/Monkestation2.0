@@ -1,0 +1,4 @@
+author: "Ice-Type"
+delete-after: True
+changes:
+  - rscdel: "The fireplace no longer makes sound"
