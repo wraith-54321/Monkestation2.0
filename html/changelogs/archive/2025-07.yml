@@ -178,3 +178,5 @@
   - bugfix: Minor hair dye spray fix.
   Ice-Type:
   - rscdel: The fireplace no longer makes sound
+  KittyNoodle:
+  - rscadd: Ethereals can now wear underclothes.
