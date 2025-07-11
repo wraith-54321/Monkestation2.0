@@ -1,0 +1,5 @@
+author: "Absolucy"
+delete-after: True
+changes:
+  - rscdel: "Fully removed cyberlinks from the game. You can just use implants now without having to solve a maze 5 times."
+  - rscdel: "The Neuralinked quirk is also gone, as cyberlinks are no more."
