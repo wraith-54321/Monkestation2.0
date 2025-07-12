@@ -1,6 +1,0 @@
-author: "Coll6"
-delete-after: True
-changes:
-  - code_imp: "Underlying admin verb system ported to AVD"
-  - code_imp: "Mentors converted to implement AVD system"
-  - code_imp: "Mentor file reading edits and database storing."
