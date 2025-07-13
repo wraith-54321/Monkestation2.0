@@ -1,0 +1,4 @@
+author: "Absolucy"
+delete-after: True
+changes:
+  - qol: "Cleaner slimes will now target trash on top of \"blocked\" turfs (something with a dense object that it can't cross over) when they can still path right next to it just fine."
