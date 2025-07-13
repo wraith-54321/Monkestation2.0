@@ -1,0 +1,10 @@
+author: "Absolucy"
+delete-after: True
+changes:
+  - admin: "Added logging to various heretic spells, such as moon smile."
+  - admin: "Added logging for starting a Spess.tv stream with the broadcast camera."
+  - bugfix: "Fixed a rare edge-case where you could get rewarded for station goal completion multiple times."
+  - bugfix: "Fixed unlinking the launchpad remote not working."
+  - bugfix: "(Melbert) Fixes some atmos and record related log messages."
+  - bugfix: "(Sealed101) sanity dropping below zero should now properly slowly recover back to zero instead of dropping even further."
+  - sound: "(grungussuss) ambience no longer gets cut off for ghosts."
