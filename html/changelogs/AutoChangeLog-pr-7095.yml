@@ -1,0 +1,7 @@
+author: "567Turtle, Absolucy"
+delete-after: True
+changes:
+  - rscadd: "Added a new species, Onis!"
+  - rscadd: "Onis have slightly more health, more resistant to wounds, are slightly slower than normal humans, are stunned for slightly longer, and are resistant to heat but much weaker to cold."
+  - rscadd: "Onis have a (very much nerfed) fire breath."
+  - bugfix: "Fixed bodypart speed modifiers not properly updating when species is set."
