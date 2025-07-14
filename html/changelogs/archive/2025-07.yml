@@ -218,3 +218,6 @@
   antlersss:
   - rscadd: Added new Antlers plushie
   - bugfix: 100% more Antlers
+2025-07-14:
+  Ice-Type:
+  - bugfix: Using anatomic panacea as an oozeling no longer instantly kills you
