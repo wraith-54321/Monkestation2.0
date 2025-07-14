@@ -1,5 +1,0 @@
-author: "Ice-Type"
-delete-after: True
-changes:
-  - balance: "closets no longer ash things inside when broken - crates are unaffected"
-  - code_imp: "Adds a new \"ash_chance\" variable for crates and lockers that let you set the chance to be ashed"
