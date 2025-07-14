@@ -1,0 +1,4 @@
+author: "Ice-Type"
+delete-after: True
+changes:
+  - bugfix: "Using anatomic panacea as an oozeling no longer instantly kills you"
