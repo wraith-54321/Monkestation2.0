@@ -1,4 +1,0 @@
-author: "Absolucy"
-delete-after: True
-changes:
-  - bugfix: "Clothes that would hide ears/tails now properly hide anime implants too."
