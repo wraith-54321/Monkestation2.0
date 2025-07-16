@@ -1,0 +1,4 @@
+author: "Ice Type, Absolucy"
+delete-after: True
+changes:
+  - bugfix: "You now gotta be a crewmember to roll antag"
