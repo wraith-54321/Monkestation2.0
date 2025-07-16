@@ -1,0 +1,5 @@
+author: "Ice-Type"
+delete-after: True
+changes:
+  - balance: "Miner pens with stimulants now have an equivalent dose of methamphetamine instead"
+  - code_imp: "Monkestation medipens are no longer in the special monkestation folder"
