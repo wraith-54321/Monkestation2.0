@@ -254,3 +254,7 @@
       have their warning about interfering with station events removed
   - map: Heliostation chem facotry small room now has ventalation.
   - map: Voidraptor blueshield and NT rep office now use their respective accesses
+2025-07-17:
+  Ice-Type:
+  - bugfix: fixes the nodnod/nod2 emote.
+  - rscdel: removes the inferior version that was overwriting
