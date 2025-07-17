@@ -1,0 +1,4 @@
+author: "Addust"
+delete-after: True
+changes:
+  - bugfix: "Frontier surplus crates on Sheffield-class free mining vessels have had their security locks removed by Johnson & Co. (free miners no longer lose frontier surplus to dusting)"
