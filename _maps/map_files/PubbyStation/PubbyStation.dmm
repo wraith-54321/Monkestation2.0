@@ -13895,6 +13895,10 @@
 	pixel_x = -6;
 	pixel_y = 6
 	},
+/obj/machinery/recharger{
+	pixel_y = 4;
+	pixel_x = 5
+	},
 /turf/open/floor/wood,
 /area/station/command/heads_quarters/qm)
 "bcS" = (
