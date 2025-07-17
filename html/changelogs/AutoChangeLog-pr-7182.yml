@@ -1,0 +1,11 @@
+author: "notghosti"
+delete-after: True
+changes:
+  - rscadd: "gothic coat can be equipped on the neck slot."
+  - rscadd: "gothic coat now actually covers various parts of the body"
+  - rscadd: "Captains gloves can now transmit sign language"
+  - rscadd: "Gloves that can transmit sign language on radio now have a description mentioning it on inspect."
+  - qol: "Eyepatches can be adjusted with alt click."
+  - qol: "Greyscale Kitsune mask can be adjusted by alt clicking the icon."
+  - bugfix: "Greyscale kitsune mask now shows beards/faces when in the up postion and hides while put down"
+  - bugfix: "You can no longer eat through plastic on the greyscale kitsune mask."
