@@ -1,0 +1,4 @@
+author: "steelphoenix4"
+delete-after: True
+changes:
+  - bugfix: "Fix store not giving you the right lizard plushie"
