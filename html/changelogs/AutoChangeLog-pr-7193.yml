@@ -1,6 +1,0 @@
-author: "Absolucy, Melbert"
-delete-after: True
-changes:
-  - balance: "Mobs now have a tiny bit of innate insulation."
-  - balance: "Returning to standard body temperature is 3x faster."
-  - balance: "Max body temp is limited to ~600 kelvin (330 celsius)."

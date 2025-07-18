@@ -1,5 +1,0 @@
-author: "Absolucy"
-delete-after: True
-changes:
-  - map: "HelioStation, Lead Poisoning Station, PubbyStation, and Theseus now all properly have XenoDrobe vendors mapped into xenobiology."
-  - map: "Lead Poisoning Station now has proper Xenobiologist spawn points."
