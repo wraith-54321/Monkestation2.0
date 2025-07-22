@@ -1,0 +1,4 @@
+author: "Wisemonster"
+delete-after: True
+changes:
+  - balance: "rReduced heretic's void chill temperature loss from -12 kelvin per tick, to -5 kelvin per tick"
