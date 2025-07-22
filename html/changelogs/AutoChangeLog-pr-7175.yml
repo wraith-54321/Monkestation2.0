@@ -1,0 +1,8 @@
+author: "Absolucy, Constellado"
+delete-after: True
+changes:
+  - rscadd: "Added umbrellas!"
+  - rscadd: "Umbrellas can be bought at a ClothesMate, or crafted with 3 cloth and an iron rod."
+  - balance: "Sol is now deadly once again for bloodsuckers - they will burn if unprotected during Sol."
+  - balance: "Bloodsuckers will now be fully protected from Sol if they hide in a locker or cover themselves with an umbrella, tho."
+  - bugfix: "Hopefully fixed Venture favorite vassals not being able to some of the powers they're given."
