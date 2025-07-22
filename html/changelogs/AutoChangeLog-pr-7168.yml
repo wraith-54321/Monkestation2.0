@@ -1,0 +1,4 @@
+author: "Absolucy"
+delete-after: True
+changes:
+  - balance: "Various antag events (especially roundstart high-threat antags) are now weighted less if any have occurred in the past few rounds."
