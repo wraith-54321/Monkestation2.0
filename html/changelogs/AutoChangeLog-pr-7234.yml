@@ -1,0 +1,6 @@
+author: "LettuceGuardian"
+delete-after: True
+changes:
+  - rscadd: "Empty detective holsters and whetstones can now be found in the black market."
+  - balance: "Adjusted the price of the default black market holster to 200-300 credits."
+  - image: "Adjusted the grey, black, red and blue turtleneck sprites."
