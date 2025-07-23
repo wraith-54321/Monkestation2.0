@@ -1,0 +1,4 @@
+author: "antlersss"
+delete-after: True
+changes:
+  - balance: "reduced slowdown of heavy-duty medical kits by 75%"
