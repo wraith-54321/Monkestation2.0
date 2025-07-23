@@ -1,0 +1,4 @@
+author: "Draggeru"
+delete-after: True
+changes:
+  - bugfix: "Adds the missing botany machines to Icebox"
