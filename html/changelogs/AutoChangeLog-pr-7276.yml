@@ -1,5 +1,0 @@
-author: "notghosti"
-delete-after: True
-changes:
-  - rscadd: "ICARUS Weapons System Ignition Now triggers a unrecallable shuttle."
-  - rscadd: "ICARUS Weapons System Ignition now auto elevates to Gamma alert."

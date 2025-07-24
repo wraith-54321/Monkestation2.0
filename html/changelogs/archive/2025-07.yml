@@ -394,3 +394,10 @@
 2025-07-23:
   Draggeru:
   - bugfix: Adds the missing botany machines to Icebox
+2025-07-24:
+  antlersss:
+  - balance: reduced slowdown of heavy-duty medical kits by 75%
+  notghosti:
+  - map: Icebox service will no longer depower
+  - rscadd: ICARUS Weapons System Ignition Now triggers a unrecallable shuttle.
+  - rscadd: ICARUS Weapons System Ignition now auto elevates to Gamma alert.
