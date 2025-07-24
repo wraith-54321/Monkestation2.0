@@ -395,6 +395,12 @@
   Draggeru:
   - bugfix: Adds the missing botany machines to Icebox
 2025-07-24:
+  Absolucy:
+  - bugfix: Fixed binary translator keys being invisible.
+  JupiterJaeden:
+  - bugfix: Setting arrest status with the records console now immediately updates
+      sechud visuals.
+  - bugfix: Ninja security record hacks now immediately update sechud visuals.
   antlersss:
   - balance: reduced slowdown of heavy-duty medical kits by 75%
   notghosti:
