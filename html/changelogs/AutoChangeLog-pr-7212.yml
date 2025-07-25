@@ -1,0 +1,6 @@
+author: "Wisemonster"
+delete-after: True
+changes:
+  - balance: "Increased the weight gain of lone ops (not junior ops) by 5x"
+  - balance: "Major events can no longer roll junior ops (unsecure disks will still spawn them)"
+  - balance: "Junior ops spawn time from an unsecure disk increased from 10-20 minutes to 15-25"
