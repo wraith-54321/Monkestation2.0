@@ -1,0 +1,4 @@
+author: "Absolucy"
+delete-after: True
+changes:
+  - map: "MetaStation's singularity/tesla engine is now fully surrounded by reinforced walls (like every other station with a singulo/tesla), so that a single piece of stray space dust won't end the round early."
