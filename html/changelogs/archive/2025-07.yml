@@ -419,6 +419,11 @@
   Ice-Type:
   - map: Box station's kitchen is now much bigger and more usable, space selflessly
       donated from the lathe room.
+  Killermankey:
+  - rscadd: Vendozer, Traitor super trash tank that you must craft
+  - rscadd: Hotdog bus, currently admin only.
+  - bugfix: Vehicles can now take bullets for their drivers like its supposed to.
+      Which was broken before (underlying code was fixed. Not every vehicle.)
   Wisemonster:
   - balance: Increased the weight gain of lone ops (not junior ops) by 5x
   - balance: Major events can no longer roll junior ops (unsecure disks will still

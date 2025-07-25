@@ -1,6 +1,0 @@
-author: "Killermankey"
-delete-after: True
-changes:
-  - rscadd: "Vendozer, Traitor super trash tank that you must craft"
-  - rscadd: "Hotdog bus, currently admin only."
-  - bugfix: "Vehicles can now take bullets for their drivers like its supposed to. Which was broken before (underlying code was fixed. Not every vehicle.)"
