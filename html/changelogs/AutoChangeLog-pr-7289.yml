@@ -1,0 +1,4 @@
+author: "Absolucy, Acantharctia, SmArtKar"
+delete-after: True
+changes:
+  - rscadd: "Added the Analgesia quirk, which makes you (almost) unable to perceive how much your injuries hurt, and prevents you seeing the damage overlay when damaged. Better keep a close eye on your health."
