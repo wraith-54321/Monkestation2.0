@@ -1,0 +1,8 @@
+author: "BingusSS13"
+delete-after: True
+changes:
+  - bugfix: "Cut cable pieces on maps like KS13 (The Derelict) are no longer invisible."
+  - map: "Most airlocks in KS13's engineering are now named."
+  - bugfix: "Fixed access on the windoors in KS13's engineering."
+  - map: "Added cut cables to KS13's engineering."
+  - map: "Very minor change to KS13's engineering hallway area."
