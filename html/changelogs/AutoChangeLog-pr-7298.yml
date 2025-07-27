@@ -1,0 +1,5 @@
+author: "notghosti"
+delete-after: True
+changes:
+  - map: "Thesues does not start with two professional RCD's"
+  - map: "Blueshift pathology will not depower"
