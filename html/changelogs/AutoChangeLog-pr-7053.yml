@@ -1,6 +1,0 @@
-author: "notghosti"
-delete-after: True
-changes:
-  - rscadd: "More research nodes use the base nodes as a starting point. (No effect one actual research)\nadd; Tier  4 Bluespace part exchange devices now have bluespace beakers"
-  - rscdel: "Engineering lathe can no long print antibody scanners and test tubes."
-  - balance: "Basic security tech is now a prerequisite to actual security technologies."

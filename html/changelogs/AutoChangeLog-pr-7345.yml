@@ -1,4 +1,0 @@
-author: "BanementI"
-delete-after: True
-changes:
-  - bugfix: "Fixed the DJ law board to actually include laws."
