@@ -134,7 +134,7 @@ SUBSYSTEM_DEF(mapping)
 	preloadTemplates()
 
 #ifndef LOWMEMORYMODE
-	start_time = REALTIMEOFDAY
+	var/start_time = REALTIMEOFDAY
 	SStitle.add_init_text("Empty Space", "> Space", "<font color='yellow'>LOADING...</font>")
 	// Create space ruin levels
 	while (space_levels_so_far < current_map.space_ruin_levels)
