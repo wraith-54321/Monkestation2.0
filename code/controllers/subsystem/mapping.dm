@@ -132,7 +132,6 @@ SUBSYSTEM_DEF(mapping)
 	require_area_resort()
 	process_teleport_locs() //Sets up the wizard teleport locations
 	preloadTemplates()
-	var/start_time
 
 #ifndef LOWMEMORYMODE
 	start_time = REALTIMEOFDAY
