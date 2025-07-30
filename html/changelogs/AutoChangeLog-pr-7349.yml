@@ -1,0 +1,4 @@
+author: "Wisemonster"
+delete-after: True
+changes:
+  - spellcheck: "Renamed \"Target stage\" in the disease splicer to \"Target slot\"."
