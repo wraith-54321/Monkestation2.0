@@ -1,4 +1,0 @@
-author: "leaKsi, Ghommie"
-delete-after: True
-changes:
-  - bugfix: "False anomaly alarms now work."

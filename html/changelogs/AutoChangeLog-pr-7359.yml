@@ -1,6 +1,0 @@
-author: "notghosti"
-delete-after: True
-changes:
-  - map: "Theseus Ordnance burn chamber will now properly pressurize"
-  - map: "Cleaned up roundstart turfs on blueshift"
-  - map: "Blueshift shipbreaking now has a roof"
