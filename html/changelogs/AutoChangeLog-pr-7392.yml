@@ -1,0 +1,8 @@
+author: "Wisemonster"
+delete-after: True
+changes:
+  - balance: "Subdermal implant research, NT approved security implants, and  advanced ballistics are now announced over security comms when researched"
+  - balance: "Cyber implants are now announced over security and engineering when researched\nbalance; Advanced cyber implants are now announced over engineering when researched"
+  - balance: "Job approved item sets and Computer consoles are now announced over all/most comms when researched, respectively."
+  - balance: "Cloning and IPC parts are announced over science when researched"
+  - balance: "Linked surgery is now announced over science and medical when researched"
