@@ -1,0 +1,7 @@
+author: "JupiterJaeden"
+delete-after: True
+changes:
+  - bugfix: "Conga lines no longer break when going up or down on stairs, ladders, or in zero-g."
+  - qol: "You can now pull people and items up and down with you in zero-g."
+  - balance: "There is now a 1 second delay to moving up/down in zero-g."
+  - code_imp: "mob/verb/up() and mob/verb/down() cleanup"
