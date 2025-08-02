@@ -1,0 +1,5 @@
+author: "Loiosh42"
+delete-after: True
+changes:
+  - rscadd: "Added mothroaches with teeth, better ai to come later"
+  - balance: "Mothroaches now eat clothes, ported from TG, originally by Ben10Omintrix"
