@@ -1,0 +1,4 @@
+author: "throwawayuseless"
+delete-after: True
+changes:
+  - rscadd: "Welding fuel, Phenol, and Acetone now get IPCs drunk to varying degrees. Why? Comedic effect."
