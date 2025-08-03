@@ -93,6 +93,7 @@
       are allowed to dump, alongside the threshold for what counts as too much time
       between ticks
   - admin: (ZephyrTFA, LemonInTheDark) Controller Overview UI. Check the Debug Tab.
+  - bugfix: Fixed timestopped mobs being able to sometimes move every few seconds.
   Cmpwarrior:
   - config: Renamed "colored glasses" to "Dealmaker". The Dealmaker can now be purchased
       for 10000 Monkecoins in the loadout store.
