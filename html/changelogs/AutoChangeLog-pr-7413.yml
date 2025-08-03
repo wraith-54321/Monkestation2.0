@@ -1,6 +1,0 @@
-author: "Absolucy"
-delete-after: True
-changes:
-  - server: "(LemonInTheDark) Adds a system to emergency dump profiles if too much time passes between ticks"
-  - config: "(LemonInTheDark) Added configs that control how often emergency profiles are allowed to dump, alongside the threshold for what counts as too much time between ticks"
-  - admin: "(ZephyrTFA, LemonInTheDark) Controller Overview UI. Check the Debug Tab."
