@@ -93,3 +93,17 @@
       are allowed to dump, alongside the threshold for what counts as too much time
       between ticks
   - admin: (ZephyrTFA, LemonInTheDark) Controller Overview UI. Check the Debug Tab.
+  Cmpwarrior:
+  - config: Renamed "colored glasses" to "Dealmaker". The Dealmaker can now be purchased
+      for 10000 Monkecoins in the loadout store.
+  MrBagHead:
+  - bugfix: Replica heretic blades no longer pull in mech's
+  ThePooba:
+  - rscadd: Added 5 Colours of Aviator HUD goggles to Loadouts for Donators
+  - rscadd: Added AI plush for Donators
+  - rscadd: Husky pet for one Donator
+  leaKsi:
+  - refactor: (Melbert) Refactored heretic influences a tiny bit, now ghosts can see
+      them!
+  - qol: (Time-Green) Redtexting as antag with hardcore random score will pay you
+      default points, instead of none (normal survival rules)

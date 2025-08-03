@@ -1,5 +1,0 @@
-author: "leaKsi"
-delete-after: True
-changes:
-  - refactor: "(Melbert) Refactored heretic influences a tiny bit, now ghosts can see them!"
-  - qol: "(Time-Green) Redtexting as antag with hardcore random score will pay you default points, instead of none (normal survival rules)"
