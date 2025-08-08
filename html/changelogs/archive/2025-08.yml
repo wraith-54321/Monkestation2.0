@@ -194,6 +194,13 @@
   - qol: Slime vac, Nozzle, and recycler now display their biomass on examine
   - balance: TGMC armor vest protects from space temp
 2025-08-08:
+  Absolucy:
+  - image: Regenerative extracts now have a unique sprite for their screen alert,
+      instead of reusing the legion core alert. Sprite by Salted Zen.
+  EssentialTomato:
+  - rscadd: You can now pick up and throw microwaves.
+  Killermankey:
+  - rscadd: Robert McPlushie
   SirNightKnight:
   - rscadd: added the missile targeter. it calls down an explosive missile after a
       10 second announced warning.
