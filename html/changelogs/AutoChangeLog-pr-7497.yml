@@ -1,0 +1,6 @@
+author: "Absolucy"
+delete-after: True
+changes:
+  - bugfix: "(Melbert) Fixed drunkness mood printout."
+  - bugfix: "(SmArtKar) Being at low sanity will actually give your hallucinations as intended."
+  - balance: "(Melbert) Mood threshold to become \"crazy\" changed from -7 (one moderately bad event) to -15 (two moderately bad events)."
