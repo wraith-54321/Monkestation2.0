@@ -1,4 +1,0 @@
-author: "Absolucy"
-delete-after: True
-changes:
-  - bugfix: "Searching in the alt-click loot panel now properly updates as yout ype."
