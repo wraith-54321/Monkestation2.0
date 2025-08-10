@@ -252,6 +252,9 @@
   - code_imp: Movement Subsystem no longer is a background subsystem. This means that
       you should no longer get stuck after slipping on oil during instances of high
       usage.
+  BanementI:
+  - rscadd: Adds 150 brand new vox fem words. You can now refer to the crew by their
+      species, with more technical jargon and a fittingly colourful vocabulary.
   Xander3359:
   - rscadd: (SmArtKar) You can now attach anesthetic tanks and breathing masks to
       surgical tables.
