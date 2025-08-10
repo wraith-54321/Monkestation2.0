@@ -1,0 +1,5 @@
+author: "Xander3359"
+delete-after: True
+changes:
+  - rscadd: "(SmArtKar) You can now attach anesthetic tanks and breathing masks to surgical tables."
+  - bugfix: "(Melbert) You can operate through surgical masks again"
