@@ -259,3 +259,10 @@
   - rscadd: (SmArtKar) You can now attach anesthetic tanks and breathing masks to
       surgical tables.
   - bugfix: (Melbert) You can operate through surgical masks again
+2025-08-11:
+  EssentialTomato:
+  - bugfix: Fixed chameleon hats not changing hairstyles and some other hairstyle
+      related stuff.
+  Wisemonster:
+  - bugfix: The automated announcement system once more announces new arrivals to
+      the station.
