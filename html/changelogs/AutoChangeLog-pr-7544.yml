@@ -1,0 +1,4 @@
+author: "EssentialTomato"
+delete-after: True
+changes:
+  - bugfix: "Fixed chameleon hats not changing hairstyles and some other hairstyle related stuff."
