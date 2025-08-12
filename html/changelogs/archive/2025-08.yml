@@ -292,6 +292,12 @@
   ThePooba:
   - bugfix: less monkeycoins from roundend for mentors and fixed donator monkecoins
   - balance: also buffed slasher again so i didnt forgor
+  Wernerses:
+  - map: Added the missing disk compartamentalizer to Icebox Botany
+  - map: Added heated nesting boxes to some maps that did not have it before
+  - map: Replaced all ranching railings with reinforced thin glass walls and windoors
+      for easy access for simians
+  - map: Chicken nest boxes are now all close to windoors for easy access to eggs
   notghosti:
   - bugfix: Contractor bundles should now still be purchasable after an objective
       times out
