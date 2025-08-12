@@ -1,0 +1,4 @@
+author: "Aniantan, Bomberman66Dev"
+delete-after: True
+changes:
+  - rscadd: "Ported the surplus prosthetic organ quirks from TG. Select few species cannot use them, however."
