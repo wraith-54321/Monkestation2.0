@@ -1,0 +1,4 @@
+author: "Absolucy"
+delete-after: True
+changes:
+  - bugfix: "Hotspots/fire from ash drakes, explosions, and fire breath should no longer last more than a couple of seconds."
