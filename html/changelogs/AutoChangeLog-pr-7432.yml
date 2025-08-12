@@ -1,0 +1,4 @@
+author: "Absolucy"
+delete-after: True
+changes:
+  - qol: "Stargazers can now slime link basic/simple mobs using a normal grab."
