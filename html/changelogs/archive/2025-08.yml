@@ -281,6 +281,7 @@
   - refactor: Slightly refactored brain trauma.
   - balance: Nanites and viruses can no longer cure an obsession or hypnosis.
   - map: The centcom firing range floors are now indestructible.
+  - balance: Revenge Vassals now also resist mindshields, just like Favorite Vassals.
   Absolucy, Maximal08, FlufflesTheDog:
   - qol: Using a multitool inhand tells you where the area APC is.
   Aniantan, Bomberman66Dev:
