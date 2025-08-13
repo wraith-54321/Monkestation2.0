@@ -1,0 +1,4 @@
+author: "ancient-engineer"
+delete-after: True
+changes:
+  - bugfix: "fixed attacking a mirror giving you /datum/component/ instead of /datum/component/omen"
