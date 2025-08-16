@@ -1,0 +1,4 @@
+author: "Absolucy"
+delete-after: True
+changes:
+  - bugfix: "Bloodsuckers and Changelings now have the \"no healing\" challenge removed."
