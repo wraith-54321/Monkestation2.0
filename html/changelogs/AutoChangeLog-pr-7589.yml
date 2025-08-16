@@ -1,5 +1,0 @@
-author: "Absolucy, JohnFulpWillard"
-delete-after: True
-changes:
-  - admin: "Admins can now link a URL for maps, used to give feedback on said maps. Accessible through the roundend report, escape menu, and stat panel."
-  - qol: "You can now directly go to the webmap of maps from the stat panel (assuming it's set in config)."
