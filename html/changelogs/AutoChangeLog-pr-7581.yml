@@ -1,0 +1,4 @@
+author: "Absolucy"
+delete-after: True
+changes:
+  - map: "Fixed missing disposals pipes in Tramstation's engineering SMES room."
