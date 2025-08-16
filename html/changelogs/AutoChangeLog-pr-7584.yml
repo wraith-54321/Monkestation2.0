@@ -1,0 +1,5 @@
+author: "EssentialTomato"
+delete-after: True
+changes:
+  - bugfix: "(Synclt21) Failing to equip a dual handed item should properly clear out all status effects related to equipping it, for e.g. remove the action button from chainsaw"
+  - bugfix: "Fixed beach bar floors not giving back the right tiles."
