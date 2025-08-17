@@ -1,0 +1,7 @@
+author: "notghosti"
+delete-after: True
+changes:
+  - map: "Jungle, Two fort, and Arena arenas now have consistent atmospherics."
+  - map: "Deltastation Chicken Coop botany now has more escapable. unrestricted access helpers"
+  - bugfix: "Automated announcement TUGI height has been increased to 255 to include the research section"
+  - code_imp: "Deleted unused blueshield security belt from code."
