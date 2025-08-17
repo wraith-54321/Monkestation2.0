@@ -1,7 +1,0 @@
-author: "Shoddd"
-delete-after: True
-changes:
-  - bugfix: "chromosomes no longer count for illegal tech"
-  - bugfix: "ammo workbench can no longer print uplink shotgun shells"
-  - bugfix: "helio gulag shuttle no longer crashes into the station"
-  - bugfix: "missing wire in helio AI sat"

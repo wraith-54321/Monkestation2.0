@@ -1,5 +1,0 @@
-author: "Tractor Maam"
-delete-after: True
-changes:
-  - admin: "Antagonist Custom Objectives now play a bwoink sound when created."
-  - admin: "The Space Postbox will now ask you again before submitting a cassette, reminding you adminhelp to make sure someone CAN review."
