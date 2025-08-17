@@ -1,0 +1,4 @@
+author: "Absolucy"
+delete-after: True
+changes:
+  - bugfix: "Cannibalizing/retracting limbs as an oozeling now drops any implants in that limb, instead of vaporizing it forever."
