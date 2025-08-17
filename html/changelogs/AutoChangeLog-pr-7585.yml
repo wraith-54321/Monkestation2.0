@@ -1,0 +1,6 @@
+author: "Aniantan, itseasytosee"
+delete-after: True
+changes:
+  - rscadd: "Lizardpeople can wear undershirts again"
+  - bugfix: "Lustrous are properly tenacious"
+  - code_imp: "Moved a bunch of specie traits to bodyparts and organs"
