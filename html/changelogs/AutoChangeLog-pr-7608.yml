@@ -1,0 +1,4 @@
+author: "Absolucy"
+delete-after: True
+changes:
+  - balance: "Blobs can no longer delete brains (including oozeling cores), altho attacking them will still cause organ damage. MMIs destroyed by blobs will also drop the brain, if it had one inside of it."
