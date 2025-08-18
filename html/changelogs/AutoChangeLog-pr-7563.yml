@@ -1,9 +1,0 @@
-author: "Ice-Type"
-delete-after: True
-changes:
-  - rscadd: "Several new pineapple - themed food recipes"
-  - rscadd: "A new sprite for coconut milk in a glass"
-  - rscadd: "A hula skirt, that can be bought from autodrobes, or in the loadout store"
-  - rscadd: "A new pet, the pineapple creacher, which is a smaller, living pineapple."
-  - bugfix: "Coconuts now give coconut milk, and not... normal milk (why)"
-  - code_imp: "Adds a credits folder to the icons file for you to credit sprites. Use it you dinguses."
