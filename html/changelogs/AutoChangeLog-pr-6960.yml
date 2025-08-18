@@ -1,0 +1,4 @@
+author: "Loiosh42"
+delete-after: True
+changes:
+  - rscadd: "Admin-only, shouldn't be merged anyway."
