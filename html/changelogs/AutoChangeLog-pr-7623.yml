@@ -1,0 +1,8 @@
+author: "notghosti"
+delete-after: True
+changes:
+  - rscadd: "Included toolboxes and supplies to Centcom robotics to be able to do all surgeries."
+  - rscadd: "Added recharging defib mounts to CC"
+  - rscadd: "Rickys mech now comes with a interals air tank"
+  - balance: "Removed Gas analyzer from brig physicians toolbox for coil and a multitool"
+  - qol: "Reorganized mecha nodes categorization."
