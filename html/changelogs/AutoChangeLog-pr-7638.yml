@@ -1,0 +1,5 @@
+author: "Absolucy"
+delete-after: True
+changes:
+  - bugfix: "Large bingle pits no longer cause massive amounts of lag just to heal bingles."
+  - bugfix: "Bingles will now only gib when THEIR HOLE (the pit they were spawned by) is destroyed."
