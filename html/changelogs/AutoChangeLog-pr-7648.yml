@@ -1,0 +1,5 @@
+author: "wonderinghost"
+delete-after: True
+changes:
+  - map: "updates helios disposal network"
+  - map: "ordanance now has a mail bin and atmos should be mail routable"
