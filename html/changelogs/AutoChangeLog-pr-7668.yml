@@ -1,0 +1,5 @@
+author: "throwawayuseless"
+delete-after: True
+changes:
+  - rscadd: "Four-Bit, Bachhus' Blessing, and Rat'vander now get IPCs drunk."
+  - balance: "Drunken Resilience works on IPCs."
