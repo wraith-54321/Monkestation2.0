@@ -1,0 +1,7 @@
+author: "Tractor Maam"
+delete-after: True
+changes:
+  - rscadd: "Added a new escape shuttle! The Yate Haugan Neo for 14062 credits"
+  - rscadd: "Added a new emag only escape shuttle, The Cargo Refitted Yate Haugan Neo for 22264 credits"
+  - bugfix: "fixed a typo in rayne welder code"
+  - bugfix: "John Intern's (sprungle) office paper now contains text."
