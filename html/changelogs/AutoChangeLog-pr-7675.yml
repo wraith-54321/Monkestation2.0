@@ -1,0 +1,5 @@
+author: "Salted-Zen"
+delete-after: True
+changes:
+  - balance: "PK Pistol cooldown upped to 4 seconds"
+  - bugfix: "You can no longer cause an error by giving the PK Pistol 10 cooldown mods"
