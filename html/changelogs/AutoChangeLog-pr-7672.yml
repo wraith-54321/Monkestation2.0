@@ -1,5 +1,0 @@
-author: "Xander3359"
-delete-after: True
-changes:
-  - code_imp: "adds emote_mute status effect and helper procs"
-  - balance: "adds emote mute to some silencing effects"

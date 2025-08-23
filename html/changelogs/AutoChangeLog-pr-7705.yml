@@ -1,4 +1,0 @@
-author: "wonderinghost"
-delete-after: True
-changes:
-  - map: "[SPACE_BOX] engineering reception now requires either engineering or atmos access instead of both"
