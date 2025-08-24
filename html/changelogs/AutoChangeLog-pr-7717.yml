@@ -1,4 +1,0 @@
-author: "Absolucy"
-delete-after: True
-changes:
-  - rscdel: "Removed the \"Hard of Hearing\" quirk, due to issues relating to chat spam. Hopefully it'll be back soon."
