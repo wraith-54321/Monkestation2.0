@@ -1,4 +1,0 @@
-author: "Salted-Zen"
-delete-after: True
-changes:
-  - balance: "Security batons now drain 1% of their cells max charge over time if left on"
