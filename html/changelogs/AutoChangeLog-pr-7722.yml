@@ -1,0 +1,5 @@
+author: "notghosti"
+delete-after: True
+changes:
+  - balance: "T3 lasers now require t2 lasers to be researched first"
+  - rscadd: "Removed industrial engineering from mining tech perquisites. This does not effect actual tech to research it"
