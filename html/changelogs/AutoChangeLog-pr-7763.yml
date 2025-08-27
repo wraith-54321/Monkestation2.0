@@ -1,0 +1,5 @@
+author: "wonderinghost"
+delete-after: True
+changes:
+  - bugfix: "fixes flatpack duplication when deploying"
+  - bugfix: "fixes material duplication when repacking"
