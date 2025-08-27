@@ -1,6 +1,0 @@
-author: "Absolucy"
-delete-after: True
-changes:
-  - bugfix: "Rescue hooks can now fish up Oozeling cores."
-  - bugfix: "Oozelings which self-revive in chasms somehow will properly \"leap\" out of the chasm, like other mobs would."
-  - bugfix: "Stowaway Oozelings will no longer teleport when revived."
