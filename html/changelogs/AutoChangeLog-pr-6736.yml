@@ -1,0 +1,4 @@
+author: "Absolucy"
+delete-after: True
+changes:
+  - rscdel: "Removed bloom (additive lighting). It just made bright lights more painful on the eyes, and didn't look too much better anyways."
