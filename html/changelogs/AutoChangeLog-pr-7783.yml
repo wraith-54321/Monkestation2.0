@@ -1,6 +1,0 @@
-author: "Xander3359"
-delete-after: True
-changes:
-  - bugfix: "Fix being unable to apply patches"
-  - bugfix: "Fix being unable to place on griddle"
-  - bugfix: "Fix being unable to use xenobio vacuum from range"
