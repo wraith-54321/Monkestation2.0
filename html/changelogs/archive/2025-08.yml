@@ -745,6 +745,8 @@
   - bugfix: fixes flatpack duplication when deploying
   - bugfix: fixes material duplication when repacking
 2025-08-28:
+  Absolucy:
+  - qol: Slime washing now eats grime off the floor when moving, not just every second.
   Absolucy, Melbert:
   - bugfix: Hierophant Club Blink at range
   - bugfix: Crusher Loot
@@ -785,6 +787,11 @@
   - rscadd: like 50 spells for darkspawn and shit
   - rscadd: New camera network system - mostly code side
   - rscadd: custom key click sounds for some machines and buttons, firealarms etc
+  Tostah:
+  - rscadd: Lamarr can now produce neutered xenomorph larva which can't evolve into
+      drones and start nests.
+  - rscadd: Lamarr will leap at victims but won't stun them. They also won't be killed
+      by protective clothing and can be carried around.
   Xander3359:
   - bugfix: (MrMelbert) Fix inability to make r-glass by hand inside your backpack
   - qol: (MrMelbert) Hand labels now have a visual effect associated, and are also
@@ -802,3 +809,6 @@
   - bugfix: Fix being unable to apply patches
   - bugfix: Fix being unable to place on griddle
   - bugfix: Fix being unable to use xenobio vacuum from range
+  notghosti:
+  - bugfix: Ordering imports now logs who orders the import on the import forum, akin
+      to normal orders
