@@ -1,0 +1,5 @@
+author: "Absolucy, Melbert"
+delete-after: True
+changes:
+  - bugfix: "Hierophant Club Blink at range"
+  - bugfix: "Crusher Loot"
