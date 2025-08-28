@@ -1,0 +1,13 @@
+author: "MrMelbert"
+delete-after: True
+changes:
+  - balance: "Clock cultists are given a slowing status effect after warping to the station"
+  - rscadd: "Anchoring crystals now bend reality the more of them there are"
+  - balance: "anchoring crystals now lock down the shuttle while active"
+  - balance: "abscond can only be invoked from marked areas and takes 45 seconds, servant antag info now lists marked areas"
+  - balance: "vitality sigils no longer create borg shells but shells can be made by on station tinker's caches"
+  - balance: "the soul vessels given by vitality sigils can now be converted to cogscarab shells"
+  - balance: "clockwork mobs can now warp to the station but are restricted to marked areas"
+  - bugfix: "various clock cult bugs"
+  - balance: "reduced the maximum amount of cogscarabs from 9 to 6"
+  - balance: "reworked the clockwork power economy into passive and active power"
