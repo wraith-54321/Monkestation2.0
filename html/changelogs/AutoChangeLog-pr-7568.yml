@@ -1,9 +1,0 @@
-author: "ThePooba"
-delete-after: True
-changes:
-  - rscadd: "Darkspawn antag https://mediawiki.monkestation.com/Darkspawn"
-  - rscadd: "Head of security jackboots (they are stompy)"
-  - rscadd: "Swinging component (fighter only for now)"
-  - rscadd: "like 50 spells for darkspawn and shit"
-  - rscadd: "New camera network system - mostly code side"
-  - rscadd: "custom key click sounds for some machines and buttons, firealarms etc"
