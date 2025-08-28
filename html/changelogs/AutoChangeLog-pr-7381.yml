@@ -1,0 +1,5 @@
+author: "Tostah"
+delete-after: True
+changes:
+  - rscadd: "Lamarr can now produce neutered xenomorph larva which can't evolve into drones and start nests."
+  - rscadd: "Lamarr will leap at victims but won't stun them. They also won't be killed by protective clothing and can be carried around."
