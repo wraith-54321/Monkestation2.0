@@ -1,0 +1,12 @@
+author: "Xander3359"
+delete-after: True
+changes:
+  - bugfix: "(MrMelbert) Fix inability to make r-glass by hand inside your backpack"
+  - qol: "(MrMelbert) Hand labels now have a visual effect associated, and are also affected by heat / can be cleaned off like stickers."
+  - refactor: "(MrMelbert) Refactored hand labels. They're objects now!"
+  - bugfix: "(MrMelbert) Heirophant Club Blink at range"
+  - bugfix: "(MrMelbert) Crusher Loot"
+  - bugfix: "(MrMelbert) RCD material reclamation"
+  - bugfix: "(SmArtKar) Fixed crayons not being usable on anything except turfs (including washing machines)"
+  - refactor: "(intercepti0n) Stickers are now a component and gets rid of a copyright infringement"
+  - bugfix: "(SyncIt21) RLD won't try to put lights on storage objects like bags & such"
