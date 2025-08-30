@@ -820,6 +820,11 @@
   - bugfix: Ordering imports now logs who orders the import on the import forum, akin
       to normal orders
 2025-08-30:
+  Absolucy:
+  - bugfix: Disembowling no longer spills out unremovable organs.
+  - bugfix: Oozelings will no longer duplicate organs when they die to severe damage
+      to their chest.
+  - bugfix: Fixed a bug where you couldn't pour plasma on an undamaged oozeling core.
   EssentialTomato:
   - qol: Holofans can now be deployed over window sills.
   - bugfix: Fixed holosigns not being cleared when clicked on with a projector.
@@ -837,6 +842,15 @@
   - image: Added new icons and sprites for slasher variant outfits and weapons.
   - bugfix: Fixed an issue where the Slasher mask used incorrect flags to block hairstyles
       and facial hair.
+  Singul0:
+  - balance: Reworked Roboticists access to lethal mechs and weapons. Gotta get access
+      from command or red alert to make any now. (At least you get non-lethal weapons
+      on blue alert)
+  SirNightKnight:
+  - bugfix: fixed some emissive blockers not working.
+  - code_imp: changed the code for unique death sounds on masks to be a list similar
+      to alternative laughs/screams on clothing items.
+  - balance: lowered honkerblast jitter times.
   ThePooba:
   - bugfix: crusher twohand
   - bugfix: fixed a LOT of interaction bugs
