@@ -1,7 +1,0 @@
-author: "MrBagHead"
-delete-after: True
-changes:
-  - rscadd: "Added two new Slasher variants, The Cluwne and The Brute, each with unique outfits, reskinned weapons, terror screams, and fear forms."
-  - sound: "Added new terror scream audio for The Cluwne and The Brute."
-  - image: "Added new icons and sprites for slasher variant outfits and weapons."
-  - bugfix: "Fixed an issue where the Slasher mask used incorrect flags to block hairstyles and facial hair."
