@@ -825,6 +825,8 @@
   - bugfix: Oozelings will no longer duplicate organs when they die to severe damage
       to their chest.
   - bugfix: Fixed a bug where you couldn't pour plasma on an undamaged oozeling core.
+  Absolucy, Melbert:
+  - bugfix: Fix DNA vault probes
   EssentialTomato:
   - qol: Holofans can now be deployed over window sills.
   - bugfix: Fixed holosigns not being cleared when clicked on with a projector.
