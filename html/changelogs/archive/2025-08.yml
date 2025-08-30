@@ -819,3 +819,21 @@
   notghosti:
   - bugfix: Ordering imports now logs who orders the import on the import forum, akin
       to normal orders
+2025-08-30:
+  EssentialTomato:
+  - qol: Holofans can now be deployed over window sills.
+  - bugfix: Fixed holosigns not being cleared when clicked on with a projector.
+  - bugfix: Fixed not being able to spin cloth on the loom.
+  MrBagHead:
+  - bugfix: Touch spells now use the new interaction/ranged interaction signals, fixing
+      Knock Mansus Grasp and Extended Shock Touch at range.
+  - bugfix: Holosign Projectors can again delete holosigns they created.
+  - bugfix: Chemical patches can now be placed into chemical grinders.
+  - bugfix: Cigarette packs no longer drop to the ground when opened from inside a
+      backpack.
+  ThePooba:
+  - bugfix: crusher twohand
+  - bugfix: fixed a LOT of interaction bugs
+  - rscadd: added razorwire implant to traitor uplink and fixed mantis implants lunge
+  notghosti:
+  - map: Tramstation pet sanctuary is now connected to the grid
