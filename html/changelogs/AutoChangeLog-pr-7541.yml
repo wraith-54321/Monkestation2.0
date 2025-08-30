@@ -1,0 +1,4 @@
+author: "Singul0"
+delete-after: True
+changes:
+  - balance: "Reworked Roboticists access to lethal mechs and weapons. Gotta get access from command or red alert to make any now. (At least you get non-lethal weapons on blue alert)"
