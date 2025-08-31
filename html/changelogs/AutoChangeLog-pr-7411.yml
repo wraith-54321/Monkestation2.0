@@ -1,7 +1,0 @@
-author: "JupiterJaeden"
-delete-after: True
-changes:
-  - balance: "Lasers now do 25 damage instead of 20. Hellfire lasers do 30."
-  - balance: "Blob tiles are slightly buffed to not be one hit by new lasers."
-  - bugfix: "Florans no longer have their extra burn damage modifier applied twice."
-  - balance: "Florans take 1.5x burn damage instead of 1.8x to not be completely smoked by new lasers."
