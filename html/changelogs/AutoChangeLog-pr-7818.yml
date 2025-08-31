@@ -1,4 +1,0 @@
-author: "notghosti"
-delete-after: True
-changes:
-  - balance: "Makes it so upgrading a baton actually increases the theoretical maximum baton uptime. See PR for numbers."
