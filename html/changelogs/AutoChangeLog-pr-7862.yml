@@ -1,0 +1,5 @@
+author: "EssentialTomato"
+delete-after: True
+changes:
+  - bugfix: "Minecart rails can be placed again."
+  - bugfix: "Stone griddle and cauldron no longer eat your crowbar while deconstructing."
