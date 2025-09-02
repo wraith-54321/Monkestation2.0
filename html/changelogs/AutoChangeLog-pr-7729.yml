@@ -1,0 +1,5 @@
+author: "notghosti"
+delete-after: True
+changes:
+  - rscadd: "Station Maps are now printable."
+  - rscadd: "You can screwdriver on the corresponding circuit board to change station map types"
