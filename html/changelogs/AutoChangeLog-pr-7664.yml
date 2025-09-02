@@ -1,0 +1,5 @@
+author: "Sorenon"
+delete-after: True
+changes:
+  - rscadd: "Made donksoft foam darts, the donkco foam arm blade and the donkco emag card edible."
+  - rscadd: "Being shot in the head (without a mask) with a donksoft dart has a chance to make the player inhale it and choke."
