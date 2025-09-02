@@ -1,6 +1,0 @@
-author: "mc-oofert"
-delete-after: True
-changes:
-  - qol: "sorted artifact stuff in the analysis form, magnet displays its status in UI and wont waste discovered asteroids"
-  - bugfix: "fixed the asteroid magnet breaking immediately, fixed making room for the analysis form on the artifact, fixed basically a bunch of artifact stuff"
-  - spellcheck: "adjust artifact wording"
