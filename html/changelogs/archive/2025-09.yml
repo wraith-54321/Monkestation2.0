@@ -18,5 +18,6 @@
   - spellcheck: fix IB "repaiing"
   - bugfix: borgs can rotate reflectors
   - code_imp: Rechargers use interaction
+  - bugfix: fixed rechargers eating infinite guns
   mc-oofert:
   - bugfix: you can now attach stuff to a mechs right arm
