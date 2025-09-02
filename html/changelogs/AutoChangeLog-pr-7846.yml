@@ -1,5 +1,0 @@
-author: "JupiterJaeden"
-delete-after: True
-changes:
-  - bugfix: "You can now tackle while pulling something (it will automatically break the pull, however.)"
-  - bugfix: "If you are using toggle throw mode, tackles should now always disable throw mode correctly after being used."
