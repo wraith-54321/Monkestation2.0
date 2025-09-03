@@ -51,3 +51,10 @@
   - rscadd: Adds the functionality for Bingle lords to be tokened.
   - map: Syndicate Infiltrator now has upgraded cyborg rechargers and a loaded defib
       mount.
+2025-09-03:
+  Xander3359, SmArtKar:
+  - bugfix: (Xander3359) fixed pen interactions
+  - rscadd: (SmArtKar) You can now click pens! Clickity clickery click!
+  - bugfix: (SmArtKar) E-Daggers can now break lockers/other renamable objects, and
+      pendrivers can now extract their electronics.
+  - code_imp: (SmArtKar) Most pen typechecks now check for writing implements.
