@@ -1,0 +1,4 @@
+author: "Absolucy"
+delete-after: True
+changes:
+  - bugfix: "The curator's whip now properly has its tripping/yanking behavior, instead of always having a guaranteed disarm."
