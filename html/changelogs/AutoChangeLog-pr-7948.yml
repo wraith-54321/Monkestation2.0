@@ -1,6 +1,0 @@
-author: "Ice-Type"
-delete-after: True
-changes:
-  - bugfix: "you can now put guns in containers by clicking on them"
-  - bugfix: "resonators no longer start picking at regolith you place the resonance thingies on"
-  - qol: "you can interact with objects using a resonator by right clicking (it will no longer do a resonance)"
