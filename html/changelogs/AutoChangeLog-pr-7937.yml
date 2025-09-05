@@ -1,0 +1,9 @@
+author: "notghosti"
+delete-after: True
+changes:
+  - map: "Thesuses no longer has roundstart piss floods in the walls"
+  - map: "Thesuses no longer had a roundstart pizza bomb in holodeck"
+  - map: "Thesuses has its many roundstart atmospheric differences fixed"
+  - map: "Thesuses prison gym no long depowers every single round"
+  - map: "There is no longer 70000 moles of plasma waiting to burn the station alive in Thesuses maintence."
+  - map: "Moves the royal cheese into a nearby trash can on Thesuses to prevent an instant and trapped ratking every round."
