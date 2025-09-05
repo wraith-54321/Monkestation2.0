@@ -110,3 +110,25 @@
   - bugfix: Bloodpacks can now be drawn from with syringes.
   throwawayuseless:
   - rscadd: Wide Ape.
+2025-09-05:
+  Absolucy:
+  - refactor: (grungussuss) Refactored how sfx with multiple variants are coded, report
+      any issues with sounds not playing!
+  - sound: (Melbert) Portals made by portal guns now make sounds as expected.
+  - sound: (Melbert) Wormholes from the wormhole event now make sounds when formed.
+  Rex9001:
+  - rscadd: Optional Combat indicators - To show you want to fight someone. Toggled
+      with "C"
+  notghosti:
+  - map: Thesuses no longer has roundstart piss floods in the walls
+  - map: Thesuses no longer had a roundstart pizza bomb in holodeck
+  - map: Thesuses has its many roundstart atmospheric differences fixed
+  - map: Thesuses prison gym no long depowers every single round
+  - map: There is no longer 70000 moles of plasma waiting to burn the station alive
+      in Thesuses maintence.
+  - map: Moves the royal cheese into a nearby trash can on Thesuses to prevent an
+      instant and trapped ratking every round.
+  throwawayuseless:
+  - balance: IPCs now no longer have secretly much reduced limb health and increased
+      limb->body damage transferance. they are still easier to dismember.
+  - bugfix: Screen-saving for IPCs now works when you die
