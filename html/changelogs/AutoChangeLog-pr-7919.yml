@@ -1,4 +1,0 @@
-author: "Absolucy"
-delete-after: True
-changes:
-  - rscadd: "Added the \"Inexorable\" mutation, which disables softcrit and acts as a painkiller, but causes ticking brute/toxin damage and forces you to whisper."

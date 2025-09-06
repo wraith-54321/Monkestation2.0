@@ -1,5 +1,0 @@
-author: "Ice-Type"
-delete-after: True
-changes:
-  - bugfix: "security holobarriers can cuff people again"
-  - code_imp: "their code is also way nicer"
