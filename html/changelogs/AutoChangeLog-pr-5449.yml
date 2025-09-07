@@ -1,4 +1,0 @@
-author: "BingusSS13"
-delete-after: True
-changes:
-  - bugfix: "Lighting will no longer break when you make a custom area."
