@@ -1,0 +1,5 @@
+author: "Absolucy"
+delete-after: True
+changes:
+  - map: "Fixed some SMES loops in a couple of space ruins."
+  - map: "The Deep Storage ruin no longer has floor lights hidden under tables and lockers."
