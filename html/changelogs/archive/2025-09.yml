@@ -182,6 +182,9 @@
   - bugfix: (SmArtKar) You can now put dead mice into mortars/grinders properly.
   - bugfix: (SyncIt21) No runtime when unwrenching atmos components.
   - spellcheck: (SyncIt21) Fixed typo in attack chain define comment.
+  - map: Fixed some SMES loops in a couple of space ruins.
+  - map: The Deep Storage ruin no longer has floor lights hidden under tables and
+      lockers.
   Absolucy, SmArtKar:
   - admin: Clientless mobs no longer log their emotes.
   JupiterJaeden:
@@ -228,3 +231,5 @@
   - rscadd: Combine meth with dinitrogen plasmide to make an equivalent amount of
       Positronic Excitement Salts (robometh)
   - spellcheck: It's spelled Ratvar, not Rat'var, vyyvgr-engr sbbyf!
+  - bugfix: Positronic Neural Dampener pens are now purchasable from the company imports
+      console, as intended.
