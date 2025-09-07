@@ -165,3 +165,12 @@
   - rscdel: Removed the IPC punishment system
   - balance: Moved all associated quirks with the punishment system to the species
       blacklist on the quirks.
+2025-09-07:
+  Singul0, Killermankey:
+  - rscadd: You can now find machining machineries in engineering or in abandoned
+      maintenance rooms near engineering. Maybe you can make use of them?
+  ThePooba:
+  - bugfix: cyberhusky
+  Tractor Maam:
+  - spellcheck: updated the bug report title text to note the existence of the description
+      box that appears immediately after.
