@@ -1,0 +1,5 @@
+author: "Molti"
+delete-after: True
+changes:
+  - balance: "made darkspawns innately slightly tankier"
+  - balance: "buffed darkspawn damage reduction upgrades"
