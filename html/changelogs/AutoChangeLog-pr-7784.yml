@@ -1,6 +1,0 @@
-author: "JupiterJaeden"
-delete-after: True
-changes:
-  - balance: "Tracker implants no longer allow teleportation onto them. The bluespace locator's range from the tracking implant kit has been massively increased to compensate. The purchasable miner tracking implant still allows teleportation."
-  - balance: "Tracker implants now broadcast a warning to security when surgically removed. This warning bypasses radio jammers, but not full telecomms outages."
-  - balance: "Tracker implants can now be remotely (and silently) deleted using a prisoner management console."

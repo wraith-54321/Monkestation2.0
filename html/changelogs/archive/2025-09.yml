@@ -166,6 +166,21 @@
   - balance: Moved all associated quirks with the punishment system to the species
       blacklist on the quirks.
 2025-09-07:
+  Absolucy:
+  - qol: Added a visible message for oozelings being melted by water.
+  Absolucy, SmArtKar:
+  - admin: Clientless mobs no longer log their emotes.
+  JupiterJaeden:
+  - balance: Tracker implants no longer allow teleportation onto them. The bluespace
+      locator's range from the tracking implant kit has been massively increased to
+      compensate. The purchasable miner tracking implant still allows teleportation.
+  - balance: Tracker implants now broadcast a warning to security when surgically
+      removed. This warning bypasses radio jammers, but not full telecomms outages.
+  - balance: Tracker implants can now be remotely (and silently) deleted using a prisoner
+      management console.
+  Molti:
+  - balance: made darkspawns innately slightly tankier
+  - balance: buffed darkspawn damage reduction upgrades
   Singul0, Killermankey:
   - rscadd: You can now find machining machineries in engineering or in abandoned
       maintenance rooms near engineering. Maybe you can make use of them?
