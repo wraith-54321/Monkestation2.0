@@ -264,11 +264,15 @@
   - bugfix: Service storage apparatuses can add and remove food from ovens again.
   - bugfix: Cyborg storage apparatuses can place held objects on tables again.
   - bugfix: Cyborgs can toggle griddles again.
+  Ice-Type:
+  - bugfix: fireaxes instantly break window sills again
   LassiH:
   - balance: rld and mrld glowstick mode will now have same cooldown as other light
       modes and cost 20 materials instead of 5
   Shoddd:
   - rscadd: CMO's medkit now starts with advanced surgery tools
+  ThePooba:
+  - balance: Changed vendor unwrench time from 6 to 3 seconds.
   Wisemonster:
   - balance: Replaced CE's welder with an industrial version
   Xander3359:
