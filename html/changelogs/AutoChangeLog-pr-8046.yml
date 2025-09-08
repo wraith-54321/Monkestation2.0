@@ -1,0 +1,4 @@
+author: "Ice-Type"
+delete-after: True
+changes:
+  - bugfix: "fireaxes instantly break window sills again"
