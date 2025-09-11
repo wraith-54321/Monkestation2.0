@@ -340,6 +340,7 @@
   - bugfix: (LT3) Tramstation's exterior light fixtures no longer get destroyed as
       soon as the tram moves.
   - code_imp: (LT3) Tram landmarks are now all subtyped instead of map varedits.
+  - bugfix: Voltaic Combat Cyberhearts now actually accept flux anomaly cores.
   EnterTheJake:
   - rscadd: A new Anomaly organ has been introduced, The Voltaic Combat Cyberheart!
   EssentialTomato:
@@ -388,6 +389,8 @@
   - bugfix: fixed centrifuge only holding 1 tube
   - rscadd: CMO starts with an advanced serverlink in his locker
   - bugfix: fixed delta and blueshift maps giving the blueshield duplicate items
+  lemoninthedark, ben10omintrix:
+  - refactor: refactors how AI behaviors handle their failures and successes
   notghosti:
   - rscadd: Bingle pit spawns now are temporary ghost roles, meaning after you bingled
       youll return to your body on death.
@@ -406,6 +409,8 @@
   - bugfix: Alien pistols will deal damage properly again
   - bugfix: The 'odd announcement' device, found in opfors, now properly announce
       instead of runtiming.
+  - bugfix: Mecha designs for fire extinguisher, plasma generator, and light amplification
+      now properly only show once on their corresponding mechs.
   throwawayuseless:
   - spellcheck: Enrolls the local clock cult in a Ratvarian 201 class, so that they
       might maybe stop pronouncing Ratvar incorrectly. It's not that hard, guys. Unrelatedly,
@@ -417,3 +422,8 @@
   - bugfix: If you kick someone in the crotch it now properly plays a glass shattering
       noise.
   - rscadd: Neutered Borrers, token and traitor, can use Willing Host.
+  - rscadd: Adds a Comically Large Straw. Use it to drink entire containers in one
+      gulp, or to speed up blood and/or DNA zuccing if you happen to be a monster
+      of one of those persuasions.
+  - bugfix: Bloodsucker blood drinking moodlet now actually triggers if you aggressively
+      drink blood.

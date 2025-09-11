@@ -1,4 +1,0 @@
-author: "lemoninthedark, ben10omintrix"
-delete-after: True
-changes:
-  - refactor: "refactors how AI behaviors handle their failures and successes"
