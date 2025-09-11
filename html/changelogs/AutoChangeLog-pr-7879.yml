@@ -1,8 +1,0 @@
-author: "notghosti"
-delete-after: True
-changes:
-  - rscadd: "Abductee status is now cured alongside the removal of the abductee gland."
-  - balance: "Shrink rays no longer force drop all clothing, rather just what's in the users hands."
-  - balance: "abductor batons now have 5 charges, recharge in 15 seconds, from 3 charges and 5 seconds,"
-  - balance: "Abductor batons now only induce paralysis for 1 minute, rather than sleep for 2 minutes."
-  - bugfix: "Alien pistols will deal damage properly again"

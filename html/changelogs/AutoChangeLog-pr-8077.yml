@@ -1,4 +1,0 @@
-author: "Lawlolawl"
-delete-after: True
-changes:
-  - bugfix: "Fixed forensic scanner not working with detective arm implant"
