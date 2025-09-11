@@ -1,0 +1,5 @@
+author: "throwawayuseless"
+delete-after: True
+changes:
+  - rscadd: "Adds a Comically Large Straw. Use it to drink entire containers in one gulp, or to speed up blood and/or DNA zuccing if you happen to be a monster of one of those persuasions."
+  - bugfix: "Bloodsucker blood drinking moodlet now actually triggers if you aggressively drink blood."
