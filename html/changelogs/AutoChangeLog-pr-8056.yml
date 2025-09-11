@@ -1,0 +1,5 @@
+author: "EssentialTomato"
+delete-after: True
+changes:
+  - rscadd: "(BobDABuilder9001) You can upgrade solars using different non-reinforced glass to get more power out of them (glass, titaniumglass, plasmaglass, plastitaniumglass) (they also have sprites so you can tell which is which)"
+  - balance: "(BobDABuilder9001) Solars now make 2.5kw each instead of 1.5kw"
