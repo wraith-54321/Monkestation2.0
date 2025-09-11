@@ -1,0 +1,4 @@
+author: "notghosti"
+delete-after: True
+changes:
+  - bugfix: "Mecha designs for fire extinguisher, plasma generator, and light amplification now properly only show once on their corresponding mechs."
