@@ -1,0 +1,5 @@
+author: "notghosti"
+delete-after: True
+changes:
+  - rscadd: "Bingle pit spawns now are temporary ghost roles, meaning after you bingled youll return to your body on death."
+  - qol: "while in a temporary body medical huds will show you as defibable and unique examine text upon revival"
