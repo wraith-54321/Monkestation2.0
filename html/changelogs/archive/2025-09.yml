@@ -486,3 +486,10 @@
       nonlethal nature from Scarp.
   - balance: Acarp can now snap necks while strangling, not just while neckgrabbing.
   - rscadd: You can lathe mining light beacons now.
+2025-09-14:
+  RandomDudeFromTheRim:
+  - spellcheck: fixed a SINGLE typo in the brigphys' toolbox's name
+  Xander3359:
+  - bugfix: You can now deconstruct a deforest wallmed with a wrench
+  - qol: deforest wallmed will preserve biomass when deconstructed
+  - balance: deforest wallmed is now a bulky item
