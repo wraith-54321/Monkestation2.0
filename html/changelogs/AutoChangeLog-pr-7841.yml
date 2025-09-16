@@ -1,0 +1,15 @@
+author: "Absolucy"
+delete-after: True
+changes:
+  - rscadd: "Tremere Dominate's revival now works on oozeling cores."
+  - balance: "Tremere Obfuscation now makes you near-invisible again by default, however if you attack someone, or are attacked, you will become much more visible for a bit."
+  - balance: "Bloodsuckers will always get 3 free ranks from Sol, even if they level up through other means beforehand (via feeding sentient blood, or tremere vassalizing someone)"
+  - rscadd: "Bloodsuckers now apply a temporary blood regeneration status effect to people they feed off of after they're done (if the victim is still alive)"
+  - rscdel: "Removed the \"steal organic hearts\" and \"drink X amount of blood\" objective for bloodsuckers."
+  - rscadd: "Bloodsuckers will now always get an objective related to vassalization."
+  - code_imp: "Improved some code for Tremere's Thaumaturgy."
+  - bugfix: "Bloodsucker punch damage is properly applied to arms and legs now, even if they're replaced."
+  - qol: "Bloodsucker night vision doesn't suck ass anymore."
+  - balance: "Favorite Vassals who become a Bloodsucker can no longer join a Clan, they are still apart of their Master and way too young to do their own stuff."
+  - qol: "Favorite Vassals who become a Bloodsucker now have their Vassal antag button removed, to avoid the action bar becoming too cluttered."
+  - bugfix: "Fixed Tremere's Dominate using the cooldown as the blood cost when reviving someone."
