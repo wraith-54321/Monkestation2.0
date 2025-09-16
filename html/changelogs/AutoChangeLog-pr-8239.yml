@@ -1,0 +1,4 @@
+author: "KittyNoodle"
+delete-after: True
+changes:
+  - bugfix: "Fixed ethereal hair not updating."
