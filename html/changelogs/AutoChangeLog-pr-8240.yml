@@ -1,0 +1,4 @@
+author: "Absolucy"
+delete-after: True
+changes:
+  - bugfix: "Fixed trying to mine rocks with stuff that shouldn't be used to mine rocks."
