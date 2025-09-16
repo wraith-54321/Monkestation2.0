@@ -1,6 +1,0 @@
-author: "JupiterJaeden"
-delete-after: True
-changes:
-  - rscdel: "Removes the passive drain from stun batons."
-  - rscadd: "Harmbatonning with a baton on will now cause you to accidentally stun yourself. Better be careful!"
-  - bugfix: "Fixes a minor animation glitch with clumsy baton self-stunning."
