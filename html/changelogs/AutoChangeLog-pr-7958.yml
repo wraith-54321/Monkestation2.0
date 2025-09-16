@@ -1,0 +1,5 @@
+author: "Shoddd"
+delete-after: True
+changes:
+  - balance: "dragnet no longer bolas people"
+  - balance: "dragnet snares now take one second to deploy"
