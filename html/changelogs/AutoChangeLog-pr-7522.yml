@@ -1,0 +1,10 @@
+author: "LettuceGuardian"
+delete-after: True
+changes:
+  - rscadd: "EMT hardened helmet 'Extractor' now available from solfed imports."
+  - rscadd: "EMP shielding and holsters can now be bought from cargo."
+  - rscadd: "Donk Co vending machines and refills can now be found in their contraband import section. Maybe theres a reason NT doesn't want you to get these so easily."
+  - qol: "Synthetic care pens now available from medforest imports."
+  - qol: "Synth pens have replaced the patches found inside robotic care medkits."
+  - balance: "Hardened armour melee and bullet resistances have gone up to level 3."
+  - image: "Added icons for the extractor helmet."
