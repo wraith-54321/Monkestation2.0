@@ -505,9 +505,12 @@
       printing shit.
   - rscadd: Ghost players can now hear deadchat.
   - bugfix: Simians can now properly do changeling things.
+  - bugfix: Fixed trying to mine rocks with stuff that shouldn't be used to mine rocks.
   Absolucy, kuricityy:
   - balance: Buffs godslayer armor values to be worth the effort you have to put in
       to getting it.
+  KittyNoodle:
+  - bugfix: Fixed ethereal hair not updating.
   Tractor Maam:
   - bugfix: Virus Food is no longer impossible to create. As a result, you have to
       heat it to 400k now instead of cooling it to 200k.
