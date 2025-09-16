@@ -1,0 +1,4 @@
+author: "EssentialTomato"
+delete-after: True
+changes:
+  - bugfix: "(Lufferly) Destroyed solar panels no longer drop their overlays"
