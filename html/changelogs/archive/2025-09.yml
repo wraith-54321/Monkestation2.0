@@ -573,3 +573,6 @@
   - bugfix: update some interactions to the new system
   wonderinghost:
   - rscadd: Engi Vend vendors now stock with Construction bags
+2025-09-17:
+  Absolucy, necromanceranne:
+  - bugfix: Caps how much eyeblur can be caused by things like projectiles.
