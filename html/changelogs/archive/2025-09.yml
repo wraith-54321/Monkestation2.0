@@ -579,6 +579,11 @@
 2025-09-18:
   Absolucy:
   - spellcheck: Fixed all instances of "oozeling" being mispelled as "oozling".
+  - bugfix: Fixed brains/cores being labeled as "unknown" if they died without an
+      ID.
+  - balance: Being cold-blooded now actually affects body temperature regulation
+  - balance: Cold-blooded mobs now lose their base/innate temperature insulation.
+  - qol: The spooky lantern is now small instead of normal sized.
   JupiterJaeden:
   - rscadd: Adds the Armory Authorization Computer. Can be authorized by the HOS,
       Warden, Captain, or 3 Secoffs. When authorized, opens the armory shutters and
@@ -626,7 +631,12 @@
       now correctly force you to speak common (even if you don't know common)
   - qol: Language translations chunk sentences together better, making partial understanding
       a bit easier to parse.
+  ThePooba:
+  - rscadd: Added makarov and some ammo to black market uplink.
+  - rscadd: Added weapons authorization to purchase from the syndicate uplink.
+  - rscdel: Removed mk58 crafting recipes
   throwawayuseless:
   - spellcheck: Nanotransen -> Nanotrasen
   - bugfix: Inorganic Biology and Necrotic Metabolism should work consistently and
       as advertised now.
+  - bugfix: The infectable biotype altering virus symptoms should work again
