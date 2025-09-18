@@ -1,0 +1,4 @@
+author: "Absolucy"
+delete-after: True
+changes:
+  - bugfix: "Fixed brains/cores being labeled as \"unknown\" if they died without an ID."
