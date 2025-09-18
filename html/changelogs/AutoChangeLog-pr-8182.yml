@@ -1,0 +1,5 @@
+author: "Absolucy"
+delete-after: True
+changes:
+  - balance: "Being cold-blooded now actually affects body temperature regulation"
+  - balance: "Cold-blooded mobs now lose their base/innate temperature insulation."
