@@ -1,0 +1,4 @@
+author: "TheColorCyan"
+delete-after: True
+changes:
+  - bugfix: "gibtonite is no longer invisible when exploding on the floor"
