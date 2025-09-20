@@ -669,3 +669,5 @@
   - bugfix: Updated some admin notes for some escape shuttles so they aren't blatant
       lies anymore.
   - spellcheck: '"locksthe locker." no longer happens.'
+  flleeppyy:
+  - rscadd: Scroll Tracking Tolerance is now an experimental option for the chat panel.
