@@ -1,4 +1,0 @@
-author: "Absolucy"
-delete-after: True
-changes:
-  - bugfix: "Fixed the \"Show\" button in the Requests Manager not working."
