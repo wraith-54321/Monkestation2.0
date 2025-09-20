@@ -640,3 +640,19 @@
   - bugfix: Inorganic Biology and Necrotic Metabolism should work consistently and
       as advertised now.
   - bugfix: The infectable biotype altering virus symptoms should work again
+2025-09-20:
+  JupiterJaeden:
+  - qol: Adds a pref toggle for spinning & flipping making stacks of hats come off.
+      Default is on.
+  - qol: Adds the ability to disassemble stacks of hats by using them in hand with
+      Z.
+  - bugfix: Fixes some bugs with hats not updating their name and description correctly
+      when removed from a stack of hats.
+  Tractor-Maam:
+  - bugfix: Sarcophagi now have a icon.
+  - bugfix: Sarcophagi are now ordered from the regular cargo window, no longer getting
+      stuck in your goodie case.
+  - spellcheck: fixed a typo in closet/crate access control tooltips.
+  - bugfix: Updated some admin notes for some escape shuttles so they aren't blatant
+      lies anymore.
+  - spellcheck: '"locksthe locker." no longer happens.'

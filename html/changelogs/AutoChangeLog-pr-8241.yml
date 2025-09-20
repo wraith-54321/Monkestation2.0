@@ -1,6 +1,0 @@
-author: "JupiterJaeden"
-delete-after: True
-changes:
-  - qol: "Adds a pref toggle for spinning & flipping making stacks of hats come off. Default is on."
-  - qol: "Adds the ability to disassemble stacks of hats by using them in hand with Z."
-  - bugfix: "Fixes some bugs with hats not updating their name and description correctly when removed from a stack of hats."
