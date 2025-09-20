@@ -1,5 +1,0 @@
-author: "Ice-Type"
-delete-after: True
-changes:
-  - bugfix: "deconstructing machining machines gives the appropriate board"
-  - qol: "detonates the computer of one lucky player"

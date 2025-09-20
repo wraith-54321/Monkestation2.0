@@ -641,6 +641,17 @@
       as advertised now.
   - bugfix: The infectable biotype altering virus symptoms should work again
 2025-09-20:
+  EssentialTomato:
+  - bugfix: Fixed bein unable to clean the microwave.
+  - bugfix: Fixed the supermatter sliver dusting you while being placed into a proper
+      container,
+  - bugfix: Fixed plumbing constructor not being able to deconstruct its buildings.
+  - bugfix: Fixed neon lining not being placeable.
+  - bugfix: Fixed plant analyzers not working from range.
+  - bugfix: Minor airlock overlay fix for pneumatic seals and notes.
+  Ice-Type:
+  - bugfix: deconstructing machining machines gives the appropriate board
+  - qol: detonates the computer of one lucky player
   JupiterJaeden:
   - qol: Adds a pref toggle for spinning & flipping making stacks of hats come off.
       Default is on.
@@ -648,6 +659,8 @@
       Z.
   - bugfix: Fixes some bugs with hats not updating their name and description correctly
       when removed from a stack of hats.
+  TheColorCyan:
+  - bugfix: gibtonite is no longer invisible when exploding on the floor
   Tractor-Maam:
   - bugfix: Sarcophagi now have a icon.
   - bugfix: Sarcophagi are now ordered from the regular cargo window, no longer getting
