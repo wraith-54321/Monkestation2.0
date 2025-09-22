@@ -1,4 +1,0 @@
-author: "Absolucy"
-delete-after: True
-changes:
-  - balance: "The Mystic storyteller now actually prefers mystical antags - it will NEVER spawn \"mundane\" antags roundstart, and is heavily weighted against them for midrounds."
