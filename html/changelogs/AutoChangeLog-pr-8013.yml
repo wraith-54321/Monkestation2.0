@@ -1,0 +1,7 @@
+author: "JohnFulpWillard, Rhials, MrMelbert, Xander3359"
+delete-after: True
+changes:
+  - bugfix: "Statues don't count as eyes to creatures."
+  - bugfix: "Human AIs and Admin ghosts no longer get kicked off of machines that aren't on cameranets."
+  - rscadd: "Security implants may now be harmlessly self-destructed at the Prisoner Management Console."
+  - code_imp: "Various code improvements and removal of unused vars in the Prisoner Management Console"
