@@ -1,0 +1,4 @@
+author: "throwawayuseless"
+delete-after: True
+changes:
+  - rscadd: "Fake macrobomb that actually revives you instead"
