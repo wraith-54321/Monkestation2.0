@@ -1,0 +1,10 @@
+author: "Killermankey"
+delete-after: True
+changes:
+  - rscadd: "Hardsuit crafts to machining"
+  - rscadd: "ATV Craft to machining"
+  - rscadd: "TTV Craft to Machining"
+  - rscadd: "Shotgun Craft to Machining"
+  - rscadd: "Couple of ammo crafts to Machining"
+  - balance: "Lowered pricing on melted plastic, universal Circuits, small motors and advanced tools"
+  - balance: "Doubled price of fire axe in Machining"
