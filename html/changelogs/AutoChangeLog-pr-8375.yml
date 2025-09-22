@@ -1,0 +1,4 @@
+author: "Absolucy"
+delete-after: True
+changes:
+  - bugfix: "The ashen duelist, rockspider, and trench jockey packs no longer have the full belt-satchel slowdowns, as the description says they shouldn't (and it's part of their whole point)"
