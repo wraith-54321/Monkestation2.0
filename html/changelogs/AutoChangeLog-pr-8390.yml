@@ -1,5 +1,0 @@
-author: "EssentialTomato"
-delete-after: True
-changes:
-  - rscadd: "(MTandi) Added airlock pump atmos device to create cycling airlocks"
-  - qol: "(Archemagus) Airlock pumps now dock with shuttles in more pleasant way"
