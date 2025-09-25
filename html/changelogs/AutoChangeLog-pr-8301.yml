@@ -1,0 +1,7 @@
+author: "Absolucy"
+delete-after: True
+changes:
+  - rscdel: "Polyglots, Bilinguals, IPCs, and silicons no longer know Ashtongue by default."
+  - rscdel: "Ashwalkers no longer fully know Draconic, only Ashtongue."
+  - rscdel: "Normal lizardpeople no longer fully know Ashtongue."
+  - rscadd: "Understanding Draconic now grants partial understanding of Ashtongue, and vice versa."
