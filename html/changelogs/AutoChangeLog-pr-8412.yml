@@ -1,0 +1,4 @@
+author: "Absolucy"
+delete-after: True
+changes:
+  - bugfix: "Monster Hunters will now keep their Instant Recall and Hunter Vision abilities if they ever change bodies, i.e if they're cloned or whatever."
