@@ -1,5 +1,0 @@
-author: "EssentialTomato"
-delete-after: True
-changes:
-  - qol: "(MrMelbert) Airlock pumps will unbolt their linked airlocks on losing power, allowing them to be forced through"
-  - qol: "(MrMelbert) Airlock pumps work on L shaped airlocks, assuming [the airlocks] are already linked."
