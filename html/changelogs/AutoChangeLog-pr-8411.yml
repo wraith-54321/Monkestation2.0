@@ -1,0 +1,4 @@
+author: "Absolucy"
+delete-after: True
+changes:
+  - bugfix: "fix regen coma leaving people in a weird limbo between life and death"
