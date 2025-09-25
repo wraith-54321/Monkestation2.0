@@ -1,0 +1,4 @@
+author: "kuricityy"
+delete-after: True
+changes:
+  - balance: "xenomorphs no longer regen while on fire"
