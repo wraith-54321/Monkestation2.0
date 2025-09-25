@@ -816,3 +816,8 @@
   - bugfix: Riot shotgun wallstuns are once again removed as intended
   Xander3359:
   - bugfix: fixed brig phys lab coat not having directional sprites
+2025-09-25:
+  Xander3359:
+  - bugfix: Fixes gels unhusking with less than 100 units of synthflesh
+  kuricityy:
+  - balance: xenomorphs no longer regen while on fire
