@@ -854,6 +854,8 @@
   - rscdel: Normal lizardpeople no longer fully know Ashtongue.
   - rscadd: Understanding Draconic now grants partial understanding of Ashtongue,
       and vice versa.
+  Dr. Wendell Tully from hit Honey, I Shrunk The Kids ripoff game franchise Grounded:
+  - bugfix: dysplasia syndrome unfucked
   JupiterJaeden:
   - rscadd: Adds silver cuffs. Crafted with a bar of silver and normal handcuffs.
       When used on a bloodsucker or bloodsucker vassal, prevents them from using any
@@ -867,9 +869,20 @@
   - rscadd: admin only mecha mini nuke launcher
   - balance: gives the pimpin ride a 35% chance to protect rider from bullets
   - rscadd: disposable AT rocket for sec, orderable too!
+  Lawlolawl:
+  - bugfix: Ports fix for cooking. Soup recipes (boiling on a burner using soup pots)
+      now spawn proportionate cooked food to ingredients used. Also no longer causes
+      excess unused ingredients to disappear.
   Tractor-Maam:
   - code_imp: partially reverted a change to Mentor Manager to hopefully fix it being
       broken. Please report any issues!
   notghosti:
   - map: Deletes SPACE Apc from deltatstation
   - code_imp: ' Cult hallucinations now only proc in a 15 tile radius, not 40.'
+  - rscadd: Abductor Baton sleep mode applies 14 seconds of softspoken, this does
+      not prevent radios.
+  - balance: Abductor Silencers no longer turn off listening on radios, but now will
+      jam all headsets/radios microphones and disable body cameras akin to a disruptor
+      wave.
+  - bugfix: Abductor Paralyze mode is no longer effected by diminishing returns and
+      instead resets the timer to 60 seconds.
