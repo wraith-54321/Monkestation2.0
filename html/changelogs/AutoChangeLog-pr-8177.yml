@@ -1,0 +1,6 @@
+author: "notghosti"
+delete-after: True
+changes:
+  - rscadd: "Abductor Baton sleep mode applies 14 seconds of softspoken, this does not prevent radios."
+  - balance: "Abductor Silencers no longer turn off listening on radios, but now will jam all headsets/radios microphones and disable body cameras akin to a disruptor wave."
+  - bugfix: "Abductor Paralyze mode is no longer effected by diminishing returns and instead resets the timer to 60 seconds."
