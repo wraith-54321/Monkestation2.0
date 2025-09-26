@@ -854,6 +854,10 @@
   - rscdel: Normal lizardpeople no longer fully know Ashtongue.
   - rscadd: Understanding Draconic now grants partial understanding of Ashtongue,
       and vice versa.
+  - qol: You can now upload everything from a DNA disk to a DNA console at once, by
+      right clicking the console with the disk.
+  - qol: In addition, ctrl-clicking a DNA console with a disk will download mutations
+      from the console to the disk.
   Dr. Wendell Tully from hit Honey, I Shrunk The Kids ripoff game franchise Grounded:
   - bugfix: dysplasia syndrome unfucked
   JupiterJaeden:
@@ -873,6 +877,10 @@
   - bugfix: Ports fix for cooking. Soup recipes (boiling on a burner using soup pots)
       now spawn proportionate cooked food to ingredients used. Also no longer causes
       excess unused ingredients to disappear.
+  Shoddd:
+  - balance: oozelings now have a 2 second do after to regen limbs
+  - balance: oozelings absorbing limbs now transfers damage to torso
+  - bugfix: oozelings no longer error when delimbed
   Tractor-Maam:
   - code_imp: partially reverted a change to Mentor Manager to hopefully fix it being
       broken. Please report any issues!
