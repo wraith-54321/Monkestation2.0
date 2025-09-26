@@ -1,0 +1,9 @@
+author: "notghosti"
+delete-after: True
+changes:
+  - rscadd: "Advanced health analyzers can now detect borers in hosts, assuming they don't know how to hide themselfs."
+  - rscadd: "Increased energy improves ability to squeeze through doors and escape cages."
+  - rscadd: "Increased energy gives bonus movespeed while not hiding under tables/items"
+  - balance: "Stealth mode for borers cooldown decreased to 60 seconds, from 120 seconds"
+  - balance: "Borer maturation rate shifted from willing hosts to their other objectives slightly."
+  - bugfix: "Self reproduction with borers now properly deals damage to the borer."
