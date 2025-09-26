@@ -846,3 +846,30 @@
   - bugfix: Fixes gels unhusking with less than 100 units of synthflesh
   kuricityy:
   - balance: xenomorphs no longer regen while on fire
+2025-09-26:
+  Absolucy:
+  - rscdel: Polyglots, Bilinguals, IPCs, and silicons no longer know Ashtongue by
+      default.
+  - rscdel: Ashwalkers no longer fully know Draconic, only Ashtongue.
+  - rscdel: Normal lizardpeople no longer fully know Ashtongue.
+  - rscadd: Understanding Draconic now grants partial understanding of Ashtongue,
+      and vice versa.
+  JupiterJaeden:
+  - rscadd: Adds silver cuffs. Crafted with a bar of silver and normal handcuffs.
+      When used on a bloodsucker or bloodsucker vassal, prevents them from using any
+      powers (except masquerade, veil of many faces, or level 5 or higher brawn).
+      However, they are one-use and can be broken out of faster than normal cuffs.
+  Killermankey:
+  - rscadd: mecha flamethrower
+  - rscadd: mecha 20mm rifle
+  - rscadd: mecha .22lr minigun
+  - rscadd: admin only mecha 20mm rotary cannon
+  - rscadd: admin only mecha mini nuke launcher
+  - balance: gives the pimpin ride a 35% chance to protect rider from bullets
+  - rscadd: disposable AT rocket for sec, orderable too!
+  Tractor-Maam:
+  - code_imp: partially reverted a change to Mentor Manager to hopefully fix it being
+      broken. Please report any issues!
+  notghosti:
+  - map: Deletes SPACE Apc from deltatstation
+  - code_imp: ' Cult hallucinations now only proc in a 15 tile radius, not 40.'
