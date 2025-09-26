@@ -1,0 +1,4 @@
+author: "Lawlolawl"
+delete-after: True
+changes:
+  - bugfix: "Ports fix for cooking. Soup recipes (boiling on a burner using soup pots) now spawn proportionate cooked food to ingredients used. Also no longer causes excess unused ingredients to disappear."
