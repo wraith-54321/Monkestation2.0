@@ -1,0 +1,4 @@
+author: "notghosti"
+delete-after: True
+changes:
+  - code_imp: " Cult hallucinations now only proc in a 15 tile radius, not 40."
