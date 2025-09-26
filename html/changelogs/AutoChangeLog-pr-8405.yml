@@ -1,0 +1,5 @@
+author: "Absolucy"
+delete-after: True
+changes:
+  - qol: "You can now upload everything from a DNA disk to a DNA console at once, by right clicking the console with the disk."
+  - qol: "In addition, ctrl-clicking a DNA console with a disk will download mutations from the console to the disk."
