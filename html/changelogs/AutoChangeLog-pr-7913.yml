@@ -1,0 +1,4 @@
+author: "JupiterJaeden"
+delete-after: True
+changes:
+  - rscadd: "Adds silver cuffs. Crafted with a bar of silver and normal handcuffs. When used on a bloodsucker or bloodsucker vassal, prevents them from using any powers (except masquerade, veil of many faces, or level 5 or higher brawn). However, they are one-use and can be broken out of faster than normal cuffs."
