@@ -1,0 +1,4 @@
+author: "JohnFulpWillard"
+delete-after: True
+changes:
+  - image: "Half the splash screen isn't covered in initialization text post-roundstart."
