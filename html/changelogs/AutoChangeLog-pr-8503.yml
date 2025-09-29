@@ -1,0 +1,5 @@
+author: "Absolucy"
+delete-after: True
+changes:
+  - rscadd: "Burning items now emit smoke/pollution."
+  - qol: "Bonfire smoke emission now compensates for lag."
