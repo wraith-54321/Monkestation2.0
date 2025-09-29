@@ -1,0 +1,4 @@
+author: "notghosti, A special thanks to hostileburner."
+delete-after: True
+changes:
+  - bugfix: "Band-Aid fix for tesla destroying its own cables and multilayer hubs"
