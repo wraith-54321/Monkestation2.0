@@ -1,0 +1,4 @@
+author: "JupiterJaeden"
+delete-after: True
+changes:
+  - bugfix: "Fixes being unable to open storage items with right click when holding a gun or cup"
