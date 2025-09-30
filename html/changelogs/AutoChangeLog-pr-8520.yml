@@ -1,0 +1,7 @@
+author: "flleeppyy"
+delete-after: True
+changes:
+  - bugfix: "'Notify Restart' verb now actually works. You just need to be verified via the 'Link Discord Account' verb"
+  - rscdel: "Deleted the Discord subsystem and merged it into SSplexora"
+  - qol: "Discord Verification  ('Link Discord Account') window looks much nicer."
+  - config: "added discord_url config string, and some other unrelevant Plexora options that might be used in the future"
