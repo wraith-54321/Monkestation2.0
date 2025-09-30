@@ -1,5 +1,0 @@
-author: "TheColorCyan"
-delete-after: True
-changes:
-  - bugfix: "roundstart cell stun batons no longer only use 1% of its cell charge per hit and use 10%, like intended"
-  - bugfix: "you can no longer bypass advanced shotgun ammo boxes reload delay by cancelling the action"
