@@ -1,0 +1,4 @@
+author: "Lawlolawl"
+delete-after: True
+changes:
+  - bugfix: "Fixed Craig and he is able to water plants again. Also you can give him different watering cans (using the \"give\" hotkey, check settings)."
