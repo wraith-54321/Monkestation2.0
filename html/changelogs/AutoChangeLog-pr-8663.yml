@@ -1,0 +1,4 @@
+author: "notghosti"
+delete-after: True
+changes:
+  - code_imp: "Fixed deprived darkspawn calling upon the wrong role type. This changes nothing about how they work functionally however due to being set to 0."
