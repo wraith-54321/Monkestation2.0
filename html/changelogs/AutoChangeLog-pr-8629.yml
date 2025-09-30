@@ -1,0 +1,4 @@
+author: "JohnFulpWillard"
+delete-after: True
+changes:
+  - admin: "Outfit manager now works more than once if you close the UI."
