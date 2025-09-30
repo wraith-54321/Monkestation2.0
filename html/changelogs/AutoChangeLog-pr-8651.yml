@@ -1,5 +1,0 @@
-author: "Xander3359"
-delete-after: True
-changes:
-  - bugfix: "Fixed being unable to purchase regular-priced uplink items if you bought the discounted variant of it."
-  - bugfix: "Fixed uplinks bricking if they try to generate more discounts than there are available categories"

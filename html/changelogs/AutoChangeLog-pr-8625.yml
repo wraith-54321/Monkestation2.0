@@ -1,4 +1,0 @@
-author: "notghosti"
-delete-after: True
-changes:
-  - map: "Construction Access now properly accesses Helio station engineering."
