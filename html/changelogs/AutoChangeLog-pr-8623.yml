@@ -1,0 +1,6 @@
+author: "notghosti"
+delete-after: True
+changes:
+  - map: "Heliostation AI Core will now be connected to power"
+  - map: "Heliostation AI sat Solars will now no longer depower if not set up."
+  - map: "Heliostation AI sat Solars will now actually link to the Solars computer"
