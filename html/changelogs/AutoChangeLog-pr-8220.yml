@@ -1,0 +1,5 @@
+author: "jlsnow301, infraredbaron, StrangeWeirdKitten, Xander3359"
+delete-after: True
+changes:
+  - rscadd: "Added a new UI element over players that are interacting, building, etc."
+  - code_imp: "do_after() can now hold custom cog icons. Add some today!"
