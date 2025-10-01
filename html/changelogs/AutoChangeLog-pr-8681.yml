@@ -1,4 +1,0 @@
-author: "Xander3359"
-delete-after: True
-changes:
-  - bugfix: "Fixed being unable to click drag a crate off a cargo shelf if you didn't drag the shelf rather than the crate"
