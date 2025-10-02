@@ -1,4 +1,0 @@
-author: "JohnFulpWillard"
-delete-after: True
-changes:
-  - bugfix: "Latejoining and afterparty station event now properly give you the spawn effects of buckling in/being drunk/being in a closet."
