@@ -1,0 +1,4 @@
+author: "Lawlolawl"
+delete-after: True
+changes:
+  - bugfix: "Fixed TK teleporting surgical tray by stopping TK use in hand."
