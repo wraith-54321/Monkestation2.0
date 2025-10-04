@@ -1,0 +1,4 @@
+author: "Tractor-Maam"
+delete-after: True
+changes:
+  - bugfix: "remote injectors, patchers, and factories now print their components again."
