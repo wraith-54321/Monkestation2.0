@@ -1,8 +1,0 @@
-author: "ThePooba"
-delete-after: True
-changes:
-  - bugfix: "darkspawn can no longer reach like 90% damage reduction"
-  - bugfix: "removed double defined crew species paychecks"
-  - bugfix: "coffins now have proper sprites"
-  - bugfix: "darkspawn ui now updates properly and doesnt freak the fuck out if you run out of willpower"
-  - bugfix: "darkspawn crawling shadow now causes you to take damage equal to a percent of its missing health on destruction as brute."

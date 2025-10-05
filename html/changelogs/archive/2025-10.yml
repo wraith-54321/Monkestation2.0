@@ -119,3 +119,18 @@
       armory level access.
   notghosti:
   - balance: Mommi Shrink will only make you a 1/4th of your original size.
+2025-10-05:
+  SirNightKnight:
+  - bugfix: fixed item reskinning not working again.
+  ThePooba:
+  - bugfix: darkspawn can no longer reach like 90% damage reduction
+  - bugfix: removed double defined crew species paychecks
+  - bugfix: coffins now have proper sprites
+  - bugfix: darkspawn ui now updates properly and doesnt freak the fuck out if you
+      run out of willpower
+  - bugfix: darkspawn crawling shadow now causes you to take damage equal to a percent
+      of its missing health on destruction as brute.
+  Tractor-Maam:
+  - bugfix: remote injectors, patchers, and factories now print their components again.
+  notghosti:
+  - bugfix: Blueshield modified hellfire will once again only have 13 shots. How 'lucky'
