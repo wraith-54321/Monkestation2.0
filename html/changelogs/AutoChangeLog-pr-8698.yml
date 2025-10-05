@@ -1,0 +1,4 @@
+author: "Absolucy"
+delete-after: True
+changes:
+  - balance: "Oozelings will now begin to lose blood if they're starving, as intended."
