@@ -1,7 +1,0 @@
-author: "Sorenon"
-delete-after: True
-changes:
-  - qol: "unified all of the preferences windows into one"
-  - qol: "added a warning to the keybindings menu when multiple actions are bound to the same key"
-  - qol: "added a reset button to the volume mixer"
-  - bugfix: "allowed the volume mixer to mute channels instead of just making them really quiet"
