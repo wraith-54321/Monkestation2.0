@@ -12258,6 +12258,10 @@
 /obj/machinery/camera/autoname/directional/north,
 /turf/open/floor/circuit/telecomms/server,
 /area/station/science/server)
+"dHc" = (
+/obj/machinery/computer/security/telescreen/rd,
+/turf/closed/wall/r_wall,
+/area/station/command/heads_quarters/rd)
 "dHg" = (
 /obj/machinery/camera/directional/east{
 	c_tag = "AI Chamber - Starboard";
@@ -15556,10 +15560,6 @@
 /obj/structure/lattice/catwalk,
 /turf/open/space/basic,
 /area/space/nearstation)
-"eDx" = (
-/obj/machinery/computer/security/telescreen/rd,
-/turf/closed/wall/r_wall,
-/area/station/command/heads_quarters/rd)
 "eDy" = (
 /obj/effect/spawner/random/trash/mess,
 /turf/open/floor/plating,
@@ -33557,7 +33557,8 @@
 "jSN" = (
 /obj/machinery/computer/pod/old/mass_driver_controller/trash{
 	pixel_x = -6;
-	pixel_y = 26
+	pixel_y = 26;
+	range = 6
 	},
 /obj/effect/spawner/random/medical/medkit,
 /turf/open/floor/plating,
@@ -35485,7 +35486,7 @@
 	},
 /obj/machinery/conveyor/inverted{
 	dir = 10;
-	id = "cargosort"
+	id = "garbage"
 	},
 /turf/open/floor/plating,
 /area/station/maintenance/disposal)
@@ -57986,7 +57987,7 @@
 	dir = 5
 	},
 /obj/machinery/conveyor{
-	id = "cargosort";
+	id = "garbage";
 	dir = 1
 	},
 /turf/open/floor/plating,
@@ -78149,7 +78150,7 @@
 	},
 /obj/machinery/conveyor{
 	dir = 5;
-	id = "cargosort"
+	id = "garbage"
 	},
 /turf/open/floor/plating,
 /area/station/maintenance/disposal)
@@ -107799,7 +107800,7 @@ rzL
 rzL
 rzL
 lXw
-eDx
+dHc
 rxK
 xOP
 hxo
@@ -130380,7 +130381,7 @@ xxD
 apS
 een
 kvL
-inJ
+eKu
 gUT
 giG
 cSh
@@ -130637,7 +130638,7 @@ tPe
 jCf
 jCf
 tRS
-eKu
+inJ
 pDm
 pYE
 lWv
