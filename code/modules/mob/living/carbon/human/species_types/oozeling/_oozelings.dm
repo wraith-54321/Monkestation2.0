@@ -118,17 +118,18 @@
 		return
 
 	if(wetness.stacks > DAMAGE_WATER_STACKS)
-		slime.blood_volume = max(slime.blood_volume - (2 * seconds_per_tick), 0)
+		remove_blood_volume(slime, 2 * seconds_per_tick)
 		slime.balloon_alert(slime, "too wet, dry off!")
 		if(SPT_PROB(25, seconds_per_tick))
 			slime.visible_message(span_danger("[slime]'s form begins to lose cohesion, seemingly diluting with the water!"), span_warning("The water starts to dilute your body, dry it off!"))
 	else if(wetness.stacks > REGEN_WATER_STACKS && SPT_PROB(25, seconds_per_tick)) //Used for old healing system. Maybe use later? For now increase loss for being soaked.
 		to_chat(slime, span_warning("You can't pull your body together, it is dripping wet!"))
-		slime.blood_volume = max(slime.blood_volume - (1 * seconds_per_tick), 0)
+		remove_blood_volume(slime, seconds_per_tick)
 		slime.balloon_alert(slime, "you're dripping wet!")
 
 /// Handles slimes losing blood from starving.
 /datum/species/oozeling/proc/spec_slime_hunger(mob/living/carbon/human/slime, seconds_per_tick)
+	// don't bother with using remove_blood_volume as this doesn't proc for bloodsuckers anyways
 	if(slime.nutrition <= NUTRITION_LEVEL_STARVING)
 		slime.blood_volume = max(slime.blood_volume - (4 * seconds_per_tick), 0)
 		if(COOLDOWN_FINISHED(src, starvation_alert_cooldown))
@@ -142,6 +143,16 @@
 				to_chat(slime, span_warning("You're feeling pretty hungry..."))
 				slime.balloon_alert(slime, "you're pretty hungry...")
 				COOLDOWN_START(src, starvation_alert_cooldown, 10 SECONDS)
+
+/// Stupid workaround proc so that bloodsucker oozelings also have their blood volume removed
+/datum/species/oozeling/proc/remove_blood_volume(mob/living/carbon/human/slime, amount)
+	if(!IS_FINITE(amount))
+		CRASH("Tried to remove non-finite amount of blood from an oozeling")
+	var/datum/antagonist/bloodsucker/slimesucker = IS_BLOODSUCKER(slime)
+	if(slimesucker)
+		slimesucker.AddBloodVolume(-amount)
+	else
+		slime.blood_volume = max(slime.blood_volume - amount, 0)
 
 ///////
 /// CHEMICAL HANDLING
@@ -197,25 +208,10 @@
 		return NONE
 	if(HAS_TRAIT(slime, TRAIT_GODMODE)) // we're [title card]
 		return NONE
-	var/water_multiplier = 1
 	// thick clothing won't protect you if you just drink or inject tho
-	if(methods & ~(INGEST|INJECT))
-		// if all your limbs are covered by thickmaterial clothing, then it will protect you from water.
-		water_multiplier = water_damage_multiplier(slime)
-		if(water_multiplier <= 0)
-			to_chat(slime, span_warning("The water fails to penetrate your thick clothing!"))
-			return COMPONENT_NO_EXPOSE_REAGENTS
-	if(HAS_TRAIT(slime, TRAIT_SLIME_HYDROPHOBIA))
-		to_chat(slime, span_warning("Water splashes against your oily membrane and rolls right off your body!"))
+	var/check_clothes = methods & ~(INGEST|INJECT)
+	if(!water_exposure(slime, check_clothes))
 		return COMPONENT_NO_EXPOSE_REAGENTS
-	slime.blood_volume = max(slime.blood_volume - (30 * water_multiplier), 0)
-	if(COOLDOWN_FINISHED(src, water_alert_cooldown))
-		slime.visible_message(
-			span_warning("[slime]'s form melts away from the water!"),
-			span_danger("The water causes you to melt away!"),
-		)
-		slime.balloon_alert(slime, "water melts you!")
-		COOLDOWN_START(src, water_alert_cooldown, 1 SECONDS)
 	return NONE
 
 /datum/species/oozeling/handle_chemical(datum/reagent/chem, mob/living/carbon/human/slime, seconds_per_tick, times_fired)
@@ -252,7 +248,7 @@
 		if(HAS_TRAIT(slime, TRAIT_SLIME_HYDROPHOBIA) || HAS_TRAIT(slime, TRAIT_GODMODE) || slime.blood_volume <= 0)
 			return ..()
 
-		slime.blood_volume = max(slime.blood_volume - (3 * seconds_per_tick), 0)
+		remove_blood_volume(slime, 3 * seconds_per_tick)
 		chem.holder?.remove_reagent(chem.type, min(chem.volume * 0.22, 10))
 		if(SPT_PROB(25, seconds_per_tick))
 			to_chat(slime, span_warning("The water starts to weaken and adulterate your insides!"))
@@ -260,6 +256,30 @@
 		return TRUE
 
 	return ..()
+
+/datum/species/oozeling/proc/water_exposure(mob/living/carbon/human/slime, check_clothes = TRUE, quiet_if_protected = FALSE)
+	var/water_multiplier = 1
+	// thick clothing won't protect you if you just drink or inject tho
+	if(check_clothes)
+		// if all your limbs are covered by thickmaterial clothing, then it will protect you from water.
+		water_multiplier = water_damage_multiplier(slime)
+		if(water_multiplier <= 0)
+			if(!quiet_if_protected)
+				to_chat(slime, span_warning("The water fails to penetrate your thick clothing!"))
+			return FALSE
+	if(HAS_TRAIT(slime, TRAIT_SLIME_HYDROPHOBIA))
+		if(!quiet_if_protected)
+			to_chat(slime, span_warning("Water splashes against your oily membrane and rolls right off your body!"))
+		return FALSE
+	remove_blood_volume(slime, 30 * water_multiplier)
+	if(COOLDOWN_FINISHED(src, water_alert_cooldown))
+		slime.visible_message(
+			span_warning("[slime]'s form melts away from the water!"),
+			span_danger("The water causes you to melt away!"),
+		)
+		slime.balloon_alert(slime, "water melts you!")
+		COOLDOWN_START(src, water_alert_cooldown, 1 SECONDS)
+	return TRUE
 
 /datum/species/oozeling/create_pref_unique_perks()
 	var/list/to_add = list()
