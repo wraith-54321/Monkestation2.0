@@ -34454,7 +34454,7 @@
 /turf/open/floor/iron,
 /area/station/science/ordnance/storage)
 "qBx" = (
-/obj/machinery/atmospherics/components/unary/cryo_cell{
+/obj/machinery/cryo_cell{
 	dir = 1
 	},
 /obj/effect/turf_decal/trimline/blue/filled/line{
@@ -38290,7 +38290,7 @@
 "smJ" = (
 /obj/machinery/light/directional/south,
 /obj/effect/turf_decal/trimline/blue/filled/line,
-/obj/machinery/atmospherics/components/unary/cryo_cell{
+/obj/machinery/cryo_cell{
 	dir = 1
 	},
 /turf/open/floor/iron/diagonal,

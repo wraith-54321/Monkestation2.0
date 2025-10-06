@@ -11902,7 +11902,7 @@
 /turf/open/floor/glass/reinforced,
 /area/station/engineering/break_room)
 "cEy" = (
-/obj/machinery/atmospherics/components/unary/cryo_cell{
+/obj/machinery/cryo_cell{
 	dir = 4
 	},
 /turf/open/floor/iron/dark,
@@ -55524,7 +55524,7 @@
 /turf/open/floor/stone,
 /area/station/science/xenobiology)
 "qlk" = (
-/obj/machinery/atmospherics/components/unary/cryo_cell{
+/obj/machinery/cryo_cell{
 	dir = 4
 	},
 /obj/machinery/light/directional/west,
