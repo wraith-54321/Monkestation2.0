@@ -1,0 +1,7 @@
+author: "Absolucy"
+delete-after: True
+changes:
+  - map: "All maps (except Theseus because I couldn't figure out how to fit them in) have at least 5 main SMESes in engineering now."
+  - map: "All maps have at least one oxygen canister in engineering now."
+  - map: "Added a jetpack crate to engineering secure storage on Box Station."
+  - map: "The main SMES rooms should now all be mapped in as part of the \"Engineering SMES\" area now."
