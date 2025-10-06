@@ -1,0 +1,6 @@
+author: "notghosti"
+delete-after: True
+changes:
+  - rscadd: "Plague rats can bump into doors to crawl through them."
+  - rscdel: "Plague rats no longer get door passthrough"
+  - balance: "Plague rats now have 50 hp, from 30"
