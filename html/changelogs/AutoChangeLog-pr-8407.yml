@@ -1,0 +1,5 @@
+author: "Tractor-Maam"
+delete-after: True
+changes:
+  - rscadd: "Added a new emote, !, which manually triggers the MGS alert that appears when someone exits a cardboard box."
+  - code_imp: "Emotes can now support having no message."
