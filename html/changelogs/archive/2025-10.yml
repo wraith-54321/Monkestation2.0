@@ -233,6 +233,8 @@
   - qol: Made the energy net's hitbox less shit, so you don't accidentally kill the
       person inside the net instead of destroying the net.
   - balance: The Staff of Storms is now normal sized, instead of bulky.
+  - rscadd: Hotspot Stomping Kits and Hotspot Vent Kits can be ordered from cargo
+      once more.
   Absolucy, SmArtKar:
   - refactor: Refactored filters to utilize binary insertion instead of timSort. The
       server should run somewhat faster now, hopefully.
