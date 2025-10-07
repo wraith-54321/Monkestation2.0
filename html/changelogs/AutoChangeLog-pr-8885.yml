@@ -1,5 +1,0 @@
-author: "LassiH"
-delete-after: True
-changes:
-  - bugfix: "shadow caster projectiles now eat lights"
-  - bugfix: "shadow caster projectiles now embed"

@@ -1,6 +1,0 @@
-author: "notghosti"
-delete-after: True
-changes:
-  - rscadd: "Drones can emote with silicon emotes. Beep agressivley at those who annoy you."
-  - rscadd: "Drone death messages now tells other drones where they died, not just that they died."
-  - qol: "Drone Radios now has a sound effect, chat colour, and is organized into radio chat."
