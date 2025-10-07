@@ -1,4 +1,0 @@
-author: "EssentialTomato"
-delete-after: True
-changes:
-  - bugfix: "Meteor satellites and vital scanner pads no longer vanish on repacking."

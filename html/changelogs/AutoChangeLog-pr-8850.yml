@@ -1,5 +1,0 @@
-author: "SirNightKnight, SyncIt21"
-delete-after: True
-changes:
-  - bugfix: "fixed mechs not acting if their power usage was 0"
-  - bugfix: "fixed mech drills not having an adjacent check when drilling."
