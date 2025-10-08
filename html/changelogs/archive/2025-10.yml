@@ -294,6 +294,8 @@
   oh no froggy did another one:
   - balance: IPCs (and medibots etc. ig) can use nanites
 2025-10-08:
+  LassiH:
+  - bugfix: darkspawn invigorate thrall and elucidate applying speed boost wrong
   Singul0:
   - qol: Added screentips context for trash piles
   - bugfix: Fixes being unable to hide in trash piles
