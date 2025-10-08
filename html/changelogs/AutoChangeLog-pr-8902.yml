@@ -1,0 +1,5 @@
+author: "Singul0"
+delete-after: True
+changes:
+  - qol: "Added screentips context for trash piles"
+  - bugfix: "Fixes being unable to hide in trash piles"
