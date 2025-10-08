@@ -1,0 +1,4 @@
+author: "Singul0"
+delete-after: True
+changes:
+  - bugfix: "Medbots and Cleanbots can now be configured properly"
