@@ -1,0 +1,7 @@
+author: "notghosti"
+delete-after: True
+changes:
+  - map: "Ice box gulag is now hooked to power"
+  - map: "Ice box security will have a flowing distro"
+  - map: "Ice box security - dorms Maintenace no longer has a walled off external airlock"
+  - map: "Ice box arrivals and dorms are slightly less hallway heavy for it's distro"
