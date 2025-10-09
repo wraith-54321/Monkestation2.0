@@ -1,0 +1,5 @@
+author: "flleeppyy"
+delete-after: True
+changes:
+  - rscadd: "Statpanel now shows if players can see you as a ghost."
+  - rscadd: "As a ghost, examining a mob will show you if you're visible to them or not"
