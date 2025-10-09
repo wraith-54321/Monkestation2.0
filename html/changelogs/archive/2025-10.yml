@@ -333,6 +333,12 @@
   - rscadd: Drake armor is made use drake remains to construct. (This is a net neutral
       to the previous recipe)
 2025-10-09:
+  Absolucy:
+  - map: Added a navigation landmark for cryo storage to Blueshift.
+  - bugfix: Multi-cell charging racks now use power from the grid like normal cell
+      chargers do, instead of rapidly draining the APC.
+  LassiH:
+  - balance: every darkspawn class can now get lightblind sigils
   Sorenon:
   - bugfix: fixed the antag selection preference page not having a scroll bar
   SyncIt21, ZephyrTFA, ArcaneMusic, LT3, TheColorCyan:
