@@ -1,0 +1,4 @@
+author: "LassiH"
+delete-after: True
+changes:
+  - balance: "every darkspawn class can now get lightblind sigils"
