@@ -1,5 +1,0 @@
-author: "notghosti"
-delete-after: True
-changes:
-  - map: "Blueshift spawns correct sized asteroids"
-  - map: "Pubbystation now spawns asteroids at the magnet instead of telecomms, and supports bigger asteroids"
