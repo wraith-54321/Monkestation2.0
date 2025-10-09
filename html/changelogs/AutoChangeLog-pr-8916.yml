@@ -1,0 +1,4 @@
+author: "Absolucy"
+delete-after: True
+changes:
+  - map: "Added a navigation landmark for cryo storage to Blueshift."
