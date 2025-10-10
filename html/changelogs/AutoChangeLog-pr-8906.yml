@@ -1,6 +1,0 @@
-author: "Absolucy"
-delete-after: True
-changes:
-  - qol: "Portable liquid pumps now take 0.5 seconds to (un)wrench, instead of 2 seconds."
-  - qol: "Portable liquid pumps now suck up reagents from adjacent tiles, in addition to the tile its currently on."
-  - code_imp: "Improved portable liquid pump code slightly."
