@@ -398,3 +398,7 @@
   - map: Ice box arrivals and dorms are slightly less hallway heavy for it's distro
   - map: Heliostation primary R&D airlock has science access akin to the surrounding
       doors.
+2025-10-10:
+  Absolucy:
+  - qol: Renamed the "Cable Coil" design to "Cable Coil (x30)", to make it clear that
+      it prints out a whole stack of cables.

@@ -1,4 +1,0 @@
-author: "Absolucy"
-delete-after: True
-changes:
-  - qol: "Renamed the \"Cable Coil\" design to \"Cable Coil (x30)\", to make it clear that it prints out a whole stack of cables."
