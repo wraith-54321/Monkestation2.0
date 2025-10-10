@@ -1,8 +1,0 @@
-author: "TheColorCyan"
-delete-after: True
-changes:
-  - bugfix: "fixes clock cult abilities using too little power"
-  - bugfix: "fixes clock cult regenerating and getting too little power from integration cogs"
-  - bugfix: "clock sense no longer displays only half of the available power"
-  - bugfix: "fixes drying racks spitting out matter bins on deconstruction"
-  - bugfix: "fixes unusuals being unable to be disabled"
