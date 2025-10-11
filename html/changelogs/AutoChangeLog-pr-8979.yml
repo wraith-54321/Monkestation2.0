@@ -1,0 +1,5 @@
+author: "Lawlolawl"
+delete-after: True
+changes:
+  - bugfix: "Fixed medal box showing incorrect sprites."
+  - bugfix: "Fixed toggling open/closed lid of medal box. You can now toggle the lid of the medal box by using it in hand (after unlocking it with ID). Note that you can only access its item storage when the lid is open."
