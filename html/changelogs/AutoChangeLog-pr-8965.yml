@@ -1,0 +1,5 @@
+author: "Absolucy, LettuceGuardian"
+delete-after: True
+changes:
+  - image: "Changed the Navigate HUD button sprite to actually say \"Navigate\" instead of being a tiny icon. Sprites by LettuceGuardian."
+  - bugfix: "The walk/run button no longer disappears when you sprint."
