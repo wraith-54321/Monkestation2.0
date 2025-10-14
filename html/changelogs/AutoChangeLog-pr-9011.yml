@@ -1,0 +1,4 @@
+author: "Absolucy"
+delete-after: True
+changes:
+  - rscadd: "Added a preference to allow you to turn off the AI radio blip sounds."
