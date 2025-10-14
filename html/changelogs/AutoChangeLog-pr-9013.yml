@@ -1,0 +1,5 @@
+author: "BobDABuilder9001"
+delete-after: True
+changes:
+  - bugfix: "Cyborgs can place rods and glass on window sills."
+  - qol: "Placing glass on a window sill or on a grill no longer anchors it for one but not the other"
