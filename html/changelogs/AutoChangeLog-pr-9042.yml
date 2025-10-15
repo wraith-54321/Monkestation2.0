@@ -1,5 +1,0 @@
-author: "Absolucy"
-delete-after: True
-changes:
-  - bugfix: "Darkspawn can no longer use Silver Tongue to recall a shuttle when admins have disabled recalling."
-  - admin: "Darkspawn recalling the shuttle with Silver Tongue is now logged."
