@@ -1,4 +1,0 @@
-author: "notghosti"
-delete-after: True
-changes:
-  - bugfix: "PAI's leaving modular computers (Such as your pda) Will now update the sprite to not include the PAI card in it."
