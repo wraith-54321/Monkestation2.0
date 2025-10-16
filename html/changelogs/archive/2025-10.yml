@@ -570,3 +570,29 @@
   - bugfix: PAI's leaving modular computers (Such as your pda) Will now update the
       sprite to not include the PAI card in it.
   - map: Heliostation supermatter will no longer depower
+2025-10-16:
+  Absolucy:
+  - qol: Shaft Miners now have external airlock access on Icebox and any other planetary
+      maps.
+  - qol: Flashes now apply a heavy screen blur by default, instead of rapidly brightening/darkening
+      the screen in a way potentially dangerous to some players.
+  - qol: If you wish to return to the old white or black screen flash tho, you can
+      change it with the "Screen Flash Visuals" setting under Gameplay in Game Preferences.
+  JupiterJaeden:
+  - balance: Removed the RNG slip from liquid spills. Makes it so you only slip if
+      you sprint. Does not affect the regular/guaranteed slips like sprayed water,
+      space lube, etc.
+  Sorenon:
+  - rscadd: Added the Hard of Hearing trait which makes everything sound quieter,
+      this is caused by mild ear damage, stronger ear damage still causes complete
+      deafness.
+  - rscadd: Added the Hard of Hearing Quirk which causes everyone to sound like they
+      are whispering.
+  - bugfix: Fixed an issue where the ears being damaged multiple times in one tick
+      can cause deafness to last much longer than intended.
+  TheColorCyan:
+  - bugfix: fixed restrain psi trap requiring you to step on it twice to activate
+  - bugfix: warlock extinguish spell now actually extinguishes lights
+  - bugfix: extinguish spell now also extinguishes the owner
+  notghosti:
+  - bugfix: silicons can depower airlocks via their UI again
