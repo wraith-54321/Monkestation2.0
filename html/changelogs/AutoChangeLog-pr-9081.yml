@@ -1,0 +1,4 @@
+author: "notghosti"
+delete-after: True
+changes:
+  - bugfix: "Mobs will be alerted of temperature while not on fire."
