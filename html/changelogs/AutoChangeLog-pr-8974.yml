@@ -1,9 +1,0 @@
-author: "Absolucy"
-delete-after: True
-changes:
-  - bugfix: "Fixed pocket protector storage not being removed."
-  - bugfix: "\"Secret\" testmerges are now actually excluded from the changelog and in-game revision info. (they aren't really that secret anyways but whatever)"
-  - bugfix: "Fixed being able to turn unanchored ooze suckers on."
-  - bugfix: "Fixed the achievements for muting Poly or giving Poly loudmode as signal technician."
-  - bugfix: "Fixed admins not being able to flip tables."
-  - code_imp: "Maps can now configure station traits to ban from rolling on that specific map."
