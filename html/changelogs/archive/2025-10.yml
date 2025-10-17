@@ -607,3 +607,8 @@
   - bugfix: Fixed admins not being able to flip tables.
   - code_imp: Maps can now configure station traits to ban from rolling on that specific
       map.
+  notghosti:
+  - bugfix: Mobs will be alerted of temperature while not on fire.
+  - bugfix: Anomalies have had their contained flag fixed, and are no longer rouging
+      the great wilds of space, but somehow always the syndicate depo despite moving
+      randomly.

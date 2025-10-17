@@ -1,4 +1,0 @@
-author: "notghosti"
-delete-after: True
-changes:
-  - bugfix: "Anomalies have had their contained flag fixed, and are no longer rouging the great wilds of space, but somehow always the syndicate depo despite moving randomly."
