@@ -1,4 +1,0 @@
-author: "Absolucy"
-delete-after: True
-changes:
-  - bugfix: "Fixed godslayer armor healing triggering if you're unconscious but fully healthy."
