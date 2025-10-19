@@ -1,5 +1,0 @@
-author: "Absolucy, ThePooba"
-delete-after: True
-changes:
-  - rscadd: "Added stomper boots, used to stomp hotspots on the Oshan station."
-  - bugfix: "Hopefully fixed some wacky angle calculations with stomping hotspots."
