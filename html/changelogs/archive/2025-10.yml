@@ -630,3 +630,6 @@
   notghosti:
   - rscadd: A motivational shock wire to cyborgs
   - map: Guarantees a blue space beacon at each teleporter
+2025-10-20:
+  ThePooba:
+  - bugfix: fixed admin suit dropping items
