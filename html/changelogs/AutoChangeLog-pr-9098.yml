@@ -1,0 +1,4 @@
+author: "Cmpwarrior"
+delete-after: True
+changes:
+  - rscadd: "Adds a new AI core design based off Fracktail from Super Paper Mario"
