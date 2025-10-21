@@ -1,4 +1,0 @@
-author: "Absolucy"
-delete-after: True
-changes:
-  - bugfix: "Fixed an oversight that could lead to tram incidents not being counted, especially with oozelings."
