@@ -1,0 +1,4 @@
+author: "Absolucy"
+delete-after: True
+changes:
+  - bugfix: "Beepsky no longer gets mad if you're holding a Spatial Rift Nullifier"
