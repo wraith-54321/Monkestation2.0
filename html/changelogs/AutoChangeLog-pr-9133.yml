@@ -1,4 +1,0 @@
-author: "notghosti"
-delete-after: True
-changes:
-  - bugfix: "Motion sensitive cameras no longer detect observers and eye mobs entering a ai monitored area."
