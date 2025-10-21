@@ -1,0 +1,5 @@
+author: "Absolucy"
+delete-after: True
+changes:
+  - rscadd: "Quantum Pad boards and Quantum Keycards can now be printed by the cargo techfab, so they can do interesting setups with deliveries or mining."
+  - rscadd: "Engineering can now print Quantum Keycards, because it was silly that they could print Quantum Pad boards but not the keycards."
