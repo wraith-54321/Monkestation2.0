@@ -1,0 +1,5 @@
+author: "notghosti"
+delete-after: True
+changes:
+  - map: "Brig cells on thesues is now connected to holding monitors, and thus will unlock"
+  - spellcheck: "Inisimin is now spelt invisimin"
