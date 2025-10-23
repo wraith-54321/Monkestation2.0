@@ -1,0 +1,4 @@
+author: "ThatGuy-GEWP"
+delete-after: True
+changes:
+  - bugfix: "Inspect menu is now Shift+RightClick, and can be changed back in settings, or to right-click only."
