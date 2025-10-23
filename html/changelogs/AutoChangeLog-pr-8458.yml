@@ -1,0 +1,4 @@
+author: "notghosti"
+delete-after: True
+changes:
+  - rscdel: "Removed brig access from BlueShield ID's (this is security officer equipment/holding cells, not access to the brig)"
