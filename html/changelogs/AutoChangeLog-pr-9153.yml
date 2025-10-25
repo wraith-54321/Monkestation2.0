@@ -1,0 +1,6 @@
+author: "EatsTheGrapes"
+delete-after: True
+changes:
+  - bugfix: "Added checks to prevent infinite plant growth and harvesting loops in hydroponics."
+  - balance: "Implemented a short cooldown and growth clamp to prevent reagent-based runaway loops."
+  - code_imp: "Cleaned up process logic indentation and ensured growth resets properly after harvest."
