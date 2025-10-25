@@ -1,0 +1,4 @@
+author: "JupiterJaeden"
+delete-after: True
+changes:
+  - qol: "Updates the citationinator to print a way more official-looking ticket, as well as moving it to the default section of the SecTech vendor and reducing its price."
