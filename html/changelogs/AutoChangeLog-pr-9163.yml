@@ -1,0 +1,7 @@
+author: "notghosti"
+delete-after: True
+changes:
+  - map: "Theseus fore hallway has had it south side split into aft hallway"
+  - map: "Reconnects drone bay to power network on thesues"
+  - map: "Gives AI sat Foyer a APC on thesues"
+  - map: "Fixes thesues satelitte power net"
