@@ -1,0 +1,6 @@
+author: "JohnFulpWillard"
+delete-after: True
+changes:
+  - bugfix: "Character settings' alternate names menu now looks properly."
+  - bugfix: "You can now always change your operative name rather than having an empty box if nukies is disabled in your prefs."
+  - qol: "Character settings menu is now slightly less wide."
