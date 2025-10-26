@@ -1,6 +1,0 @@
-author: "ThatGuy-GEWP"
-delete-after: True
-changes:
-  - bugfix: "LOOC's Default is now i"
-  - bugfix: "Rest's Default is now U again"
-  - balance: "Pixel-shift's Default has been moved from B to N"
