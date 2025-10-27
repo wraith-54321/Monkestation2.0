@@ -1,0 +1,5 @@
+author: "Absolucy"
+delete-after: True
+changes:
+  - image: "(Capsandi) New BSA impact animation."
+  - admin: "(TheVekter) Made logging for BSA targeting and firing easier to find for admins."
