@@ -817,3 +817,8 @@
   - map: Reconnects drone bay to power network on thesues
   - map: Gives AI sat Foyer a APC on thesues
   - map: Fixes thesues satelitte power net
+2025-10-27:
+  Absolucy:
+  - bugfix: The Glass Jaw quirk now properly works again.
+  call me evil McDonalds cause I'm hatin it:
+  - bugfix: IPCs autorevive when they heal tox and oxy damage too.
