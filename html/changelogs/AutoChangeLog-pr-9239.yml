@@ -1,5 +1,0 @@
-author: "Uristthedorf"
-delete-after: True
-changes:
-  - rscadd: "Oozelings can eat without a head"
-  - balance: "Oozelings can now be decapitated as easily as they lose limbs."

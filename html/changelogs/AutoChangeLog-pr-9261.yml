@@ -1,5 +1,0 @@
-author: "Tractor-Maam"
-delete-after: True
-changes:
-  - rscadd: "The AI will always receive their lawset on roundstart/login."
-  - spellcheck: "fixed a typo in admin logging for admin spawned birthdays."

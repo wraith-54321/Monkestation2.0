@@ -1,5 +1,0 @@
-author: "wraith-54321"
-delete-after: True
-changes:
-  - refactor: "Antagonist cap is now based on a point system instead of pure integer count"
-  - balance: "Player made clockwork doors now drain passive power when placed next to each other"
