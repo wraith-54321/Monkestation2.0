@@ -1,5 +1,0 @@
-author: "notghosti"
-delete-after: True
-changes:
-  - rscadd: "Ported new medkit and medibot sprites from TG"
-  - refactor: "Refactored the medibot code to work more simliar to tg for the medibot"

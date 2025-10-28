@@ -1,8 +1,0 @@
-author: "notghosti"
-delete-after: True
-changes:
-  - rscadd: "New mining and engineering cyborg upgrade. Night vision Meson goggles."
-  - qol: "Whenever a PKA upgrade becomes assessable in the cargo lathe, it becomes assessable in robotics for miner cyborgs."
-  - qol: "Blood drunk miner learned basic computer literacy hygiene during a sober period, and carries one floppy disk rather than 4."
-  - code_imp: "\"KA Mod Disk\"'s have been swapped from a single research design to support a list of research designs."
-  - balance: "Cyborg PKA's now have a capacity akin to regular PKA's, (80 -> 100)"

@@ -1,9 +1,0 @@
-author: "notghosti"
-delete-after: True
-changes:
-  - rscadd: "Carrier status is functional again for pathology, meaning the carrier/patient 0 no longer suffers from the effects of the disease! (Making them a useful cure source)"
-  - bugfix: "Viral bonding serves a purpose, turning the infected into a carrier."
-  - bugfix: "Known GNA disks being inserted into a disease splicer will no longer tell you unknown GNA disk."
-  - bugfix: "More uniform GNa disk names."
-  - bugfix: "Medical huds now update on disease cure so a bird will no longer have to slap themselfs."
-  - balance: "Helpful symptoms now only trigger on the associated virus stage akin to any other severity, rather than always."
