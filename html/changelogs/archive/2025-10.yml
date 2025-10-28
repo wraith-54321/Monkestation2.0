@@ -830,3 +830,9 @@
   - rscadd: Added new May Rain hairstyle
   call me evil McDonalds cause I'm hatin it:
   - bugfix: IPCs autorevive when they heal tox and oxy damage too.
+2025-10-28:
+  Absolucy:
+  - bugfix: Storytellers should now be the only thing firing events, rather than the
+      legacy Events subsystem.
+  Greenpoison:
+  - map: added/modified atmos map content for EVERY map currently in the pool.
