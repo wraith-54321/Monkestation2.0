@@ -1,0 +1,6 @@
+author: "notghosti"
+delete-after: True
+changes:
+  - rscadd: "Mining cyborgs are given a organ storage bag for monster cores."
+  - rscadd: "Mining cyborgs are given a crude knife onto their PKA so they can gut fauna"
+  - rscadd: "Cyborgs can now interact with tendrils, elite fauna, vents, and necropolis's door."
