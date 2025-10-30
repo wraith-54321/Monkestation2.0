@@ -1,0 +1,4 @@
+author: "SirNightKnight"
+delete-after: True
+changes:
+  - balance: "damage deflection is taken into account before thrown damage ramp up."
