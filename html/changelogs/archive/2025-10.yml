@@ -922,3 +922,30 @@
 2025-10-29:
   JohnFulpWillard:
   - qol: You can close the minimap by opening the Escape menu.
+2025-10-30:
+  Absolucy:
+  - bugfix: Fixed some mining fauna, i.e demonic watchers or lavaland elites, not
+      being considered "mining mobs" for the cursed katana and such.
+  LemonInTheDark, Ghommie, SmartKar, 13spacemen, JohnFulpWillard:
+  - rscadd: You can now draw an outline of corpses using crayon/chalk.
+  - qol: You can now draw 4 things on a tile at once using crayon/chalk.
+  SirNightKnight:
+  - qol: added a toggle for automatically hailing pointed targets with sechailers.
+  - bugfix: fixes toggleable import helmet sprites not working properly
+  Snack-Max:
+  - rscadd: Added new Centcom Turtleneck
+  TheColorCyan:
+  - rscadd: (JohnFulpWillard) autopsy surgery and scanner
+  - balance: ' (JohnFulpWillard) Dissected bodies now have faster surgery speed.'
+  - qol: (necromanceranne) Autopsies have become the surgery needed to complete the
+      dissection experiments. As a result, the dissection surgery has been removed
+      as it is now redundant.
+  Tractor-Maam:
+  - spellcheck: fixed a typo in the NV Meson cyborg upgrade.
+  - spellcheck: updated the description of the NV Meson cyborg upgrade to not use
+      the advanced mop description.
+  - balance: The BSA can only fire once every 5 seconds.
+  notghosti:
+  - balance: Unique AI weight 0 -> 5
+  - rscadd: Node drones are now ash storm immune
+  - sound: Cyborg PKA melees now have a blade sound effect attached.
