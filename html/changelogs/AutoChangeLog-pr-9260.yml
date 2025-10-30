@@ -1,0 +1,4 @@
+author: "notghosti"
+delete-after: True
+changes:
+  - balance: "Unique AI weight 0 -> 5"
