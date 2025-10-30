@@ -1,4 +1,0 @@
-author: "Tractor-Maam"
-delete-after: True
-changes:
-  - bugfix: "cyborgs dont get a law update when the AI exits their shell anymore."

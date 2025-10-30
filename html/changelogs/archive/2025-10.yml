@@ -930,6 +930,7 @@
       of the original.
   - map: All maps should have a chance to have a loafer somewhere in maints now.
   - bugfix: Fixed the admin plane debugger.
+  - balance: Darkspawn Extinguish will now remove the Bioluminescence gene from glowshrooms.
   JohnFulpWillard:
   - bugfix: Spraycans work again.
   LemonInTheDark, Ghommie, SmartKar, 13spacemen, JohnFulpWillard:
@@ -951,7 +952,11 @@
   - spellcheck: updated the description of the NV Meson cyborg upgrade to not use
       the advanced mop description.
   - balance: The BSA can only fire once every 5 seconds.
+  - bugfix: cyborgs dont get a law update when the AI exits their shell anymore.
   notghosti:
   - balance: Unique AI weight 0 -> 5
   - rscadd: Node drones are now ash storm immune
   - sound: Cyborg PKA melees now have a blade sound effect attached.
+  - code_imp: Removes the redundant flickering proc
+  - balance: Undoes the major stealth buff to malfunctioning ai that passively gives
+      points to the malfunctioning ai
