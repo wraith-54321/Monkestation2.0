@@ -1,0 +1,4 @@
+author: "Absolucy"
+delete-after: True
+changes:
+  - bugfix: "Slimeperson splitting (and some other things) now properly copy the voice of the original."
