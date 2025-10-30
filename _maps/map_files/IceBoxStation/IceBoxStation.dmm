@@ -297,6 +297,11 @@
 	},
 /turf/open/floor/plating,
 /area/station/commons/lounge)
+"agv" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/spawner/random/loafer,
+/turf/open/floor/wood,
+/area/station/maintenance/aft/greater)
 "agC" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/mapping_helpers/broken_floor,
@@ -67839,13 +67844,6 @@
 	dir = 1
 	},
 /area/station/engineering/main)
-"uSM" = (
-/obj/structure/cable,
-/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
-/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
-/obj/effect/spawner/random/loafer,
-/turf/open/floor/plating,
-/area/station/security/prison/safe)
 "uTc" = (
 /obj/machinery/chem_heater/withbuffer,
 /obj/structure/window/reinforced/spawner/directional/north{
@@ -174281,7 +174279,7 @@ wRa
 vVH
 nRO
 ulz
-uSM
+ulz
 ulz
 pNm
 eOz
@@ -249678,7 +249676,7 @@ iBz
 npD
 baz
 rev
-mYf
+agv
 tbQ
 iye
 sZF
