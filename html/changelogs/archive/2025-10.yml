@@ -926,6 +926,12 @@
   Absolucy:
   - bugfix: Fixed some mining fauna, i.e demonic watchers or lavaland elites, not
       being considered "mining mobs" for the cursed katana and such.
+  - bugfix: Slimeperson splitting (and some other things) now properly copy the voice
+      of the original.
+  - map: All maps should have a chance to have a loafer somewhere in maints now.
+  - bugfix: Fixed the admin plane debugger.
+  JohnFulpWillard:
+  - bugfix: Spraycans work again.
   LemonInTheDark, Ghommie, SmartKar, 13spacemen, JohnFulpWillard:
   - rscadd: You can now draw an outline of corpses using crayon/chalk.
   - qol: You can now draw 4 things on a tile at once using crayon/chalk.
