@@ -1,4 +1,0 @@
-author: "notghosti"
-delete-after: True
-changes:
-  - rscadd: "Singularity generators are now immune to being zapped. Enjoy your 100 tesla death cube I suppose"
