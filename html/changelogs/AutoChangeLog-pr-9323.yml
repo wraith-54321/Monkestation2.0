@@ -1,0 +1,4 @@
+author: "notghosti"
+delete-after: True
+changes:
+  - rscdel: "Removed the swarmer and goat achievements which are impossible to get as their associated mobs do not exist"
