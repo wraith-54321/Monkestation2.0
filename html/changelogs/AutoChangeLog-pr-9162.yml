@@ -1,6 +1,0 @@
-author: "EatsTheGrapes"
-delete-after: True
-changes:
-  - balance: "Players no longer drop items when the emergency shuttle docks."
-  - refactor: "Knockdown logic now uses proper handling and shares structure between status and debuff systems."
-  - code_imp: "Simplified tripping and knockdown consistency across files."

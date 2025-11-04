@@ -1,5 +1,0 @@
-author: "Tractor-Maam"
-delete-after: True
-changes:
-  - rscadd: "Added the Voice Obfuscator Gas Mask, a crafting item that makes you sound unknown."
-  - code_imp: "Added TRAIT_ANONYMOUS to hide names/jobs only because TRAIT_UNKNOWN extends too far for this use case."
