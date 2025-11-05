@@ -1,0 +1,4 @@
+author: "Tractor-Maam"
+delete-after: True
+changes:
+  - balance: "Reverted the Voice Obfuscator Gas Mask recipe to its old version. Antags, please test this and give feedback!"
