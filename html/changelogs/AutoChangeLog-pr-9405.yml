@@ -1,0 +1,4 @@
+author: "JohnFulpWillard"
+delete-after: True
+changes:
+  - bugfix: "You can use regenerative cores/rush glands/brimdust sacs while resting."
