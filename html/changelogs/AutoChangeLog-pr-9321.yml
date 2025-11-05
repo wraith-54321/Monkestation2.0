@@ -1,0 +1,4 @@
+author: "Absolucy"
+delete-after: True
+changes:
+  - rscadd: "Anvils are now falling hazards, as in, if you drop it onto someone on a lower floor, it hurts them. A lot."
