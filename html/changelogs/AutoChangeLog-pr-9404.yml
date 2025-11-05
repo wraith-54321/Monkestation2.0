@@ -1,0 +1,4 @@
+author: "JohnFulpWillard"
+delete-after: True
+changes:
+  - bugfix: "Using the setting to hide your preference from the roundend report will now also hide your ckey if you got an achievement."
