@@ -1,5 +1,0 @@
-author: "notghosti"
-delete-after: True
-changes:
-  - map: "CC and oldstation will produce overall less GPS signals"
-  - code_imp: "Added a variable for communication and uploads for them to not produce a gps signal"

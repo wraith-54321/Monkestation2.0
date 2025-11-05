@@ -1,7 +1,0 @@
-author: "notghosti"
-delete-after: True
-changes:
-  - rscadd: "Health analyzers will now provide information about diseases once they have been analyzed with a disease analyzer."
-  - balance: "Anaphylaxis (Allergy attacks) will always be considered analyzed, albeit not in the database."
-  - balance: "Blacklisted food allergies from oozelings, as the disease would self cure and be free points as they are toxin lovers."
-  - code_imp: "Viral code now has a origin, more for additional logging purposes."
