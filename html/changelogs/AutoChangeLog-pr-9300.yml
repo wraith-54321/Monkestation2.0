@@ -1,9 +1,0 @@
-author: "Infernal-0"
-delete-after: True
-changes:
-  - image: "Nukes a few pixels that shouldn't be there from the security helmet. if you have a nose that is."
-  - map: "Security EVA suits are no longer sealed away behind armory access."
-  - map: "Fixes the blueshift brig to have working lockers and flashers."
-  - map: "Opens a lot of the shutters on box station."
-  - map: "Removes the empty suit storage from paramedic EVA on blueshift, replacing it with a cyborg recharger."
-  - map: "Adds rechargers to the theseus security office and replaces a missing window."
