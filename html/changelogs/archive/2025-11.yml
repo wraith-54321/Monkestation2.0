@@ -92,3 +92,6 @@
   - balance: Blacklisted food allergies from oozelings, as the disease would self
       cure and be free points as they are toxin lovers.
   - code_imp: Viral code now has a origin, more for additional logging purposes.
+2025-11-07:
+  notghosti:
+  - admin: Build mode Help button is existent again.
