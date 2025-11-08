@@ -140,3 +140,10 @@
   - map: Heliostation telecommunications only has one request console,
   - map: Heliostation bar sign will now rename the bar.
   - bugfix: Examine on disease incubators are now functional
+2025-11-08:
+  Wernerses:
+  - balance: Botany batteries have their effectiveness reduced to around 1/5, while
+      still being able to eventually grow enough to have significant play later in
+      shifts, albeit requiring more care and attention to the plants stats.
+  notghosti:
+  - bugfix: Messenger will no longer kick you out of your PDA app into messenger.
