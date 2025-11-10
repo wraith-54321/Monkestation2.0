@@ -1,0 +1,5 @@
+author: "Tostah"
+delete-after: True
+changes:
+  - rscadd: "Anything gifts can once again (rarely) spawn in maints."
+  - balance: "Chaplains cannot get mystery gifts from the maintenance sect"
