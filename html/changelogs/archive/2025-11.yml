@@ -176,3 +176,8 @@
   - bugfix: Ethereals charge rates have been increased/decreased. Some safer activites
       should include apc's, lights, and rechargers not instantly overcharging, and
       ethereal cores instantly draining players. Numbers are rough still
+2025-11-11:
+  Absolucy:
+  - rscdel: Oozelings will no longer be selected as random morgue corpses.
+  flleeppyy:
+  - rscadd: init cost debug.
