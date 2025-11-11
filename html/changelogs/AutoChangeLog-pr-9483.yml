@@ -1,7 +1,0 @@
-author: "TheColorCyan"
-delete-after: True
-changes:
-  - bugfix: "(MrMelbert) Furious Steel now tracks consumed knives better: Using all three knives to block no longer results in a 0 second cooldown, firing a single knife no longer results in a 60 second cooldown."
-  - bugfix: "(EnterTheJake) Heretic Carving Knife runes are no longer triggered by hovering projectiles."
-  - bugfix: "space phase can be casted on ocean tiles same way they can be casted on most planetary turfs"
-  - qol: "heretics can now see blessed tiles"

@@ -1,9 +1,0 @@
-author: "JohnFulpWillard"
-delete-after: True
-changes:
-  - balance: "QM can now modify people's access to Cargo"
-  - rscadd: "Traitors can get a secondary objective to sabotage the Cargo techfab again."
-  - balance: "QM gets paid the same as crew."
-  - bugfix: "QM is no longer considered \"Command\" to conspiracy theorists."
-  - bugfix: "Much security equipment was re-added to the list of things you're scared of if you have a phobia of security."
-  - spellcheck: "QM's headset no longer calls them their own slave."
