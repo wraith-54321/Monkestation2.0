@@ -179,5 +179,11 @@
 2025-11-11:
   Absolucy:
   - rscdel: Oozelings will no longer be selected as random morgue corpses.
+  JohnFulpWillard:
+  - bugfix: Blast helmet no longer disappears when you toggle it.
+  - bugfix: Command outfitting station vending machines now load icons again.
+  TheColorCyan:
+  - rscadd: heretic living heart will now show a tracker pointing to the target for
+      3 seconds
   flleeppyy:
   - rscadd: init cost debug.

@@ -1,4 +1,0 @@
-author: "JohnFulpWillard"
-delete-after: True
-changes:
-  - bugfix: "Blast helmet no longer disappears when you toggle it."
