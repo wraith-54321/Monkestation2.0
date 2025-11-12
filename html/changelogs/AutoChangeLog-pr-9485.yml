@@ -1,0 +1,4 @@
+author: "Absolucy"
+delete-after: True
+changes:
+  - balance: "3-person BB teams are now only possible around 10% of the time, as intended."
