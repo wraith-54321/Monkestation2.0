@@ -230,5 +230,7 @@
       or if they've used certain powers (armblade, tentacle, shield, armor, shrieks,
       transform sting, blind sting, or defib grasp)
   - balance: 3-person BB teams are now only possible around 10% of the time, as intended.
+  - qol: Roundstart smugglers satchels should be more uniformly distributed now, and
+      hopefully not next to each other quite as often.
   TheColorCyan:
   - balance: dance of the brand (blade heretic's riposte) now blocks attacks
