@@ -1,0 +1,8 @@
+author: "Absolucy"
+delete-after: True
+changes:
+  - balance: "Slightly reduced the weight of Monster Hunters spawning from 25 to 20."
+  - balance: "Whether a \"monster\" is considered valid prey for a Monster Hunter is now dependent on more than just their existence."
+  - balance: "Heretics are valid prey if they have sacrificed anyone, created any minions (ghouls, prophets, sharks, etc), or if they've reached around 75% of their knowledge objective."
+  - balance: "Bloodsuckers are valid prey if they have broke the masquerade, made any vassals, or if they've drank at least 250 blood from sentient beings."
+  - balance: "Changelings are valid prey if they have absorbed anyone, made any teratomas, or if they've used certain powers (armblade, tentacle, shield, armor, shrieks, transform sting, blind sting, or defib grasp)"
