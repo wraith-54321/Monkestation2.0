@@ -1,4 +1,0 @@
-author: "Absolucy, ItsTisme"
-delete-after: True
-changes:
-  - bugfix: "Being revived inside a legion now sets you free."

@@ -239,3 +239,11 @@
   - qol: You no longer need to awkwardly insert two half-stacks at a time into construction
       bags.
   - qol: Construction bags can now hold floor tiles, neon linings, and ducts.
+  - bugfix: Legions (as in the megafauna) will no longer smash the necropolis chests
+      they drop.
+  Absolucy, ItsTisme:
+  - bugfix: Being revived inside a legion now sets you free.
+  SirNightKnight:
+  - rscadd: Added new mechanics or
+  - refactor: refactored the swedish quirk to be a subtype of a parent along with
+      scottish.
