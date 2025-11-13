@@ -234,3 +234,8 @@
       hopefully not next to each other quite as often.
   TheColorCyan:
   - balance: dance of the brand (blade heretic's riposte) now blocks attacks
+2025-11-13:
+  Absolucy:
+  - qol: You no longer need to awkwardly insert two half-stacks at a time into construction
+      bags.
+  - qol: Construction bags can now hold floor tiles, neon linings, and ducts.
