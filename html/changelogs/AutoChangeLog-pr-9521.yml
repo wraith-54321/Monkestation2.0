@@ -1,0 +1,4 @@
+author: "Absolucy"
+delete-after: True
+changes:
+  - bugfix: "Legions (as in the megafauna) will no longer smash the necropolis chests they drop."
