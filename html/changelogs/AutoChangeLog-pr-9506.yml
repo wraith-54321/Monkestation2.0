@@ -1,0 +1,5 @@
+author: "Absolucy"
+delete-after: True
+changes:
+  - qol: "You no longer need to awkwardly insert two half-stacks at a time into construction bags."
+  - qol: "Construction bags can now hold floor tiles, neon linings, and ducts."
