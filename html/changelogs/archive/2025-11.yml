@@ -253,3 +253,8 @@
       2000 credits, containing carpets with a beautifully convincing star pattern.
   SirNightKnight:
   - bugfix: fixed some inconsistency with the riot helmet worn sprite.
+2025-11-15:
+  SirNightKnight:
+  - bugfix: fixed carboard jamming on interact
+  notghosti:
+  - bugfix: NODE Drones no longer freeze to death on Icebox
