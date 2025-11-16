@@ -1,7 +1,0 @@
-author: "notghosti"
-delete-after: True
-changes:
-  - qol: "Boulder tech now deposits it's ore on the side the machine is facing. Instead of just east"
-  - qol: "Boulder tech now has examine text for which direction it's facing."
-  - bugfix: "Purification chambers now can be multitooled to set the external oxygen tank"
-  - bugfix: "Purifaction chambers, crushers, enrichment chambers no longer disappear into nonexistence upon being screwdrivered"
