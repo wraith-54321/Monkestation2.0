@@ -1,0 +1,4 @@
+author: "kuricityy"
+delete-after: True
+changes:
+  - bugfix: "Recalls all Syndicate Renoster shotguns for a faulty internal magazine size, as well as being loaded with non lethal rounds. The Syndicate has replaced said faulty internal magazines with proper 8 round magazines loaded with lethal buckshot. The Syndicate apologizes for the inconvenience."
