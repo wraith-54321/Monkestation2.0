@@ -262,6 +262,11 @@
   Loiosh42:
   - balance: Sprint speed somewhat reduced
   - balance: Debilitation stacks now increase stamina drain from sprinting more
+  kuricityy:
+  - bugfix: Recalls all Syndicate Renoster shotguns for a faulty internal magazine
+      size, as well as being loaded with non lethal rounds. The Syndicate has replaced
+      said faulty internal magazines with proper 8 round magazines loaded with lethal
+      buckshot. The Syndicate apologizes for the inconvenience.
   notghosti:
   - rscadd: boulder smelter and refinery are printable from a protolathe
   - map: Lavaland now starts with a single starter resource vent.
