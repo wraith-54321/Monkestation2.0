@@ -1,0 +1,5 @@
+author: "Loiosh42"
+delete-after: True
+changes:
+  - balance: "Sprint speed somewhat reduced"
+  - balance: "Debilitation stacks now increase stamina drain from sprinting more"
