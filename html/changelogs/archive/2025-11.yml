@@ -258,3 +258,14 @@
   - bugfix: fixed carboard jamming on interact
   notghosti:
   - bugfix: NODE Drones no longer freeze to death on Icebox
+2025-11-16:
+  Loiosh42:
+  - balance: Sprint speed somewhat reduced
+  - balance: Debilitation stacks now increase stamina drain from sprinting more
+  notghosti:
+  - rscadd: boulder smelter and refinery are printable from a protolathe
+  - map: Lavaland now starts with a single starter resource vent.
+  - map: Lavaland public and regular mining now have an alternative exit to the eastern
+      area.
+  - map: Mining lavaland now has a wardrobe on base
+  - bugfix: Starter mining node's well no longer defies light
