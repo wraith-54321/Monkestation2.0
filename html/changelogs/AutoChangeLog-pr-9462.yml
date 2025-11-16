@@ -1,0 +1,7 @@
+author: "notghosti"
+delete-after: True
+changes:
+  - map: "Lavaland now starts with a single starter resource vent."
+  - map: "Lavaland public and regular mining now have an alternative exit to the eastern area."
+  - map: "Mining lavaland now has a wardrobe on base"
+  - bugfix: "Starter mining node's well no longer defies light"
