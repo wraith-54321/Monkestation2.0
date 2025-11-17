@@ -288,6 +288,9 @@
   - bugfix: Purifaction chambers, crushers, enrichment chambers no longer disappear
       into nonexistence upon being screwdrivered
 2025-11-17:
+  SirNightKnight, JohnFulpWillard:
+  - qol: internal tanks gives a progress bar when you toggle them, allowing you to
+      see how much you've consumed so far.
   imedial and Sakaniko:
   - rscadd: Silicons can now view their laws from the status panel in the top right.
   - bugfix: Fixed uncategorized Malfunction Modules for Malf AI.
