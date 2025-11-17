@@ -287,3 +287,7 @@
       tank
   - bugfix: Purifaction chambers, crushers, enrichment chambers no longer disappear
       into nonexistence upon being screwdrivered
+2025-11-17:
+  imedial and Sakaniko:
+  - rscadd: Silicons can now view their laws from the status panel in the top right.
+  - bugfix: Fixed uncategorized Malfunction Modules for Malf AI.
