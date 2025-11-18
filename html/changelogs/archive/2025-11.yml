@@ -294,3 +294,7 @@
   imedial and Sakaniko:
   - rscadd: Silicons can now view their laws from the status panel in the top right.
   - bugfix: Fixed uncategorized Malfunction Modules for Malf AI.
+2025-11-18:
+  JohnFulpWillard:
+  - bugfix: HoP now has shipping access.
+  - bugfix: Removed a Citrus from Theseus (there were 2)
