@@ -1,0 +1,7 @@
+author: "Absolucy"
+delete-after: True
+changes:
+  - admin: "Darkspawn thralls now show up in the admin Check Antagonists panel."
+  - bugfix: "Oozeling darkspawn thralls are no longer instantly deconverted upon being revived."
+  - balance: "Bolts of nothingness (from a warlock darkspawn's staff) now just deal brute damage against simple/basic mobs."
+  - balance: "Bolts of nothingness now pause stamina regeneration when they hit."
