@@ -1,4 +1,0 @@
-author: "JohnFulpWillard"
-delete-after: True
-changes:
-  - bugfix: "Medbots, cleanbots, and hygienebots are no longer affected by temperatures."

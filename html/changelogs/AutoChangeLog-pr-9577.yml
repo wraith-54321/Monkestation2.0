@@ -1,4 +1,0 @@
-author: "JohnFulpWillard"
-delete-after: True
-changes:
-  - bugfix: "Fixed an edge case where Nightmares can't spawn on Pubbystation (and potentially Heliostation)."

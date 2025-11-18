@@ -300,5 +300,17 @@
   JohnFulpWillard:
   - bugfix: HoP now has shipping access.
   - bugfix: Removed a Citrus from Theseus (there were 2)
+  - bugfix: Medbots, cleanbots, and hygienebots are no longer affected by temperatures.
+  - bugfix: Bank Machines (in the Vault) now properly yell when unauthorized and don't
+      when authorized.
+  - balance: Speaking of, they also now only speak in Supply chat when authorized,
+      rather than alert the whole station.
+  - bugfix: Fixed an edge case where Nightmares can't spawn on Pubbystation (and potentially
+      Heliostation).
+  - bugfix: Medbeams are no longer considered guns (for beepsky and honorbound Chaplains).
   notghosti:
   - balance: Explorer masks have pepper spray protection
+  - balance: Skittish will only lock a locker if you could lock the locker in the
+      first place
+  - balance: Warlocks staff is no longer considered lethally chambered
+  - balance: Cracking a boulder will attempt to mine a new boulder in range.
