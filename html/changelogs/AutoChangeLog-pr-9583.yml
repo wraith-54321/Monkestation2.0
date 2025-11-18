@@ -1,0 +1,4 @@
+author: "notghosti"
+delete-after: True
+changes:
+  - balance: "Skittish will only lock a locker if you could lock the locker in the first place"
