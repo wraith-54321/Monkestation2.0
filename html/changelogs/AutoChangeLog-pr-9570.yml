@@ -1,0 +1,5 @@
+author: "JohnFulpWillard"
+delete-after: True
+changes:
+  - bugfix: "Bank Machines (in the Vault) now properly yell when unauthorized and don't when authorized."
+  - balance: "Speaking of, they also now only speak in Supply chat when authorized, rather than alert the whole station."
