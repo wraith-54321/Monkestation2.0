@@ -326,3 +326,7 @@
       modsuit. And there's now a starting vent.
   - balance: Halves the rate of antagonist tokens
   - bugfix: Satchel + backpack will apply slowdown
+2025-11-19:
+  Absolucy:
+  - qol: Oozelings will no longer lose blood from low nutrition if they are actively
+      eating something with nutriment.
