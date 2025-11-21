@@ -1,0 +1,5 @@
+author: "EssentialTomato"
+delete-after: True
+changes:
+  - rscadd: "Added new anime halos."
+  - balance: "Anime halos now temporarily disappear while dead."
