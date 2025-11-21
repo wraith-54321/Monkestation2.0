@@ -1,0 +1,5 @@
+author: "Absolucy"
+delete-after: True
+changes:
+  - qol: "Heretic influences should now spawn more uniformly, similar to smugglers satchels."
+  - bugfix: "Fixed an issue with heretic influences sometimes spawning in nullspace for some reason (hopefully)"
