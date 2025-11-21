@@ -1,9 +1,0 @@
-author: "Tractor-Maam"
-delete-after: True
-changes:
-  - admin: "expunging records now lists the name of the record expunged."
-  - admin: "Creating records now creates an investigate log."
-  - admin: "Deleting records now properly lists the ckey of the person who did it."
-  - admin: "Setting security record notes now shows the ckey of the person who did it... if this specific section of code was actually ever called."
-  - spellcheck: "retitled the CentCom commander's suit to the CentCom admiral's suit to match the loadout info"
-  - spellcheck: "fixed the name of the CentCom Admiral's coat"
