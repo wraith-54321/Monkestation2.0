@@ -1,0 +1,7 @@
+author: "notghosti"
+delete-after: True
+changes:
+  - rscadd: "Drone's are given a modified T-Ray scanner that can show thermal differences."
+  - balance: "Maintenance drones will no longer be blacklisted from machinery during Yellow alert"
+  - balance: "Drone tools are given a additional space to fit a round start construction bag."
+  - qol: "drones can equip items with hotkeys"
