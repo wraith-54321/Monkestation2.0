@@ -1,4 +1,0 @@
-author: "Tractor-Maam"
-delete-after: True
-changes:
-  - bugfix: "fixed chem masters not considering the second beakers size in its buffer if the first wasnt a cryo beaker."
