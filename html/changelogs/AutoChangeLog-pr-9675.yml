@@ -1,0 +1,4 @@
+author: "Absolucy"
+delete-after: True
+changes:
+  - bugfix: "Fixed obfuscate's teleport being inconsistent, especially during situations where there's stuff like xeno weeds spread around."
