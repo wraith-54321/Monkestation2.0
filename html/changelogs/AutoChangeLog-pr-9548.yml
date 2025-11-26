@@ -1,0 +1,5 @@
+author: "Tractor-Maam"
+delete-after: True
+changes:
+  - balance: "reduces the idle power usage of the durand shield by approximately 10 times. (this consumed a quarter of a T4 cell per tick you arent allowed to complain.)"
+  - balance: "updated durand shield bullet absorption code to match TGstation."
