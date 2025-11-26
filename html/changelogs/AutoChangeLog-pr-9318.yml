@@ -1,6 +1,0 @@
-author: "notghosti"
-delete-after: True
-changes:
-  - balance: "Borer body (the borer organ) now follows the brain for it's organ slot, Oozelings and IPC's beware."
-  - balance: "Borers now gain their hosts temperature safety levels while inside a host"
-  - balance: "Borers no longer heal a % of their max hp, rather a flat scaling amount with their level."

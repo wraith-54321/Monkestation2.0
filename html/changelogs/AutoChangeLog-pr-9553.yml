@@ -1,4 +1,0 @@
-author: "Absolucy"
-delete-after: True
-changes:
-  - rscadd: "The engineering plumbing constructor can now actually be printed."

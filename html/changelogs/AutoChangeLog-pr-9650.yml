@@ -1,6 +1,0 @@
-author: "Ice-Type"
-delete-after: True
-changes:
-  - balance: "No more armour module stacking to make borderline immortal mechs"
-  - balance: "You don't get to stack repair droids, either."
-  - balance: "Putting tracking beacons on mechs now has a 5 second do after."
