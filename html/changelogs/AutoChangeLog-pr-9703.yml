@@ -1,0 +1,4 @@
+author: "Absolucy"
+delete-after: True
+changes:
+  - rscadd: "Bloodsuckers can now set custom objectives."
