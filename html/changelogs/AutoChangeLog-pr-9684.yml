@@ -1,0 +1,4 @@
+author: "ThatGuy-GEWP"
+delete-after: True
+changes:
+  - refactor: "Oshan hotspots no longer explode, Engineers rejoice!"
