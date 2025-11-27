@@ -1,0 +1,4 @@
+author: "SirNightKnight"
+delete-after: True
+changes:
+  - balance: "locked traitor final objectives to only generate above 35 pop."
