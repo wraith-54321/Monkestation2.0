@@ -511,6 +511,7 @@
       useless.
   - bugfix: You can no longer order astral carpets on planetary maps, as they're super
       buggy.
+  - bugfix: Fixed not being able to toggle/configure air conditioning in air alarms.
   BobDABuilder9001:
   - rscadd: Added a new Neutral Quirk to indicate to Medical you're willing to be
       borged
@@ -585,6 +586,9 @@
   ancient-engineer:
   - rscadd: Changed the assistant alternate title "Bananotrasen Representative" to
       "Bananotrasen CEO"
+  iamcooldan:
+  - rscadd: new mayo recipe
   notghosti:
   - bugfix: Health analyzers now show the proper % of stamina loss
   - bugfix: Mesmerize now takes longer as intended while wearing flash protection
+  - bugfix: The duplicate of hornets cloak is now knights cloak in the monkestore
