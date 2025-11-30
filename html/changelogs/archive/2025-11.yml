@@ -507,6 +507,15 @@
   - bugfix: (SyncIt21) Paintings can be sponsored again.
   - bugfix: (Rhials) Icebox escape pods will now land randomly on the surface, instead
       of only in certain ruins.
+  - bugfix: You can no longer order meteor sats on planetary maps, as they would be
+      useless.
+  - bugfix: You can no longer order astral carpets on planetary maps, as they're super
+      buggy.
+  BobDABuilder9001:
+  - rscadd: Added a new Neutral Quirk to indicate to Medical you're willing to be
+      borged
+  PowerfulBacon, KathyRyals, Isratosh:
+  - rscadd: Battle royale
   SirNightKnight:
   - bugfix: fixed the worn icon unit test flagging objects with null worn icon.
   - admin: logs made after the game is finished are coloured yellow and marked as
@@ -573,3 +582,9 @@
   - rscadd: New plush for jackary, Wolf.
   - rscadd: New plush made by combining Wolf and Aster.
   - rscadd: New plush for Britarnya, Beverly Valon.
+  ancient-engineer:
+  - rscadd: Changed the assistant alternate title "Bananotrasen Representative" to
+      "Bananotrasen CEO"
+  notghosti:
+  - bugfix: Health analyzers now show the proper % of stamina loss
+  - bugfix: Mesmerize now takes longer as intended while wearing flash protection
