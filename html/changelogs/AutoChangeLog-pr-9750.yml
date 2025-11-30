@@ -1,4 +1,0 @@
-author: "Absolucy"
-delete-after: True
-changes:
-  - bugfix: "Plant bags no longer allow you to bypass the usual \"too crowded!\" checks when harvesting plants."
