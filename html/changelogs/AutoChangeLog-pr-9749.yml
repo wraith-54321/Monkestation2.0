@@ -1,0 +1,7 @@
+author: "Absolucy, timothymtorres, SmArtKar, mcbalaam"
+delete-after: True
+changes:
+  - sound: "Add burning sound loop to bonfires and fireplaces."
+  - code_imp: "Improved fireplaces to only process when lit."
+  - qol: "Add smoke particles to burning fireplaces."
+  - bugfix: "Now trying to light a fireplace will not make you attack it."
