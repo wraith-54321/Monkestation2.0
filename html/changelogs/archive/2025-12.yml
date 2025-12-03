@@ -23,6 +23,14 @@
   - code_imp: Improved fireplaces to only process when lit.
   - qol: Add smoke particles to burning fireplaces.
   - bugfix: Now trying to light a fireplace will not make you attack it.
+  EssentialTomato:
+  - bugfix: (Metekillot) Atmos machines should no longer remove labels when you adjust
+      their settings.
+  - code_imp: (SyncIt21) Atmos machines turns on/off correctly from the code perspective.
+  - bugfix: (JohnFulpWillard) Airlock pumps no longer draw massive amounts of power.
+  KittyNoodle:
+  - balance: AIs can now examine through their eye.
+  - bugfix: Dullahans can also examine through their head again.
   Loiosh42:
   - bugfix: Bomb actualizer now requires a radio to construct, preventing infinite
       radio generation
@@ -30,3 +38,9 @@
   - bugfix: Fixed Eldritch Pulse not working
   Snack-Max:
   - rscadd: Added two clothing items, Officer's Casual and Adventurer's Cap
+  SyncIt21]:
+  - bugfix: Crafting Menu Should Consistently Craft Items
+  Tractor-Maam:
+  - rscadd: Mouse cubes can now be shaken to create rats.
+  notghosti:
+  - bugfix: Anchoring crystals now apply forced toxin healing rather than regular.

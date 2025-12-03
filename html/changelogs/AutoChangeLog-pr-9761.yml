@@ -1,6 +1,0 @@
-author: "EssentialTomato"
-delete-after: True
-changes:
-  - bugfix: "(Metekillot) Atmos machines should no longer remove labels when you adjust their settings."
-  - code_imp: "(SyncIt21) Atmos machines turns on/off correctly from the code perspective."
-  - bugfix: "(JohnFulpWillard) Airlock pumps no longer draw massive amounts of power."
