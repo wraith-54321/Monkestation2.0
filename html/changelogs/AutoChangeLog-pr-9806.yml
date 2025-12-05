@@ -1,5 +1,0 @@
-author: "EssentialTomato"
-delete-after: True
-changes:
-  - bugfix: "Aux base construction console now builds selected structures instead of just walls."
-  - bugfix: "Aux base construction console can be restocked again."

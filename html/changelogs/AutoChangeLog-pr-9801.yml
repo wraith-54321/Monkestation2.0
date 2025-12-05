@@ -1,4 +1,0 @@
-author: "Gboster-0"
-delete-after: True
-changes:
-  - bugfix: "the robot wabbajack list is actually weighted now as it was supposed to be"

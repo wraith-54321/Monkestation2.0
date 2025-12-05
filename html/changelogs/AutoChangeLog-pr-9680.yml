@@ -1,4 +1,0 @@
-author: "Absolucy"
-delete-after: True
-changes:
-  - balance: "When a non-bloodsucker/vassal is breaking out of silver cuffs, the resist will not be canceled by moving them."
