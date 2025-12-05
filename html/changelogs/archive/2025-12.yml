@@ -44,3 +44,7 @@
   - rscadd: Mouse cubes can now be shaken to create rats.
   notghosti:
   - bugfix: Anchoring crystals now apply forced toxin healing rather than regular.
+2025-12-05:
+  Absolucy:
+  - rscdel: You can no longer deep fry brains, unless they're soulless (deep fried
+      Pun Pun brain is still on the menu, don't worry).
