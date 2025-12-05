@@ -1,0 +1,5 @@
+author: "Evalence0"
+delete-after: True
+changes:
+  - balance: "Potassium now depletes at a reasonable rate from floran's blood, instead of staying forever and causing damage."
+  - bugfix: "added metabolism rate to potassium for florans."
