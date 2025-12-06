@@ -1,0 +1,5 @@
+author: "Absolucy"
+delete-after: True
+changes:
+  - qol: "Xenobio pens now automatically dissolve dead monkeys after 5 minutes."
+  - qol: "Larger xenobio pens now have a higher slime capacity."
