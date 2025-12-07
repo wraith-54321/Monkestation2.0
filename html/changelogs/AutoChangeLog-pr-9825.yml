@@ -1,4 +1,0 @@
-author: "Absolucy"
-delete-after: True
-changes:
-  - admin: "Microphone mechcomp components no longer spam logs with everything they hear."

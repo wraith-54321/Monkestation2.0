@@ -85,5 +85,10 @@
   - bugfix: Latejoiners with heterochromatic eyes no longer have the wrong fingerprint
       in the security records.
   - bugfix: Latejoiners actually have their quirks visible in the medical records.
+  Absolucy:
+  - admin: Microphone mechcomp components no longer spam logs with everything they
+      hear.
+  flleeppyy:
+  - rscadd: Mobs can now pixel tilt, default binding is J
   notghosti:
   - rscadd: Defib Blacklisting now shows as soulless
