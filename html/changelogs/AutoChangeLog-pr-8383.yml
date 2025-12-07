@@ -1,4 +1,0 @@
-author: "kuricityy"
-delete-after: True
-changes:
-  - rscadd: "Adds the ability to change prisoner ID names through right clicking ID with a secoff or higher ID card."
