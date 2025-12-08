@@ -1,4 +1,0 @@
-author: "flleeppyy"
-delete-after: True
-changes:
-  - bugfix: "PLX_givecoins not properly converting number to text when not using json"

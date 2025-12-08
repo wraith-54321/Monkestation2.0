@@ -1,4 +1,0 @@
-author: "Absolucy"
-delete-after: True
-changes:
-  - rscadd: "Nanite programmers now have a GPS signal, named \"Nanite Synchronization Signal\"."
