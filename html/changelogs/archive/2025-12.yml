@@ -104,3 +104,8 @@
       with a secoff or higher ID card.
   notghosti:
   - rscadd: Defib Blacklisting now shows as soulless
+2025-12-08:
+  Absolucy:
+  - bugfix: Fixed awakened dragon not properly giving the name prefix.
+  SirNightKnight:
+  - balance: removed the box of flashbangs from security voucher utilities.
