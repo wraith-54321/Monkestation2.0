@@ -1,0 +1,5 @@
+author: "Absolucy"
+delete-after: True
+changes:
+  - bugfix: "Returning from cryo now properly restores your quirks."
+  - bugfix: "Returning from cryo now properly allows you to vote on the shuttle transfer vote."
