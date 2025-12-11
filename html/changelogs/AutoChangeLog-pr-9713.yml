@@ -1,0 +1,4 @@
+author: "KittyNoodle"
+delete-after: True
+changes:
+  - rscadd: "AIs now have access to notepad, emojipedia, themify, supermatter monitor, wirecarp, and the chat client on their PDAs."
