@@ -1,5 +1,0 @@
-author: "SirNightKnight"
-delete-after: True
-changes:
-  - bugfix: "fixed incorrect toggle messages for riot helmets and justice helmets."
-  - rscadd: "added the medical emergency helmet."
