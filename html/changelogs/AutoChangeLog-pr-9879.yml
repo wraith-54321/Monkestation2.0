@@ -1,0 +1,4 @@
+author: "Lawlolawl"
+delete-after: True
+changes:
+  - bugfix: "Fixed the blue alert announcement, which should state that probable cause is required for security searches."
