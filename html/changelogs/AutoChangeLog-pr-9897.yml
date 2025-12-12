@@ -1,5 +1,0 @@
-author: "Absolucy"
-delete-after: True
-changes:
-  - bugfix: "Fixed BCI keyboards and thought listeners html encoding text input."
-  - bugfix: "Fixed BCI keyboards and thought listeners sending a signal if you don't actually type anything in."

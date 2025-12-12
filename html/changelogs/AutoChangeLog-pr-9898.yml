@@ -1,4 +1,0 @@
-author: "Absolucy"
-delete-after: True
-changes:
-  - bugfix: "The wiremod module duplicator no longer uses 100 times more glass than it should."
