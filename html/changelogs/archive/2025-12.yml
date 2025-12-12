@@ -179,6 +179,7 @@
   - bugfix: Fixed the blue alert announcement, which should state that probable cause
       is required for security searches.
   - bugfix: Fixed pda disassembly iron duping.
+  - bugfix: Fixed portable chem mixer UI not updating with stored beaker reagents
   SirNightKnight:
   - balance: reduces the chance of dangerous unrestricted fluid anomalies occuring
   Tractor-Maam:
