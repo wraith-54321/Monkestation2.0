@@ -1,0 +1,4 @@
+author: "Lawlolawl"
+delete-after: True
+changes:
+  - bugfix: "Fixed portable chem mixer UI not updating with stored beaker reagents"
