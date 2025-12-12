@@ -1,0 +1,4 @@
+author: "Lawlolawl"
+delete-after: True
+changes:
+  - qol: "Updated cooking recipe step for clarity when no reaction/processing needed. Rice dough ingredients do NOT need to be mixed, people!"
