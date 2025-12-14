@@ -1,0 +1,6 @@
+author: "Cmpwarrior"
+delete-after: True
+changes:
+  - rscadd: "Adds a new AI core design based on \"Steve\" from PvZ: GW2"
+  - rscadd: "Adds a new AI core design based on TEC from Paper Mario: TTYD"
+  - rscadd: "Adds a new AI core design based on TheDukeOfOOK from- okay I think you get the point"
