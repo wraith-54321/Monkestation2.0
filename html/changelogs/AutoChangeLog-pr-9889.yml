@@ -1,0 +1,5 @@
+author: "Tractor-Maam"
+delete-after: True
+changes:
+  - rscadd: "Added the MOD Corpse Exoskeleton Module."
+  - code_imp: "changed the MOD AI forced standing trait cause."
