@@ -1,0 +1,4 @@
+author: "SirNightKnight"
+delete-after: True
+changes:
+  - rscdel: "removed random assistant colors, assistants will always be the same color or palette during the colored assistants station trait."
