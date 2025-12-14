@@ -1,0 +1,4 @@
+author: "Veth-s"
+delete-after: True
+changes:
+  - balance: "Changed the process time from 30 seconds to 4 minutes for the Junkie quirk, reducing how quickly you go through withdrawal stages."
