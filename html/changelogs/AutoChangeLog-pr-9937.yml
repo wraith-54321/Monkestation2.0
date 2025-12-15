@@ -1,5 +1,0 @@
-author: "Absolucy"
-delete-after: True
-changes:
-  - bugfix: "Fixed changes to your mutations/genes being mirrored to/from any clones of you."
-  - bugfix: "Fixed Veil of Many Faces and stabilized green extract not properly restoring your mutant colors, undershirt, underwear, and socks when restoring your original identity."
