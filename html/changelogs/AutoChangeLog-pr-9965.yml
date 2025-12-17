@@ -1,4 +1,0 @@
-author: "Lawlolawl"
-delete-after: True
-changes:
-  - bugfix: "Fixed space heater deconstruction generating power cells, as well as improvised chem heater deconstruction generating cable coils."

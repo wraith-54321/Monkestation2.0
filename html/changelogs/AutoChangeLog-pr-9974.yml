@@ -1,4 +1,0 @@
-author: "Lawlolawl"
-delete-after: True
-changes:
-  - bugfix: "Fixed lights not being able to be placed back into box of replacement lights."
