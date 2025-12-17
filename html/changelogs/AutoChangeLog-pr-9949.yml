@@ -1,0 +1,5 @@
+author: "flleeppyy"
+delete-after: True
+changes:
+  - rscdel: "Removed replays/demos"
+  - code_imp: "Demodularized hydroponics, flavor_text, floorsigns, and food_and_drinks"
