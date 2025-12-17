@@ -1,0 +1,4 @@
+author: "Uristthedorf"
+delete-after: True
+changes:
+  - rscdel: "Removes horned mutation and extra versions of colorblind mutation."
