@@ -1,0 +1,5 @@
+author: "Killermankey"
+delete-after: True
+changes:
+  - rscadd: "Sentinel Siege Walker"
+  - bugfix: "a singular letter missing from the ignifist stopping it from using the correct rocket."
