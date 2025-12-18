@@ -1,0 +1,7 @@
+author: "SirNightKnight"
+delete-after: True
+changes:
+  - balance: "crew mechs have two slots."
+  - balance: "mech armor cannot be stacked with the same type."
+  - balance: "maulers come with a melee armor module installed along with a projectile armor module."
+  - balance: "projectile armor gives 15 more bullet resistance instead of 10."
