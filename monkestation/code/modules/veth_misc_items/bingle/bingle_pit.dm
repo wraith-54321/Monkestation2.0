@@ -45,7 +45,7 @@
 	AddElement(/datum/element/connect_loc, loc_connections)
 	return INITIALIZE_HINT_LATELOAD
 
-/obj/structure/bingle_hole/LateInitialize()
+/obj/structure/bingle_hole/LateInitialize(mapload_arg)
 	SSmapping.lazy_load_template(LAZY_TEMPLATE_KEY_BINGLE_PIT)
 	log_game("Bingle Pit Template loaded.")
 
@@ -122,7 +122,7 @@
 			bong.armour_penetration = 10
 			bong.evolved = TRUE
 
-		SEND_SIGNAL(bong, BINGLE_EVOLVE)
+		SEND_SIGNAL(bong, COMSIG_LIVING_BINGLE_EVOLVE)
 
 /obj/structure/bingle_hole/proc/swallow_mob(mob/living/victim)
 	if(!isliving(victim))

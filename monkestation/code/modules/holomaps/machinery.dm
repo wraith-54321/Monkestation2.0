@@ -31,14 +31,14 @@
 	var/datum/station_holomap/holomap_datum
 	var/bonus_parts = /obj/item/stock_parts/micro_laser
 
-/obj/machinery/station_map/Initialize()
+/obj/machinery/station_map/Initialize(mapload)
 	. = ..()
 	if(!current_z_level)
 		current_z_level = loc.z
 	SSholomaps.station_holomaps += src
 	return INITIALIZE_HINT_LATELOAD
 
-/obj/machinery/station_map/LateInitialize()
+/obj/machinery/station_map/LateInitialize(mapload_arg)
 	. = ..()
 	if(SSholomaps.initialized)
 		setup_holomap()
@@ -419,7 +419,7 @@
 	name = "recon holomap"
 	desc = "A virtual map of the target station."
 
-/obj/machinery/station_map/syndicate/Initialize()
+/obj/machinery/station_map/syndicate/Initialize(mapload)
 	. = ..()
 	var/tracked_z_level = SSmapping.levels_by_trait(ZTRAIT_STATION)[1]
 	current_z_level = tracked_z_level
