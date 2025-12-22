@@ -1,0 +1,14 @@
+author: "SirNightKnight"
+delete-after: True
+changes:
+  - rscadd: "thermal balaclavas can be worn on your neck slot"
+  - code_imp: "renamed the item path for the thermal balaclava to make more sense."
+  - code_imp: "cleaned up some code relating to face visibility."
+  - qol: "security barriers (deployable ones from grenades) can be right clicked or swiped with your ID/PDA to unlock them if you have security access."
+  - balance: "emagging sec barriers fries their controls permanently, heavy emps will achieve the same effect."
+  - balance: "sec barriers glow in the dark."
+  - balance: "increased the amount of sec barrier grenades you get in sec barrier cargo crates to 6 but kept the unit price (100 credits per barrier grenade)."
+  - balance: "you get 3 sec barrier grenades from the sec utility voucher option. up from 2."
+  - bugfix: "fixed some cover flags for the eva and voidsuit space helmet."
+  - qol: " right clicking a holosign barrier with it's projector deletes it."
+  - code_imp: "moved some holosign/projector interactions to the holosign projector itself."
