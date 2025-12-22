@@ -1,7 +1,0 @@
-author: "Lawlolawl"
-delete-after: True
-changes:
-  - bugfix: "Added heretic midround antag pref."
-  - image: "Shifted borer and plague rat preview icons to show their full sprite properly."
-  - qol: "Preferences settings: Separated spaceling and midround ling antag prefs."
-  - qol: "Preferences settings: Separated crew midround antag prefs and ghost role antag prefs as a whole."

@@ -1,7 +1,0 @@
-author: "SirNightKnight"
-delete-after: True
-changes:
-  - rscadd: "phrases with spoken codewords cause the whole sentence to be marked in copperplate font to better differentiate from other colored text."
-  - rscdel: "removed some terms (russians, mexicans, indians, and illegal immigrants) from the ion law mad lib pool."
-  - bugfix: "updated the ion law mad lib pool with recent species and job additions."
-  - bugfix: "ion laws are based off crewsimov instead of asimov."
