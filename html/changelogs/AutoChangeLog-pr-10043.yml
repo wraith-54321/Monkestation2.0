@@ -1,4 +1,0 @@
-author: "Absolucy"
-delete-after: True
-changes:
-  - bugfix: "Plasma Fixation no longer kills oozelings... why did something that healed from breathing plasma hurt people who could already heal from breathing plasma anyways?"
