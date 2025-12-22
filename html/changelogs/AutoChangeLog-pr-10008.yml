@@ -1,0 +1,4 @@
+author: "Absolucy"
+delete-after: True
+changes:
+  - balance: "\"Disable Telecomms\" and \"Trigger Stationwide Blackout\" can no longer be discounted in the traitor uplink."
