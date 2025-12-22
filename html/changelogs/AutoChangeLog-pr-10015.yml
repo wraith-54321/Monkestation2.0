@@ -1,0 +1,5 @@
+author: "Absolucy"
+delete-after: True
+changes:
+  - rscdel: "You can no longer get those annoying heretic paintings from gifts."
+  - bugfix: "Fixed getting certain buggy items from christmas gifts that would require an admin to fix you."
