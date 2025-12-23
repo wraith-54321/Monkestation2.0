@@ -500,6 +500,10 @@
   - code_imp: moved some holosign/projector interactions to the holosign projector
       itself.
 2025-12-23:
+  Absolucy:
+  - rscadd: Added a new "Default Scryer Label" character preference, which will set
+      the default label of a MODlink scryer if you spawn with one, either via loadout
+      or the station trait.
   SirNightKnight:
   - bugfix: codeword responses are orange instead of red. removed the copperplate
       font being applied to phrases containing codewords.
