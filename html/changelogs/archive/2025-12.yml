@@ -504,9 +504,20 @@
   - rscadd: Added a new "Default Scryer Label" character preference, which will set
       the default label of a MODlink scryer if you spawn with one, either via loadout
       or the station trait.
+  - bugfix: Fixed the Tin Man and Prosthetic Organ quirks being copied to oozelings
+      when they revive.
+  Absolucy, Flleeppyy:
+  - refactor: Rewrote large chunks of cassette / cassette player code.
+  - rscadd: The cassette player now has an actual UI!
   SirNightKnight:
   - bugfix: codeword responses are orange instead of red. removed the copperplate
       font being applied to phrases containing codewords.
+  Veth-s:
+  - rscadd: You can now choose your PDA's ringtone sound from a list.
+  - rscadd: Many new sounds have been added for ringtones (Chen/Flleeppyy)
+  - rscadd: Modlink scryers now have call ringtones
+  - rscadd: Sound Debug Mixer verb
+  - code_imp: PDA ringtone sounds are now on their own channel
   notghosti:
   - rscadd: Assault operatives now spawn with a survival box
   - qol: Prisoner body bags can now be folded up

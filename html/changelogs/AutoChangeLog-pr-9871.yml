@@ -1,8 +1,0 @@
-author: "Veth-s"
-delete-after: True
-changes:
-  - rscadd: "You can now choose your PDA's ringtone sound from a list."
-  - rscadd: "Many new sounds have been added for ringtones (Chen/Flleeppyy)"
-  - rscadd: "Modlink scryers now have call ringtones"
-  - rscadd: "Sound Debug Mixer verb"
-  - code_imp: "PDA ringtone sounds are now on their own channel"
