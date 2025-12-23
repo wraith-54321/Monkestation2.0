@@ -506,6 +506,8 @@
       or the station trait.
   - bugfix: Fixed the Tin Man and Prosthetic Organ quirks being copied to oozelings
       when they revive.
+  - bugfix: Fixed the Default Scryer Label option not applying if you spawn with a
+      case.
   Absolucy, Flleeppyy:
   - refactor: Rewrote large chunks of cassette / cassette player code.
   - rscadd: The cassette player now has an actual UI!
