@@ -499,3 +499,12 @@
   - qol: ' right clicking a holosign barrier with it''s projector deletes it.'
   - code_imp: moved some holosign/projector interactions to the holosign projector
       itself.
+2025-12-23:
+  SirNightKnight:
+  - bugfix: codeword responses are orange instead of red. removed the copperplate
+      font being applied to phrases containing codewords.
+  notghosti:
+  - rscadd: Assault operatives now spawn with a survival box
+  - qol: Prisoner body bags can now be folded up
+  - bugfix: Syndicate prisoner body bags will now use the proper sprite
+  - code_imp: Assault operatives now have a properly named datum file.
