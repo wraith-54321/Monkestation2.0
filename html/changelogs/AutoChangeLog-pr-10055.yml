@@ -1,4 +1,0 @@
-author: "Absolucy"
-delete-after: True
-changes:
-  - bugfix: "Fixed building a wall over a tile with liquids on it getting liquid stuck in the wall."
