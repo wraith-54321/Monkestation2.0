@@ -605,6 +605,8 @@
   Absolucy:
   - bugfix: Fixed building a wall over a tile with liquids on it getting liquid stuck
       in the wall.
+  - balance: You can now behead people "normally" again, albeit they have on the ground
+      and below half health.
   Gboster-0:
   - balance: The paramedic arm-implant now has a piercing cyborg autoinjector with
       epiderphine/formeldahyde instead of a medibeam
