@@ -617,3 +617,9 @@
   - image: gave the captain jumpsuit and jumpskirt a higher collar.
   wraith-54321:
   - refactor: added protected lists
+2025-12-26:
+  JupiterJaeden:
+  - balance: Ling's chitin armor (specifically the helmet) now protects from flashes,
+      flashbangs, and pepperspray.
+  - balance: Ling's chitin armor ability cost increased from 1 dna point to 2.
+  - balance: Ling's armblade ability cost decreased from 2 dna points to 1.
