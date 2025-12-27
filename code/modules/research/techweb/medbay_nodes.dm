@@ -16,7 +16,6 @@
 		"genescanner",
 		"healthanalyzer",
 		"scanning_pad",
-		"vitals_monitor",
 		"antibodyscanner",
 		"med_spray_bottle",
 		"medical_kiosk",
