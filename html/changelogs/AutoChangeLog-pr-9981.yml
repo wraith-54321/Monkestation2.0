@@ -1,0 +1,5 @@
+author: "Singul0"
+delete-after: True
+changes:
+  - rscadd: "Added tutorial simulation virtual reality! It is accessed over at centcom. Players with low playtime can gain monkecoins for completing tutorials (thank you for not blowing up [PHARMACY/ENGINE] in regular rounds)"
+  - code_imp: "Adds multiple bitrunning networks functionality"
