@@ -20013,6 +20013,10 @@
 	},
 /turf/open/floor/mineral/plastitanium,
 /area/centcom/syndicate_mothership/firebase_trident)
+"bKI" = (
+/obj/machinery/quantum_server/tutorial_coop,
+/turf/open/floor/iron/dark/textured,
+/area/centcom/central_command_areas/hall)
 "bKY" = (
 /obj/effect/turf_decal/box/corners{
 	dir = 1
@@ -20310,6 +20314,10 @@
 	dir = 8
 	},
 /area/centcom/central_command_areas/evacuation)
+"cmj" = (
+/obj/machinery/netpod/tutorial_solo,
+/turf/open/floor/iron/dark/textured,
+/area/centcom/central_command_areas/hall)
 "cmN" = (
 /obj/effect/turf_decal/siding/wood,
 /turf/open/floor/wood/parquet,
@@ -21269,6 +21277,9 @@
 	},
 /turf/open/floor/plastic,
 /area/centcom/central_command_areas/admin)
+"dRd" = (
+/turf/open/floor/iron/vaporwave,
+/area/centcom/central_command_areas/hall)
 "dRe" = (
 /obj/structure/chair/sofa/middle/maroon,
 /turf/open/floor/carpet/neon/simple/green/nodots,
@@ -24110,6 +24121,10 @@
 /obj/effect/mapping_helpers/airlock/access/any/admin/general,
 /turf/open/floor/iron,
 /area/centcom/central_command_areas/admin)
+"isK" = (
+/obj/machinery/netpod/tutorial_coop,
+/turf/open/floor/iron/dark/textured,
+/area/centcom/central_command_areas/hall)
 "itR" = (
 /obj/machinery/plumbing/ooze_compressor,
 /turf/open/floor/engine,
@@ -25257,6 +25272,28 @@
 /obj/machinery/light/floor/has_bulb,
 /turf/open/floor/fakespace,
 /area/centcom/central_command_areas/adminroom)
+"kmr" = (
+/obj/effect/decal/cleanable/crayon{
+	icon_state = "o";
+	pixel_y = 3;
+	pixel_x = 24
+	},
+/obj/effect/decal/cleanable/crayon/l{
+	pixel_x = 13;
+	pixel_y = 2
+	},
+/obj/effect/decal/cleanable/crayon{
+	icon_state = "o";
+	pixel_y = 3;
+	pixel_x = 3
+	},
+/obj/effect/decal/cleanable/crayon{
+	icon_state = "s";
+	pixel_y = 3;
+	pixel_x = -8
+	},
+/turf/open/floor/iron/dark/herringbone,
+/area/centcom/central_command_areas/hall)
 "kmv" = (
 /obj/structure/wrestling_corner{
 	dir = 1;
@@ -28101,6 +28138,9 @@
 /obj/item/storage/box/tiziran_meats,
 /turf/open/floor/iron/dark/textured_large,
 /area/cruiser_dock)
+"pxi" = (
+/turf/open/floor/iron/dark/textured,
+/area/centcom/central_command_areas/hall)
 "pyP" = (
 /obj/effect/turf_decal/siding/wood{
 	dir = 10
@@ -29275,6 +29315,11 @@
 /obj/structure/window/reinforced/tinted/frosted/spawner/directional/east,
 /turf/open/floor/iron/dark,
 /area/centcom/central_command_areas/prison)
+"ruD" = (
+/obj/machinery/light/floor/has_bulb,
+/obj/effect/turf_decal/trimline/white,
+/turf/open/floor/iron/vaporwave,
+/area/centcom/central_command_areas/hall)
 "ruO" = (
 /obj/effect/turf_decal/siding/dark{
 	dir = 1
@@ -30954,6 +30999,10 @@
 /obj/effect/decal/cleanable/garbage,
 /turf/open/misc/asteroid,
 /area/centcom/syndicate_mothership/firebase_trident)
+"upc" = (
+/obj/machinery/quantum_server/tutorial_solo,
+/turf/open/floor/iron/dark/textured,
+/area/centcom/central_command_areas/hall)
 "upN" = (
 /obj/effect/turf_decal/weather/dirt{
 	dir = 9
@@ -31176,6 +31225,33 @@
 /obj/effect/mapping_helpers/airlock/access/any/admin/captain,
 /turf/open/floor/iron/dark/smooth_large,
 /area/centcom/central_command_areas/admin)
+"uPq" = (
+/obj/machinery/computer/quantum_console/tutorial_coop,
+/turf/open/floor/iron/dark/textured,
+/area/centcom/central_command_areas/hall)
+"uPx" = (
+/obj/effect/decal/cleanable/crayon{
+	icon_state = "p";
+	pixel_y = 3;
+	pixel_x = 17
+	},
+/obj/effect/decal/cleanable/crayon{
+	icon_state = "o";
+	pixel_y = 3;
+	pixel_x = -8
+	},
+/obj/effect/decal/cleanable/crayon{
+	icon_state = "c";
+	pixel_y = 3;
+	pixel_x = -20
+	},
+/obj/effect/decal/cleanable/crayon{
+	icon_state = "o";
+	pixel_y = 3;
+	pixel_x = 5
+	},
+/turf/open/floor/iron/dark/herringbone,
+/area/centcom/central_command_areas/hall)
 "uPO" = (
 /obj/effect/spawner/random/trash/garbage,
 /obj/effect/spawner/random/trash/cigbutt,
@@ -31594,6 +31670,10 @@
 	},
 /turf/open/floor/iron/dark/corner,
 /area/centcom/central_command_areas/prison)
+"vzB" = (
+/obj/machinery/computer/quantum_console/tutorial_solo,
+/turf/open/floor/iron/dark/textured,
+/area/centcom/central_command_areas/hall)
 "vAz" = (
 /obj/effect/turf_decal/box/corners{
 	dir = 4
@@ -79963,12 +80043,12 @@ aaa
 aaa
 aaa
 aaa
-aaa
 apG
 apG
 apG
-apG
-apG
+dRd
+dRd
+dRd
 acg
 abM
 abM
@@ -80220,12 +80300,12 @@ aaa
 aaa
 aaa
 aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
+apG
+bKI
+uPq
+aqK
+dRd
+dRd
 acg
 skO
 voH
@@ -80477,12 +80557,12 @@ aaa
 aaa
 aaa
 aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
+apG
+isK
+pxi
+uPx
+ruD
+dRd
 acg
 dki
 hdA
@@ -80734,12 +80814,12 @@ aaa
 aaa
 aaa
 aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
+apG
+isK
+pxi
+aqK
+dRd
+dRd
 acg
 dki
 hdA
@@ -80991,12 +81071,12 @@ aaa
 aaa
 aaa
 aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
+apG
+dRd
+dRd
+dRd
+dRd
+dRd
 acg
 rLi
 tEv
@@ -81248,12 +81328,12 @@ aaa
 aaa
 aaa
 aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
+apG
+dRd
+dRd
+dRd
+dRd
+dRd
 acg
 veh
 iCr
@@ -81505,12 +81585,12 @@ aaa
 aaa
 aaa
 aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
+apG
+cmj
+pxi
+kmr
+ruD
+dRd
 acg
 bCf
 saC
@@ -81762,12 +81842,12 @@ aaa
 aaa
 aaa
 aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
+apG
+upc
+vzB
+aqK
+dRd
+dRd
 acg
 ode
 mCP
@@ -82019,12 +82099,12 @@ aaa
 aaa
 aaa
 aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
+apG
+apG
+apG
+apG
+apG
+apG
 acg
 ydt
 gyJ
