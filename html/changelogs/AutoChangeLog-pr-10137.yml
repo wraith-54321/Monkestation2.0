@@ -1,4 +1,0 @@
-author: "Absolucy"
-delete-after: True
-changes:
-  - bugfix: "Fixed a rare bug where bloodsuckers could be permanently stuck as being considered \"silver cuffed\"."
