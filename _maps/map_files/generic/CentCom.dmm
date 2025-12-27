@@ -14909,15 +14909,6 @@
 /obj/effect/turf_decal/trimline/blue,
 /turf/open/floor/iron/dark,
 /area/centcom/central_command_areas/medical)
-"aNS" = (
-/obj/structure/table/reinforced/titaniumglass,
-/obj/item/storage/toolbox/brig_physician{
-	pixel_x = 0;
-	pixel_y = 8
-	},
-/obj/item/storage/toolbox/brig_physician,
-/turf/open/floor/circuit,
-/area/centcom/central_command_areas/medical)
 "aNT" = (
 /obj/structure/table/reinforced,
 /obj/effect/turf_decal/trimline/yellow/filled/line{
@@ -16422,15 +16413,6 @@
 /obj/machinery/light/directional/south,
 /turf/open/floor/grass,
 /area/centcom/central_command_areas/evacuation/ship)
-"aRU" = (
-/obj/structure/table/reinforced/titaniumglass,
-/obj/item/storage/backpack/duffelbag/brig_physician/surgery,
-/obj/item/storage/backpack/duffelbag/brig_physician/surgery{
-	pixel_x = 0;
-	pixel_y = 8
-	},
-/turf/open/floor/circuit,
-/area/centcom/central_command_areas/medical)
 "aRV" = (
 /obj/structure/table/reinforced,
 /obj/item/restraints/handcuffs,
@@ -20287,6 +20269,15 @@
 	},
 /turf/open/floor/iron/dark/diagonal,
 /area/centcom/central_command_areas/adminroom)
+"chH" = (
+/obj/structure/table/reinforced/titaniumglass,
+/obj/item/storage/toolbox/repair{
+	pixel_x = 0;
+	pixel_y = 8
+	},
+/obj/item/storage/toolbox/repair,
+/turf/open/floor/circuit,
+/area/centcom/central_command_areas/medical)
 "chN" = (
 /obj/structure/holosign/barrier/engineering,
 /turf/open/floor/glass/reinforced,
@@ -20899,12 +20890,6 @@
 	},
 /turf/open/floor/glass/reinforced/plasma,
 /area/centcom/central_command_areas/adminroom)
-"diu" = (
-/obj/machinery/holopad/secure/hacked{
-	layer = 2.6
-	},
-/turf/open/floor/catwalk_floor/iron_smooth,
-/area/cruiser_dock)
 "diS" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
@@ -22160,6 +22145,15 @@
 	},
 /turf/open/floor/wood/large,
 /area/centcom/central_command_areas/admin)
+"fxB" = (
+/obj/structure/table/reinforced/titaniumglass,
+/obj/item/storage/backpack/duffelbag/secmed/surgery,
+/obj/item/storage/backpack/duffelbag/secmed/surgery{
+	pixel_x = 0;
+	pixel_y = 8
+	},
+/turf/open/floor/circuit,
+/area/centcom/central_command_areas/medical)
 "fyf" = (
 /obj/effect/turf_decal/siding/dark,
 /obj/machinery/light/directional/east,
@@ -22187,14 +22181,6 @@
 "fyV" = (
 /turf/open/floor/plating,
 /area/centcom/syndicate_mothership/firebase_trident/hangar)
-"fAh" = (
-/obj/effect/turf_decal/siding/wood{
-	dir = 6
-	},
-/obj/structure/table/wood,
-/obj/machinery/cassette_deck,
-/turf/open/floor/wood/parquet,
-/area/centcom/central_command_areas/arcade)
 "fAD" = (
 /obj/structure/guncase,
 /obj/item/gun/energy/tesla_cannon,
@@ -22446,14 +22432,6 @@
 /obj/item/knife/butcher,
 /turf/open/floor/grass,
 /area/centcom/central_command_areas/admin)
-"gdC" = (
-/obj/effect/turf_decal/siding/wood{
-	dir = 10
-	},
-/obj/structure/table/wood,
-/obj/machinery/cassette_deck,
-/turf/open/floor/wood/parquet,
-/area/centcom/central_command_areas/arcade)
 "gfj" = (
 /obj/structure/chair/sofa/corp/left{
 	dir = 8
@@ -24010,15 +23988,6 @@
 	dir = 8
 	},
 /area/centcom/central_command_areas/evacuation)
-"iid" = (
-/obj/structure/table/reinforced/plastitaniumglass,
-/obj/machinery/cassette_deck,
-/obj/item/storage/fancy/rollingpapers{
-	pixel_x = -16;
-	pixel_y = 3
-	},
-/turf/open/floor/carpet/donk,
-/area/centcom/central_command_areas/adminroom)
 "iiK" = (
 /obj/structure/table/reinforced,
 /obj/item/tank/jetpack/harness{
@@ -24722,6 +24691,12 @@
 /obj/structure/flora/bush/flowers_yw/style_3,
 /turf/open/misc/grass,
 /area/centcom)
+"jsJ" = (
+/obj/machinery/holopad/secure/hacked{
+	layer = 2.6
+	},
+/turf/open/floor/catwalk_floor/iron_smooth,
+/area/cruiser_dock)
 "jth" = (
 /obj/effect/turf_decal/siding/wood{
 	dir = 9
@@ -24963,10 +24938,6 @@
 /obj/effect/turf_decal/syndicateemblem/middle/middle,
 /turf/open/floor/mineral/plastitanium/red,
 /area/centcom/syndicate_mothership/firebase_trident)
-"jMw" = (
-/obj/machinery/holopad/secure/hacked,
-/turf/open/floor/mineral/plastitanium/red,
-/area/centcom/syndicate_mothership/control)
 "jME" = (
 /obj/effect/turf_decal/trimline/dark_blue/filled/line{
 	dir = 5
@@ -25463,6 +25434,31 @@
 	},
 /turf/open/floor/iron/dark/textured,
 /area/centcom/central_command_areas/admin)
+"kCs" = (
+/obj/effect/turf_decal/siding/wood,
+/obj/structure/table/wood,
+/obj/item/walkman{
+	pixel_y = 7;
+	pixel_x = -8
+	},
+/obj/item/walkman{
+	pixel_y = 7;
+	pixel_x = -8
+	},
+/obj/item/walkman{
+	pixel_y = 7;
+	pixel_x = -8
+	},
+/obj/item/walkman{
+	pixel_y = 7;
+	pixel_x = -8
+	},
+/obj/item/cassette_tape/blank{
+	pixel_x = 7;
+	pixel_y = 0
+	},
+/turf/open/floor/wood/parquet,
+/area/centcom/central_command_areas/arcade)
 "kCu" = (
 /turf/closed/wall/r_wall,
 /area/centcom/central_command_areas/adminroom)
@@ -25972,6 +25968,14 @@
 /obj/item/gun/energy/pulse/pistol/m1911,
 /turf/open/floor/mineral/plastitanium,
 /area/centcom/central_command_areas/adminroom)
+"lsY" = (
+/obj/effect/turf_decal/siding/wood{
+	dir = 4
+	},
+/obj/machinery/light/directional/east,
+/obj/machinery/cassette_postbox,
+/turf/open/floor/wood/parquet,
+/area/centcom/central_command_areas/arcade)
 "lvi" = (
 /obj/structure/sign{
 	name = "wall";
@@ -26691,6 +26695,13 @@
 	},
 /turf/open/floor/plastic,
 /area/centcom/central_command_areas/admin)
+"mSk" = (
+/obj/effect/turf_decal/siding/red{
+	dir = 4
+	},
+/obj/machinery/holopad/secure/hacked,
+/turf/open/floor/iron/dark/textured_large,
+/area/centcom/syndicate_mothership/control)
 "mTh" = (
 /obj/structure/sign{
 	name = "wall";
@@ -29240,11 +29251,6 @@
 /obj/machinery/light/street_lamp,
 /turf/open/floor/grass,
 /area/centcom/central_command_areas/admin)
-"roF" = (
-/obj/structure/table/reinforced/plastitaniumglass,
-/obj/machinery/dj_station,
-/turf/open/floor/carpet/donk,
-/area/centcom/central_command_areas/adminroom)
 "rpd" = (
 /obj/structure/table/reinforced/plasmarglass,
 /obj/item/plate/large{
@@ -29659,13 +29665,6 @@
 	},
 /turf/open/floor/iron/white/textured,
 /area/centcom/central_command_areas/admin)
-"rYi" = (
-/obj/effect/turf_decal/siding/red{
-	dir = 4
-	},
-/obj/machinery/holopad/secure/hacked,
-/turf/open/floor/iron/dark/textured_large,
-/area/centcom/syndicate_mothership/control)
 "rYm" = (
 /obj/structure/sign{
 	name = "wall";
@@ -30007,6 +30006,11 @@
 /obj/structure/sign/poster/contraband/free_drone/directional/north,
 /turf/open/floor/iron/dark/textured_large,
 /area/cruiser_dock)
+"sDY" = (
+/obj/structure/table/reinforced/plastitaniumglass,
+/obj/machinery/dj_station,
+/turf/open/floor/carpet/donk,
+/area/centcom/central_command_areas/adminroom)
 "sEm" = (
 /obj/structure/railing/wooden_fencing{
 	pixel_y = 16
@@ -30139,6 +30143,10 @@
 	},
 /turf/open/floor/iron/white/diagonal,
 /area/centcom/central_command_areas/kitchen)
+"sNe" = (
+/obj/machinery/holopad/secure/hacked,
+/turf/open/floor/mineral/plastitanium/red,
+/area/centcom/syndicate_mothership/control)
 "sNI" = (
 /obj/item/food/grown/banana/bunch,
 /turf/open/floor/mineral/bananium,
@@ -30245,6 +30253,14 @@
 	},
 /turf/open/floor/iron/dark/textured_edge,
 /area/centcom/central_command_areas/evacuation)
+"sYo" = (
+/obj/effect/turf_decal/siding/wood{
+	dir = 10
+	},
+/obj/structure/table/wood,
+/obj/machinery/cassette_deck,
+/turf/open/floor/wood/parquet,
+/area/centcom/central_command_areas/arcade)
 "sZI" = (
 /obj/machinery/light/floor/has_bulb,
 /turf/open/floor/carpet/purple,
@@ -30780,6 +30796,15 @@
 /obj/machinery/light/directional/west,
 /turf/open/water/arena,
 /area/centcom/central_command_areas/admin)
+"tSS" = (
+/obj/structure/table/reinforced/plastitaniumglass,
+/obj/machinery/cassette_deck,
+/obj/item/storage/fancy/rollingpapers{
+	pixel_x = -16;
+	pixel_y = 3
+	},
+/turf/open/floor/carpet/donk,
+/area/centcom/central_command_areas/adminroom)
 "tTd" = (
 /obj/effect/turf_decal/raven/two,
 /obj/effect/turf_decal/raven,
@@ -31556,6 +31581,16 @@
 	dir = 8
 	},
 /area/centcom/central_command_areas/evacuation)
+"vpg" = (
+/obj/structure/cable,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/general/hidden,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/yellow/hidden/layer2,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/orange/hidden/layer5,
+/obj/machinery/holopad/secure/hacked{
+	layer = 2.6
+	},
+/turf/open/floor/catwalk_floor/iron_smooth,
+/area/centcom/syndicate_mothership/control)
 "vrG" = (
 /obj/effect/turf_decal/tile/dark/opposingcorners,
 /obj/structure/railing/wood{
@@ -31681,31 +31716,6 @@
 /obj/effect/turf_decal/box/corners,
 /turf/open/floor/iron/dark/textured_large,
 /area/cruiser_dock)
-"vAM" = (
-/obj/effect/turf_decal/siding/wood,
-/obj/structure/table/wood,
-/obj/item/walkman{
-	pixel_y = 7;
-	pixel_x = -8
-	},
-/obj/item/walkman{
-	pixel_y = 7;
-	pixel_x = -8
-	},
-/obj/item/walkman{
-	pixel_y = 7;
-	pixel_x = -8
-	},
-/obj/item/walkman{
-	pixel_y = 7;
-	pixel_x = -8
-	},
-/obj/item/cassette_tape/blank{
-	pixel_x = 7;
-	pixel_y = 0
-	},
-/turf/open/floor/wood/parquet,
-/area/centcom/central_command_areas/arcade)
 "vBV" = (
 /obj/effect/turf_decal/siding/wood{
 	dir = 4
@@ -31768,6 +31778,14 @@
 /obj/structure/fence,
 /turf/open/misc/sandy_dirt,
 /area/centcom/central_command_areas/admin)
+"vFe" = (
+/obj/effect/turf_decal/siding/wood{
+	dir = 6
+	},
+/obj/structure/table/wood,
+/obj/machinery/cassette_deck,
+/turf/open/floor/wood/parquet,
+/area/centcom/central_command_areas/arcade)
 "vFm" = (
 /turf/open/floor/mineral/titanium/purple,
 /area/centcom/central_command_areas/adminroom)
@@ -32545,14 +32563,6 @@
 /obj/item/toy/plush/lizard_plushie,
 /turf/open/floor/carpet/grimey,
 /area/centcom/central_command_areas/adminroom)
-"wMU" = (
-/obj/effect/turf_decal/siding/wood{
-	dir = 4
-	},
-/obj/machinery/light/directional/east,
-/obj/machinery/cassette_postbox,
-/turf/open/floor/wood/parquet,
-/area/centcom/central_command_areas/arcade)
 "wPp" = (
 /obj/structure/railing/wooden_fence{
 	dir = 8
@@ -32669,16 +32679,6 @@
 /obj/machinery/light/floor/has_bulb,
 /turf/open/misc/beach/sand,
 /area/centcom/central_command_areas/adminroom)
-"xdu" = (
-/obj/structure/cable,
-/obj/machinery/atmospherics/pipe/smart/manifold4w/general/hidden,
-/obj/machinery/atmospherics/pipe/smart/manifold4w/yellow/hidden/layer2,
-/obj/machinery/atmospherics/pipe/smart/manifold4w/orange/hidden/layer5,
-/obj/machinery/holopad/secure/hacked{
-	layer = 2.6
-	},
-/turf/open/floor/catwalk_floor/iron_smooth,
-/area/centcom/syndicate_mothership/control)
 "xdB" = (
 /obj/item/clothing/under/dress/sparkle,
 /turf/open/floor/fakespace,
@@ -37219,7 +37219,7 @@ aku
 aku
 aku
 aQr
-jMw
+sNe
 aoa
 aNw
 azL
@@ -40296,7 +40296,7 @@ aVK
 aVK
 aIY
 aFr
-xdu
+vpg
 anS
 anS
 aYh
@@ -48786,7 +48786,7 @@ aVK
 aVK
 aDm
 aBV
-rYi
+mSk
 aBV
 aSG
 aSr
@@ -54099,7 +54099,7 @@ aaa
 aaa
 aaa
 kpH
-roF
+sDY
 mxh
 qUI
 lqN
@@ -54356,7 +54356,7 @@ aaa
 aaa
 aaa
 mhE
-iid
+tSS
 mOs
 wjo
 wjo
@@ -69319,7 +69319,7 @@ aEf
 aHv
 aYf
 akJ
-gdC
+sYo
 aFR
 aaa
 aaa
@@ -69576,7 +69576,7 @@ aPq
 aPq
 aPq
 aPq
-vAM
+kCs
 aFR
 aaa
 aaa
@@ -70088,9 +70088,9 @@ aCz
 asp
 asp
 asp
-wMU
+lsY
 aGg
-fAh
+vFe
 aFR
 aaa
 aaa
@@ -79514,7 +79514,7 @@ aaa
 aaa
 aaa
 adl
-aNS
+chH
 aBu
 aBu
 aHW
@@ -79774,7 +79774,7 @@ adl
 rpP
 uei
 uei
-aRU
+fxB
 aNq
 ave
 rcc
@@ -85883,7 +85883,7 @@ bnQ
 bBh
 bBh
 jce
-diu
+jsJ
 rXO
 eAb
 iDX
