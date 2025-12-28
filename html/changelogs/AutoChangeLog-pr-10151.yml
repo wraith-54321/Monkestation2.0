@@ -1,0 +1,4 @@
+author: "JohnFulpWillard"
+delete-after: True
+changes:
+  - bugfix: "Sandevistan implants & Sugar/Hen rushes properly display an afterimage as you move around."
