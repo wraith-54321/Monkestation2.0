@@ -1,0 +1,5 @@
+author: "JohnFulpWillard"
+delete-after: True
+changes:
+  - rscadd: "Union badges hold access for union related activities (union management app)"
+  - rscadd: "The QM can now replace their golden union badge."
