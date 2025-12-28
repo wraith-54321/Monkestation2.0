@@ -646,10 +646,15 @@
   - rscadd: A new token statpanel for admins, to help improve token responses.
   - admin: A noise will now play if a token is going to timeout in one minute.
 2025-12-28:
+  Infernal-0:
+  - spellcheck: Updates the description for the CMOs surgical processor.
   JohnFulpWillard:
   - bugfix: Sandevistan implants & Sugar/Hen rushes properly display an afterimage
       as you move around.
   - bugfix: Helio permabrig entrance doors have had their access fixed.
+  - rscadd: Union badges hold access for union related activities (union management
+      app)
+  - rscadd: The QM can now replace their golden union badge.
   JupiterJaeden:
   - refactor: Stamina is now maxed at 100 instead of 250.
   - rscdel: Removes the rng chance to stamcrit when below 20% stamina threshold -
