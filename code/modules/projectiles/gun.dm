@@ -322,7 +322,7 @@
 	if((user.istate & ISTATE_HARM) && user.Adjacent(interacting_with))
 		return ITEM_INTERACT_SKIP_TO_ATTACK // Gun bash / bayonet attack
 
-	if(!can_hold_up)
+	if(!isliving(interacting_with) || !can_hold_up)
 		return
 
 	var/datum/component/gunpoint/gunpoint_component = user.GetComponent(/datum/component/gunpoint)
@@ -347,7 +347,8 @@
 		return interact_with_atom_secondary(interacting_with, user, modifiers)
 	if(!can_hold_up) //cant hold up so just shoot them
 		return interact_with_atom(interacting_with, user, modifiers)
-	balloon_alert(user, "out of range!")
+	if(isliving(interacting_with))
+		balloon_alert(user, "out of range!")
 
 //Just exists to stop it running ranged interact primary, and for other stuff to work based off of it
 
