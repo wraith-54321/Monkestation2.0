@@ -1,0 +1,8 @@
+author: "Pretend This Is An Emoji Of A Frog"
+delete-after: True
+changes:
+  - rscadd: "dinitrogen plasmide cools robots and heals robot burns, as advertized in its description"
+  - bugfix: "IPCs get drunk with exactly the same drunkenness math as people, instead of slightly but crucially different math"
+  - bugfix: "IPCs dont get addicted to IPC compatable beverages at 4x the speed normal people get addicted to equivalent beverages"
+  - rscadd: "Positronic Neural Dampener now reduces jitters and stutter while increasing slurring slightly"
+  - bugfix: "Positronic Neural Dampener does not cause total unconcious anesthetization unless the IPC or Android you've PNDd is actually unconcious, so you wont examine a walking talking robot and see \"They're out cold.\""
