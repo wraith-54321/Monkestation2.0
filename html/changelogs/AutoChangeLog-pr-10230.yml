@@ -1,0 +1,4 @@
+author: "SyncIt21, JohnFulpWillard"
+delete-after: True
+changes:
+  - bugfix: "The PDA camera app now works."
