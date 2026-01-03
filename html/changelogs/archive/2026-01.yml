@@ -38,3 +38,6 @@
   - bugfix: Fixed a bluescreen in comms console
   jlsnow301, JohnFulpWillard:
   - bugfix: Fixed the UIs for signalers, airlock electronics/RCDs, and clockwork slabs
+2026-01-03:
+  Absolucy:
+  - bugfix: Ckeys with pronouns in OOC are now properly underlined again.
