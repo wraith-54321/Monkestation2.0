@@ -1,0 +1,4 @@
+author: "flleeppyy"
+delete-after: True
+changes:
+  - code_imp: "add new CI linter to check for unescaped brackets"
