@@ -1,4 +1,0 @@
-author: "flleeppyy"
-delete-after: True
-changes:
-  - rscadd: "Improved the issue report dialog to include the servers master commit"
