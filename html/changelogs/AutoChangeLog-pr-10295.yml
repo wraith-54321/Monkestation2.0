@@ -1,0 +1,4 @@
+author: "Lawlolawl"
+delete-after: True
+changes:
+  - bugfix: "Fixed Theseus engi lobby airlocks missing construction access. 3 insuls have been shifted to the smes room so they are harder for tiders to take."
