@@ -60,3 +60,7 @@
   - rscadd: Added button to runtime viewer to use monkestation ss13 json log viewer
   - admin: add stealth follow to FLW buttons
   - code_imp: add new CI linter to check for unescaped brackets
+2026-01-05:
+  Lawlolawl:
+  - bugfix: Fixed Theseus engi lobby airlocks missing construction access. 3 insuls
+      have been shifted to the smes room so they are harder for tiders to take.
