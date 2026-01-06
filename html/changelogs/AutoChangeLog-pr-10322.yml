@@ -1,0 +1,4 @@
+author: "Absolucy"
+delete-after: True
+changes:
+  - qol: "Added some visible messages allowing people to distinguish if an oozeling manually retracted their limb, or if their limb has retracted due to low blood."
