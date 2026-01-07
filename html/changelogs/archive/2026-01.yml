@@ -77,3 +77,12 @@
       red blood, and will generate xenomorph remains when gibbed.
   - bugfix: Clothes will be stained with xenoblood when interacting with xenomorphs,
       instead of standard red blood.
+2026-01-07:
+  EssentialTomato:
+  - bugfix: (timothymtorres) Fix gravity not updating for mobs when teleporting, wormhole
+      jaunters, wizard spells, tile creation/destruction, mech entry/ejection and
+      other methods.
+  - bugfix: Modified floors around gravity generator now update their gravity properly.
+  Lawlolawl:
+  - bugfix: Fixed Oshan engi lobby missing construction access. Parameds, engisec
+      and RD can finally open the door.
