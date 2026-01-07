@@ -1,0 +1,5 @@
+author: "SirNightKnight"
+delete-after: True
+changes:
+  - bugfix: "fixed ERT space suit helmets not having the right heat protection."
+  - bugfix: "fixed code blue medical officers spawning with a code green outfit."
