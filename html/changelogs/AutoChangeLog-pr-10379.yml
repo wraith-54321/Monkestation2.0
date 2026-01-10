@@ -1,0 +1,6 @@
+author: "TheColorCyan"
+delete-after: True
+changes:
+  - rscdel: "shocks should no longer apply pain damage (report if it still happens)"
+  - balance: "burning yellow extracts apply 10 burn damage instead of pain"
+  - balance: "burning yellow negative effects no longer apply if the victim is shock immune"
