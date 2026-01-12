@@ -1,0 +1,7 @@
+author: "JohnFulpWillard"
+delete-after: True
+changes:
+  - rscadd: "Barbers and Explorers are now roundstart jobs when available. 1 Barber, 3 Explorers + 3 Latejoin Explorers."
+  - bugfix: "Barbers are now considered part of Service, and Explorers are now considered part of Cargo."
+  - rscadd: "Explorers are no longer eligible as antagonist targets, as they are nigh impossible to track down."
+  - rscdel: "Barbers are no longer available on Kilo, Graveyard, IceBox & Pubby (due to the lack of an office or equipment)."
