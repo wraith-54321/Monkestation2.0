@@ -1,5 +1,0 @@
-author: "JupiterJaeden"
-delete-after: True
-changes:
-  - balance: "Commando operatives now start with syndicate microbomb implants, like normal nuclear operatives."
-  - balance: "Disarming/destroying the commando operative nuke still automatically calls the shuttle, but the shuttle is now recallable if command so desires."
