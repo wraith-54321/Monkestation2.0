@@ -10,4 +10,5 @@
 		)
 	tag_multipliers = list(TAG_COMBAT = 1.4, TAG_DESTRUCTIVE = 0.4, TAG_TARGETED = 1.2)
 	population_min = 25 //combat based so we should have some kind of min pop(even if low)
+	ignores_roundstart = FALSE
 	weight = 3

@@ -328,7 +328,7 @@
 	var/datum/round_event_control/event_type = pick_weight(extra_spawned_events)
 	if(!event_type)
 		return
-	var/datum/round_event_control/triggered_event = locate(event_type) in SSgamemode.control
+	var/datum/round_event_control/triggered_event = SSevents.control_by_type[event_type]
 	if(wait)
 		log_storyteller("[src] queued extra event [triggered_event] (running in [DisplayTimeText(wait)])")
 		//wait a second to avoid any potential omnitraitor bs (it will happen anyways)
