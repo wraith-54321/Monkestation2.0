@@ -183,3 +183,19 @@
   - bugfix: integrated circuit MOD action components now have icons again.
   - bugfix: changed the icon name of the nanite/bci/mod action icon "five" to actually
       be five, instead of fiv.
+2026-01-13:
+  Absolucy:
+  - bugfix: Fixed willing borer host messages being white instead of big and purple.
+  - bugfix: Fixed some languages (most notably Shadowtongue) missing their icons.
+  - image: The Mushroom language now has an icon.
+  JohnFulpWillard:
+  - bugfix: Jailbird no longer breaks your memories.
+  JupiterJaeden:
+  - qol: All of security (except the brig doc) now starts with security pens in their
+      PDAs roundstart, which can be used to prompt a surrender from someone by clicking
+      on them at range. They are also printable at the security lathe.
+  Lawlolawl:
+  - qol: Made gulag point generation more intuitive (buffs mining for rare minerals)
+  - rscadd: Added surgical tools to Heliostation morgue.
+  SirNightKnight:
+  - balance: lessened the explosion effect of oil extracts.
