@@ -1,0 +1,5 @@
+author: "Absolucy"
+delete-after: True
+changes:
+  - bugfix: "Slightly optimized some blood-related code."
+  - qol: "Slashers no longer spawn a morbillion blood particles (they still spawn SOME) each hit, hopefully avoiding grinding the server to a halt."
