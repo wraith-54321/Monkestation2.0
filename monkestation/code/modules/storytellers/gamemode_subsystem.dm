@@ -141,6 +141,7 @@ SUBSYSTEM_DEF(gamemode)
 		if(!id)
 			continue
 		event_tracks[id] = new track()
+		if(ispath(track, /datum/storyteller_track/event))
 		event_pools[id] = list()
 
 	// Populate storytellers
@@ -310,8 +311,8 @@ SUBSYSTEM_DEF(gamemode)
 
 /// Gets the correct popcount, returning READY people if roundstart, and active people if not.
 /datum/controller/subsystem/gamemode/proc/get_correct_popcount()
-		update_crew_infos()
-		return active_players
+	update_crew_infos()
+	return active_players
 
 /// Refunds and removes a scheduled event.
 /datum/controller/subsystem/gamemode/proc/refund_scheduled_event(datum/scheduled_event/refunded)

@@ -179,7 +179,7 @@
 ///Attempt to buy a specific event if we can afford it, otherwise returns FALSE, note this does NOT take cost variance into account
 /datum/storyteller/proc/try_buy_event(datum/round_event_control/bought_event)
 	if(ispath(bought_event))
-		bought_event = SSevents.control_by_type[bought_event] //might be able to make this slightly cheaper by searching in the track sorted list
+		bought_event = SSevents.control_by_type[bought_event]
 	var/track = bought_event.track
 	if(!track || (bought_event in SSgamemode.uncategorized))
 		return FALSE //trackless events cant be bought

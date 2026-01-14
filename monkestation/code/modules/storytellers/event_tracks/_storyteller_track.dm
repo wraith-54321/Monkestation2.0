@@ -33,8 +33,8 @@
 	id = EVENT_TRACK_ROLESET
 	threshold = ROLESET_POINT_THRESHOLD
 
-//not an event track because its just a category holder and should never actually be triggered
-/datum/storyteller_track/objectives
+//should not be triggered
+/datum/storyteller_track/event/objectives
 	id = EVENT_TRACK_OBJECTIVES
 
 //whenever this ticks over it gives a point to a random other track, exists to add more variabilty to event timing. TODO: allow for variable points given
