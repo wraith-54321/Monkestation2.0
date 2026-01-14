@@ -58,7 +58,7 @@
 	var/always_votable = FALSE
 	///weight this has of being picked for random storyteller/showing up in the vote if not always_votable
 	var/weight = 0
-	///the base antag capcity points this storyteller has
+	///the base antag capacity points this storyteller has
 	var/base_antag_points = 0
 
 /datum/storyteller/process(seconds_per_tick = SSgamemode.wait / 10)

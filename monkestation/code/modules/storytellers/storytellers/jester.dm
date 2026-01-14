@@ -11,3 +11,4 @@
 		)
 	population_min = 40
 	weight = 2
+	base_antag_points = 5
