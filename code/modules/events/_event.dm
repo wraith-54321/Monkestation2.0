@@ -83,7 +83,8 @@
 		min_players = CEILING(min_players * CONFIG_GET(number/events_min_players_mul), 1)
 	if(!length(admin_setup))
 		return
-	if(!roundstart && earliest_start < ROUNDSTART_VALID_TIMEFRAME) //non roundstart events cannot trigger during roundstart
+	//wizard events can trigger at any time due to having unique conditions(should probably look into that interaction)
+	if(!roundstart && !wizardevent && earliest_start < ROUNDSTART_VALID_TIMEFRAME) //non roundstart events cannot trigger during roundstart
 		stack_trace("[src.type] has an earliest_start lower than ROUNDSTART_VALID_TIMEFRAME and is not roundstart")
 	var/list/admin_setup_types = admin_setup.Copy()
 	admin_setup.Cut()
