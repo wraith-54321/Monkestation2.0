@@ -142,7 +142,7 @@ SUBSYSTEM_DEF(gamemode)
 			continue
 		event_tracks[id] = new track()
 		if(ispath(track, /datum/storyteller_track/event))
-		event_pools[id] = list()
+			event_pools[id] = list()
 
 	// Populate storytellers
 	for(var/type in subtypesof(/datum/storyteller))
