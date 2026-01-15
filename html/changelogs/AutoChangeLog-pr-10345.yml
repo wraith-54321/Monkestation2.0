@@ -1,0 +1,9 @@
+author: "SirNightKnight"
+delete-after: True
+changes:
+  - rscadd: "replaced all universal blood bags with sealed saline chem packs containing 55 saline glucose, 35 iron, and 10 tirimol."
+  - rscadd: "added saline chem packs to all existing blood crates."
+  - rscadd: "added spider blood to the blood variety crate."
+  - spellcheck: "fixed a minor grammar error in the penlight's decription."
+  - map: "removed a misplaced computer console on kilostation."
+  - bugfix: " voidraptor sec med uses sec access instead of brig."
