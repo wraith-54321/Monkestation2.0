@@ -1,0 +1,5 @@
+author: "Ice-Type"
+delete-after: True
+changes:
+  - balance: "Majorly tuned down the wounding caused by buckshot"
+  - balance: "Improvised shells no longer do more damage than buckshot shells"
