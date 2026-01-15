@@ -1,0 +1,4 @@
+author: "JohnFulpWillard"
+delete-after: True
+changes:
+  - bugfix: "NTSL no longer constantly freezes up saying you're doing too many inputs."
