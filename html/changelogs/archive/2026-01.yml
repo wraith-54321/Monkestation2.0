@@ -240,3 +240,11 @@
   - map: added/modified map content
   - map: Blueshift PTL Now on the Left Instead of Right (fills right side with storage)
   - map: Atmos Has Powerline to PTL (look for blue wires)
+2026-01-15:
+  SirNightKnight:
+  - qol: morgue tray soul alarms don't ignore bad DNA mobs.
+  notghosti:
+  - bugfix: Removed a handheld monitor node typo
+  - rscadd: Added Morphine and ammoniated mercury to emergency hypo spray
+  - balance: Emergency Hypo spray 5 > 10 capacity
+  - balance: Emergency Hypo spray 1 > 2 recharge rate
