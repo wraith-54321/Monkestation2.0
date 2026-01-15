@@ -7,7 +7,7 @@
 	///How many points does this track have currently
 	var/points = 0
 
-///Called whenever our points go over our threshold
+///Called whenever our points go over our threshold, please note that points must be taken somewhere within this proc
 /datum/storyteller_track/proc/on_trigger(datum/storyteller/triggered_by)
 	return
 
@@ -45,4 +45,5 @@
 /datum/storyteller_track/booster/on_trigger(datum/storyteller/triggered_by)
 	var/datum/storyteller_track/track = pick(SSgamemode.point_gain_multipliers - id)
 	track = SSgamemode.event_tracks[track]
-	track.points += 1
+	track.points += 2
+	points = 0
