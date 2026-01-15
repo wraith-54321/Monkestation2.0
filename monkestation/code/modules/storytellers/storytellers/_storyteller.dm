@@ -102,21 +102,29 @@
 		mode.last_point_gains[track] = add_track_points(base_point, track)
 
 /// Add points to a specific track with multipliers, returns how many points were added
+/// Passed track should be an ID, not a ref
 /datum/storyteller/proc/add_track_points(count, datum/storyteller_track/track)
 	var/datum/controller/subsystem/gamemode/mode = SSgamemode
-	if(!istype(track))
-		track = mode.event_tracks[track]
-	var/point_gain = round(count * point_gains_multipliers[track] * mode.point_gain_multipliers[track], 0.1)
+	var/mode_gain = mode.point_gain_multipliers[track]
+	if(!isnum(mode_gain))
+		mode_gain = 1
+	var/our_gain = point_gains_multipliers[track]
+	if(!isnum(our_gain))
+		our_gain = 1
+
+	var/point_gain = round(count * our_gain * mode_gain, 0.1)
 	if(mode.allow_pop_scaling)
 		point_gain *= mode.current_pop_scale_multipliers[track]
+
+	track = mode.event_tracks[track]
 	track.points += point_gain
 	return point_gain
 
 /// Goes through every track of the gamemode and checks if it passes a threshold to buy an event, if does, buys one.
 /datum/storyteller/proc/handle_tracks()
 	var/datum/controller/subsystem/gamemode/mode = SSgamemode
-	for(var/track_id, track in mode.event_tracks)
-		var/datum/storyteller_track/typed_track = track
+	for(var/track in mode.point_gain_multipliers)
+		var/datum/storyteller_track/typed_track = mode.event_tracks[track]
 		if(typed_track.points >= typed_track.threshold)
 			typed_track.on_trigger(src)
 

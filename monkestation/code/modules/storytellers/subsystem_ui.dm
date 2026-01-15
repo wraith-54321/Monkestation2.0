@@ -23,8 +23,7 @@
 
 			dat += "<b>Roundstart Points Multipliers:</b>"
 			dat += "<BR><font color='#888888'><i>This affects points generated for roundstart events and antagonists.</i></font>"
-			for(var/track in event_tracks)
-				dat += "<BR>[track]: <a href='byond://?src=[REF(src)];panel=main;action=vars;var=roundstart_pts;track=[track]'>[roundstart_point_multipliers[track]]</a>"
+			dat += "<BR>[EVENT_TRACK_ROLESET]: <a href='byond://?src=[REF(src)];panel=main;action=vars;var=roundstart_pts;track=[EVENT_TRACK_ROLESET]'>[roundstart_roleset_multiplier]</a>"
 			dat += "<HR>"
 
 			dat += "<b>Minimum Population for Tracks:</b>"
@@ -54,9 +53,9 @@
 			dat += "<td width=10%><b>Forced</b></td>"
 			dat += "<td width=35%><b>Actions</b></td>"
 			dat += "</tr>"
-			for(var/track, track_d in event_tracks)
+			for(var/track in point_gain_multipliers)
 				even = !even
-				var/datum/storyteller_track/track_datum = track_d
+				var/datum/storyteller_track/track_datum = event_tracks[track]
 				var/background_cl = even ? "#17191C" : "#23273C"
 				var/points = track_datum.points
 				var/threshold = track_datum.threshold
@@ -244,7 +243,7 @@
 							if(isnull(new_value) || new_value < 0)
 								return
 							message_admins("[key_name_admin(usr)] set roundstart pts multiplier for [track] track to [new_value].")
-							roundstart_point_multipliers[track] = new_value
+							roundstart_roleset_multiplier = new_value
 						if("min_pop")
 							var/new_value = input(usr, "New value:", "Set new value") as num|null
 							if(isnull(new_value) || new_value < 0)

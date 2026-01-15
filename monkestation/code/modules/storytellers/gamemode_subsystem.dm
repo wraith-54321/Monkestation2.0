@@ -20,13 +20,7 @@ SUBSYSTEM_DEF(gamemode)
 	/// List of all the storytellers. Populated at init. Associative from type
 	var/list/storytellers = list()
 	/// Last point amount gained of each track. Those are recorded for purposes of estimating how long until next event.
-	var/list/last_point_gains = list(
-		EVENT_TRACK_MUNDANE = 0,
-		EVENT_TRACK_MODERATE = 0,
-		EVENT_TRACK_MAJOR = 0,
-		EVENT_TRACK_ROLESET = 0,
-		EVENT_TRACK_OBJECTIVES = 0
-		)
+	var/list/last_point_gains = list()
 
 	/// Minimum population thresholds for the tracks to fire off events.
 	var/list/min_pop_thresholds = list(
@@ -44,14 +38,9 @@ SUBSYSTEM_DEF(gamemode)
 		EVENT_TRACK_ROLESET = 1,
 		STORYTELLER_TRACK_BOOSTER = 1
 		)
-	/// Configurable multipliers for roundstart points.
-	var/list/roundstart_point_multipliers = list(
-		EVENT_TRACK_MUNDANE = 1,
-		EVENT_TRACK_MODERATE = 1,
-		EVENT_TRACK_MAJOR = 1,
-		EVENT_TRACK_ROLESET = 1,
-		EVENT_TRACK_OBJECTIVES = 1
-		)
+
+	var/roundstart_roleset_multiplier = 1
+
 	/// Whether we allow pop scaling. This is configured by config, or the storyteller UI
 	var/allow_pop_scaling = TRUE
 
@@ -151,6 +140,9 @@ SUBSYSTEM_DEF(gamemode)
 	load_config_vars()
 	load_event_config_vars()
 
+	for(var/point_track in point_gain_multipliers)
+		last_point_gains[point_track] = 0
+
 	///Seeding events into track event pools needs to happen after event config vars are loaded
 	for(var/datum/round_event_control/event as anything in SSevents.control)
 		if(event.holidayID || event.wizardevent || !event.track)
@@ -209,7 +201,7 @@ SUBSYSTEM_DEF(gamemode)
 
 /// Gets the number of antagonists the antagonist injection events will stop rolling after.
 /datum/controller/subsystem/gamemode/proc/get_antag_cap()
-	var/points = current_storyteller.base_antag_points
+	var/points = current_storyteller?.base_antag_points || 0
 	for(var/mob/living/player in get_active_players())
 		var/datum/job/player_role = player.mind?.assigned_role
 		if(player_role)
@@ -339,7 +331,7 @@ SUBSYSTEM_DEF(gamemode)
 
 	//get our roleset points
 	var/calc_value = ROUNDSTART_ROLESET_BASE + round(ROUNDSTART_ROLESET_GAIN * ready_players)
-	calc_value *= roundstart_point_multipliers[EVENT_TRACK_ROLESET]
+	calc_value *= roundstart_roleset_multiplier
 	calc_value *= current_storyteller.starting_point_multipliers[EVENT_TRACK_ROLESET]
 	calc_value *= (rand(100 - current_storyteller.roundstart_points_variance, 100 + current_storyteller.roundstart_points_variance)/100)
 	var/datum/storyteller_track/roleset_track = event_tracks[EVENT_TRACK_ROLESET]
@@ -502,13 +494,8 @@ ADMIN_VERB(forceGamemode, R_FUN, FALSE, "Open Gamemode Panel", "Opens the gamemo
 	point_gain_multipliers[EVENT_TRACK_MODERATE] = CONFIG_GET(number/moderate_point_gain_multiplier)
 	point_gain_multipliers[EVENT_TRACK_MAJOR] = CONFIG_GET(number/major_point_gain_multiplier)
 	point_gain_multipliers[EVENT_TRACK_ROLESET] = CONFIG_GET(number/roleset_point_gain_multiplier)
-	point_gain_multipliers[EVENT_TRACK_OBJECTIVES] = CONFIG_GET(number/objectives_point_gain_multiplier)
 
-	roundstart_point_multipliers[EVENT_TRACK_MUNDANE] = CONFIG_GET(number/mundane_roundstart_point_multiplier)
-	roundstart_point_multipliers[EVENT_TRACK_MODERATE] = CONFIG_GET(number/moderate_roundstart_point_multiplier)
-	roundstart_point_multipliers[EVENT_TRACK_MAJOR] = CONFIG_GET(number/major_roundstart_point_multiplier)
-	roundstart_point_multipliers[EVENT_TRACK_ROLESET] = CONFIG_GET(number/roleset_roundstart_point_multiplier)
-	roundstart_point_multipliers[EVENT_TRACK_OBJECTIVES] = CONFIG_GET(number/objectives_roundstart_point_multiplier)
+	roundstart_roleset_multiplier = CONFIG_GET(number/roleset_roundstart_point_multiplier)
 
 	min_pop_thresholds[EVENT_TRACK_MUNDANE] = CONFIG_GET(number/mundane_min_pop)
 	min_pop_thresholds[EVENT_TRACK_MODERATE] = CONFIG_GET(number/moderate_min_pop)
