@@ -46,4 +46,4 @@
 	var/datum/storyteller_track/track = pick(SSgamemode.point_gain_multipliers - id)
 	track = SSgamemode.event_tracks[track]
 	track.points += 30
-	points = 0
+	points = max(points - threshold, 0)
