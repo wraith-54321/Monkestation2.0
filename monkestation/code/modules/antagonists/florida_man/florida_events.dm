@@ -6,6 +6,7 @@
 	track = EVENT_TRACK_MODERATE
 	tags = list(TAG_DESTRUCTIVE, TAG_COMBAT, TAG_EXTERNAL, TAG_OUTSIDER_ANTAG)
 	checks_antag_cap = TRUE
+	dont_spawn_near_roundend = TRUE
 
 /datum/round_event/ghost_role/florida_man
 	minimum_required = 1
@@ -87,7 +88,7 @@
 	pixel_x = -32
 	pixel_y = 0
 
-/obj/effect/holy/Initialize()
+/obj/effect/holy/Initialize(mapload)
 	playsound(src,'monkestation/sound/misc/adminspawn.ogg',50,1)
 	QDEL_IN(src, 20)
 	. = ..()

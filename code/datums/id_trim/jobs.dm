@@ -26,8 +26,12 @@
 	if(ispath(job))
 		job = SSjob.GetJobType(job)
 
+	//The job is disabled.
+	if(isnull(job))
+		return
+
 	if(isnull(job_changes))
-		job_changes = SSmapping.config.job_changes
+		job_changes = SSmapping.current_map.job_changes
 
 	if(!length(job_changes))
 		refresh_trim_access()
@@ -101,6 +105,32 @@
 	if(CONFIG_GET(flag/assistants_have_maint_access))
 		access |= list(
 			ACCESS_MAINT_TUNNELS)
+
+/datum/id_trim/job/bridge_assistant
+	assignment = "Bridge Assistant"
+	trim_state = "trim_assistant"
+	sechud_icon_state = SECHUD_BRIDGEASSISTANT
+	department_color = COLOR_COMMAND_BLUE
+	subdepartment_color = COLOR_COMMAND_BLUE
+	minimal_access = list(
+		ACCESS_COMMAND,
+		ACCESS_SECURITY, //console
+		ACCESS_MEDICAL, //console AGAIN
+		ACCESS_EVA,
+		ACCESS_GATEWAY,
+		ACCESS_MAINT_TUNNELS,
+		ACCESS_MINERAL_STOREROOM,
+		ACCESS_TELEPORTER,
+	)
+	extra_access = list(ACCESS_RC_ANNOUNCE,)
+	template_access = list(
+		ACCESS_CAPTAIN,
+		ACCESS_CHANGE_IDS,
+	)
+	job = /datum/job/bridge_assistant
+
+/datum/id_trim/job/bridge_assistant/chat_span()
+	return "job__bridgeassistant"
 
 /datum/id_trim/job/atmospheric_technician
 	assignment = "Atmospheric Technician"
@@ -176,6 +206,7 @@
 		ACCESS_CAPTAIN,
 		ACCESS_CHANGE_IDS,
 		ACCESS_HOP,
+		ACCESS_QM,
 	)
 	job = /datum/job/bitrunner
 
@@ -242,12 +273,12 @@
 		ACCESS_BIT_DEN,
 		ACCESS_MINING,
 		ACCESS_MINING_STATION,
-		ACCESS_QM,
 		)
 	template_access = list(
 		ACCESS_CAPTAIN,
 		ACCESS_CHANGE_IDS,
 		ACCESS_HOP,
+		ACCESS_QM,
 		)
 	job = /datum/job/cargo_technician
 
@@ -479,6 +510,36 @@
 	if(CONFIG_GET(flag/security_has_maint_access))
 		access |= list(ACCESS_MAINT_TUNNELS)
 
+/datum/id_trim/job/brig_physician
+	assignment = "Brig Physician"
+	trim_state = "trim_medicaldoctor"
+	department_color = COLOR_SECURITY_RED
+	subdepartment_color = COLOR_MEDICAL_BLUE
+	sechud_icon_state = SECHUD_BRIG_PHYSICIAN
+	minimal_access = list(
+		ACCESS_BRIG_ENTRANCE,
+		ACCESS_PERMABRIG,
+		ACCESS_MAINT_TUNNELS,
+		ACCESS_SECURITY,
+		ACCESS_MECH_SECURITY,
+
+		ACCESS_MECH_MEDICAL,
+		ACCESS_MEDICAL,
+		ACCESS_MINERAL_STOREROOM,
+		ACCESS_MORGUE,
+		ACCESS_PHARMACY,
+		ACCESS_SURGERY,
+		)
+	extra_access = list(
+		ACCESS_DETECTIVE,
+		)
+	template_access = list(
+		ACCESS_CAPTAIN,
+		ACCESS_CHANGE_IDS,
+		ACCESS_HOS,
+		)
+	job = /datum/job/brig_physician
+
 /datum/id_trim/job/geneticist
 	assignment = "Geneticist"
 	trim_state = "trim_geneticist"
@@ -545,11 +606,13 @@
 		ACCESS_THEATRE,
 		ACCESS_WEAPONS,
 		//monkestation addition start: If the QM isn't a head, then these are part of HoP's responsibility
-		ACCESS_VAULT,
+		ACCESS_BIT_DEN,
 		ACCESS_MINING,
 		ACCESS_MINING_STATION,
 		ACCESS_MECH_MINING,
 		ACCESS_QM,
+		ACCESS_SHIPPING,
+		ACCESS_VAULT,
 		//monkestation addition end
 		)
 	minimal_wildcard_access = list(
@@ -920,11 +983,11 @@
 		ACCESS_ORDNANCE_STORAGE,
 		ACCESS_RESEARCH,
 		ACCESS_SCIENCE,
-		ACCESS_XENOBIOLOGY,
 		)
 	extra_access = list(
 		ACCESS_GENETICS,
 		ACCESS_ROBOTICS,
+		ACCESS_XENOBIOLOGY, //monkestation edit: Xenobio job
 		)
 	template_access = list(
 		ACCESS_CAPTAIN,
@@ -1078,8 +1141,14 @@
 		ACCESS_CAPTAIN,
 		ACCESS_CHANGE_IDS,
 		ACCESS_HOP,
+		ACCESS_QM,
 		)
 	job = /datum/job/shaft_miner
+
+/datum/id_trim/job/shaft_miner/refresh_trim_access()
+	. = ..()
+	if(. && SSmapping.is_planetary())
+		access |= list(ACCESS_EXTERNAL_AIRLOCKS)
 
 /// ID card obtained from the mining Disney dollar points vending machine.
 /datum/id_trim/job/shaft_miner/spare

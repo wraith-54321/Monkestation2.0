@@ -66,7 +66,7 @@
 	// (at any given moment, there may be like... 200 blood decals on your screen at once
 	// byond is, apparently, pretty bad at handling that many color matrix operations,
 	// especially in a filter or while animating)
-	var/list/starting_color_rgb = ReadRGB(color)
+	var/list/starting_color_rgb = rgb2num(color)
 	// we want a fixed offset for a fixed drop in color intensity, plus a scaling offset based on our strongest color
 	// the scaling offset helps keep dark colors from turning black, while also ensurse bright colors don't stay super bright
 	var/max_color = max(starting_color_rgb[1], starting_color_rgb[2], starting_color_rgb[3])
@@ -227,6 +227,7 @@
 
 /obj/effect/decal/cleanable/blood/gibs/Initialize(mapload, list/datum/disease/diseases)
 	. = ..()
+	AddElement(/datum/element/squish_sound)
 	RegisterSignal(src, COMSIG_MOVABLE_PIPE_EJECTING, PROC_REF(on_pipe_eject))
 
 /obj/effect/decal/cleanable/blood/gibs/Destroy()
@@ -245,14 +246,20 @@
 	if(!.)
 		return
 	AddComponent(/datum/component/rot, 0, 5 MINUTES, 0.7)
+#ifndef UNIT_TESTS
+	for(var/obj/effect/decal/cleanable/blood/gibs/other_gibs in loc)
+		if(!other_gibs.dried || other_gibs == src)
+			continue
+		other_gibs.handle_merge_decal(src)
+		beauty += other_gibs.beauty
+		var/mutable_appearance/other_appearance = copy_appearance_filter_overlays(other_gibs.appearance)
+		other_appearance.appearance_flags = KEEP_APART | RESET_COLOR | RESET_ALPHA
+		add_overlay(other_appearance)
+		qdel(other_gibs)
+#endif
 
 /obj/effect/decal/cleanable/blood/gibs/ex_act(severity, target)
 	return FALSE
-
-/obj/effect/decal/cleanable/blood/gibs/on_entered(datum/source, atom/movable/L)
-	if(isliving(L) && has_gravity(loc))
-		playsound(loc, 'sound/effects/footstep/gib_step.ogg', HAS_TRAIT(L, TRAIT_LIGHT_STEP) ? 20 : 50, TRUE)
-	. = ..()
 
 /obj/effect/decal/cleanable/blood/gibs/proc/on_pipe_eject(atom/source, direction)
 	SIGNAL_HANDLER
@@ -383,9 +390,9 @@
 
 	for(var/Ddir in GLOB.cardinals)
 		if(old_entered_dirs & Ddir)
-			entered_dirs |= angle2dir_cardinal(dir2angle(Ddir) + ang_change)
+			entered_dirs |= turn_cardinal(Ddir, ang_change)
 		if(old_exited_dirs & Ddir)
-			exited_dirs |= angle2dir_cardinal(dir2angle(Ddir) + ang_change)
+			exited_dirs |= turn_cardinal(Ddir, ang_change)
 
 	update_appearance()
 	return ..()
@@ -396,7 +403,45 @@
 
 /obj/effect/decal/cleanable/blood/footprints/update_icon()
 	. = ..()
-	alpha = min(BLOODY_FOOTPRINT_BASE_ALPHA + (255 - BLOODY_FOOTPRINT_BASE_ALPHA) * bloodiness / ((BLOOD_ITEM_MAX * BLOOD_PER_UNIT_MODIFIER) / 2), 255)
+	// xenoblood or oil footprints? you WILL DRY!!!!
+	var/list/all_dna = GET_ATOM_BLOOD_DNA(src)
+	var/is_special_blood = FALSE
+	if(length(all_dna))
+		for(var/dna_sample in all_dna)
+			var/blood_type_value = all_dna[dna_sample]
+			// check for X* string (xenoblood)
+			if(blood_type_value == "X*")
+				is_special_blood = TRUE
+				break
+			// check for xenomorph blood type or oil
+			var/datum/blood_type/blood = GLOB.blood_types[blood_type_value]
+			if(istype(blood, /datum/blood_type/xenomorph) || istype(blood, /datum/blood_type/oil))
+				is_special_blood = TRUE
+				break
+
+	if(is_special_blood)
+		alpha = min(max(BLOODY_FOOTPRINT_BASE_ALPHA, round((255 - BLOODY_FOOTPRINT_BASE_ALPHA) * bloodiness / ((BLOOD_ITEM_MAX * BLOOD_PER_UNIT_MODIFIER) / 2), 1)), 255)
+		if(alpha < 100)
+			alpha = 100
+	else
+		alpha = min(BLOODY_FOOTPRINT_BASE_ALPHA + (255 - BLOODY_FOOTPRINT_BASE_ALPHA) * bloodiness / ((BLOOD_ITEM_MAX * BLOOD_PER_UNIT_MODIFIER) / 2), 255)
+
+// override to ensure non-regular blood footprints maintain their blood color after drying
+/obj/effect/decal/cleanable/blood/footprints/update_atom_colour()
+	var/list/all_dna = GET_ATOM_BLOOD_DNA(src)
+	if(length(all_dna))
+		for(var/dna_sample in all_dna)
+			var/blood_type_value = all_dna[dna_sample]
+			// check for X* string
+			if(blood_type_value == "X*")
+				color = get_blood_dna_color()
+				return
+			// check for xenomorph blood type
+			var/datum/blood_type/blood = GLOB.blood_types[blood_type_value]
+			if(istype(blood, /datum/blood_type/xenomorph))
+				color = get_blood_dna_color()
+				return
+	return ..()
 
 //Cache of bloody footprint images
 //Key:
@@ -406,23 +451,53 @@ GLOBAL_LIST_EMPTY(bloody_footprints_cache)
 
 /obj/effect/decal/cleanable/blood/footprints/update_overlays()
 	. = ..()
-	var/icon_state_to_use = "blood"
+
+	// set the color based on blood DNA
+	color = get_blood_dna_color()
+
+	// define blood_state from the DNA
+	var/list/all_dna = GET_ATOM_BLOOD_DNA(src)
+	if(length(all_dna))
+		for(var/dna_sample in all_dna)
+			var/blood_type_value = all_dna[dna_sample]
+
+			// check for xeno DNA string (aliens return "X*" instead of a blood type) - legacy support
+			if(blood_type_value == "X*")
+				blood_state = BLOOD_STATE_XENO
+				break
+
+			// check for blood type datums
+			var/datum/blood_type/blood = GLOB.blood_types[blood_type_value]
+			if(!blood)
+				continue
+
+			// check blood type by its actual type path
+			if(istype(blood, /datum/blood_type/xenomorph))
+				blood_state = BLOOD_STATE_XENO
+				break
+			else if(istype(blood, /datum/blood_type/oil))
+				blood_state = BLOOD_STATE_OIL
+				break
+
+	var/icon_state_to_use = blood_state
 	if(SPECIES_MONKEY in species_types)
 		icon_state_to_use += "paw"
-	else if(BODYPART_ID_DIGITIGRADE in species_types)
+	else if(SPECIES_TRAINED_MONKEY in species_types)
+		icon_state_to_use += "paw"
+	else if((BODYPART_ID_DIGITIGRADE in species_types) || (SPECIES_ORNITHID in species_types))
 		icon_state_to_use += "claw"
 
 	for(var/Ddir in GLOB.cardinals)
 		if(entered_dirs & Ddir)
 			var/image/bloodstep_overlay = GLOB.bloody_footprints_cache["entered-[icon_state_to_use]-[Ddir]"]
 			if(!bloodstep_overlay)
-				GLOB.bloody_footprints_cache["entered-[icon_state_to_use]-[Ddir]"] = bloodstep_overlay = image(icon, "[icon_state_to_use]1", dir = Ddir)
+				GLOB.bloody_footprints_cache["entered-[icon_state_to_use]-[Ddir]"] = bloodstep_overlay = image(icon, "[icon_state_to_use]_shoes_enter", dir = Ddir)
 			. += bloodstep_overlay
 
 		if(exited_dirs & Ddir)
 			var/image/bloodstep_overlay = GLOB.bloody_footprints_cache["exited-[icon_state_to_use]-[Ddir]"]
 			if(!bloodstep_overlay)
-				GLOB.bloody_footprints_cache["exited-[icon_state_to_use]-[Ddir]"] = bloodstep_overlay = image(icon, "[icon_state_to_use]2", dir = Ddir)
+				GLOB.bloody_footprints_cache["exited-[icon_state_to_use]-[Ddir]"] = bloodstep_overlay = image(icon, "[icon_state_to_use]_shoes_exit", dir = Ddir)
 			. += bloodstep_overlay
 
 
@@ -438,7 +513,7 @@ GLOBAL_LIST_EMPTY(bloody_footprints_cache)
 			// god help me
 			if(species == "unknown")
 				. += "Some <B>feet</B>."
-			else if(species == SPECIES_MONKEY)
+			else if(species == SPECIES_MONKEY || species == SPECIES_TRAINED_MONKEY)
 				. += "[icon2html('icons/mob/species/human/human.dmi', user, "monkey")] Some <B>monkey paws</B>."
 			else if(species == SPECIES_SIMIAN)
 				. += "[icon2html('monkestation/icons/mob/species/monkey/bodyparts.dmi', user, "monkey_l_leg")] Some <B>simian paws</B>."

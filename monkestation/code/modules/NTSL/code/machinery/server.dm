@@ -1,5 +1,3 @@
-GLOBAL_LIST_EMPTY(tcomms_servers)
-
 /obj/item/radio/server
 
 /obj/item/radio/server/can_receive(frequency,levels)
@@ -23,14 +21,12 @@ GLOBAL_LIST_EMPTY(tcomms_servers)
 	Compiler = new()
 	Compiler.Holder = src
 	server_radio = new()
-	GLOB.tcomms_servers += src
 	return ..()
 
 /obj/machinery/telecomms/server/Destroy()
 	QDEL_NULL(Compiler)
 	QDEL_NULL(server_radio)
 	memory = null
-	GLOB.tcomms_servers -= src
 	return ..()
 
 /obj/machinery/telecomms/server/proc/update_logs()
@@ -54,16 +50,24 @@ GLOBAL_LIST_EMPTY(tcomms_servers)
 	update_logs()
 
 /obj/machinery/telecomms/server/proc/compile(mob/user = usr) as /list
+	///Maximum amount of characters that can be in a script
+	var/max_characters = 15000
+	///The character count of the code being compiled
+	var/code_length = length(rawcode)
+
 	if(is_banned_from(user.ckey, JOB_SIGNAL_TECHNICIAN))
 		to_chat(user, span_warning("You are banned from using NTSL."))
 		return "Unauthorized access."
-
 	if(QDELETED(Compiler))
 		return
-
-	if(!reject_bad_ntsl_text(rawcode, 20000, require_pretty = FALSE, allow_newline = TRUE, allow_code = TRUE))
+	//Check if it has any bad characters in it
+	if(!reject_bad_ntsl_text(rawcode, require_pretty = FALSE, allow_newline = TRUE, allow_code = TRUE))
 		rawcode = null
 		return "Please use galactic common characters only."
+	//Check if it is over the character limit which is 15000 due to TGUI having a hard time handling bigger scripts
+	if(code_length > max_characters)
+		rawcode = null
+		return "Over character limit: [code_length]/[max_characters]"
 	if(!COOLDOWN_FINISHED(src, compile_cooldown))
 		return "Servers are recharging, please wait."
 	var/list/compileerrors = Compiler.Compile(rawcode)
@@ -71,7 +75,7 @@ GLOBAL_LIST_EMPTY(tcomms_servers)
 	if(!length(compileerrors) && (compiledcode != rawcode))
 		user.log_message(rawcode, LOG_NTSL)
 		compiledcode = rawcode
-	if(user.mind.assigned_role == JOB_SIGNAL_TECHNICIAN) //achivement description says only Signal Technician gets the achivement
+	if(istype(user.mind?.assigned_role, /datum/job/signal_technician)) //achivement description says only Signal Technician gets the achivement
 		var/freq = length(freq_listening[1]) ? freq_listening[1] : 1459
 		var/atom/movable/M = new()
 		var/atom/movable/virtualspeaker/speaker = new(null, M, server_radio)

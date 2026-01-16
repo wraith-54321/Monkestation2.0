@@ -106,7 +106,7 @@
 	closeToolTip(usr)
 	return ..()
 
-/atom/movable/screen/movable/action_button/MouseDrop(over_object)
+/atom/movable/screen/movable/action_button/mouse_drop_dragged(atom/over_object, mob/user, src_location, over_location, params)
 	last_hovored_ref = null
 	if(!can_use(usr))
 		return
@@ -131,9 +131,12 @@
 		our_hud.position_action_relative(src, button)
 		save_position()
 		return
+
 	. = ..()
+
 	our_hud.position_action(src, screen_loc)
 	save_position()
+	our_hud.hide_landings()
 
 /atom/movable/screen/movable/action_button/proc/save_position()
 	var/mob/user = our_hud.mymob
@@ -276,12 +279,12 @@
 
 /atom/movable/screen/button_palette/Destroy()
 	if(our_hud)
-		our_hud.mymob?.client?.screen -= src
+		our_hud.mymob?.canon_client?.screen -= src
 		our_hud.toggle_palette = null
 		our_hud = null
 	return ..()
 
-/atom/movable/screen/button_palette/Initialize(mapload)
+/atom/movable/screen/button_palette/Initialize(mapload, datum/hud/hud_owner)
 	. = ..()
 	update_appearance()
 
@@ -441,7 +444,7 @@ GLOBAL_LIST_INIT(palette_removed_matrix, list(1.4,0,0,0, 0.7,0.4,0,0, 0.4,0,0.6,
 
 /atom/movable/screen/palette_scroll/down/Destroy()
 	if(our_hud)
-		our_hud.mymob?.client?.screen -= src
+		our_hud.mymob?.canon_client?.screen -= src
 		our_hud.palette_down = null
 		our_hud = null
 	return ..()
@@ -454,7 +457,7 @@ GLOBAL_LIST_INIT(palette_removed_matrix, list(1.4,0,0,0, 0.7,0.4,0,0, 0.4,0,0.6,
 
 /atom/movable/screen/palette_scroll/up/Destroy()
 	if(our_hud)
-		our_hud.mymob?.client?.screen -= src
+		our_hud.mymob?.canon_client?.screen -= src
 		our_hud.palette_up = null
 		our_hud = null
 	return ..()
@@ -472,7 +475,7 @@ GLOBAL_LIST_INIT(palette_removed_matrix, list(1.4,0,0,0, 0.7,0.4,0,0, 0.4,0,0.6,
 /atom/movable/screen/action_landing/Destroy()
 	if(owner)
 		owner.landing = null
-		owner?.owner?.mymob?.client?.screen -= src
+		owner?.owner?.mymob?.canon_client?.screen -= src
 		owner.refresh_actions()
 		owner = null
 	return ..()

@@ -42,7 +42,7 @@
  *
  * required user mob The mob interacting with the UI.
  *
- * return list Statuic Data to be sent to the UI.
+ * return list Static Data to be sent to the UI.
  */
 /datum/proc/ui_static_data(mob/user)
 	return list()
@@ -213,9 +213,11 @@
 	if(window_id)
 		window = usr.client.tgui_windows[window_id]
 		if(!window)
+#ifdef EXTENDED_DEBUG_LOGGING
 			log_tgui(usr,
 				"Error: Couldn't find the window datum, force closing.",
 				context = window_id)
+#endif
 			SStgui.force_close_window(usr, window_id)
 			return TRUE
 

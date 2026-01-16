@@ -19,26 +19,34 @@ export const SlimePenController = (_) => {
   return (
     <Window width={450} height={(tabIndex === 1 && 412) || 600}>
       <Window.Content>
-        <Tabs style={{ 'border-radius': '5px' }}>
-          <Tabs.Tab
-            key={1}
-            selected={tabIndex === 1}
-            icon="flask"
-            onClick={() => setTabIndex(1)}
-          >
-            Slime Data
-          </Tabs.Tab>
-          <Tabs.Tab
-            key={2}
-            selected={tabIndex === 2}
-            icon="flask"
-            onClick={() => setTabIndex(2)}
-          >
-            Corral Data
-          </Tabs.Tab>
-        </Tabs>
-        <Box>{tabIndex === 1 && <SlimeData />}</Box>
-        <Box>{tabIndex === 2 && <StoreViewer />}</Box>
+        <Stack vertical fill>
+          <Stack.Item>
+            <Tabs style={{ borderRadius: '5px' }}>
+              <Tabs.Tab
+                key={1}
+                selected={tabIndex === 1}
+                icon="flask"
+                onClick={() => setTabIndex(1)}
+              >
+                Slime Data
+              </Tabs.Tab>
+              <Tabs.Tab
+                key={2}
+                selected={tabIndex === 2}
+                icon="flask"
+                onClick={() => setTabIndex(2)}
+              >
+                Corral Data
+              </Tabs.Tab>
+            </Tabs>
+          </Stack.Item>
+          <Stack.Item grow>
+            <Section fill scrollable height="100%">
+              {tabIndex === 1 && <SlimeData />}
+              {tabIndex === 2 && <StoreViewer />}
+            </Section>
+          </Stack.Item>
+        </Stack>
       </Window.Content>
     </Window>
   );
@@ -204,7 +212,7 @@ const StoreViewer = (_) => {
     <Table>
       <Collapsible title="Buyable Corral Upgrades">
         {buyable_upgrades.map((item) => (
-          <Section style={{ 'border-radius': '5px' }} mb="6px" key={item.name}>
+          <Section style={{ borderRadius: '5px' }} mb="6px" key={item.name}>
             <Stack fill>
               <Stack.Item>
                 <Box fontSize="16px">{item.name}</Box>
@@ -238,7 +246,7 @@ const StoreViewer = (_) => {
       </Section>
       <Collapsible title="Active Corral Upgrades">
         {corral_upgrades.map((item) => (
-          <Section style={{ 'border-radius': '5px' }} mb="6px" key={item.name}>
+          <Section style={{ borderRadius: '5px' }} mb="6px" key={item.name}>
             <Stack fill>
               <Stack.Item>
                 <Box fontSize="16px">{item.name}</Box>

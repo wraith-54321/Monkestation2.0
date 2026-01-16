@@ -5,6 +5,7 @@
 	antag_datum = /datum/antagonist/clock_cultist
 	typepath = /datum/round_event/antagonist/solo/clockcult
 	shared_occurence_type = SHARED_HIGH_THREAT
+	repeated_mode_adjust = TRUE
 	restricted_roles = list(
 		JOB_AI,
 		JOB_CAPTAIN,
@@ -19,6 +20,7 @@
 		JOB_SECURITY_OFFICER,
 		JOB_WARDEN,
 		JOB_BRIG_PHYSICIAN,
+		JOB_BRIDGE_ASSISTANT,
 	)
 	enemy_roles = list(
 		JOB_CAPTAIN,
@@ -27,6 +29,7 @@
 		JOB_HEAD_OF_SECURITY,
 		JOB_SECURITY_OFFICER,
 		JOB_SECURITY_ASSISTANT,
+		JOB_BRIG_PHYSICIAN,
 		JOB_WARDEN,
 		JOB_CHAPLAIN,
 	)
@@ -36,7 +39,7 @@
 	min_players = 45
 	roundstart = TRUE
 	earliest_start = 0 SECONDS
-	weight = 0
+	weight = 4
 	max_occurrences = 1
 	event_icon_state = "clockcult"
 	preferred_events = list(/datum/round_event_control/antagonist/solo/bloodcult = 1)

@@ -10,7 +10,5 @@
 	new /obj/item/clothing/glasses/hud/security/sunglasses(src)
 	new /obj/item/storage/medkit/frontier/stocked(src)
 	new /obj/item/storage/bag/garment/blueshield(src)
-	new /obj/item/sensor_device/blueshield(src)
-	new /obj/item/radio/headset/headset_bs(src)
-	new /obj/item/radio/headset/headset_bs/alt(src)
+	new /obj/item/sensor_device/command(src)
 	new /obj/item/storage/photo_album/blueshield(src)

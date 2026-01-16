@@ -24,6 +24,7 @@
 	contraband = list(
 		/obj/item/storage/box/gum/happiness = 3,
 		/obj/item/storage/box/hug/medical = 1,
+		/obj/item/clothing/head/helmet/toggleable/justice/medical = 2,
 	)
 	premium = list(
 		/obj/item/reagent_containers/hypospray/medipen = 3,
@@ -35,6 +36,7 @@
 		/obj/item/storage/organbox = 1,
 		/obj/item/clothing/gloves/latex/surgical = 1, //Monkestation Edit
 		/obj/item/reagent_containers/hypospray/medipen/deforest/robot_liquid_solder = 2, //Monkestation Edit
+		/obj/item/fishing_hook/rescue = 1, //Monkestation Edit
 	)
 	refill_canister = /obj/item/vending_refill/medical
 	default_price = PAYCHECK_CREW

@@ -11,65 +11,65 @@
 //  start = "0" //12:00:00 AM
 
 /datum/time_of_day/dawn
- name = "Dawn"
- color = "#31211b"
- start = 4 HOURS //4:00:00 AM
+	name = "Dawn"
+	color = "#31211b"
+	start = 4 HOURS //4:00:00 AM
 
 /datum/time_of_day/sunrise
- name = "Sunrise"
- color = "#F598AB"
- start = 5 HOURS  //5:00:00 AM
+	name = "Sunrise"
+	color = "#F598AB"
+	start = 5 HOURS  //5:00:00 AM
 
 /datum/time_of_day/daytime
- name = "Daytime"
- color = "#f3ecd9"
- start = 5.5 HOURS //5:30:00 AM
+	name = "Daytime"
+	color = "#f3ecd9"
+	start = 5.5 HOURS //5:30:00 AM
 
 /datum/time_of_day/sunset
- name = "Sunset"
- color = "#ff8a63"
- start = 19 HOURS //7:00:00 PM
+	name = "Sunset"
+	color = "#ff8a63"
+	start = 19 HOURS //7:00:00 PM
 
 /datum/time_of_day/dusk
- name = "Dusk"
- color = "#221f33"
- start = 19.5 HOURS //7:30:00 PM
+	name = "Dusk"
+	color = "#221f33"
+	start = 19.5 HOURS //7:30:00 PM
 
 /datum/time_of_day/midnight
- name = "Midnight"
- color = "#000032"
- start = 20 HOURS //8:00:00 PM
+	name = "Midnight"
+	color = "#000032"
+	start = 20 HOURS //8:00:00 PM
 
 ///ocean times
 /datum/time_of_day/dawn/ocean
- name = "Dawn"
- color = "#19118D"
- start = 4 HOURS //4:00:00 AM
+	name = "Dawn"
+	color = "#19118D"
+	start = 4 HOURS //4:00:00 AM
 
 /datum/time_of_day/sunrise/ocean
- name = "Sunrise"
- color = "#7A76EC"
- start = 5 HOURS  //5:00:00 AM
+	name = "Sunrise"
+	color = "#7A76EC"
+	start = 5 HOURS  //5:00:00 AM
 
 /datum/time_of_day/daytime/ocean
- name = "Daytime"
- color = "#4c97d5"
- start = 5.5 HOURS //5:30:00 AM
+	name = "Daytime"
+	color = "#4c97d5"
+	start = 5.5 HOURS //5:30:00 AM
 
 /datum/time_of_day/sunset/ocean
- name = "Sunset"
- color = "#361dc4"
- start = 19 HOURS //7:00:00 PM
+	name = "Sunset"
+	color = "#361dc4"
+	start = 19 HOURS //7:00:00 PM
 
 /datum/time_of_day/dusk/ocean
- name = "Dusk"
- color = "#111099"
- start = 19.5 HOURS //7:30:00 PM
+	name = "Dusk"
+	color = "#111099"
+	start = 19.5 HOURS //7:30:00 PM
 
 /datum/time_of_day/midnight/ocean
- name = "Midnight"
- color = "#000099"
- start = 20 HOURS //8:00:00 PM
+	name = "Midnight"
+	color = "#000099"
+	start = 20 HOURS //8:00:00 PM
 
 GLOBAL_VAR_INIT(GLOBAL_LIGHT_RANGE, 5)
 GLOBAL_LIST_EMPTY(SUNLIGHT_QUEUE_WORK)   /* turfs to be stateChecked */
@@ -90,15 +90,29 @@ SUBSYSTEM_DEF(outdoor_effects)
 	var/list/atom/movable/screen/plane_master/weather_effect/weather_planes_need_vis = list()
 	var/last_color = null
 	//Ensure midnight is the liast step
-	var/list/datum/time_of_day/time_cycle_steps = list(new /datum/time_of_day/dawn(),
-	                                                   new /datum/time_of_day/sunrise(),
-	                                                   new /datum/time_of_day/daytime(),
-	                                                   new /datum/time_of_day/sunset(),
-	                                                   new /datum/time_of_day/dusk(),
-	                                                   new /datum/time_of_day/midnight())
+	var/list/datum/time_of_day/time_cycle_steps = list(
+		new /datum/time_of_day/dawn(),
+		new /datum/time_of_day/sunrise(),
+		new /datum/time_of_day/daytime(),
+		new /datum/time_of_day/sunset(),
+		new /datum/time_of_day/dusk(),
+		new /datum/time_of_day/midnight(),
+	)
 	var/next_day = FALSE // Resets when station_time is less than the next start time.
 	var/current_color
 	var/enabled = TRUE // Micro-optimization to avoid having to check config or bitflags
+
+/datum/controller/subsystem/outdoor_effects/Recover()
+	sunlighting_planes = SSoutdoor_effects.sunlighting_planes.Copy()
+	current_step_datum = SSoutdoor_effects.current_step_datum
+	next_step_datum = SSoutdoor_effects.next_step_datum
+	weather_light_affecting_event = SSoutdoor_effects.weather_light_affecting_event
+	sunlight_overlays = SSoutdoor_effects.sunlight_overlays?.Copy()
+	weather_planes_need_vis = SSoutdoor_effects.weather_planes_need_vis
+	last_color = SSoutdoor_effects.last_color
+	next_day = SSoutdoor_effects.next_day
+	current_color = SSoutdoor_effects.current_color
+	enabled = SSoutdoor_effects.enabled
 
 /datum/controller/subsystem/outdoor_effects/stat_entry(msg)
 	msg = "W:[GLOB.SUNLIGHT_QUEUE_WORK.len]|U:[GLOB.SUNLIGHT_QUEUE_UPDATE.len]|C:[GLOB.SUNLIGHT_QUEUE_CORNER.len]"
@@ -116,7 +130,7 @@ SUBSYSTEM_DEF(outdoor_effects)
 	if(CONFIG_GET(flag/disable_sunlight_visuals))
 		disable()
 		return SS_INIT_NO_NEED
-	if(SSmapping.config.map_name == "Oshan Station")
+	if(SSmapping.current_map.map_name == "Oshan Station")
 		for(var/datum/time_of_day/listed_time as anything in time_cycle_steps)
 			qdel(listed_time)
 		time_cycle_steps = list(

@@ -86,6 +86,12 @@
 	if(shop_locked)
 		return FALSE
 
+	if(to_purchase.lock_secondary_objectives)
+		// don't check active objectives, bc we'll just auto-cancel them if this is bought
+		for(var/datum/traitor_objective/objective as anything in completed_objectives)
+			if(objective.objective_state == OBJECTIVE_STATE_COMPLETED)
+				return FALSE
+
 //monkestation edit start
 	if(!(ignore_locked) && (to_purchase.type in locked_entries))
 		return FALSE
@@ -120,6 +126,20 @@
 		item_stock[to_purchase.stock_key] -= 1
 
 	SSblackbox.record_feedback("nested tally", "traitor_uplink_items_bought", 1, list("[initial(to_purchase.name)]", "[to_purchase.cost]"))
+	on_update()
+	return TRUE
+
+/datum/uplink_handler/proc/purchase_raw_tc(mob/user, amount, atom/movable/source)
+	if(shop_locked)
+		return FALSE
+	if(telecrystals < amount)
+		return FALSE
+
+	telecrystals -= amount
+	var/tcs = new /obj/item/stack/telecrystal(user.drop_location(), amount)
+	user.put_in_hands(tcs)
+
+	log_uplink("[key_name(user)] purchased [amount] raw telecrystals from [source]'s uplink")
 	on_update()
 	return TRUE
 
@@ -263,3 +283,14 @@
 		return
 
 	to_act_on.ui_perform_action(user, action)
+
+/datum/uplink_handler/proc/disable_secondary_objectives()
+	for(var/datum/traitor_objective/objective as anything in active_objectives)
+		objective.fail_objective(penalty_cost = 0, trigger_update = FALSE)
+	has_objectives = FALSE
+	can_take_objectives = FALSE
+	potential_objectives.Cut()
+	maximum_active_objectives = 0
+	maximum_potential_objectives = 0
+	SStraitor.uplink_handlers -= src
+	on_update()

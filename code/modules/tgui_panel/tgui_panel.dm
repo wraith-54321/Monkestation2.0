@@ -49,10 +49,11 @@
 		))
 	window.send_asset(get_asset_datum(/datum/asset/simple/namespaced/fontawesome))
 	window.send_asset(get_asset_datum(/datum/asset/simple/namespaced/tgfont))
-	window.send_asset(get_asset_datum(/datum/asset/spritesheet/chat))
+	window.send_asset(get_asset_datum(/datum/asset/spritesheet_batched/chat))
 	// Other setup
 	request_telemetry()
 	addtimer(CALLBACK(src, PROC_REF(on_initialize_timed_out)), 5 SECONDS)
+	window.send_message("testTelemetryCommand")
 
 /**
  * private
@@ -84,6 +85,9 @@
 				),
 			),
 		))
+		if(client)
+			SEND_SIGNAL(client, COMSIG_TGUI_PANEL_READY)
+			SEND_SIGNAL(client?.mob, COMSIG_TGUI_PANEL_READY)
 		return TRUE
 	if(type == "audio/setAdminMusicVolume")
 		client.admin_music_volume = payload["volume"]

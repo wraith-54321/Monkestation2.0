@@ -20,7 +20,7 @@
 
 /mob/dead/new_player/Initialize(mapload)
 	if(client && SSticker.state == GAME_STATE_STARTUP)
-		var/atom/movable/screen/splash/S = new(null, client, TRUE, TRUE)
+		var/atom/movable/screen/splash/S = new(null, null, client, TRUE, TRUE)
 		S.Fade(TRUE)
 
 	if(length(GLOB.newplayer_start))
@@ -61,8 +61,69 @@
 		var/datum/poll_question/poll = locate(href_list["votepollref"]) in GLOB.polls
 		vote_on_poll_handler(poll, href_list)
 
+/mob/dead/new_player/verb/_join_game()
+	set name = "Join Game"
+	set category = "IC"
+	join_game(FALSE)
+
+/mob/dead/new_player/proc/join_game(from_lobby_menu = FALSE, params = null)
+	if(isnull(client))
+		return
+
+	if(!client?.fully_created)
+		to_chat(src, span_warning("Your client is still initializing, please wait a second..."))
+		return
+
+	if(!SSticker?.IsRoundInProgress())
+		to_chat(src, span_boldwarning("The round is either not ready, or has already finished..."))
+		return
+
+	if(src.client?.check_overwatch())
+		to_chat(src, span_warning("Please wait until your connection has been authenticated before joining."))
+		message_admins("[key] tried to use the Join button but failed the overwatch check.")
+		return
+
+	//Determines Relevent Population Cap
+	var/relevant_cap
+	var/hard_popcap = CONFIG_GET(number/hard_popcap)
+	var/extreme_popcap = CONFIG_GET(number/extreme_popcap)
+	if(hard_popcap && extreme_popcap)
+		relevant_cap = min(hard_popcap, extreme_popcap)
+	else
+		relevant_cap = max(hard_popcap, extreme_popcap)
+
+	//Allow admins and Patreon supporters to bypass the cap/queue
+	if ((relevant_cap && living_player_count() >= relevant_cap) && (persistent_client?.patreon?.is_donator() || is_admin(client) || is_mentor(client)))
+		to_chat(src, span_notice("The server is currently overcap, but you are a(n) patreon/mentor/admin!"))
+	else if (length(SSticker.queued_players) || (relevant_cap && living_player_count() >= relevant_cap))
+		to_chat(src, span_danger("[CONFIG_GET(string/hard_popcap_message)]"))
+
+		var/queue_position = SSticker.queued_players.Find(src)
+		if(queue_position == 1)
+			to_chat(src, span_notice("You are next in line to join the game. You will be notified when a slot opens up."))
+		else if(queue_position)
+			to_chat(src, span_notice("There are [queue_position-1] players in front of you in the queue to join the game."))
+		else
+			SSticker.queued_players += src
+			to_chat(src, span_notice("You have been added to the queue to join the game. Your position in queue is [SSticker.queued_players.len]."))
+		return
+
+	if(from_lobby_menu)
+		if(!LAZYACCESS(params2list(params), CTRL_CLICK))
+			GLOB.latejoin_menu.ui_interact(src)
+		else
+			to_chat(src, span_warning("Opening emergency fallback late join menu! If THIS doesn't show, ahelp immediately!"))
+			GLOB.latejoin_menu.fallback_ui(src)
+	else
+		var/choice = alert(usr, "Do you want to use the new TGUI latejoin menu? (Yes) Or the emergency fallback latejoin menu? (No)", "Latejoin Menu Choice", "Yes", "No")
+		if (choice == "Yes")
+			GLOB.latejoin_menu.ui_interact(src)
+		else
+			to_chat(src, span_warning("Opening emergency fallback late join menu! If THIS doesn't show, ahelp immediately!"))
+			GLOB.latejoin_menu.fallback_ui(src)
+
 //When you cop out of the round (NB: this HAS A SLEEP FOR PLAYER INPUT IN IT)
-/mob/dead/new_player/proc/make_me_an_observer()
+/mob/dead/new_player/proc/make_me_an_observer(force = FALSE)
 	if(QDELETED(src) || !src.client)
 		ready = PLAYER_NOT_READY
 		return FALSE
@@ -70,6 +131,9 @@
 	if(interview_safety(src, "attempting to observe"))
 		qdel(client)
 		return FALSE
+
+	if(force)
+		return create_observer_body()
 
 	var/less_input_message
 	if(SSlag_switch.measures[DISABLE_DEAD_KEYLOOP])
@@ -80,26 +144,33 @@
 		ready = PLAYER_NOT_READY
 		return FALSE
 
+	return create_observer_body()
+
+/mob/dead/new_player/proc/create_observer_body()
 	var/mob/dead/observer/observer = new()
 	spawning = TRUE
-
 	observer.started_as_observer = TRUE
-	var/obj/effect/landmark/observer_start/O = locate(/obj/effect/landmark/observer_start) in GLOB.landmarks_list
+	var/obj/effect/landmark/observer_start/obs_start = locate(/obj/effect/landmark/observer_start) in GLOB.landmarks_list
 	to_chat(src, span_notice("Now teleporting."))
-	if (O)
-		observer.forceMove(O.loc)
+
+	if(obs_start)
+		observer.forceMove(obs_start.loc)
 	else
 		to_chat(src, span_notice("Teleporting failed. Ahelp an admin please"))
 		stack_trace("There's no freaking observer landmark available on this map or you're making observers before the map is initialised")
-	observer.key = key
+
+	observer.PossessByPlayer(key)
 	observer.client = client
 	observer.set_ghost_appearance()
+
 	if(observer.client && observer.client.prefs)
 		observer.real_name = observer.client.prefs.read_preference(/datum/preference/name/real_name)
 		observer.name = observer.real_name
 		observer.client.init_verbs()
+		observer.persistent_client.time_of_death = world.time
+
 	observer.update_appearance()
-	observer.client.media.stop_music()
+	observer.update_media_source()
 	deadchat_broadcast(" has observed.", "<b>[observer.real_name]</b>", follow_target = observer, turf_target = get_turf(observer), message_type = DEADCHAT_DEATHRATTLE)
 	QDEL_NULL(mind)
 	qdel(src)
@@ -121,6 +192,8 @@
 			return "[jobtitle] is already filled to capacity."
 		if(JOB_UNAVAILABLE_ANTAG_INCOMPAT)
 			return "[jobtitle] is not compatible with some antagonist role assigned to you."
+		if(JOB_UNAVAILABLE_DONOR_RANK) //MONKESTATION EDIT
+			return "The [jobtitle] job requires a higher donator rank than you have or it is out of season. Go to to https://www.patreon.com/dukeook \"Duke of Ook's Monke Content Creation Fund\" to learn more."
 
 	return GENERIC_JOB_UNAVAILABLE_ERROR
 
@@ -197,15 +270,15 @@
 	SSjob.EquipRank(character, job, character.client)
 	job.after_latejoin_spawn(character)
 
-	var/datum/player_details/details = get_player_details(character)
-	if(details)
-		SSchallenges.apply_challenges(details)
+	var/datum/persistent_client/persistent_client = character.persistent_client
+	if(persistent_client)
+		SSchallenges.apply_challenges(persistent_client)
 		for(var/processing_reward_bitflags in SSticker.bitflags_to_reward)//you really should use department bitflags if possible
 			if(character.mind.assigned_role.departments_bitflags & processing_reward_bitflags)
-				details.roundend_monkecoin_bonus += 425
+				persistent_client.roundend_monkecoin_bonus += 225
 		for(var/processing_reward_jobs in SSticker.jobs_to_reward)//just in case you really only want to reward a specific job
 			if(character.job == processing_reward_jobs)
-				details.roundend_monkecoin_bonus += 425
+				persistent_client.roundend_monkecoin_bonus += 225
 	#define IS_NOT_CAPTAIN 0
 	#define IS_ACTING_CAPTAIN 1
 	#define IS_FULL_CAPTAIN 2
@@ -233,7 +306,6 @@
 
 	if(humanc) //These procs all expect humans
 		var/chosen_rank = humanc.client?.prefs.alt_job_titles[rank] || rank
-		GLOB.manifest.inject(humanc, humanc.client)
 		if(SSshuttle.arrivals)
 			SSshuttle.arrivals.QueueAnnounce(humanc, chosen_rank)
 		else
@@ -243,12 +315,6 @@
 		humanc.increment_scar_slot()
 		humanc.load_persistent_scars()
 		SSpersistence.load_modular_persistence(humanc.get_organ_slot(ORGAN_SLOT_BRAIN))
-
-		//monkestation edit start
-		if(GLOB.dj_booth)
-			var/obj/machinery/cassette/dj_station/dj = GLOB.dj_booth
-			dj.add_new_player(humanc)
-		//monkestation edit end
 
 		if(GLOB.curse_of_madness_triggered)
 			give_madness(humanc, GLOB.curse_of_madness_triggered)
@@ -266,6 +332,9 @@
 
 	if((job.job_flags & JOB_ASSIGN_QUIRKS) && humanc && CONFIG_GET(flag/roundstart_traits))
 		SSquirks.AssignQuirks(humanc, humanc.client)
+
+	if(humanc) // Quirks may change manifest datapoints, so inject only after assigning quirks
+		GLOB.manifest.inject(humanc)
 
 	var/area/station/arrivals = GLOB.areas_by_type[/area/station/hallway/secondary/entry]
 	if(humanc && arrivals && !arrivals.power_environ) //arrivals depowered
@@ -299,6 +368,7 @@
 		preserved_mind.original_character_slot_index = client.prefs.default_slot
 		preserved_mind.transfer_to(spawning_mob) //won't transfer key since the mind is not active
 		preserved_mind.set_original_character(spawning_mob)
+	LAZYADD(persistent_client.joined_as_slots, "[client.prefs.default_slot]")
 	client.init_verbs()
 	. = spawning_mob
 	new_character = .
@@ -308,11 +378,9 @@
 	. = new_character
 	if(!.)
 		return
-	new_character.key = key //Manually transfer the key to log them in,
+	new_character.PossessByPlayer(key) //Manually transfer the key to log them in,
 	new_character.stop_sound_channel(CHANNEL_LOBBYMUSIC)
-	if(new_character?.client?.media)
-		new_character.client.media.lobby_music = FALSE
-		new_character.client.media.stop_music()
+	new_character.update_media_source()
 
 	var/area/joined_area = get_area(new_character.loc)
 	if(joined_area)
@@ -357,7 +425,7 @@
 		ready = PLAYER_NOT_READY
 		if(has_antags)
 			log_admin("[src.ckey] has no jobs enabled, return to lobby if job is unavailable enabled and [client.prefs.be_special.len] antag preferences enabled. The player has been forcefully returned to the lobby.")
-			message_admins("[src.ckey] has no jobs enabled, return to lobby if job is unavailable enabled and [client.prefs.be_special.len] antag preferences enabled. This is an old antag rolling technique. The player has been asked to update their job preferences and has been forcefully returned to the lobby.")
+			message_admins("[src.ckey] has no jobs enabled, return to lobby if job is unavailable enabled and [client.prefs.be_special.len] antag preferences enabled. This was a 2018 antag rolling technique. The player has been asked to update their job preferences and has been forcefully returned to the lobby.") //monkestation edit
 		return FALSE //This is the only case someone should actually be completely blocked from antag rolling as well
 	return TRUE
 

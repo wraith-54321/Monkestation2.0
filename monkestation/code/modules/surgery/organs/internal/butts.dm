@@ -77,7 +77,7 @@
 	icon_state = "clownass"
 	sound_effect = list('sound/items/party_horn.ogg', 'sound/items/bikehorn.ogg')
 
-/obj/item/organ/internal/butt/clown/Initialize()
+/obj/item/organ/internal/butt/clown/Initialize(mapload)
 	. = ..()
 	AddComponent(/datum/component/slippery, 40)
 
@@ -132,7 +132,7 @@
 	icon = 'monkestation/icons/obj/butts.dmi'
 	icon_state = "ass"
 
-/obj/effect/immovablerod/butt/Initialize()
+/obj/effect/immovablerod/butt/Initialize(mapload)
 	. = ..()
 	src.SpinAnimation(5, -1)
 
@@ -162,20 +162,19 @@
 	//BIBLEFART
 	//This goes above all else because it's an instagib.
 	for(var/obj/item/book/bible/Holy in Location)
-		if(Holy)
-			cooling_down = TRUE
-			var/turf/T = get_step(get_step(Person, NORTH), NORTH)
-			T.Beam(Person, icon_state="lightning[rand(1,12)]", time = 15)
-			Person.Paralyze(15)
-			Person.visible_message("<span class='warning'>[Person] attempts to fart on the [Holy], uh oh.<span>","<span class='ratvar'>What a grand and intoxicating innocence. Perish.</span>")
-			playsound(user,'sound/magic/lightningshock.ogg', 50, 1)
-			playsound(user,	'monkestation/sound/misc/dagothgod.ogg', 80)
-			Person.electrocution_animation(15)
-			spawn(15)
-				Person.gib()
-				dyn_explosion(Location, 1, 0)
-				cooling_down = FALSE
-			return
+		cooling_down = TRUE
+		var/turf/T = get_step(get_step(Person, NORTH), NORTH)
+		T.Beam(Person, icon_state="lightning[rand(1,12)]", time = 15)
+		Person.Paralyze(15)
+		Person.visible_message("<span class='warning'>[Person] attempts to fart on the [Holy], uh oh.<span>","<span class='ratvar'>What a grand and intoxicating innocence. Perish.</span>")
+		playsound(user,'sound/magic/lightningshock.ogg', 50, 1)
+		playsound(user,	'monkestation/sound/misc/dagothgod.ogg', 80)
+		Person.electrocution_animation(15)
+		spawn(15)
+			Person.gib()
+			dyn_explosion(Location, 1, 0)
+			cooling_down = FALSE
+		return
 
 	//EMOTE MESSAGE/MOB TARGETED FARTS
 	var/hit_target = FALSE
@@ -235,10 +234,10 @@
 
 
 //Buttbot Production
-/obj/item/organ/internal/butt/attackby(obj/item/I, mob/living/user)
-	if(istype(I, /obj/item/bodypart/arm/left/robot) || istype(I, /obj/item/bodypart/arm/right/robot))
+/obj/item/organ/internal/butt/attackby(obj/item/attacking_item, mob/user, list/modifiers, list/attack_modifiers)
+	if(istype(attacking_item, /obj/item/bodypart/arm/left/robot) || istype(attacking_item, /obj/item/bodypart/arm/right/robot))
 		var/mob/living/simple_animal/bot/buttbot/new_butt = new(get_turf(src))
-		qdel(I)
+		qdel(attacking_item)
 		switch(src.type) //A BUTTBOT FOR EVERYONE!
 			if(/obj/item/organ/internal/butt/atomic)
 				new_butt.name = "Atomic Buttbot"
@@ -289,10 +288,13 @@
 	maxHealth = 25
 	bot_type = BUTT_BOT
 	pass_flags = PASSMOB
-	has_unlimited_silicon_privilege = FALSE
 	var/cooling_down = FALSE
 	var/butt_probability = 15
 	var/listen_probability = 30
+
+/mob/living/simple_animal/bot/buttbot/Initialize(mapload)
+	. = ..()
+	REMOVE_TRAIT(src, TRAIT_SILICON_ACCESS, INNATE_TRAIT)
 
 /mob/living/simple_animal/bot/buttbot/emag_act(mob/user)
 	if(!(bot_cover_flags & BOT_COVER_EMAGGED))

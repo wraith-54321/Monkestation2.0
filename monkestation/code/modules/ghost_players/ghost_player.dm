@@ -1,12 +1,6 @@
 GLOBAL_VAR_INIT(disable_ghost_spawning, FALSE)
 
-/client/proc/flip_ghost_spawn()
-	set category = "Admin.Fun"
-	set name = "Toggle Centcomm Spawning"
-	set desc= "Toggles whether dead players can respawn in the centcomm area"
-
-	if(!check_rights(R_FUN))
-		return
+ADMIN_VERB(flip_ghost_spawn, R_FUN, FALSE, "Toggle Centcom Spawning", "Toggles whether dead players can respawn in the centcom area.", ADMIN_CATEGORY_FUN)
 	GLOB.disable_ghost_spawning = !GLOB.disable_ghost_spawning
 
 /mob/living/carbon/human/ghost
@@ -20,6 +14,11 @@ GLOBAL_VAR_INIT(disable_ghost_spawning, FALSE)
 	var/obj/structure/fight_button/linked_button
 	///are we dueling?
 	var/dueling = FALSE
+	/// Innate traits all ghost players have.
+	var/static/list/innate_traits = list(
+		TRAIT_SIXTHSENSE,
+		TRAIT_CAN_HEAR_MUSIC,
+	)
 
 /mob/living/carbon/human/ghost/death(gibbed)
 	. = ..()
@@ -36,14 +35,16 @@ GLOBAL_VAR_INIT(disable_ghost_spawning, FALSE)
 	. = ..()
 	var/datum/action/cooldown/mob_cooldown/return_to_ghost/created_ability = new /datum/action/cooldown/mob_cooldown/return_to_ghost(src)
 	created_ability.Grant(src)
+	add_traits(innate_traits, INNATE_TRAIT)
 
 /mob/living/carbon/human/ghost/Destroy()
-	if(dueling && linked_button)
-		addtimer(CALLBACK(linked_button, TYPE_PROC_REF(/obj/structure/fight_button, end_duel), src), 3 SECONDS)
-
 	if(linked_button)
-		linked_button.remove_user(src)
-		linked_button = null
+		if(dueling)
+			addtimer(CALLBACK(linked_button, TYPE_PROC_REF(/obj/structure/fight_button, end_duel), src), 3 SECONDS)
+		else
+			linked_button.remove_user(src)
+			linked_button = null
+
 	return ..()
 
 /mob/living/carbon/human/ghost/Life(seconds_per_tick, times_fired)
@@ -57,7 +58,7 @@ GLOBAL_VAR_INIT(disable_ghost_spawning, FALSE)
 /mob/living/carbon/human/ghost/proc/dissolve_and_ghost()
 	var/mob/dead/observer/new_ghost = ghostize(can_reenter_corpse = FALSE)
 	if(!QDELETED(new_ghost))
-		new_ghost.key = old_key
+		new_ghost.PossessByPlayer(old_key)
 		new_ghost.mind = old_mind
 		new_ghost.can_reenter_corpse = old_reenter
 	old_human?.temporary_sleep = FALSE
@@ -141,7 +142,7 @@ GLOBAL_VAR_INIT(disable_ghost_spawning, FALSE)
 	var/mob/living/carbon/human/ghost/new_existence = new(key, mind, can_reenter_corpse, brain)
 	our_client?.prefs.safe_transfer_prefs_to(new_existence, TRUE, FALSE)
 	new_existence.move_to_ghostspawn()
-	new_existence.key = key
+	new_existence.PossessByPlayer(key)
 	new_existence.equip_outfit_and_loadout(/datum/outfit/ghost_player, our_client.prefs)
 	for(var/datum/loadout_item/item as anything in loadout_list_to_datums(our_client?.prefs?.loadout_list))
 		if(length(item.restricted_roles))

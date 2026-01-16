@@ -26,7 +26,7 @@
 	item_type = /obj/item/mod/control/pre_equipped/ninja
 
 /datum/opposing_force_equipment/modsuit/corporate
-	name = "CentComm's Corporate"
+	name = "CentCom's Corporate"
 	description = "An even more costly version of the Magnate model, the corporate suit is a thermally insulated, anti-corrosion coated suit for high-ranking CentCom Officers, deploying pristine protective armor and	advanced actuators, feeling practically weightless when turned on."
 	item_type = /obj/item/mod/control/pre_equipped/corporate
 
@@ -127,7 +127,5 @@
 /datum/opposing_force_equipment/modsuit_modules/flamethrower_mod
 	item_type = /obj/item/mod/module/flamethrower
 
-/*
 /datum/opposing_force_equipment/modsuit_modules/jump_jet
 	item_type = /obj/item/mod/module/jump_jet
-*/

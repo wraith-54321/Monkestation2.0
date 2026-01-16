@@ -1,3 +1,20 @@
+
+/**
+ * Used to return a list of equipped items on a human mob; does not by default include held items, see include_flags
+ *
+ * Argument(s):
+ * * Optional - include_flags, (see obj.flags.dm) describes which optional things to include or not (pockets, accessories, held items)
+ */
+
+/mob/living/carbon/human/get_equipped_items(include_flags = NONE)
+	var/list/items = ..()
+	if(!(include_flags & INCLUDE_POCKETS))
+		items -= list(l_store, r_store, s_store)
+	if((include_flags & INCLUDE_ACCESSORIES) && w_uniform)
+		var/obj/item/clothing/under/worn_under = w_uniform
+		items += worn_under.attached_accessories
+	return items
+
 /mob/living/carbon/human/can_equip(obj/item/equip_target, slot, disable_warning = FALSE, bypass_equip_delay_self = FALSE, ignore_equipped = FALSE)
 	if(SEND_SIGNAL(src, COMSIG_HUMAN_EQUIPPING_ITEM, equip_target, slot) == COMPONENT_BLOCK_EQUIP)
 		return FALSE
@@ -367,6 +384,17 @@
 	sec_hud_set_security_status()
 	..()
 
+/mob/living/carbon/human/update_worn_neck(obj/item/worn_neck_item)
+	. = ..()
+	if(!worn_neck_item)
+		return
+	if((worn_neck_item.flags_inv & (HIDEHAIR|HIDEFACIALHAIR)) || (initial(worn_neck_item.flags_inv) & (HIDEHAIR|HIDEFACIALHAIR)))
+		update_body_parts()
+	if(worn_neck_item.flags_inv & HIDEEYES)
+		update_worn_glasses()
+	sec_hud_set_security_status()
+
+
 /mob/living/carbon/human/head_update(obj/item/I, forced)
 	if((I.flags_inv & (HIDEHAIR|HIDEFACIALHAIR)) || forced)
 		update_body_parts()
@@ -445,11 +473,10 @@
 		if(!equipped_item.atom_storage?.attempt_insert(thing, src))
 			to_chat(src, span_warning("You can't fit [thing] into your [equipped_item.name]!"))
 		return
-	var/atom/real_location = storage.real_location?.resolve()
-	if(!real_location.contents.len) // nothing to take out
+	if(!storage.real_location.contents.len) // nothing to take out
 		to_chat(src, span_warning("There's nothing in your [equipped_item.name] to take out!"))
 		return
-	var/obj/item/stored = real_location.contents[real_location.contents.len]
+	var/obj/item/stored = storage.real_location.contents[storage.real_location.contents.len]
 	if(!stored || stored.on_found(src))
 		return
 	stored.attack_hand(src) // take out thing from item in storage slot

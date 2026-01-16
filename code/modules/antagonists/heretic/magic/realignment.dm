@@ -71,9 +71,9 @@
 	owner.remove_traits(traits, TRAIT_STATUS_EFFECT(id))
 	owner.remove_filter(id)
 
-/datum/status_effect/realignment/tick(seconds_per_tick, times_fired)
-	owner.stamina.adjust(15, TRUE)
-	owner.AdjustAllImmobility(-0.5 SECONDS)
+/datum/status_effect/realignment/tick(seconds_between_ticks, times_fired)
+	owner.stamina.adjust(8 * seconds_between_ticks, TRUE)
+	owner.AdjustAllImmobility(-0.5 SECONDS * seconds_between_ticks)
 
 /atom/movable/screen/alert/status_effect/realignment
 	name = "Realignment"

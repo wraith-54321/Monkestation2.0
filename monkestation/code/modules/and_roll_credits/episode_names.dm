@@ -65,13 +65,13 @@
 				if(get_station_avg_temp() < T0C)
 					episode_names += new /datum/episode_name/rare("[pick("THE OPPORTUNITY OF A LIFETIME", "DRASTIC MEASURES", "DEUS EX", "THE SHOW MUST GO ON", "TRIAL BY FIRE", "A STITCH IN TIME", "ALL'S FAIR IN LOVE AND WAR", "COME HELL OR HIGH HEAVEN", "REVERSAL OF FORTUNE", "DOUBLE TOIL AND DOUBLE TROUBLE")]")
 					episode_names += new /datum/episode_name/rare("A COLD DAY IN HELL", "Station temperature was below 0C this round and threat was high", 1000)
-		if(locate(/datum/round_event_control/antagonist/solo/malf) in ran_events)
+		if(/datum/round_event_control/antagonist/solo/malf in ran_events)
 			episode_names += new /datum/episode_name/rare("[pick("I'M SORRY [uppr_name], I'M AFRAID I CAN'T LET YOU DO THAT", "A STRANGE GAME", "THE AI GOES ROGUE", "RISE OF THE MACHINES")]", "Round included a malfunctioning AI.", 300)
-		if(locate(/datum/round_event_control/antagonist/solo/revolutionary) in ran_events)
+		if(/datum/round_event_control/antagonist/solo/revolutionary in ran_events)
 			episode_names += new /datum/episode_name/rare("[pick("THE CREW STARTS A REVOLUTION", "HELL IS OTHER SPESSMEN", "INSURRECTION", "THE CREW RISES UP", 25;"FUN WITH FRIENDS")]", "Round included roundstart revs.", 350)
 			if(copytext(uppr_name,1,2) == "V")
 				episode_names += new /datum/episode_name/rare("V FOR [uppr_name]", "Round included roundstart revs... and the station's name starts with V.", 1500)
-		if(locate(/datum/round_event_control/blob) in ran_events)
+		if(/datum/round_event_control/blob in ran_events)
 			episode_names += new /datum/episode_name/rare("[pick("MARRIED TO THE BLOB", "THE CREW GETS QUARANTINED")]", "Round included a roundstart blob.", 350)
 
 	if(BLACKBOX_FEEDBACK_NUM("narsies_spawned") > 0)
@@ -269,7 +269,7 @@
 /proc/get_station_avg_temp()
 	var/avg_temp = 0
 	var/avg_divide = 0
-	for(var/obj/machinery/airalarm/alarm in GLOB.machines)
+	for(var/obj/machinery/airalarm/alarm as anything in SSmachines.get_machines_by_type_and_subtypes(/obj/machinery/airalarm))
 		var/turf/location = alarm.loc
 		if(!istype(location) || !is_station_level(alarm.z))
 			continue
@@ -361,3 +361,5 @@
 		return ITEM_SLOT_LEGCUFFED
 
 	return ..()
+
+#undef BLACKBOX_FEEDBACK_NUM

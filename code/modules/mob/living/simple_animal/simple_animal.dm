@@ -51,8 +51,6 @@
 	///Harm-intent verb in present simple tense.
 	var/response_harm_simple = "hit"
 	var/harm_intent_damage = 3
-	///Minimum force required to deal any damage.
-	var/force_threshold = 0
 	///Maximum amount of stamina damage the mob can be inflicted with total
 	var/max_staminaloss = 200
 	///How much stamina the mob recovers per second
@@ -198,7 +196,7 @@
 
 /mob/living/simple_animal/Life(seconds_per_tick = SSMOBS_DT, times_fired)
 	. = ..()
-	if(staminaloss > 0)
+	if(stamina.loss > 0)
 		stamina.adjust(stamina_recovery * seconds_per_tick, FALSE, TRUE)
 
 /mob/living/simple_animal/Destroy()
@@ -235,7 +233,7 @@
  * Reduces the stamina loss by stamina_recovery
  */
 /mob/living/simple_animal/on_stamina_update()
-	set_varspeed(initial(speed) + (staminaloss * 0.06))
+	set_varspeed(initial(speed) + (stamina?.loss * 0.06))
 
 /mob/living/simple_animal/proc/handle_automated_action()
 	set waitfor = FALSE
@@ -420,9 +418,11 @@
 	. += "Health: [round((health / maxHealth) * 100)]%"
 
 /mob/living/simple_animal/proc/drop_loot()
-	if(loot.len)
-		for(var/i in loot)
-			new i(loc)
+	if (!length(loot))
+		return
+	for(var/i in loot)
+		new i(drop_location())
+	loot.Cut()
 
 /mob/living/simple_animal/death(gibbed)
 	drop_loot()
@@ -431,6 +431,7 @@
 		//Prevent infinite loops if the mob Destroy() is overridden in such
 		//a manner as to cause a call to death() again //Pain
 		del_on_death = FALSE
+		ghostize(can_reenter_corpse = FALSE)
 		qdel(src)
 	else
 		health = 0
@@ -457,7 +458,7 @@
 			return FALSE
 	return TRUE
 
-/mob/living/simple_animal/revive(full_heal_flags = NONE, excess_healing = 0, force_grab_ghost = FALSE)
+/mob/living/simple_animal/revive(full_heal_flags = NONE, excess_healing = 0, force_grab_ghost = FALSE, revival_policy = POLICY_REVIVAL)
 	. = ..()
 	if(!.)
 		return
@@ -465,7 +466,7 @@
 	REMOVE_TRAIT(src, TRAIT_UNDENSE, BASIC_MOB_DEATH_TRAIT)
 
 /mob/living/simple_animal/proc/make_babies() // <3 <3 <3
-	if(gender != FEMALE || stat || next_scan_time > world.time || !childtype || !animal_species || !SSticker.IsRoundInProgress())
+	if(gender != FEMALE || stat || next_scan_time > world.time || !childtype || !animal_species || !SSticker.IsRoundInProgress() || mind || key) // monkestation edit: add player check
 		return
 	next_scan_time = world.time + 400
 	var/alone = TRUE
@@ -474,6 +475,10 @@
 	for(var/mob/M in view(7, src))
 		if(M.stat != CONSCIOUS) //Check if it's conscious FIRST.
 			continue
+		// monkestation start: add player check
+		if(M.mind || M.key)
+			continue
+		// monkestation end
 		var/is_child = is_type_in_list(M, childtype)
 		if(is_child) //Check for children SECOND.
 			children++
@@ -635,3 +640,9 @@
 
 /mob/living/simple_animal/compare_sentience_type(compare_type)
 	return sentience_type == compare_type
+
+/mob/living/simple_animal/update_cached_insulation()
+	return
+
+/mob/living/simple_animal/get_insulation(temperature)
+	return temperature_insulation

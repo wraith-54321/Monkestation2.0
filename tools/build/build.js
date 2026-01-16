@@ -75,6 +75,7 @@ export const DmTarget = new Juke.Target({
     'html/**',
     'icons/**',
     'interface/**',
+    'tgui/public/tgui.html',
     'monkestation/code/**', // monke edit: ensure it also checks for updates in modular code
     'monkestation/icons/**',
     `${DME_NAME}.dme`,
@@ -112,7 +113,7 @@ export const DmTestTarget = new Juke.Target({
     });
     Juke.rm('data/logs/ci', { recursive: true });
     const options = {
-      dmbFile : `${DME_NAME}.test.dmb`,
+      dmbFile: `${DME_NAME}.test.dmb`,
       namedDmVersion: get(DmVersionParameter),
     }
     await DreamDaemon(
@@ -231,11 +232,6 @@ export const TguiPrettierTarget = new Juke.Target({
   executes: () => yarn('tgui:prettier'),
 });
 
-export const TguiSonarTarget = new Juke.Target({
-  dependsOn: [YarnTarget],
-  executes: () => yarn('tgui:sonar'),
-});
-
 export const TguiTscTarget = new Juke.Target({
   dependsOn: [YarnTarget],
   executes: () => yarn('tgui:tsc'),
@@ -251,6 +247,20 @@ export const TguiLintTarget = new Juke.Target({
   dependsOn: [YarnTarget, TguiPrettierTarget, TguiEslintTarget, TguiTscTarget],
 });
 
+export const TguiPrettierFix = new Juke.Target({
+  dependsOn: [YarnTarget],
+  executes: () => yarn("tgui:prettier-fix"),
+});
+
+export const TguiEslintFix = new Juke.Target({
+  dependsOn: [YarnTarget],
+  executes: () => yarn("tgui:eslint-fix"),
+});
+
+export const TguiFix = new Juke.Target({
+  dependsOn: [TguiPrettierFix, TguiEslintFix],
+});
+
 export const TguiDevTarget = new Juke.Target({
   dependsOn: [YarnTarget],
   executes: ({ args }) => yarn('tgui:dev', ...args),
@@ -259,11 +269,6 @@ export const TguiDevTarget = new Juke.Target({
 export const TguiAnalyzeTarget = new Juke.Target({
   dependsOn: [YarnTarget],
   executes: () => yarn('tgui:analyze'),
-});
-
-export const TguiBenchTarget = new Juke.Target({
-  dependsOn: [YarnTarget],
-  executes: () => yarn('tgui:bench'),
 });
 
 export const TestTarget = new Juke.Target({

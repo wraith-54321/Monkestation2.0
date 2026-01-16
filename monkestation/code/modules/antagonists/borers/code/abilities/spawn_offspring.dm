@@ -7,7 +7,6 @@
 	cooldown_time = 1 MINUTES
 	button_icon_state = "reproduce"
 	chemical_cost = 100
-	needs_living_host = TRUE
 	ability_explanation = "\
 	Forces your host to produce a borer egg inside of their stomach, then vomit it up\n\
 	Be carefull as the egg is fragile and can be broken very easily by any human, along with being extremelly noticable\n\
@@ -19,16 +18,17 @@
 		return FALSE
 	var/mob/living/basic/cortical_borer/cortical_owner = owner
 	if(cortical_owner.neutered == TRUE)
-		owner.balloon_alert(owner, "You cannot reproduce!")
+		owner.balloon_alert(owner, "you cannot reproduce!")
 		return
 	if(!(cortical_owner.upgrade_flags & BORER_ALONE_PRODUCTION) && !cortical_owner.inside_human())
 		owner.balloon_alert(owner, "host required")
 		return
-	cortical_owner.chemical_storage -= chemical_cost
 	if((cortical_owner.upgrade_flags & BORER_ALONE_PRODUCTION) && !cortical_owner.inside_human())
+		cortical_owner.chemical_storage -= chemical_cost
 		no_host_egg()
 		StartCooldown()
 		return
+	cortical_owner.chemical_storage -= chemical_cost
 	produce_egg()
 	var/obj/item/organ/internal/brain/victim_brain = cortical_owner.human_host.get_organ_slot(ORGAN_SLOT_BRAIN)
 	if(victim_brain)
@@ -38,16 +38,16 @@
 			switch(eggroll)
 				if(1 to 34)
 					cortical_owner.human_host.gain_trauma_type(BRAIN_TRAUMA_MILD, TRAUMA_RESILIENCE_BASIC)
-					owner.balloon_alert(owner, "Cerebrum damaged!")
+					owner.balloon_alert(owner, "cerebrum damaged!")
 				if(35 to 60)
 					cortical_owner.human_host.gain_trauma_type(BRAIN_TRAUMA_MILD, TRAUMA_RESILIENCE_SURGERY)
-					owner.balloon_alert(owner, "Cerebellum damaged!")
+					owner.balloon_alert(owner, "cerebellum damaged!")
 				if(61 to 71)
 					cortical_owner.human_host.gain_trauma_type(BRAIN_TRAUMA_SEVERE, TRAUMA_RESILIENCE_SURGERY)
-					owner.balloon_alert(owner, "Brainstem damaged!")
+					owner.balloon_alert(owner, "brainstem damaged!")
 				if(72 to 75)
 					cortical_owner.human_host.gain_trauma_type(BRAIN_TRAUMA_SEVERE, TRAUMA_RESILIENCE_LOBOTOMY)
-					owner.balloon_alert(owner, "Brainstem severelly damaged!")
+					owner.balloon_alert(owner, "brainstem severelly damaged!")
 	to_chat(cortical_owner.human_host, span_warning("Your brain begins to hurt..."))
 	var/turf/borer_turf = get_turf(cortical_owner)
 	new /obj/effect/decal/cleanable/vomit(borer_turf)
@@ -59,7 +59,9 @@
 
 /datum/action/cooldown/borer/produce_offspring/proc/no_host_egg()
 	var/mob/living/basic/cortical_borer/cortical_owner = owner
-	cortical_owner.health = max(cortical_owner.health, 1, cortical_owner.health -= OUT_OF_HOST_EGG_COST)
+	cortical_owner.health = max(1, cortical_owner.health -= OUT_OF_HOST_EGG_COST)
+	cortical_owner.update_damage_hud()
+	cortical_owner.med_hud_set_health()
 	produce_egg()
 	var/turf/borer_turf = get_turf(cortical_owner)
 	new/obj/effect/decal/cleanable/blood/splatter(borer_turf)
@@ -96,7 +98,7 @@
 		return FALSE
 	var/mob/living/basic/cortical_borer/cortical_owner = owner
 	if(cortical_owner.neutered == TRUE)
-		owner.balloon_alert(owner, "You cannot reproduce!")
+		owner.balloon_alert(owner, "you cannot reproduce!")
 		return
 
 	cortical_owner.chemical_storage -= chemical_cost

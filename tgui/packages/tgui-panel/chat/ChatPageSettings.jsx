@@ -4,7 +4,7 @@
  * @license MIT
  */
 
-import { useDispatch, useSelector } from 'common/redux';
+import { useDispatch, useSelector } from 'tgui/backend';
 import {
   Button,
   Collapsible,
@@ -24,17 +24,33 @@ import {
 import { MESSAGE_TYPES } from './constants';
 import { selectCurrentChatPage } from './selectors';
 
-export const ChatPageSettings = (props, context) => {
-  const page = useSelector(context, selectCurrentChatPage);
-  const dispatch = useDispatch(context);
+export const ChatPageSettings = (props) => {
+  const page = useSelector(selectCurrentChatPage);
+  const dispatch = useDispatch();
   return (
     <Section>
       <Stack align="center">
-        <Stack.Item grow>
+        {!page.isMain && (
+          <Stack.Item>
+            <Button
+              color="blue"
+              icon="angles-left"
+              tooltip="Reorder tab to the left"
+              onClick={() =>
+                dispatch(
+                  moveChatPageLeft({
+                    pageId: page.id,
+                  }),
+                )
+              }
+            />
+          </Stack.Item>
+        )}
+        <Stack.Item grow ml={0.5}>
           <Input
             width="100%"
             value={page.name}
-            onChange={(e, value) =>
+            onChange={(value) =>
               dispatch(
                 updateChatPage({
                   pageId: page.id,
@@ -44,9 +60,25 @@ export const ChatPageSettings = (props, context) => {
             }
           />
         </Stack.Item>
+        {!page.isMain && (
+          <Stack.Item ml={0.5}>
+            <Button
+              color="blue"
+              icon="angles-right"
+              tooltip="Reorder tab to the right"
+              onClick={() =>
+                dispatch(
+                  moveChatPageRight({
+                    pageId: page.id,
+                  }),
+                )
+              }
+            />
+          </Stack.Item>
+        )}
         <Stack.Item>
           <Button.Checkbox
-            content="Mute"
+            content={'Mute'}
             checked={page.hideUnreadCount}
             icon={page.hideUnreadCount ? 'bell-slash' : 'bell'}
             tooltip="Disables unread counter"
@@ -60,11 +92,11 @@ export const ChatPageSettings = (props, context) => {
             }
           />
         </Stack.Item>
-        {!page.isMain ? (
+        {!page.isMain && (
           <Stack.Item>
             <Button
-              icon="times"
               color="red"
+              icon="times"
               onClick={() =>
                 dispatch(
                   removeChatPage({
@@ -76,42 +108,6 @@ export const ChatPageSettings = (props, context) => {
               Remove
             </Button>
           </Stack.Item>
-        ) : (
-          ''
-        )}
-      </Stack>
-      <Divider />
-      <Stack align="center">
-        {!page.isMain ? (
-          <Stack.Item>
-            Reorder Chat:&emsp;
-            <Button
-              color="blue"
-              onClick={() =>
-                dispatch(
-                  moveChatPageLeft({
-                    pageId: page.id,
-                  }),
-                )
-              }
-            >
-              &laquo;
-            </Button>
-            <Button
-              color="blue"
-              onClick={() =>
-                dispatch(
-                  moveChatPageRight({
-                    pageId: page.id,
-                  }),
-                )
-              }
-            >
-              &raquo;
-            </Button>
-          </Stack.Item>
-        ) : (
-          ''
         )}
       </Stack>
       <Divider />

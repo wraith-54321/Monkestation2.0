@@ -661,7 +661,7 @@
 /obj/effect/turf_decal/stripes{
 	dir = 10
 	},
-/obj/machinery/camera/directional/west,
+/obj/machinery/camera/autoname/directional/west,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/cyan/visible,
 /turf/open/floor/engine,
 /area/station/engineering/supermatter/icebox_bar)
@@ -1114,7 +1114,7 @@
 /area/station/commons/lounge)
 "Kf" = (
 /obj/machinery/smartfridge,
-/turf/closed/wall,
+/turf/open/floor/carpet/neon/simple/yellow/nodots,
 /area/station/service/bar/backroom)
 "Kg" = (
 /obj/structure/displaycase/forsale/kitchen{

@@ -221,6 +221,14 @@ GLOBAL_LIST_EMPTY(station_turfs)
 		return
 	user.Move_Pulled(src)
 
+/turf/attack_robot(mob/user, list/modifiers)
+	. = ..()
+	if(.)
+		return
+	if(!Adjacent(user))
+		return
+	user.Move_Pulled(src)
+
 /// Call to move a turf from its current area to a new one
 /turf/proc/change_area(area/old_area, area/new_area)
 	//dont waste our time
@@ -545,6 +553,7 @@ GLOBAL_LIST_EMPTY(station_turfs)
 
 /turf/proc/visibilityChanged()
 	GLOB.cameranet.updateVisibility(src)
+	GLOB.thrallnet.updateVisibility(src)
 
 /turf/proc/burn_tile()
 	return

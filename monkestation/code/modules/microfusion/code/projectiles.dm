@@ -16,8 +16,9 @@
 /obj/projectile/beam/laser/microfusion
 	name = "microfusion laser"
 	icon = 'monkestation/code/modules/microfusion/icons/projectiles.dmi'
-	damage = 25
+	damage = 22
 
+//Currently unused - needs to have stamina dmg re-balanced if it's ever added in
 /obj/projectile/beam/microfusion_disabler
 	name = "microfusion disabler laser"
 	icon = 'monkestation/code/modules/microfusion/icons/projectiles.dmi'
@@ -68,7 +69,7 @@
 /obj/projectile/beam/laser/microfusion/penetrator
 	name = "focused microfusion laser"
 	damage = 20
-	armour_penetration = 50
+	armour_penetration = 75
 
 /obj/projectile/beam/laser/microfusion/lance
 	name = "lance microfusion laser"
@@ -91,7 +92,7 @@
 	color = COLOR_VIVID_YELLOW
 	light_color = COLOR_VIVID_YELLOW
 	damage_type = STAMINA
-	damage = 25
+	damage = 22
 	armor_flag = ENERGY
 	hitsound = 'sound/misc/slip.ogg'
 	impact_type = /obj/effect/projectile/impact/disabler

@@ -14,11 +14,11 @@ import {
 import { sortBy } from 'common/collections';
 import { flow } from 'common/fp';
 import { classes, shallowDiffers } from 'common/react';
-import { Component, createRef, RefObject } from 'inferno';
+import { Component, createRef, RefObject } from 'react';
 import { Window } from '../layouts';
 import { resolveAsset } from '../assets';
 import { MOUSE_BUTTON_LEFT, noop } from './IntegratedCircuit/constants';
-import { Connections } from './IntegratedCircuit/Connections';
+import { Connection, Connections, Position } from './common/Connections';
 
 enum ConnectionType {
   Relay,
@@ -108,18 +108,6 @@ interface AssocConnected {
 interface AssocString {
   [index: string]: string;
 }
-
-type Position = {
-  x: number;
-  y: number;
-};
-
-type Connection = {
-  color: string;
-  from: Position;
-  to: Position;
-  ref: string;
-};
 
 type PlaneDebugData = {
   our_group: string;
@@ -339,8 +327,8 @@ const arrayRemove = function (arr: any, value) {
 };
 
 export class PlaneMasterDebug extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.handlePortClick = this.handlePortClick.bind(this);
   }
 
@@ -418,7 +406,7 @@ export class PlaneMasterDebug extends Component {
       <Window width={1200} height={800} title={'Plane Debugging: ' + mob_name}>
         <Window.Content
           style={{
-            'background-image': 'none',
+            backgroundImage: 'none',
           }}
         >
           <InfinitePlane
@@ -519,7 +507,7 @@ class PlaneMaster extends Component<PlaneMasterProps> {
               ? 'ObjectComponent__Greyed_Content'
               : 'ObjectComponent__Content'
           }
-          unselectable="on"
+          style={{ userSelect: 'none' }}
           py={1}
           px={1}
         >
@@ -582,8 +570,8 @@ class Port extends Component<PortProps> {
   // But it's how it was being done in circuit code, so eh
   iconRef: RefObject<SVGCircleElement> | RefObject<HTMLSpanElement> | any;
 
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.iconRef = createRef();
     this.handlePortMouseDown = this.handlePortMouseDown.bind(this);
   }
@@ -663,7 +651,7 @@ const DrawAbovePlane = (props) => {
           <MobResetButton />
           <ToggleMirror />
           <VVButton />
-          <RefreshButton />
+          <RebuildButton />
         </>
       )}
       {!!enable_group_view && <GroupDropdown />}
@@ -700,7 +688,7 @@ const PlaneWindow = (props) => {
           <MobResetButton no_position />
           <ToggleMirror no_position />
           <VVButton no_position />
-          <RefreshButton no_position />
+          <RebuildButton no_position />
         </>
       }
     >
@@ -787,13 +775,8 @@ const PlaneWindow = (props) => {
           maxValue={255}
           step={1}
           stepPixelSize={1.9}
-          onDrag={(e, value) =>
-            act('set_alpha', {
-              edit: workingPlane.our_ref,
-              alpha: value,
-            })
-          }
-          onChange={(e, value) =>
+          tickWhileDragging
+          onChange={(_, value) =>
             act('set_alpha', {
               edit: workingPlane.our_ref,
               alpha: value,
@@ -912,7 +895,7 @@ const GroupDropdown = (props) => {
   );
 };
 
-const RefreshButton = (props) => {
+const RebuildButton = (props) => {
   const { act } = useBackend();
   const { no_position } = props;
 
@@ -922,8 +905,8 @@ const RefreshButton = (props) => {
       right={no_position ? '' : '6px'}
       position={no_position ? '' : 'absolute'}
       icon="recycle"
-      onClick={() => act('refresh')}
-      tooltip="Refreshes ALL plane masters. Kinda laggy, but useful"
+      onClick={() => act('Rebuild')}
+      tooltip="Rebuilds ALL plane masters. Kinda laggy, but useful"
     />
   );
 };

@@ -39,7 +39,7 @@
 		/obj/item/clothing/head/utility/hardhat/red/upgraded = 1
 	)
 	rpg_title = "Telecommunications goblin"
-	job_flags = JOB_ANNOUNCE_ARRIVAL | JOB_CREW_MANIFEST | JOB_EQUIP_RANK | JOB_CREW_MEMBER | JOB_NEW_PLAYER_JOINABLE | JOB_REOPEN_ON_ROUNDSTART_LOSS | JOB_ASSIGN_QUIRKS | JOB_CAN_BE_INTERN
+	job_flags = STATION_JOB_FLAGS
 
 	alt_titles = list(
 		JOB_SIGNAL_TECHNICIAN,
@@ -80,35 +80,3 @@
 	uniform = /obj/item/clothing/under/plasmaman/engineering/signal_tech
 	gloves = /obj/item/clothing/gloves/color/plasmaman/engineer
 	head = /obj/item/clothing/head/helmet/space/plasmaman/signal_tech
-
-/datum/id_trim/job/signal_technician
-	assignment = JOB_SIGNAL_TECHNICIAN
-	intern_alt_name = "Junior Signal Technician"
-	trim_state = "trim_signaltech"
-	department_color = COLOR_ENGINEERING_ORANGE
-	subdepartment_color = COLOR_ENGINEERING_ORANGE
-	sechud_icon_state = SECHUD_SIGNAL_TECHINICAN
-	minimal_access = list(
-		ACCESS_AUX_BASE,
-		ACCESS_CONSTRUCTION,
-		ACCESS_ENGINEERING,
-		ACCESS_ENGINE_EQUIP,
-		ACCESS_EXTERNAL_AIRLOCKS,
-		ACCESS_MAINT_TUNNELS,
-		ACCESS_MECH_ENGINE,
-		ACCESS_MINERAL_STOREROOM,
-		ACCESS_MINISAT,
-		ACCESS_TCOMMS,
-		ACCESS_TCOMMS_ADMIN,
-		ACCESS_TECH_STORAGE,
-		ACCESS_RC_ANNOUNCE,
-	)
-	extra_access = list(
-		ACCESS_ATMOSPHERICS,
-	)
-	template_access = list(
-		ACCESS_CAPTAIN,
-		ACCESS_CHANGE_IDS,
-		ACCESS_CE,
-	)
-	job = /datum/job/signal_technician

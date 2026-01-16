@@ -23,7 +23,9 @@
 		if(!tool)
 			success = TRUE
 		if(iscyborg(user))
-			success = TRUE
+			var/mob/living/silicon/robot/borg = user
+			if(istype(borg.module_active, /obj/item/borg/cyborghug))
+				success = TRUE
 
 	if(accept_any_item)
 		if(tool && tool_check(user, tool))
@@ -67,6 +69,8 @@
 #define SURGERY_SLOWDOWN_CAP_MULTIPLIER 2
 ///Modifier given to patients with TRAIT_ANALGESIA
 #define SURGERY_SPEED_TRAIT_ANALGESIA 0.8
+///Modifier given to surgery speed for dissected bodies.
+#define SURGERY_DISSECTION_MODIFIER 1.2
 
 /datum/surgery_step/proc/initiate(mob/living/user, mob/living/target, target_zone, obj/item/tool, datum/surgery/surgery, try_to_fail = FALSE)
 	// Only followers of Asclepius have the ability to use Healing Touch and perform miracle feats of surgery.
@@ -86,6 +90,9 @@
 	if(tool)
 		speed_mod = tool.toolspeed
 
+	if(HAS_TRAIT(target, TRAIT_SURGICALLY_ANALYZED))
+		speed_mod /= SURGERY_DISSECTION_MODIFIER
+
 	var/implement_speed_mod = 1
 	if(implement_type) //this means it isn't a require hand or any item step.
 		implement_speed_mod = implements[implement_type] / 100.0
@@ -101,7 +108,7 @@
 	modded_time = min(modded_time, time * SURGERY_SLOWDOWN_CAP_MULTIPLIER)//also if that, then cap modded_time at time*modifier
 
 	if(iscyborg(user))//any immunities to surgery slowdown should go in this check.
-		modded_time = time
+		modded_time = (time * tool.toolspeed) //Monkestation edit, allows borgs to have better surgery speed
 	else if(HAS_TRAIT(user, TRAIT_PERFECT_SURGEON))
 		modded_time = min(round(time * 0.75, 5), modded_time) // monke edit: perfect surgeon will always be at least 25% faster than normal
 
@@ -253,5 +260,6 @@
 			if(prob(30) && !mechanical_surgery)
 				target.emote("scream")
 
+#undef SURGERY_DISSECTION_MODIFIER
 #undef SURGERY_SPEED_TRAIT_ANALGESIA
 #undef SURGERY_SLOWDOWN_CAP_MULTIPLIER

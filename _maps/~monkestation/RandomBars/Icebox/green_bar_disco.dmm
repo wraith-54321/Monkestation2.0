@@ -112,7 +112,12 @@
 /area/station/service/theater)
 "ic" = (
 /obj/machinery/smartfridge,
-/turf/closed/wall,
+/obj/effect/turf_decal/tile/dark/opposingcorners,
+/obj/effect/turf_decal/tile/dark_green/opposingcorners{
+	color = "#43cC1E";
+	dir = 1
+	},
+/turf/open/floor/iron,
 /area/station/service/bar/backroom)
 "iI" = (
 /obj/effect/turf_decal/tile/dark/opposingcorners,
@@ -1080,7 +1085,7 @@
 /area/station/service/bar)
 "Rr" = (
 /obj/effect/landmark/event_spawn,
-/obj/machinery/jukebox/disco,
+/obj/machinery/dance_machine/disco,
 /turf/open/floor/light,
 /area/station/service/theater)
 "Ru" = (

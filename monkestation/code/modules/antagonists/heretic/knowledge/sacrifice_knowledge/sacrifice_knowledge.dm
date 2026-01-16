@@ -187,10 +187,10 @@
 		else if(istype(sacrifice_candidate, /obj/item/organ/internal/brain/slime))
 			var/obj/item/organ/internal/brain/slime/core = sacrifice_candidate
 			sacrifice = core.rebuild_body(nugget = FALSE)
-			if(!sacrifice && core.brainmob)
-				sacrifice = core.brainmob
-				selected_atoms -= core
-				break
+			// ELSE THE CORE GETS DELETED AND WEIRD SHIT HAPPENS
+			selected_atoms -= core
+			selected_atoms += sacrifice
+			break
 	if(!sacrifice)
 		CRASH("[type] sacrifice_process didn't have a human in the atoms list. How'd it make it so far?")
 	if(!heretic_datum.can_sacrifice(sacrifice))
@@ -205,7 +205,7 @@
 
 	if(sacrifice.mind)
 		sac_department_flag |= sacrifice.mind.assigned_role?.departments_bitflags
-	if(istype(sacrifice, /mob/living/carbon/human) && sacrifice.last_mind) // If mob even has a last mind. Oozling issue.
+	if(istype(sacrifice, /mob/living/carbon/human) && sacrifice.last_mind) // If mob even has a last mind. Oozeling issue.
 		sac_department_flag |= sacrifice.last_mind.assigned_role?.departments_bitflags
 
 	if(sac_department_flag & DEPARTMENT_BITFLAG_COMMAND)
@@ -217,20 +217,12 @@
 	heretic_datum.total_sacrifices++
 	heretic_datum.knowledge_points += 2
 
-	if(!istype(sacrifice, /mob/living/carbon/human))
-		notify_ghosts(	// Sorry for copy paste. Trying to keep consistency
-			"[heretic_mind.name] has sacrificed [sacrifice] to the Mansus!",
-			source = sacrifice,
-			action = NOTIFY_ORBIT,
-			notify_flags = NOTIFY_CATEGORY_NOFLASH,
-			header = "Oozling core Sacrificed to Mansus.",
-			)
-		log_combat(heretic_mind.current, sacrifice, "sacrificed")
-	else
-		sacrifice.apply_status_effect(/datum/status_effect/heretic_curse, user)
+	SStgui.update_uis(heretic_datum)
 
-		if(!begin_sacrifice(sacrifice))
-			disembowel_target(sacrifice)
+	sacrifice.apply_status_effect(/datum/status_effect/heretic_curse, user)
+
+	if(!begin_sacrifice(sacrifice))
+		disembowel_target(sacrifice)
 
 /**
  * This proc is called from [proc/sacrifice_process] after the heretic successfully sacrifices [sac_target].)
@@ -376,7 +368,7 @@
 	if (!gave_any)
 		return
 
-	new /obj/effect/gibspawner/human/bodypartless(get_turf(sac_target))
+	new /obj/effect/gibspawner/human/bodypartless(get_turf(sac_target), sac_target)
 	sac_target.visible_message(span_boldwarning("Several organs force themselves out of [sac_target]!"))
 
 /**
@@ -455,6 +447,7 @@
 	if(IS_HERETIC(sac_target))
 		var/datum/antagonist/heretic/victim_heretic = sac_target.mind?.has_antag_datum(/datum/antagonist/heretic)
 		victim_heretic.knowledge_points -= 3
+		SStgui.update_uis(victim_heretic)
 	// Wherever we end up, we sure as hell won't be able to explain
 	sac_target.adjust_timed_status_effect(40 SECONDS, /datum/status_effect/speech/slurring/heretic)
 	sac_target.adjust_stutter(40 SECONDS)
@@ -535,7 +528,7 @@
 	sac_target.set_eye_blur_if_lower(100 SECONDS)
 	sac_target.set_dizzy_if_lower(1 MINUTES)
 	sac_target.AdjustKnockdown(80)
-	sac_target.stamina.adjust(-120)
+	sac_target.stamina.adjust(-60)
 
 	// Glad i'm outta there, though!
 	sac_target.add_mood_event("shadow_realm_survived", /datum/mood_event/shadow_realm_live)
@@ -580,7 +573,7 @@
 		span_userdanger("Your organs are violently pulled out of your chest by shadowy hands!")
 	)
 
-	new /obj/effect/gibspawner/human/bodypartless(get_turf(sac_target))
+	new /obj/effect/gibspawner/human/bodypartless(get_turf(sac_target), sac_target)
 
 #undef SACRIFICE_SLEEP_DURATION
 #undef SACRIFICE_REALM_DURATION

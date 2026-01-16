@@ -65,7 +65,7 @@
 		span_hear("You hear a dull thud!"))
 	log_combat(owner, owner, "bopped", src.name, "(self)")
 	owner.do_attack_animation(owner)
-	owner.apply_damage(100, STAMINA)
+	owner.apply_damage(50, STAMINA)
 	owner.Knockdown(10)
 	qdel(src)
 
@@ -96,7 +96,7 @@
 		owner.visible_message(span_danger("[owner] bops [sucker] with [owner.p_their()] [src.name] much harder than intended, sending [sucker.p_them()] flying!"), \
 			span_danger("You bop [sucker] with your [src.name] much harder than intended, sending [sucker.p_them()] flying!"), span_hear("You hear a sickening sound of flesh hitting flesh!"), ignored_mobs=list(sucker))
 		to_chat(sucker, span_userdanger("[owner] bops you incredibly hard with [owner.p_their()] [src.name], sending you flying!"))
-		sucker.apply_damage(50, STAMINA)
+		sucker.apply_damage(25, STAMINA)
 		sucker.Knockdown(50)
 		log_combat(owner, sucker, "bopped", src.name, "(setup- Hulk)")
 		var/atom/throw_target = get_edge_target_turf(sucker, owner.dir)
@@ -104,7 +104,7 @@
 	else
 		owner.visible_message(span_danger("[owner] bops [sucker] with [owner.p_their()] [src.name]!"), span_danger("You bop [sucker] with your [src.name]!"), \
 			span_hear("You hear a dull thud!"), ignored_mobs=list(sucker))
-		sucker.apply_damage(15, STAMINA)
+		sucker.apply_damage(7.5, STAMINA)
 		log_combat(owner, sucker, "bopped", src.name, "(setup)")
 		to_chat(sucker, span_userdanger("[owner] bops you with [owner.p_their()] [src.name]!"))
 	qdel(src)
@@ -143,7 +143,7 @@
 		affix_desc = "on [target.p_their()] sensitive antennae"
 		affix_desc_target = "on your highly sensitive antennae"
 		brutal_noogie = TRUE
-	if(user.dna?.check_mutation(/datum/mutation/human/hulk))
+	if(user.dna?.check_mutation(/datum/mutation/hulk))
 		prefix_desc = "sickeningly brutal"
 		brutal_noogie = TRUE
 
@@ -178,7 +178,7 @@
 	var/damage = rand(1, 5)
 	if(HAS_TRAIT(target, TRAIT_ANTENNAE))
 		damage += rand(3,7)
-	if(user.dna?.check_mutation(/datum/mutation/human/hulk))
+	if(user.dna?.check_mutation(/datum/mutation/hulk))
 		damage += rand(3,7)
 
 	if(damage >= 5)
@@ -245,7 +245,7 @@
 		shake_camera(slapped, 2, 2)
 		slapped.Paralyze(2.5 SECONDS)
 		slapped.adjust_confusion(7 SECONDS)
-		slapped.stamina.adjust(-40)
+		slapped.stamina.adjust(-20)
 	else if(user.zone_selected == BODY_ZONE_HEAD || user.zone_selected == BODY_ZONE_PRECISE_MOUTH)
 		if(user == slapped)
 			user.visible_message(
@@ -493,9 +493,10 @@
 	/// TRUE if the user was aiming anywhere but the mouth when they offer the kiss, if it's offered
 	var/cheek_kiss
 
-/obj/item/hand_item/kisser/afterattack(atom/target, mob/user, proximity_flag, click_parameters)
-	. = ..()
-	. |= AFTERATTACK_PROCESSED_ITEM
+/obj/item/hand_item/kisser/interact_with_atom(atom/interacting_with, mob/living/user, list/modifiers)
+	return ranged_interact_with_atom(interacting_with, user, modifiers)
+
+/obj/item/hand_item/kisser/ranged_interact_with_atom(atom/target, mob/living/user, list/modifiers)
 	if(HAS_TRAIT(user, TRAIT_GARLIC_BREATH))
 		kiss_type = /obj/projectile/kiss/french
 
@@ -513,6 +514,7 @@
 	blown_kiss.preparePixelProjectile(target, user)
 	blown_kiss.fire()
 	qdel(src)
+	return ITEM_INTERACT_SUCCESS
 
 /obj/item/hand_item/kisser/on_offered(mob/living/carbon/offerer, mob/living/carbon/offered)
 	if(!(locate(/mob/living/carbon) in orange(1, offerer)))
@@ -566,6 +568,10 @@
 	damage = 0 // love can't actually hurt you
 	armour_penetration = 100 // but if it could, it would cut through even the thickest plate
 	var/silent_blown = FALSE
+
+/obj/projectile/kiss/Initialize(mapload)
+	. = ..()
+	AddComponent(/datum/component/parriable_projectile)
 
 /obj/projectile/kiss/fire(angle, atom/direct_target)
 	if(firer && !silent_blown)

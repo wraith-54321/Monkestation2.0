@@ -9,6 +9,7 @@ icon_exists_cache.json
 #Ignore everything in datafolder and subdirectories
 /data/**/*
 /tmp/**/*
+/cache/**/*
 
 #Ignore byond config folder.
 /cfg/**/*
@@ -248,3 +249,6 @@ config/dbconfig.txt
 # Running OpenDream locally
 tgstation.json
 rust_g64.dll
+
+#ableton sound analysis files
+*.asd

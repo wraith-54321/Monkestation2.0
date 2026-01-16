@@ -126,6 +126,10 @@ GLOBAL_LIST_INIT(store_miscunders, generate_store_items(/datum/store_item/under/
 	name = "Recolorable Plaid Skirt"
 	item_path = /obj/item/clothing/under/dress/skirt/plaid
 
+/datum/store_item/under/miscellaneous/turtleneck
+	name = "Recolorable Turtleneck"
+	item_path = /obj/item/clothing/under/costume/donatorgrayscaleturtleneck/nondonator
+
 /datum/store_item/under/miscellaneous/skirt_turtleneck
 	name = "Recolorable Turtleneck Skirt"
 	item_path = /obj/item/clothing/under/dress/skirt/turtleskirt
@@ -243,6 +247,11 @@ GLOBAL_LIST_INIT(store_miscunders, generate_store_items(/datum/store_item/under/
 /datum/store_item/under/miscellaneous/bunnysuit
 	name = "Colorable Bunny Suit"
 	item_path = /obj/item/clothing/under/costume/playbunny
+
+/datum/store_item/under/miscellaneous/hula
+	name = "Hula Skirt"
+	item_path = /obj/item/clothing/under/dress/hula
+
 /*
 *	FORMAL UNDERSUITS
 */
@@ -395,6 +404,13 @@ GLOBAL_LIST_INIT(store_miscunders, generate_store_items(/datum/store_item/under/
 	name = "White Suit"
 	item_path = /obj/item/clothing/under/suit/white
 
+/datum/store_item/under/formal/butler
+	name = "Butler Uniform"
+	item_path = /obj/item/clothing/under/suit/butler
+
+/datum/store_item/under/formal/silk_suit
+	name = "Black Silk Suit"
+	item_path = /obj/item/clothing/under/suit/fancysuit
 
 /datum/store_item/under/formal/trek_command
 	name = "Trekkie Command Uniform"
@@ -435,6 +451,40 @@ GLOBAL_LIST_INIT(store_miscunders, generate_store_items(/datum/store_item/under/
 /datum/store_item/under/formal/the_q
 	name = "French Marshall's Uniform"
 	item_path = /obj/item/clothing/under/trek/q
+
+/datum/store_item/under/formal/sparkle_dress
+	name = "Sparkly Ribbon Dress"
+	item_path = /obj/item/clothing/under/dress/sparkle
+
+/datum/store_item/under/formal/white_dress
+	name = "Gaudy White Dress"
+	item_path = /obj/item/clothing/under/dress/white
+
+/datum/store_item/under/formal/angel
+	name = "Lacey Angel Dress"
+	item_path = /obj/item/clothing/under/dress/angel
+
+/datum/store_item/under/formal/devil
+	name = "Lacey Devil Dress"
+	item_path = /obj/item/clothing/under/dress/angel/alt
+
+/datum/store_item/under/formal/flowery
+	name = "Perfumed Light Dress"
+	item_path = /obj/item/clothing/under/dress/flowery
+
+/datum/store_item/under/formal/starry
+	name = "Starry Dress"
+	item_path = /obj/item/clothing/under/dress/starry
+
+/datum/store_item/under/formal/formal_ball
+	name = "Regal Ball Gown"
+	item_path = /obj/item/clothing/under/dress/gown
+	item_cost = 10000
+
+/datum/store_item/under/formal/moonlit
+	name = "Moonlit Gown"
+	item_path = /obj/item/clothing/under/dress/moonlit
+	item_cost = 10000
 
 //FAMILIES GEAR
 /datum/store_item/under/formal/osi
@@ -664,6 +714,16 @@ GLOBAL_LIST_INIT(store_miscunders, generate_store_items(/datum/store_item/under/
 	item_path = /obj/item/clothing/under/dress/nova/flower
 	item_cost = 1000
 
+/datum/store_item/under/miscellaneous/sweater //BUYABLE
+	name = "Cableknit Sweater"
+	item_path = /obj/item/clothing/under/sweater
+	item_cost = 1000
+
+/datum/store_item/under/miscellaneous/sweater/keyhole //BUYABLE
+	name = "Keyhole Sweater"
+	item_path = /obj/item/clothing/under/sweater/keyhole
+	item_cost = 1000
+
 /datum/store_item/under/miscellaneous/tactical_hawaiian_orange //BUYABLE
 	name = "Tactical Hawaiian Outfit - Orange"
 	item_path = /obj/item/clothing/under/tachawaiian
@@ -713,6 +773,31 @@ GLOBAL_LIST_INIT(store_miscunders, generate_store_items(/datum/store_item/under/
 	name = "Fancy Kimono"
 	item_path =  /obj/item/clothing/under/costume/skyrat/kimono
 	item_cost = 2500
+
+/datum/store_item/under/miscellaneous/kimono/black //BUYABLE
+	name = "Black Kimono"
+	item_path = /obj/item/clothing/under/costume/kimono
+
+/datum/store_item/under/miscellaneous/kimono/red //BUYABLE
+	name = "Red Kimono"
+	item_path = /obj/item/clothing/under/costume/kimono/red
+
+/datum/store_item/under/miscellaneous/kimono/purple //BUYABLE
+	name = "Purple Kimono"
+	item_path = /obj/item/clothing/under/costume/kimono/purple
+
+/datum/store_item/under/miscellaneous/yukata
+	name = "Black Yukata"
+	item_path = /obj/item/clothing/under/costume/yukata
+	item_cost = 2500
+
+/datum/store_item/under/miscellaneous/yukata/green
+	name = "Green Yukata"
+	item_path = /obj/item/clothing/under/costume/yukata/green
+
+/datum/store_item/under/miscellaneous/yukata/white
+	name = "White Yukata"
+	item_path = /obj/item/clothing/under/costume/yukata/white
 
 /datum/store_item/under/miscellaneous/chaps //BUYABLE
 	name = "Black Chaps"

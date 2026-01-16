@@ -57,11 +57,6 @@
 "eg" = (
 /turf/open/floor/carpet/black,
 /area/station/engineering/supermatter/room)
-"ej" = (
-/obj/structure/grille,
-/obj/structure/lattice,
-/turf/open/space/basic,
-/area/space/nearstation)
 "eH" = (
 /obj/effect/spawner/structure/window/reinforced/plasma,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
@@ -79,6 +74,7 @@
 "gQ" = (
 /obj/machinery/the_singularitygen,
 /obj/structure/cable,
+/obj/structure/cable/layer3,
 /turf/open/floor/iron/dark,
 /area/station/engineering/supermatter/room)
 "hn" = (
@@ -142,6 +138,7 @@
 "np" = (
 /obj/machinery/the_singularitygen/tesla,
 /obj/structure/sign/directions/ptl/directional/east,
+/obj/structure/cable/layer3,
 /turf/open/floor/iron/dark,
 /area/station/engineering/supermatter/room)
 "nM" = (
@@ -187,6 +184,7 @@
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
 /obj/effect/mapping_helpers/airlock/access/all/engineering/general,
+/obj/structure/cable/layer3,
 /turf/open/floor/iron/dark,
 /area/station/engineering/supermatter/room)
 "rn" = (
@@ -227,6 +225,7 @@
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer2{
 	dir = 8
 	},
+/obj/structure/cable/layer3,
 /turf/open/floor/iron/dark,
 /area/station/engineering/supermatter/room)
 "ut" = (
@@ -241,6 +240,7 @@
 "uU" = (
 /obj/machinery/power/energy_accumulator/grounding_rod,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
+/obj/structure/cable/layer3,
 /turf/open/floor/iron/dark,
 /area/station/engineering/supermatter/room)
 "vd" = (
@@ -249,6 +249,7 @@
 	},
 /obj/effect/mapping_helpers/airlock/access/all/engineering/general,
 /obj/structure/cable,
+/obj/structure/cable/layer3,
 /turf/open/floor/iron/dark,
 /area/station/engineering/supermatter/room)
 "vB" = (
@@ -268,6 +269,7 @@
 /area/station/engineering/supermatter/room)
 "vY" = (
 /obj/machinery/power/energy_accumulator/grounding_rod,
+/obj/structure/cable/layer3,
 /turf/open/floor/iron/dark,
 /area/station/engineering/supermatter/room)
 "wm" = (
@@ -437,11 +439,6 @@
 	},
 /turf/open/floor/plating,
 /area/station/engineering/supermatter/room)
-"Fy" = (
-/obj/structure/grille/broken,
-/obj/structure/lattice,
-/turf/open/space/basic,
-/area/space/nearstation)
 "FN" = (
 /obj/structure/particle_accelerator/end_cap{
 	dir = 4
@@ -543,6 +540,7 @@
 /area/station/engineering/supermatter/room)
 "NN" = (
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
+/obj/structure/cable/layer3,
 /turf/open/floor/iron/dark,
 /area/station/engineering/supermatter/room)
 "NP" = (
@@ -1108,7 +1106,7 @@ je
 je
 je
 je
-An
+bM
 An
 Ki
 nM
@@ -1122,7 +1120,7 @@ Bc
 An
 An
 nM
-An
+bM
 je
 je
 je
@@ -1135,7 +1133,7 @@ je
 je
 je
 je
-Bc
+bM
 An
 ol
 An
@@ -1176,7 +1174,7 @@ nM
 An
 An
 KS
-ej
+bM
 je
 je
 je
@@ -1189,7 +1187,7 @@ je
 je
 je
 je
-An
+bM
 hW
 ol
 ol
@@ -1203,7 +1201,7 @@ Yq
 EM
 EM
 An
-Fy
+bM
 je
 je
 je
@@ -1216,7 +1214,7 @@ je
 je
 je
 je
-An
+bM
 hW
 EM
 An
@@ -1230,7 +1228,7 @@ xy
 An
 EM
 nM
-nM
+bM
 je
 je
 je
@@ -1243,7 +1241,7 @@ je
 je
 je
 je
-Bc
+bM
 hW
 EM
 wm
@@ -1257,7 +1255,7 @@ ML
 wm
 EM
 nM
-ej
+bM
 je
 je
 je
@@ -1284,7 +1282,7 @@ wm
 An
 EM
 An
-An
+bM
 je
 je
 je
@@ -1311,7 +1309,7 @@ wm
 dT
 EM
 An
-nM
+bM
 je
 je
 je
@@ -1324,7 +1322,7 @@ je
 je
 je
 je
-Bc
+bM
 hW
 EM
 NU
@@ -1338,7 +1336,7 @@ bp
 NU
 EM
 nM
-ej
+bM
 je
 je
 je
@@ -1392,7 +1390,7 @@ wm
 An
 An
 An
-nM
+bM
 je
 je
 je
@@ -1405,7 +1403,7 @@ je
 je
 je
 je
-Bc
+bM
 hW
 hW
 GG
@@ -1419,7 +1417,7 @@ ML
 EP
 An
 nM
-ej
+bM
 je
 je
 je
@@ -1432,7 +1430,7 @@ je
 je
 je
 je
-An
+bM
 hW
 An
 An
@@ -1446,7 +1444,7 @@ wm
 hW
 An
 nM
-nM
+bM
 je
 je
 je
@@ -1473,7 +1471,7 @@ hW
 hW
 An
 An
-Fy
+bM
 je
 je
 je
@@ -1487,20 +1485,20 @@ je
 je
 je
 bM
-An
 bM
-An
-Bc
-Bc
-Bc
-Bc
-Bc
-Bc
-Bc
-An
 bM
-KS
-KS
+bM
+bM
+bM
+bM
+bM
+bM
+bM
+bM
+bM
+bM
+bM
+bM
 je
 je
 je

@@ -135,6 +135,9 @@ GLOBAL_LIST(admin_objective_list) //Prefilled admin assignable objective list
 	if(!HAS_TRAIT(SSstation, STATION_TRAIT_LATE_ARRIVALS) && istype(target_area, /area/shuttle/arrival))
 		return FALSE
 
+	if(possible_target.assigned_role.job_flags & JOB_CANNOT_BE_TARGET)
+		return FALSE
+
 	return TRUE
 
 //dupe_search_range is a list of antag datums / minds / teams
@@ -957,7 +960,7 @@ GLOBAL_LIST_EMPTY(possible_items)
 				continue
 			//this is an objective item
 			var/obj/item/organ/wanted = stolen
-			if(!(wanted.organ_flags & ORGAN_FAILING) && !(wanted.organ_flags & ORGAN_SYNTHETIC))
+			if(!(wanted.organ_flags & ORGAN_FAILING) && !IS_ROBOTIC_ORGAN(wanted))
 				stolen_count++
 	return stolen_count >= amount
 

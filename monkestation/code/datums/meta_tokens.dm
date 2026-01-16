@@ -46,6 +46,9 @@ GLOBAL_LIST_INIT(patreon_etoken_values, list(
 	var/event_timeout
 	/// The month we last used a donator token on
 	var/token_month = 0
+	// Ticket Panel Additions
+	var/datum/token_request/current_antag_request
+	var/datum/token_request/current_event_request
 
 /datum/meta_token_holder/New(client/creator)
 	. = ..()
@@ -99,7 +102,7 @@ GLOBAL_LIST_INIT(patreon_etoken_values, list(
 	owner.prefs.save_preferences()
 
 /datum/meta_token_holder/proc/check_for_donator_token()
-	var/datum/patreon_data/patreon = owner?.player_details?.patreon
+	var/datum/patreon_data/patreon = owner?.persistent_client?.patreon
 
 	if(!patreon?.has_access(ACCESS_TRAITOR_RANK))
 		return FALSE
@@ -108,7 +111,7 @@ GLOBAL_LIST_INIT(patreon_etoken_values, list(
 
 	if(token_month != month_number)
 		if(patreon.has_access(ACCESS_NUKIE_RANK))    ///if nukie rank, get coins AND token
-			owner.prefs.adjust_metacoins(owner?.ckey, 10000, "Monthly Monkecoin rations.", TRUE, FALSE, FALSE)
+			owner.prefs.adjust_metacoins(owner?.ckey, 10000, "Monthly Monkecoin rations", donator_multiplier = FALSE)
 
 		donator_token++
 		token_month = month_number  ///update per-person month counter
@@ -159,13 +162,18 @@ GLOBAL_LIST_INIT(patreon_etoken_values, list(
 
 	to_chat(owner, span_boldnicegreen("Your request to play as [in_queue] has been approved."))
 	logger.Log(LOG_CATEGORY_META, "[owner]'s antag token for [in_queue] has been approved")
+
+
+	SStoken_manager.record_accepted() 	// Token Panel Addition
+
 	spend_antag_token(in_queued_tier, queued_donor)
 	if(!owner.mob.mind)
 		owner.mob.mind_initialize()
 	in_queue.antag_token(owner.mob.mind, owner.mob) //might not be in queue
 
-	qdel(in_queue)
-	in_queue = null
+	QDEL_NULL(in_queue)
+
+	QDEL_NULL(current_antag_request)	// Token Panel Addition
 	in_queued_tier = null
 	queued_donor = FALSE
 	if(antag_timeout)
@@ -178,8 +186,11 @@ GLOBAL_LIST_INIT(patreon_etoken_values, list(
 
 	to_chat(owner, span_boldwarning("Your request to play as [in_queue] has been denied."))
 	logger.Log(LOG_CATEGORY_META, "[owner]'s antag token for [in_queue] has been denied.")
+
+	SStoken_manager.record_rejected() // Token Panel Addition
+
 	SEND_SOUND(owner, sound('sound/misc/compiler-failure.ogg', volume = 50))
-	in_queue = null
+	QDEL_NULL(in_queue)
 	in_queued_tier = null
 	queued_donor = FALSE
 	if(antag_timeout)
@@ -191,6 +202,9 @@ GLOBAL_LIST_INIT(patreon_etoken_values, list(
 		return
 	to_chat(owner, span_boldwarning("Your request to play as [in_queue] wasn't answered within 5 minutes. Better luck next time!"))
 	logger.Log(LOG_CATEGORY_META, "[owner]'s antag token for [in_queue] has timed out.")
+
+	SStoken_manager.record_timeout() 	// Token Panel Addition
+
 	SEND_SOUND(owner, sound('sound/misc/compiler-failure.ogg', volume = 50))
 	in_queue = null
 	in_queued_tier = null
@@ -208,7 +222,7 @@ GLOBAL_LIST_INIT(patreon_etoken_values, list(
 	var/month_number = text2num(time2text(world.time, "MM"))
 	if(event_token_month != month_number)
 		event_token_month = month_number
-		event_tokens = GLOB.patreon_etoken_values[checked_client.player_details.patreon.owned_rank]
+		event_tokens = GLOB.patreon_etoken_values[checked_client.persistent_client.patreon.owned_rank]
 		convert_tokens_to_list()
 
 /datum/meta_token_holder/proc/approve_token_event()
@@ -218,7 +232,7 @@ GLOBAL_LIST_INIT(patreon_etoken_values, list(
 	to_chat(owner, span_boldnicegreen("Your request to trigger [queued_token_event] has been approved."))
 	logger.Log(LOG_CATEGORY_META, "[owner]'s event token for [queued_token_event] has been approved.")
 	adjust_event_tokens(-queued_token_event.token_cost)
-	SStwitch.add_to_queue(initial(queued_token_event.id_tag))
+	SStwitch.add_to_queue(initial(queued_token_event.id_tag), owner.key)
 	queued_token_event = null
 	if(event_timeout)
 		deltimer(event_timeout)
@@ -244,3 +258,18 @@ GLOBAL_LIST_INIT(patreon_etoken_values, list(
 	SEND_SOUND(owner, sound('sound/misc/compiler-failure.ogg', volume = 50))
 	queued_token_event = null
 	event_timeout = null
+
+/datum/meta_token_holder/vv_edit_var(var_name, var_value)
+	. = ..()
+	if(!.)
+		return
+	if(var_name in list(
+		NAMEOF(src, total_low_threat_tokens),
+		NAMEOF(src, total_medium_threat_tokens),
+		NAMEOF(src, total_high_threat_tokens),
+		NAMEOF(src, event_tokens),
+		NAMEOF(src, event_token_month),
+		NAMEOF(src, donator_token),
+		NAMEOF(src, token_month),
+	))
+		convert_tokens_to_list()

@@ -58,5 +58,18 @@
 	starting_programs = list()
 
 /obj/item/modular_computer/pda/heads/ntrep
-	name = "Nanotransen Representative's PDA"
+	name = "Nanotrasen Representative's PDA"
 	inserted_item = /obj/item/pen/fountain
+	starting_programs = list(
+		/datum/computer_file/program/crew_manifest,
+		/datum/computer_file/program/status,
+		/datum/computer_file/program/nt_rep_comments,
+		/datum/computer_file/program/science,
+		/datum/computer_file/program/robocontrol,
+		/datum/computer_file/program/budgetorders,
+	)
+
+/obj/item/modular_computer/pda/xenobiologist
+	name = "xenobiologist PDA"
+	greyscale_config = /datum/greyscale_config/tablet/stripe_thick
+	greyscale_colors = "#FAFAFA#000099#FF66CC"

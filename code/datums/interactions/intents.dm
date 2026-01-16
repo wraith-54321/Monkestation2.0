@@ -10,12 +10,17 @@
 
 	if(LAZYACCESS(modifiers, RIGHT_CLICK))
 		M.istate = ISTATE_SECONDARY
+	if(LAZYACCESS(modifiers, CTRL_CLICK))
+		M.istate = ISTATE_CONTROL
 
 	switch (intent)
 		if (INTENT_DISARM)
 			M.istate |= ISTATE_SECONDARY
+			M.istate |= ISTATE_HARM
+			M.istate |= ISTATE_BLOCKING
 		if (INTENT_GRAB)
 			M.istate |= ISTATE_CONTROL
+			M.istate |= ISTATE_HARM
 			M.istate |= ISTATE_BLOCKING
 		if (INTENT_HARM)
 			M.istate |= ISTATE_HARM
@@ -29,8 +34,7 @@
 /datum/interaction_mode/intents3/procure_hud(mob/M, datum/hud/H)
 	if (!M.hud_used?.has_interaction_ui)
 		return
-	var/atom/movable/screen/act_intent3/AI = new
-	AI.hud = H
+	var/atom/movable/screen/act_intent3/AI = new(null, H)
 	AI.intents = src
 	UI = AI
 	return AI

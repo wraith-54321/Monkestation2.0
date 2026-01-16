@@ -108,6 +108,7 @@
 		jostle_chance = jostle_chance,\
 		jostle_pain_mult = jostle_pain_mult,\
 		pain_stam_pct = pain_stam_pct)
+	SEND_SIGNAL(victim, COMSIG_CARBON_EMBED_ADDED, weapon, limb)
 
 ///A different embed element has been attached, so we'll detach and let them handle things
 /datum/element/embed/proc/severancePackage(obj/weapon, datum/element/E)
@@ -194,6 +195,11 @@
 /datum/element/embed/proc/roll_embed_chance(obj/item/embedding_item, mob/living/victim, hit_zone, datum/thrownthing/throwingdatum)
 	var/actual_chance = embed_chance
 
+	// MONKESTATION ADDITION START
+	if(HAS_TRAIT(victim, TRAIT_EMBED_RESISTANCE))
+		if(prob(50))
+			return FALSE
+	// MONKESTATION ADDITION END
 	if(throwingdatum?.speed > embedding_item.throw_speed)
 		actual_chance += (throwingdatum.speed - embedding_item.throw_speed) * EMBED_CHANCE_SPEED_BONUS
 

@@ -39,21 +39,19 @@
 
 /obj/machinery/computer/telecomms/traffic/Initialize(mapload)
 	..()
-	GLOB.traffic_comps += src
 	if(length(GLOB.pretty_filter_items) == 0)
 		setup_pretty_filter()
 	if(mapload)
 		unlimited_range = TRUE
 	return INITIALIZE_HINT_LATELOAD
 
-/obj/machinery/computer/telecomms/traffic/LateInitialize()
+/obj/machinery/computer/telecomms/traffic/LateInitialize(mapload_arg)
 	. = ..()
 	refresh_servers()
 	for(var/obj/machinery/telecomms/server/new_server in servers)
 		new_server.autoruncode = TRUE
 
 /obj/machinery/computer/telecomms/traffic/Destroy()
-	GLOB.traffic_comps -= src
 	servers = null
 	if(!isnull(inserted_id))
 		inserted_id.forceMove(drop_location())
@@ -111,7 +109,7 @@
 		refresh_servers()
 		for(var/obj/machinery/telecomms/server/server as anything in servers)
 			server.rawcode = "def process_signal(sig){ return sig;" // bare minimum
-		qdel(compiler_output)
+		compiler_output.Cut()
 		compiler_output = compile_all(usr)
 		var/message = "[key_name_admin(usr)] has completelly cleared the NTSL console of code and re-compiled as an admin, this should only be done in severe rule infractions."
 		message_admins(message)
@@ -132,15 +130,16 @@
 			return TRUE
 		if("save_code")
 			storedcode = params["saved_code"]
+			compiler_output += "Code saved"
 			return TRUE
 		if("compile_code")
 			if(!user_name)
 				message_admins("[key_name_admin(usr)] attempted compiling NTSL without being logged in.") // tell admins that someone tried a javascript injection
 				return
 			for(var/obj/machinery/telecomms/server/server as anything in servers)
-				if(storedcode && istext(storedcode))
+				if(istext(storedcode))
 					server.rawcode = storedcode
-			qdel(compiler_output)
+			compiler_output.Cut()
 			compiler_output = compile_all(usr)
 			return TRUE
 		if("set_network")
@@ -150,7 +149,7 @@
 			return TRUE
 		if("log_in")
 			var/mob/living/usr_mob = usr
-			if(usr_mob.has_unlimited_silicon_privilege)
+			if(HAS_SILICON_ACCESS(usr_mob))
 				user_name = "System Administrator"
 			else if(check_access(inserted_id))
 				user_name = "[inserted_id?.registered_name] ([inserted_id?.assignment])"
@@ -177,7 +176,7 @@
 
 /obj/machinery/computer/telecomms/traffic/proc/refresh_servers()
 	servers.Cut()
-	for(var/obj/machinery/telecomms/server/new_server as anything in GLOB.tcomms_servers)
+	for(var/obj/machinery/telecomms/server/new_server as anything in SSmachines.get_machines_by_type_and_subtypes(/obj/machinery/telecomms/server))
 		if(new_server.network != network)
 			continue
 		if(!unlimited_range && get_dist(src, new_server) > 15)
@@ -219,9 +218,9 @@
 	playsound(src.loc, 'sound/effects/sparks4.ogg', 75, 1)
 	to_chat(user, span_notice("You bypass the console's security protocols."))
 
-/obj/machinery/computer/telecomms/traffic/AltClick(mob/user)
-	if(!user.can_perform_action(src, NEED_DEXTERITY) || !iscarbon(user))
-		return
+/obj/machinery/computer/telecomms/traffic/click_alt(mob/user)
+	if(!iscarbon(user))
+		return CLICK_ACTION_BLOCKING
 
 	var/mob/living/carbon/carbon_user = user
 	if(inserted_id)
@@ -229,3 +228,4 @@
 		inserted_id.forceMove(drop_location())
 		carbon_user.put_in_hands(inserted_id)
 		inserted_id = null
+	return CLICK_ACTION_SUCCESS

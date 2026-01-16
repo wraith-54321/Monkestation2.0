@@ -8,23 +8,61 @@
 	foodtypes = MEAT | SUGAR
 	food_flags = FOOD_FINGER_FOOD
 	w_class = WEIGHT_CLASS_TINY
+	/// The mob typepath to spawn when hydrated.
 	var/spawned_mob = /mob/living/carbon/human/species/monkey
+	/// The mob typepath to spawn if the cube has been shaken.
+	var/shaken_mob = /mob/living/carbon/human/species/monkey/angry/nohelmet
+	/// Whether we've been wetted and are expanding.
+	var/expanding = FALSE
+
+
+/obj/item/food/monkeycube/attack_self(mob/user, modifiers)
+	if(isnull(shaken_mob) || !ispath(shaken_mob, spawned_mob)) // just gonna always assume shaken_mob will be a subtype of spawned_mob
+		return
+	if(spawned_mob == shaken_mob)
+		user.balloon_alert(user, "already shaken!")
+		return
+	spawned_mob = shaken_mob
+	user.balloon_alert_to_viewers("shakes \the [src]!")
+	playsound(src, 'sound/effects/can_shake.ogg', vol = 40, vary = TRUE)
+	user.log_message("shook [src], agitating [spawned_mob] into [shaken_mob]", LOG_ATTACK)
 
 /obj/item/food/monkeycube/proc/Expand()
+	if(expanding)
+		return
+
+	expanding = TRUE
+
+	if(ismob(loc))
+		var/mob/holder = loc
+		holder.dropItemToGround(src)
+
 	var/mob/spammer = get_mob_by_key(fingerprintslast)
-	var/mob/living/bananas 
-	if(spawned_mob == /mob/living/carbon/human/species/monkey)
+
+	var/mob/living/bananas
+	if(ispath(spawned_mob, /mob/living/carbon/human/species/monkey))
 		bananas = new spawned_mob(drop_location(), TRUE, spammer)
-	else 
+	else
 		bananas = new spawned_mob(drop_location())
-	if(faction)
-		bananas.faction = faction
+
 	if (!QDELETED(bananas))
+		if(faction)
+			bananas.faction = faction
+
 		visible_message(span_notice("[src] expands!"))
 		bananas.log_message("spawned via [src], Last attached mob: [key_name(spammer)].", LOG_ATTACK)
+
+		var/alpha_to = bananas.alpha
+		var/matrix/scale_to = matrix(bananas.transform)
+		bananas.alpha = 0
+		bananas.transform = bananas.transform.Scale(0.1)
+		animate(bananas, 0.5 SECONDS, alpha = alpha_to, transform = scale_to, easing = QUAD_EASING|EASE_OUT)
+
 	else if (!spammer) // Visible message in case there are no fingerprints
 		visible_message(span_notice("[src] fails to expand!"))
-	qdel(src)
+		return
+
+	QDEL_IN(src, 0.5 SECONDS)
 
 /obj/item/food/monkeycube/suicide_act(mob/living/user)
 	user.visible_message(span_suicide("[user] is putting [src] in [user.p_their()] mouth! It looks like [user.p_theyre()] trying to commit suicide!"))
@@ -89,3 +127,23 @@
 	)
 	tastes = list("buzzing" = 1, "honey" = 1, "regret" = 1)
 	spawned_mob = /mob/living/basic/bee
+
+/obj/item/food/monkeycube/cow
+	name = "Cow cube"
+	desc = "Because not all ethical committees agree with eating chimpanzee."
+	bite_consumption = 20
+	food_reagents = list(
+		/datum/reagent/consumable/nutriment/protein = 30
+	)
+	tastes = list("Leather" = 1, "Beef" = 1, "Jerky" = 1)
+	spawned_mob = /mob/living/basic/cow
+
+/obj/item/food/monkeycube/pig
+	name = "Pig cube"
+	desc = "A whole new way to bring home the bacon"
+	bite_consumption = 20
+	food_reagents = list(
+		/datum/reagent/consumable/nutriment = 30
+	)
+	tastes = list("Pork" = 1, "Batons" =1)
+	spawned_mob = /mob/living/basic/pig

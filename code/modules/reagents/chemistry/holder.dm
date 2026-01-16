@@ -1224,7 +1224,7 @@
 	//If the reaction pollutes, pollute it here if we have an atom
 	if(selected_reaction.pollutant_type && my_atom)
 		var/turf/my_turf = get_turf(my_atom)
-		my_turf.pollute_turf(selected_reaction.pollutant_type, selected_reaction.pollutant_amount * multiplier)
+		my_turf?.pollute_turf(selected_reaction.pollutant_type, selected_reaction.pollutant_amount * multiplier)
 
 	selected_reaction.on_reaction(src, null, multiplier)
 	selected_reaction.reaction_finish(src, null, multiplier)
@@ -1563,7 +1563,7 @@ monkestation end */
 
 	for(var/reagent_type in external_list)
 		var/list/qualities = external_list[reagent_type]
-		data += "[reagent_type] ([round(qualities[REAGENT_TRANSFER_AMOUNT], 0.1)]u, [qualities[REAGENT_PURITY]] purity)"
+		data += "[reagent_type] ([round(qualities[REAGENT_TRANSFER_AMOUNT], 0.1)]u)"
 
 	return english_list(data)
 
@@ -1580,7 +1580,7 @@ monkestation end */
 	var/list/data = list()
 
 	for(var/datum/reagent/reagent as anything in reagent_list)
-		data += "[reagent.type] ([round(reagent.volume, 0.1)]u, [reagent.purity] purity)"
+		data += "[reagent.type] ([round(reagent.volume, 0.1)]u)"
 
 	return english_list(data)
 

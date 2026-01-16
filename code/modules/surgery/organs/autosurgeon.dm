@@ -8,7 +8,7 @@
 	w_class = WEIGHT_CLASS_SMALL
 
 	/// How many times you can use the autosurgeon before it becomes useless
-	var/uses = INFINITE
+	var/uses = INFINITY
 	/// What organ will the autosurgeon sub-type will start with. ie, CMO autosurgeon start with a medi-hud.
 	var/starting_organ
 	/// The organ currently loaded in the autosurgeon, ready to be implanted.
@@ -40,11 +40,11 @@
 			to_chat(user, span_alert("[src] already has an implant stored."))
 			return
 
-		if(uses == 0)
+		if(uses <= 0)
 			to_chat(user, span_alert("[src] is used up and cannot be loaded with more implants."))
 			return
 
-		if(organ_whitelist.len)
+		if(length(organ_whitelist))
 			var/organ_whitelisted
 			for(var/whitelisted_organ in organ_whitelist)
 				if(istype(loaded_organ, whitelisted_organ))
@@ -73,6 +73,10 @@
 		to_chat(user, span_alert("[src] has already been used. The tools are dull and won't reactivate."))
 		return
 
+	if(!iscarbon(target))
+		to_chat(user, span_alert("[target] cannot be implanted."))
+		return
+
 	if(implant_time)
 		user.visible_message( "[user] prepares to use [src] on [target].", "You begin to prepare to use [src] on [target].")
 		if(!do_after(user, (8 SECONDS * surgery_speed), target))
@@ -90,9 +94,8 @@
 	playsound(target.loc, 'sound/weapons/circsawhit.ogg', 50, vary = TRUE)
 	update_appearance()
 
-	if(uses)
-		uses--
-	if(uses == 0)
+	uses--
+	if(uses <= 0)
 		desc = "[initial(desc)] Looks like it's been used up."
 
 /obj/item/autosurgeon/attack_self(mob/user)//when the object it used...
@@ -102,7 +105,7 @@
 	add_fingerprint(user)
 	use_autosurgeon(target, user, 8 SECONDS)
 
-/obj/item/autosurgeon/attackby(obj/item/attacking_item, mob/user, params)
+/obj/item/autosurgeon/attackby(obj/item/attacking_item, mob/user, list/modifiers, list/attack_modifiers)
 	if(isorgan(attacking_item))
 		load_organ(attacking_item, user)
 	else
@@ -123,9 +126,8 @@
 			stored_organ = null
 
 		screwtool.play_tool_sound(src)
-		if (uses)
-			uses--
-		if(!uses)
+		uses--
+		if(uses <= 0)
 			desc = "[initial(desc)] Looks like it's been used up."
 		update_appearance(UPDATE_ICON)
 	return TRUE
@@ -135,6 +137,12 @@
 	desc = "A single use autosurgeon that contains a medical heads-up display augment. A screwdriver can be used to remove it, but implants can't be placed back in."
 	uses = 1
 	starting_organ = /obj/item/organ/internal/cyberimp/eyes/hud/medical
+
+/obj/item/autosurgeon/perfect_serverlink
+	name = "autosurgeon"
+	desc = "A single use autosurgeon that contains an advanced serverlink augment. A screwdriver can be used to remove it, but implants can't be placed back in."
+	uses = 1
+	starting_organ = /obj/item/organ/internal/cyberimp/brain/linked_surgery/perfect/nt
 
 // monkestation edit start
 /obj/item/autosurgeon/security_hud
@@ -156,10 +164,12 @@
 	starting_organ = /obj/item/organ/internal/cyberimp/arm/item_set/gun/laser
 
 /obj/item/autosurgeon/syndicate/thermal_eyes
-	starting_organ = /obj/item/organ/internal/eyes/robotic/thermals
+	desc = "A single use autosurgeon that contains a pair of upgraded thermal eyes. A screwdriver can be used to remove it, but implants can't be placed back in."
+	starting_organ = /obj/item/organ/internal/eyes/robotic/thermals/syndicate
+	uses = 1
 
 /obj/item/autosurgeon/syndicate/xray_eyes
-	starting_organ = /obj/item/organ/internal/eyes/robotic/xray
+	starting_organ = /obj/item/organ/internal/eyes/robotic/xray/syndicate
 
 /obj/item/autosurgeon/syndicate/anti_stun //monkestation edit start: Syndicate cybernetics
 	starting_organ = /obj/item/organ/internal/cyberimp/brain/anti_stun/syndicate

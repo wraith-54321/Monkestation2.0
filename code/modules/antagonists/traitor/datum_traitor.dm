@@ -16,6 +16,9 @@
 	preview_outfit = /datum/outfit/traitor
 	can_assign_self_objectives = TRUE
 	default_custom_objective = "Perform an overcomplicated heist on valuable Nanotrasen assets."
+	hardcore_random_bonus = TRUE
+	stinger_sound = 'sound/ambience/antag/tatoralert.ogg'
+	antag_count_points = 8 //gains more points the more objectives they complete, should also add this to things like heretics
 	var/give_objectives = TRUE
 	/// Whether to give secondary objectives to the traitor, which aren't necessary but can be completed for a progression and TC boost.
 	var/give_secondary_objectives = TRUE
@@ -41,7 +44,8 @@
 	/// The uplink handler that this traitor belongs to.
 	var/datum/uplink_handler/uplink_handler
 
-	var/uplink_sale_count = 3
+	var/uplink_sales_min = 4
+	var/uplink_sales_max = 6
 
 	///the final objective the traitor has to accomplish, be it escaping, hijacking, or just martyrdom.
 	var/datum/objective/ending_objective
@@ -94,14 +98,14 @@
 
 		var/list/uplink_items = list()
 		for(var/datum/uplink_item/item as anything in SStraitor.uplink_items)
-			if(item.item && !item.cant_discount && (item.purchasable_from & uplink_handler.uplink_flag) && item.cost > 1)
+			if(item.item && !item.cant_discount && (item.purchasable_from & uplink_handler.uplink_flag) && item.cost >= TRAITOR_DISCOUNT_MIN_PRICE)
 				if(!length(item.restricted_roles) && !length(item.restricted_species))
 					uplink_items += item
 					continue
 				if((uplink_handler.assigned_role in item.restricted_roles) || (uplink_handler.assigned_species in item.restricted_species))
 					uplink_items += item
 					continue
-		uplink_handler.extra_purchasable += create_uplink_sales(uplink_sale_count, /datum/uplink_category/discounts, 5, uplink_items) //monkestation edit: from 1 stock to 5
+		uplink_handler.extra_purchasable += create_uplink_sales(rand(uplink_sales_min, uplink_sales_max), /datum/uplink_category/discounts, 5, uplink_items) //monkestation edit: from 1 stock to 5
 
 	if(give_objectives)
 		forge_traitor_objectives()
@@ -111,8 +115,6 @@
 
 	owner.teach_crafting_recipe(/datum/crafting_recipe/syndicate_uplink_beacon)
 
-	owner.current.playsound_local(get_turf(owner.current), 'sound/ambience/antag/tatoralert.ogg', 100, FALSE, pressure_affected = FALSE, use_reverb = FALSE)
-
 	return ..()
 
 /datum/antagonist/traitor/on_removal()
@@ -120,6 +122,9 @@
 		uplink_handler.has_objectives = FALSE
 		uplink_handler.can_replace_objectives = null
 		uplink_handler.replace_objectives = null
+	owner.take_uplink()
+	owner.special_role = null
+	owner.forget_crafting_recipe(/datum/crafting_recipe/syndicate_uplink_beacon)
 	return ..()
 
 /datum/antagonist/traitor/proc/traitor_objective_to_html(datum/traitor_objective/to_display)
@@ -178,11 +183,6 @@
 /datum/antagonist/traitor/proc/generate_replacement_codes()
 	replacement_uplink_code = "[pick(GLOB.phonetic_alphabet)] [rand(10,99)]"
 	replacement_uplink_frequency = sanitize_frequency(rand(MIN_UNUSED_FREQ, MAX_FREQ), free = FALSE, syndie = FALSE)
-
-/datum/antagonist/traitor/on_removal()
-	owner.special_role = null
-	owner.forget_crafting_recipe(/datum/crafting_recipe/syndicate_uplink_beacon)
-	return ..()
 
 /datum/antagonist/traitor/proc/pick_employer()
 	var/faction = prob(75) ? FLAVOR_FACTION_SYNDICATE : FLAVOR_FACTION_NANOTRASEN
@@ -278,7 +278,7 @@
 	handle_clown_mutation(datum_owner, mob_override ? null : "Your training has allowed you to overcome your clownish nature, allowing you to wield weapons without harming yourself.")
 	if(should_give_codewords)
 		datum_owner.AddComponent(/datum/component/codeword_hearing, GLOB.syndicate_code_phrase_regex, "blue", src)
-		datum_owner.AddComponent(/datum/component/codeword_hearing, GLOB.syndicate_code_response_regex, "red", src)
+		datum_owner.AddComponent(/datum/component/codeword_hearing, GLOB.syndicate_code_response_regex, "orange", src)
 
 /datum/antagonist/traitor/remove_innate_effects(mob/living/mob_override)
 	. = ..()
@@ -380,8 +380,8 @@
 	var/phrases = jointext(GLOB.syndicate_code_phrase, ", ")
 	var/responses = jointext(GLOB.syndicate_code_response, ", ")
 
-	var/message = "<br><b>The code phrases were:</b> <span class='bluetext'>[phrases]</span><br>\
-					<b>The code responses were:</b> [span_redtext("[responses]")]<br>"
+	var/message = "<br><b>The code phrases were:</b> [span_blue("[phrases]")]<br>\
+					<b>The code responses were:</b> [span_orange("[responses]")]<br>"
 
 	return message
 

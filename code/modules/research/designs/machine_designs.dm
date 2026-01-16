@@ -132,7 +132,7 @@
 	category = list(
 		RND_CATEGORY_MACHINE + RND_SUBCATEGORY_MACHINE_TELEPORT
 	)
-	departmental_flags = DEPARTMENT_BITFLAG_ENGINEERING | DEPARTMENT_BITFLAG_SCIENCE
+	departmental_flags = DEPARTMENT_BITFLAG_ENGINEERING | DEPARTMENT_BITFLAG_SCIENCE | DEPARTMENT_BITFLAG_CARGO
 
 /datum/design/board/botpad
 	name = "Bot launchpad" // Monkesation edit:
@@ -486,7 +486,7 @@
 	name = "DNA Console Board"
 	desc = "Allows for the construction of circuit boards used to build a new DNA console."
 	id = "scan_console"
-	build_path = /obj/item/circuitboard/computer/scan_consolenew
+	build_path = /obj/item/circuitboard/computer/dna_console
 	category = list(
 		RND_CATEGORY_COMPUTER + RND_SUBCATEGORY_COMPUTER_GENETICS // Monkestation edit:
 	)
@@ -542,6 +542,16 @@
 	)
 	departmental_flags = DEPARTMENT_BITFLAG_SERVICE | DEPARTMENT_BITFLAG_ENGINEERING //Monkestation edit: Engi circuit
 
+/datum/design/board/microwave_engineering
+	name = "Wireless Microwave Board"
+	desc = "The circuit board for a cell-powered microwave."
+	id = "microwave_engineering"
+	build_path = /obj/item/circuitboard/machine/microwave/engineering
+	category = list(
+		RND_CATEGORY_MACHINE + RND_SUBCATEGORY_MACHINE_KITCHEN
+	)
+	departmental_flags = DEPARTMENT_BITFLAG_SERVICE | DEPARTMENT_BITFLAG_ENGINEERING
+
 /datum/design/board/gibber
 	name = "Gibber Board"
 	desc = "The circuit board for a gibber."
@@ -573,8 +583,8 @@
 	departmental_flags = DEPARTMENT_BITFLAG_SERVICE | DEPARTMENT_BITFLAG_ENGINEERING //Monkestation edit: Engi circuit
 
 /datum/design/board/processor
-	name = "Food/Slime Processor Board"
-	desc = "The circuit board for a processing unit. Screwdriver the circuit to switch between food (default) or slime processing."
+	name = "Food Processor Board"
+	desc = "The circuit board for a food processing unit."
 	id = "processor"
 	build_path = /obj/item/circuitboard/machine/processor
 	category = list(
@@ -1157,6 +1167,16 @@
 	)
 	departmental_flags = DEPARTMENT_BITFLAG_SCIENCE | DEPARTMENT_BITFLAG_ENGINEERING //Monkestation edit: Engi circuit
 
+/datum/design/board/artifact_zapper
+	name = "Artifact Zapper Board"
+	desc = "The circuit board for a machine designed to induce electric current in artifacts"
+	id = "artifact_zapper"
+	build_path = /obj/item/circuitboard/machine/artifactzapper
+	category = list(
+		RND_CATEGORY_MACHINE + RND_SUBCATEGORY_MACHINE_RESEARCH
+	)
+	departmental_flags = DEPARTMENT_BITFLAG_SCIENCE | DEPARTMENT_BITFLAG_ENGINEERING //Monkestation edit: Engi circuit
+
 /datum/design/board/fishing_portal_generator
 	name = "Fishing Portal Generator Board"
 	desc = "The circuit board for the fishing portal generator"
@@ -1166,3 +1186,44 @@
 		RND_CATEGORY_MACHINE + RND_SUBCATEGORY_MACHINE_SERVICE
 	)
 	departmental_flags = DEPARTMENT_BITFLAG_SERVICE | DEPARTMENT_BITFLAG_CARGO | DEPARTMENT_BITFLAG_SCIENCE | DEPARTMENT_BITFLAG_ENGINEERING //Monkestation edit: Engi circuit
+
+/datum/design/board/scrubber
+	name = "Portable Air Scrubber Board"
+	desc = "The circuit board for a portable air scrubber."
+	id = "scrubber"
+	build_path = /obj/item/circuitboard/machine/scrubber
+	category = list(
+		RND_CATEGORY_MACHINE + RND_SUBCATEGORY_MACHINE_ATMOS
+	)
+	departmental_flags = DEPARTMENT_BITFLAG_SCIENCE | DEPARTMENT_BITFLAG_ENGINEERING
+
+/datum/design/board/pump
+	name = "Portable Air Pump Board"
+	desc = "The circuit board for a portable air pump."
+	id = "pump"
+	build_path = /obj/item/circuitboard/machine/pump
+	category = list(
+		RND_CATEGORY_MACHINE + RND_SUBCATEGORY_MACHINE_ATMOS
+	)
+	departmental_flags = DEPARTMENT_BITFLAG_SCIENCE | DEPARTMENT_BITFLAG_ENGINEERING
+
+/datum/design/board/pipe_scrubber
+	name = "Portable Pipe Scrubber Board"
+	desc = "The circuit board for a portable pipe scrubber."
+	id = "pipe_scrubber"
+	build_path = /obj/item/circuitboard/machine/pipe_scrubber
+	category = list(
+		RND_CATEGORY_MACHINE + RND_SUBCATEGORY_MACHINE_ATMOS
+	)
+	departmental_flags = DEPARTMENT_BITFLAG_SCIENCE | DEPARTMENT_BITFLAG_ENGINEERING
+
+/datum/design/board/station_map
+	name = "Station Map Board"
+	desc = "The circuit board for a station map Screen."
+	id = "station_map"
+	build_path = /obj/item/circuitboard/machine/station_map
+	category = list(
+		RND_CATEGORY_MACHINE + RND_SUBCATEGORY_MACHINE_ENGINEERING
+	)
+	departmental_flags = DEPARTMENT_BITFLAG_SCIENCE | DEPARTMENT_BITFLAG_ENGINEERING
+

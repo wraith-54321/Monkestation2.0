@@ -67,17 +67,17 @@
 	icon_state = "[base_icon_state]-[state_open]"
 	return ..()
 
-/obj/machinery/artifact_xray/AltClick(mob/user)
-	. = ..()
-	if(!can_interact(user))
-		return
+/obj/machinery/artifact_xray/click_alt(mob/user)
 	if(our_disk)
 		to_chat(user,"You eject the [our_disk.name]")
 		if(!user.put_in_active_hand(our_disk))
 			our_disk.forceMove(get_turf(user))
 		our_disk = null
-		return
+		return CLICK_ACTION_SUCCESS
+
 	toggle_open()
+	return CLICK_ACTION_SUCCESS
+
 /obj/machinery/artifact_xray/proc/toggle_open()
 	if(!COOLDOWN_FINISHED(src,pulse_cooldown))
 		return
@@ -168,7 +168,7 @@
 		if(artifact.chosen_fault)
 			last_results = list("ARTIFACT FAULT DISCOVERED: [artifact.chosen_fault.name]", "SIZE: [artifact.artifact_size < ARTIFACT_SIZE_LARGE ? "SMALL" : "LARGE" ]")
 		else
-			research_added += 2500
+			research_added += TECHWEB_TIER_1_POINTS
 			last_results = list("FLAWLESS ARTIFACT. NO FAULTS.", "SIZE: [artifact.artifact_size < ARTIFACT_SIZE_LARGE ? "SMALL" : "LARGE" ]")
 		if(length(artifact.discovered_effects) != length(artifact.artifact_effects))
 			for(var/datum/artifact_effect/eff in artifact.artifact_effects)
@@ -241,15 +241,15 @@
 
 /obj/machinery/artifact_xray/wrench_act(mob/living/user, obj/item/tool)
 	if(pulsing)
-		return TOOL_ACT_SIGNAL_BLOCKING
+		return ITEM_INTERACT_BLOCKING
 	destroy_artifact_mode = !destroy_artifact_mode
 	var/modestring = destroy_artifact_mode ? "DESTRUCTIVE SCAN" : "NON-DESTRUCTIVE SCAN"
 	to_chat(user,span_notice("[src] switched to [modestring] mode."))
-	return TOOL_ACT_MELEE_CHAIN_BLOCKING
+	return ITEM_INTERACT_BLOCKING
 
 
 /obj/machinery/artifact_xray/screwdriver_act(mob/living/user, obj/item/tool)
-	return pulsing ? TOOL_ACT_SIGNAL_BLOCKING : default_deconstruction_screwdriver(user, "xray-maint", "xray-1", tool)
+	return pulsing ? ITEM_INTERACT_BLOCKING : default_deconstruction_screwdriver(user, "xray-maint", "xray-1", tool)
 
 /obj/machinery/artifact_xray/crowbar_act(mob/living/user, obj/item/tool)
-	return pulsing ? TOOL_ACT_SIGNAL_BLOCKING : default_deconstruction_crowbar(tool)
+	return pulsing ? ITEM_INTERACT_BLOCKING : default_deconstruction_crowbar(tool)

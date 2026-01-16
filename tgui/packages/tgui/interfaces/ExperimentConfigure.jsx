@@ -9,6 +9,7 @@ import {
   LabeledList,
   Table,
   Tooltip,
+  Stack,
 } from '../components';
 import { sortBy } from 'common/collections';
 
@@ -122,7 +123,7 @@ export const ExperimentConfigure = (props) => {
   });
 
   return (
-    <Window resizable width={600} height={735}>
+    <Window width={600} height={735}>
       <Window.Content>
         <Flex direction="column" height="100%">
           <Flex.Item mb={1}>
@@ -140,10 +141,7 @@ export const ExperimentConfigure = (props) => {
           </Flex.Item>
           <Flex.Item mb={has_start_callback ? 1 : 0} grow={1}>
             {techwebs.some((e) => e.selected) && (
-              <Section
-                title="Experiments"
-                className="ExperimentConfigure__ExperimentsContainer"
-              >
+              <Section title="Experiments" scrollable fill>
                 <Flex.Item mb={1}>
                   {(experiments.length &&
                     always_active &&
@@ -196,22 +194,24 @@ export const Experiment = (props) => {
             : act('select_experiment', { ref: ref })
         }
         backgroundColor={selected ? 'good' : '#40628a'}
-        className="ExperimentConfigure__ExperimentName"
+        bold
+        style={{ borderRadius: 0 }}
       >
-        <Flex align="center" justify="space-between">
-          <Flex.Item color={'white'}>{name}</Flex.Item>
-          <Flex.Item color={'rgba(255, 255, 255, 0.5)'}>
-            <Box className="ExperimentConfigure__TagContainer">
-              {tag}
-              <Tooltip content={performance_hint} position="bottom-start">
-                <Icon name="question-circle" mx={0.5} />
-                <Box className="ExperimentConfigure__PerformanceHint" />
-              </Tooltip>
-            </Box>
-          </Flex.Item>
-        </Flex>
+        <Stack align="center" justify="space-between">
+          <Stack.Item color="white">{name}</Stack.Item>
+          <Stack.Item color="rgba(255, 255, 255, 0.5)">
+            <Stack>
+              <Stack.Item grow>{tag}</Stack.Item>
+              <Stack.Item>
+                <Tooltip content={performance_hint} position="bottom-start">
+                  <Icon name="question-circle" mx={0.5} />
+                </Tooltip>
+              </Stack.Item>
+            </Stack>
+          </Stack.Item>
+        </Stack>
       </Button>
-      <Box className={'ExperimentConfigure__ExperimentContent'}>
+      <Box className="ExperimentConfigure__ExperimentContent">
         <Box mb={1}>{description}</Box>
         {props.children}
         <ExperimentStages>{progress}</ExperimentStages>

@@ -10,12 +10,12 @@
 		return ELEMENT_INCOMPATIBLE
 
 	src.required_temp = required_temp
-	RegisterSignal(target, COMSIG_ATOM_ATTACKBY, PROC_REF(attackby_react))
-	RegisterSignal(target, COMSIG_ATOM_FIRE_ACT, PROC_REF(flame_react))
-	RegisterSignal(target, COMSIG_ATOM_BULLET_ACT, PROC_REF(projectile_react))
-	RegisterSignal(target, COMSIG_ATOM_TOOL_ACT(TOOL_WELDER), PROC_REF(welder_react))
+	RegisterSignal(target, COMSIG_ATOM_ATTACKBY, PROC_REF(attackby_react), override = TRUE)
+	RegisterSignal(target, COMSIG_ATOM_FIRE_ACT, PROC_REF(flame_react), override = TRUE)
+	RegisterSignal(target, COMSIG_ATOM_BULLET_ACT, PROC_REF(projectile_react), override = TRUE)
+	RegisterSignal(target, COMSIG_ATOM_TOOL_ACT(TOOL_WELDER), PROC_REF(welder_react), override = TRUE)
 	if(isturf(target))
-		RegisterSignal(target, COMSIG_TURF_EXPOSE, PROC_REF(hotspots_react))
+		RegisterSignal(target, COMSIG_TURF_EXPOSE, PROC_REF(hotspots_react), override = TRUE)
 
 /datum/element/easy_ignite/Detach(datum/source, ...)
 	. = ..()
@@ -78,9 +78,7 @@
 /datum/element/easy_ignite/proc/welder_react(obj/item/source, mob/user, obj/item/tool)
 	SIGNAL_HANDLER
 
-	if(tool.get_temperature() && item_ignition(source, tool, user))
-		ignite(source, user)
-		return FALSE
+	item_ignition(source, tool, user)
 
 /datum/element/easy_ignite/proc/item_ignition(obj/item/source, obj/item/tool, mob/user)
 	if(tool.get_temperature() >= required_temp)

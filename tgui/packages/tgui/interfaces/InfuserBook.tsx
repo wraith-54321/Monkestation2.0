@@ -68,7 +68,7 @@ const TIER2TIERDATA: TierData[] = [
   },
 ];
 
-export const InfuserBook = (props, context) => {
+export const InfuserBook = (props) => {
   const { data, act } = useBackend<DnaInfuserData>();
   const { entries } = data;
 
@@ -148,7 +148,9 @@ export const InfuserBook = (props, context) => {
                       key={tabIndex}
                       selected={chapter === tabIndex}
                       onClick={
-                        tabIndex === 4 ? null : () => switchChapter(tabIndex)
+                        tabIndex === 4
+                          ? undefined
+                          : () => switchChapter(tabIndex)
                       }
                     >
                       <Box color={tabIndex === 4 && 'red'}>{tab}</Box>

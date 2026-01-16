@@ -4,9 +4,10 @@
 
 /datum/supply_pack/medical/bloodpacks
 	name = "Blood Pack Variety Crate"
-	desc = "Contains ten different blood packs for reintroducing blood to patients."
-	cost = CARGO_CRATE_VALUE * 7
+	desc = "Contains ten different blood packs for reintroducing blood to patients along with three saline chem packs."
+	cost = CARGO_CRATE_VALUE * 5
 	contains = list(/obj/item/reagent_containers/blood = 2,
+					/obj/item/reagent_containers/chem_pack/saline = 3,
 					/obj/item/reagent_containers/blood/a_plus,
 					/obj/item/reagent_containers/blood/a_minus,
 					/obj/item/reagent_containers/blood/b_plus,
@@ -15,7 +16,8 @@
 					/obj/item/reagent_containers/blood/o_minus,
 					/obj/item/reagent_containers/blood/lizard,
 					/obj/item/reagent_containers/blood/ethereal,
-					/obj/item/reagent_containers/blood/slime
+					/obj/item/reagent_containers/blood/slime,
+					/obj/item/reagent_containers/blood/spider,
 				)
 	crate_name = "blood freezer"
 	crate_type = /obj/structure/closet/crate/freezer
@@ -147,18 +149,9 @@
 	dangerous = TRUE
 End Monkestation Removal*/
 
-/datum/supply_pack/medical/cmoturtlenecks
-	name = "Chief Medical Officer Turtlenecks"
-	desc = "Contains the CMO's turtleneck and turtleneck skirt."
-	cost = CARGO_CRATE_VALUE * 2
-	access = ACCESS_CMO
-	contains = list(/obj/item/clothing/under/rank/medical/chief_medical_officer/turtleneck,
-					/obj/item/clothing/under/rank/medical/chief_medical_officer/turtleneck/skirt,
-				)
-
 /datum/supply_pack/medical/arm_implants
 	name = "Strong-Arm Implant Set"
 	desc = "A crate containing two implants, which can be surgically implanted to empower the strength of human arms. Warranty void if exposed to electromagnetic pulses."
 	cost = CARGO_CRATE_VALUE * 6
-	contains = list(/obj/item/organ/internal/cyberimp/arm/muscle = 2)
+	contains = list(/obj/item/organ/internal/cyberimp/arm/strongarm = 2)
 	crate_name = "Strong-Arm implant crate"

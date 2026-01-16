@@ -19,7 +19,7 @@
 	icon_state = "syndiebox"
 
 /obj/item/storage/box/syndimaid/PopulateContents()
-	var/static/items_inside = list(
+	var/list/items_inside = list(
 		/obj/item/clothing/head/maidheadband/syndicate = 1,
 		/obj/item/clothing/under/syndicate/skirt/maid = 1,
 		/obj/item/clothing/gloves/combat/maid = 1,
@@ -33,7 +33,7 @@
 	icon_state = "syndiebox"
 
 /obj/item/storage/box/syndibunny/PopulateContents()
-	var/static/items_inside = list(
+	var/list/items_inside = list(
 		/obj/item/clothing/head/playbunnyears/syndicate = 1,
 		/obj/item/clothing/under/syndicate/syndibunny = 1,
 		/obj/item/clothing/suit/jacket/tailcoat/syndicate = 1,
@@ -60,7 +60,7 @@
 	new /obj/item/melee/baton/telescopic/contractor_baton(src)
 
 	// You get one item from each sub list
-	var/static/list/item_list = list(
+	var/list/item_list = list(
 		KIT_ITEM_CATEGORY_SUPPORT = list(
 			/obj/item/pen/sleepy,
 			/obj/item/storage/medkit/tactical,
@@ -110,7 +110,7 @@
 
 /obj/item/storage/box/syndie_kit/contract_kit/midround/PopulateContents()
 	// You get one item from each sub list
-	var/static/list/item_list = list(
+	var/list/item_list = list(
 		KIT_ITEM_CATEGORY_SUPPORT = list(
 			/obj/item/pen/sleepy,
 			/obj/item/storage/medkit/tactical,
@@ -166,7 +166,7 @@
 	icon_state = "syndiebox"
 
 /obj/item/storage/box/clonearmy/PopulateContents()
-	var/static/items_inside = list(
+	var/list/items_inside = list(
 		/obj/item/disk/clonearmy = 1,
 		/obj/item/stack/sheet/iron = 15,
 		/obj/item/stack/sheet/glass = 4,
@@ -224,6 +224,34 @@
 /obj/item/storage/box/syndie_kit/khan_package/PopulateContents()
 	new /obj/item/book/granter/martial/the_tunnel_arts(src)
 	new /obj/item/clothing/suit/jacket/det_suit/khan(src)
+
+/obj/item/storage/box/syndie_kit/razorwire/PopulateContents()
+	new /obj/item/autosurgeon/organ/syndicate/razorwire/l(src)
+
+/obj/item/storage/box/syndie_kit/esword/PopulateContents()
+	new /obj/item/autosurgeon/organ/syndicate/esword(src)
+
+/obj/item/storage/box/syndie_kit/deepvien/PopulateContents()
+	new /obj/item/autosurgeon/organ/syndicate/deepvien(src)
+	new /obj/item/autosurgeon/organ/syndicate/deepvien/l(src)
+
+/obj/item/storage/box/syndie_kit/xray
+	name = "X-Ray Mutation Kit"
+	desc = "A box with a singular syndicate-grade X-Ray mutator and 3 oculine medipens."
+
+/obj/item/storage/box/syndie_kit/xray/PopulateContents()
+	new /obj/item/dnainjector/syndicate_xray(src)
+	for(var/i in 1 to 3)
+		new /obj/item/reagent_containers/hypospray/medipen/deforest/occuisate(src)
+
+/obj/item/storage/box/syndie_kit/laser_eyes
+	name = "Laser Eyes Mutation Kit"
+	desc = "A box with a singular syndicate-grade laser eyes mutator and 3 oculine medipens."
+
+/obj/item/storage/box/syndie_kit/laser_eyes/PopulateContents()
+	new /obj/item/dnainjector/syndicate_laser_eyes(src)
+	for(var/i in 1 to 3)
+		new /obj/item/reagent_containers/hypospray/medipen/deforest/occuisate(src)
 
 #undef KIT_ITEM_CATEGORY_SUPPORT
 #undef KIT_ITEM_CATEGORY_WEAPONS

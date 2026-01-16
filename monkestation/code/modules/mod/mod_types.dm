@@ -30,7 +30,8 @@
 	icon = 'monkestation/icons/obj/clothing/modsuits/modsuit.dmi'
 	icon_state = "praetorian-control"
 	theme = /datum/mod_theme/blueshield
-	applied_cell = /obj/item/stock_parts/cell/super
+	starting_frequency = MODLINK_FREQ_NANOTRASEN
+	applied_cell = /obj/item/stock_parts/power_store/cell/super
 	applied_modules = list(
 		/obj/item/mod/module/storage/large_capacity,
 		/obj/item/mod/module/magnetic_harness,
@@ -50,6 +51,7 @@
 
 		/obj/item/mod/module/health_analyzer,
 		/obj/item/mod/module/injector,
+		/obj/item/mod/module/flashlight,
 	)
 
 /obj/item/mod/control/pre_equipped/security

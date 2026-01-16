@@ -52,7 +52,25 @@
 				return
 	if(isnull(expiry))
 		if(tgui_alert(usr, "Set an expiry time? Expired messages are hidden like deleted ones.", "Expiry time?", list("Yes", "No", "Cancel")) == "Yes")
-			var/expire_time = input("Set expiry time for [type] as format YYYY-MM-DD HH:MM:SS. All times in server time. HH:MM:SS is optional and 24-hour. Must be later than current time for obvious reasons.", "Set expiry time", SQLtime()) as null|text
+			var/default_time
+			if(type == "watchlist entry")
+				// stupid snowflake thing to just have "6 months from now" be the default expiration for a watchlist
+				var/current_time = world.realtime
+				var/current_month = text2num(time2text(current_time, "MM"))
+				var/current_year = text2num(time2text(current_time, "YYYY"))
+				var/current_day = min(text2num(time2text(current_time, "DD")), 28) // too lazy to account properly for leap years or whatever so let's just ensure that's never an issue
+
+				var/new_month = current_month + 6
+				var/new_year = current_year
+				if(new_month > 12)
+					new_month -= 12
+					new_year++
+
+				// YYYY-MM-DD
+				default_time = "[new_year]-[new_month < 10 ? "0[new_month]" : "[new_month]"]-[current_day < 10 ? "0[current_day]" : "[current_day]"]"
+			else
+				default_time = SQLtime()
+			var/expire_time = input("Set expiry time for [type] as format YYYY-MM-DD HH:MM:SS. All times in server time. HH:MM:SS is optional and 24-hour. Must be later than current time for obvious reasons.", "Set expiry time", default_time) as null|text
 			if(!expire_time)
 				return
 			var/datum/db_query/query_validate_expire_time = SSdbcore.NewQuery(
@@ -94,7 +112,7 @@
 		VALUES (:type, :target_ckey, :admin_ckey, :text, [timestamp? ":timestamp" : "Now()"], :server, INET_ATON(:internet_address), :port, :round_id, :secret, :expiry, :note_severity, (SELECT `minutes` FROM [format_table_name("role_time")] WHERE `ckey` = :target_ckey AND `job` = 'Living'))
 	"}, parameters)
 	var/pm = "[key_name(usr)] has created a [type][(type == "note" || type == "message" || type == "watchlist entry") ? " for [target_key]" : ""]: [text]"
-	var/header = "[key_name_admin(usr)] has created a [type][(type == "note" || type == "message" || type == "watchlist entry") ? " for [target_key]" : ""]"
+	var/header = "[key_name(usr)] has created a [type][(type == "note" || type == "message" || type == "watchlist entry") ? " for [target_key]" : ""]"
 	if(!query_create_message.warn_execute())
 		qdel(query_create_message)
 		return
@@ -102,7 +120,7 @@
 	if(logged)
 		log_admin_private(pm)
 		message_admins("[header]:<br>[text]")
-		admin_ticket_log(target_ckey, "<font color='blue'>[header]</font><br>[text]")
+		admin_ticket_log(target_ckey, "[header]: [text]")
 		// Monkestation edit start - plexora
 		var/datum/client_interface/mock_player = new(target_ckey)
 		mock_player.prefs = new /datum/preferences(mock_player)

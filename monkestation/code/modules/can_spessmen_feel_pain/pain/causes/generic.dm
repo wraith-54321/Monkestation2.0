@@ -4,15 +4,6 @@
 	if(SPT_PROB(1, seconds_per_tick))
 		owner.cause_pain(BODY_ZONE_HEAD, 10)
 
-// Shocks
-/mob/living/carbon/human/electrocute_act(shock_damage, source, siemens_coeff = 1, flags = NONE)
-	. = ..()
-	if(!.)
-		return
-
-	sharp_pain(BODY_ZONES_ALL, min((. / 2), 25), BURN)
-	set_timed_pain_mod(PAIN_MOD_RECENT_SHOCK, 0.5, 30 SECONDS)
-
 // Fleshmend of course heals pain.
 /datum/status_effect/fleshmend/tick()
 	. = ..()
@@ -45,11 +36,3 @@
 			exposed_carbon.cause_pain(BODY_ZONE_HEAD, 16)
 			exposed_carbon.cause_pain(BODY_ZONE_CHEST, 75)
 			exposed_carbon.cause_pain(list(BODY_ZONE_L_ARM, BODY_ZONE_R_ARM), 30)
-
-/datum/wound/blunt/bone/moderate/chiropractice(mob/living/carbon/human/user)
-	. = ..()
-	user.cause_pain(limb.body_zone, 25)
-
-/datum/wound/blunt/bone/moderate/malpractice(mob/living/carbon/human/user)
-	. = ..()
-	user.cause_pain(limb.body_zone, 40)

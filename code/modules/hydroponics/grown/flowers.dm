@@ -51,7 +51,10 @@
 	seed = /obj/item/seeds/poppy/lily
 	name = "lily"
 	desc = "A beautiful orange flower."
-	greyscale_colors = "#fe881f"
+	icon_state = "lily"
+	greyscale_config = null
+	greyscale_config_worn = null
+	greyscale_colors = null
 
 	//Spacemans's Trumpet
 /obj/item/seeds/poppy/lily/trumpet
@@ -95,13 +98,16 @@
 	species = "geranium"
 	plantname = "Geranium Plants"
 	product = /obj/item/food/grown/poppy/geranium
-	possible_mutations = list(/datum/hydroponics/plant_mutation/fraxinella) //monkestation edit
+	possible_mutations = list(/datum/hydroponics/plant_mutation/fraxinella)
 
 /obj/item/food/grown/poppy/geranium
 	seed = /obj/item/seeds/poppy/geranium
+	icon_state = "geranium"
 	name = "geranium"
 	desc = "A beautiful blue flower."
-	greyscale_colors = "#1499bb"
+	greyscale_config = null
+	greyscale_config_worn = null
+	greyscale_colors = null
 
 ///Fraxinella seeds.
 /obj/item/seeds/poppy/geranium/fraxinella

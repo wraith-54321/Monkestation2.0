@@ -45,11 +45,13 @@ GLOBAL_LIST_INIT(loadout_miscunders, generate_loadout_items(/datum/loadout_item/
 	name = "Random Jumpsuit"
 	item_path = /obj/item/clothing/under/color/random
 	additional_tooltip_contents = list(TOOLTIP_RANDOM_COLOR)
+	preload = FALSE // qdels during init
 
 /datum/loadout_item/under/jumpsuit/random_skirt
 	name = "Random Jumpskirt"
 	item_path = /obj/item/clothing/under/color/jumpskirt/random
 	additional_tooltip_contents = list(TOOLTIP_RANDOM_COLOR)
+	preload = FALSE // qdels during init
 
 /datum/loadout_item/under/jumpsuit/rainbow
 	name = "Rainbow Jumpsuit"
@@ -147,6 +149,31 @@ GLOBAL_LIST_INIT(loadout_miscunders, generate_loadout_items(/datum/loadout_item/
 	name = "Recolorable Plaid Skirt"
 	item_path = /obj/item/clothing/under/dress/skirt/plaid
 
+// So, story time - which should hopefully explain the weird name and why this isn't just called
+// `/datum/loadout_item/under/miscellaneous/turtleneck` like the original.
+//
+// The recolorable turtleneck item used to be a donator exclusive loadout item, granted to
+// TheSpecialSnowflake. However, with TheSpecialSnowflake's permission, this was changed, and the
+// recolorable turtleneck was made available to all.
+//
+// Unfortunately, due to how our loadout system works, there is no way to add an previously donator-
+// -exclusive item to the store, without some donators losing the item in the process.
+//
+// Per CannibalHunter, the choice was made to simply make the nondonator turtleneck a separate
+// loadout item datum, which should hopefully resolve any conflicts.
+/datum/loadout_item/under/miscellaneous/nondonatorturtleneck
+	name = "Recolorable Turtleneck"
+	// This item path is deliberately slightly different from the original. This is because, when
+	// the list of loadout item datums is generated, it uses `item_path` as the key - which means
+	// using the same key as the original would cause a conflict.
+	//
+	// Such a conflict could cause, among other things, the inability for a user to use a
+	// non-donator item (if one of the loadout item datums marks it as donator-only).
+	//
+	// By adding a subtype, the same exact item can have two different loadout item datums, and the
+	// issue is resolved.
+	item_path = /obj/item/clothing/under/costume/donatorgrayscaleturtleneck/nondonator
+
 /datum/loadout_item/under/miscellaneous/skirt_turtleneck
 	name = "Recolorable Turtleneck Skirt"
 	item_path = /obj/item/clothing/under/dress/skirt/turtleskirt
@@ -199,6 +226,11 @@ GLOBAL_LIST_INIT(loadout_miscunders, generate_loadout_items(/datum/loadout_item/
 	name = "Blue PJs"
 	item_path = /obj/item/clothing/under/misc/pj/blue
 
+/datum/loadout_item/under/miscellaneous/jester
+	name = "Jester Suit"
+	item_path = /obj/item/clothing/under/rank/civilian/clown/jester
+	restricted_roles = list(JOB_CLOWN)
+	requires_purchase = FALSE
 
 /datum/loadout_item/under/miscellaneous/maidcostume
 	name = "Maid Costume"
@@ -267,6 +299,10 @@ GLOBAL_LIST_INIT(loadout_miscunders, generate_loadout_items(/datum/loadout_item/
 /datum/loadout_item/under/miscellaneous/bunnysuit
 	name = "Colorable Bunny Suit"
 	item_path = /obj/item/clothing/under/costume/playbunny
+
+/datum/loadout_item/under/miscellaneous/hula
+	name = "Hula Skirt"
+	item_path = /obj/item/clothing/under/dress/hula
 
 /*
 *	FORMAL UNDERSUITS
@@ -419,6 +455,45 @@ GLOBAL_LIST_INIT(loadout_miscunders, generate_loadout_items(/datum/loadout_item/
 	name = "White Suit"
 	item_path = /obj/item/clothing/under/suit/white
 
+/datum/loadout_item/under/formal/butler
+	name = "Butler Uniform"
+	item_path = /obj/item/clothing/under/suit/butler
+
+/datum/loadout_item/under/formal/silk_suit
+	name = "Black Silk Suit"
+	item_path = /obj/item/clothing/under/suit/fancysuit
+
+/datum/loadout_item/under/formal/sparkle_dress
+	name = "Sparkly Ribbon Dress"
+	item_path = /obj/item/clothing/under/dress/sparkle
+
+/datum/loadout_item/under/formal/white_dress
+	name = "Gaudy White Dress"
+	item_path = /obj/item/clothing/under/dress/white
+
+/datum/loadout_item/under/formal/angel
+	name = "Lacey Angel Dress"
+	item_path = /obj/item/clothing/under/dress/angel
+
+/datum/loadout_item/under/formal/devil
+	name = "Lacey Devil Dress"
+	item_path = /obj/item/clothing/under/dress/angel/alt
+
+/datum/loadout_item/under/formal/flowery
+	name = "Perfumed Light Dress"
+	item_path = /obj/item/clothing/under/dress/flowery
+
+/datum/loadout_item/under/formal/starry
+	name = "Starry Dress"
+	item_path = /obj/item/clothing/under/dress/starry
+
+/datum/loadout_item/under/formal/formal_ball
+	name = "Regal Ball Gown"
+	item_path = /obj/item/clothing/under/dress/gown
+
+/datum/loadout_item/under/formal/moonlit
+	name = "Moonlit Gown"
+	item_path = /obj/item/clothing/under/dress/moonlit
 
 /datum/loadout_item/under/formal/trek_command
 	name = "Trekkie Command Uniform"
@@ -502,7 +577,7 @@ GLOBAL_LIST_INIT(loadout_miscunders, generate_loadout_items(/datum/loadout_item/
 /datum/loadout_item/under/formal/constable // added it in cuz someone really wanted it
 	name = "Constable Jumpsuit"
 	item_path = /obj/item/clothing/under/rank/security/constable
-	restricted_roles = list(JOB_SECURITY_ASSISTANT, JOB_BRIG_PHYSICIAN, JOB_SECURITY_OFFICER, JOB_WARDEN, JOB_HEAD_OF_SECURITY)
+	restricted_roles = list(JOB_SECURITY_ASSISTANT, JOB_SECURITY_OFFICER, JOB_WARDEN, JOB_HEAD_OF_SECURITY)
 	requires_purchase = FALSE
 
 
@@ -529,28 +604,10 @@ GLOBAL_LIST_INIT(loadout_miscunders, generate_loadout_items(/datum/loadout_item/
 	restricted_roles = list(JOB_HEAD_OF_PERSONNEL)
 	requires_purchase = FALSE
 
-/datum/loadout_item/under/jumpsuit/imphos
-	name = "Head of Security's Naval Uniform"
-	item_path = /obj/item/clothing/under/rank/security/head_of_security/nova/imperial
-	restricted_roles = list(JOB_HEAD_OF_SECURITY)
-	requires_purchase = FALSE
-
-/datum/loadout_item/under/jumpsuit/impcmo
-	name = "Chief Medical Officer's Naval Uniform"
-	item_path = /obj/item/clothing/under/rank/medical/chief_medical_officer/nova/imperial
-	restricted_roles = list(JOB_CHIEF_MEDICAL_OFFICER)
-	requires_purchase = FALSE
-
 /datum/loadout_item/under/jumpsuit/impce
 	name = "Chief Engineer's Naval Uniform"
 	item_path = /obj/item/clothing/under/rank/engineering/chief_engineer/nova/imperial
 	restricted_roles = list(JOB_CHIEF_ENGINEER)
-	requires_purchase = FALSE
-
-/datum/loadout_item/under/jumpsuit/imprd
-	name = "Research Director's Naval Uniform"
-	item_path = /obj/item/clothing/under/rank/rnd/research_director/nova/imperial
-	restricted_roles = list(JOB_RESEARCH_DIRECTOR)
 	requires_purchase = FALSE
 
 /datum/loadout_item/under/jumpsuit/impcommand
@@ -577,52 +634,10 @@ GLOBAL_LIST_INIT(loadout_miscunders, generate_loadout_items(/datum/loadout_item/
 	restricted_roles = list(JOB_CAPTAIN)
 	requires_purchase = FALSE
 
-/datum/loadout_item/under/jumpsuit/security_dress
-	name = "Security Battle Dress"
-	item_path = /obj/item/clothing/under/rank/security/peacekeeper/dress
-	restricted_roles = list(JOB_SECURITY_OFFICER, JOB_BRIG_PHYSICIAN, JOB_SECURITY_ASSISTANT, JOB_WARDEN, JOB_HEAD_OF_SECURITY)
-	requires_purchase = FALSE
-
-/datum/loadout_item/under/jumpsuit/security_trousers
-	name = "Security Trousers"
-	item_path = /obj/item/clothing/under/rank/security/peacekeeper/trousers
-	restricted_roles = list(JOB_SECURITY_OFFICER, JOB_BRIG_PHYSICIAN, JOB_SECURITY_ASSISTANT, JOB_WARDEN, JOB_HEAD_OF_SECURITY)
-	requires_purchase = FALSE
-
-/datum/loadout_item/under/jumpsuit/security_shorts
-	name = "Security Shorts"
-	item_path = /obj/item/clothing/under/rank/security/peacekeeper/trousers/shorts
-	restricted_roles = list(JOB_SECURITY_OFFICER, JOB_BRIG_PHYSICIAN, JOB_SECURITY_ASSISTANT, JOB_WARDEN, JOB_HEAD_OF_SECURITY)
-	requires_purchase = FALSE
-
 /datum/loadout_item/under/jumpsuit/security_jumpskirt
 	name = "Security Jumpskirt"
 	item_path = /obj/item/clothing/under/rank/security/officer/skirt
-	restricted_roles = list(JOB_SECURITY_OFFICER, JOB_BRIG_PHYSICIAN, JOB_SECURITY_ASSISTANT, JOB_WARDEN, JOB_HEAD_OF_SECURITY)
-	requires_purchase = FALSE
-
-/datum/loadout_item/under/jumpsuit/security_plain_skirt
-	name = "Security Plain Skirt"
-	item_path = /obj/item/clothing/under/rank/security/peacekeeper/plain_skirt
-	restricted_roles = list(JOB_SECURITY_OFFICER, JOB_BRIG_PHYSICIAN, JOB_SECURITY_ASSISTANT, JOB_WARDEN, JOB_HEAD_OF_SECURITY)
-	requires_purchase = FALSE
-
-/datum/loadout_item/under/jumpsuit/security_miniskirt
-	name = "Security Miniskirt"
-	item_path = /obj/item/clothing/under/rank/security/peacekeeper/miniskirt
-	restricted_roles = list(JOB_SECURITY_OFFICER, JOB_BRIG_PHYSICIAN, JOB_SECURITY_ASSISTANT, JOB_WARDEN, JOB_HEAD_OF_SECURITY)
-	requires_purchase = FALSE
-
-/datum/loadout_item/under/jumpsuit/security_jumpsuit
-	name = "Security Jumpsuit"
-	item_path = /obj/item/clothing/under/rank/security/peacekeeper/jumpsuit
-	restricted_roles = list(JOB_SECURITY_OFFICER, JOB_BRIG_PHYSICIAN, JOB_SECURITY_ASSISTANT, JOB_WARDEN, JOB_HEAD_OF_SECURITY)
-	requires_purchase = FALSE
-
-/datum/loadout_item/under/jumpsuit/security_peacekeeper
-	name = "Security Peacekeeper Uniform"
-	item_path = /obj/item/clothing/under/rank/security/peacekeeper
-	restricted_roles = list(JOB_SECURITY_OFFICER, JOB_BRIG_PHYSICIAN, JOB_SECURITY_ASSISTANT, JOB_WARDEN, JOB_HEAD_OF_SECURITY)
+	restricted_roles = list(JOB_SECURITY_OFFICER, JOB_SECURITY_ASSISTANT, JOB_WARDEN, JOB_HEAD_OF_SECURITY)
 	requires_purchase = FALSE
 
 /datum/loadout_item/under/jumpsuit/imperial_police_uniform //BUYABLE
@@ -639,33 +654,9 @@ GLOBAL_LIST_INIT(loadout_miscunders, generate_loadout_items(/datum/loadout_item/
 	restricted_roles = list(JOB_MEDICAL_DOCTOR, JOB_PARAMEDIC, JOB_CHEMIST, JOB_VIROLOGIST, JOB_CHIEF_MEDICAL_OFFICER)
 	requires_purchase = FALSE
 
-/datum/loadout_item/under/jumpsuit/paramed_light
-	name = "Light Paramedic Uniform"
-	item_path = /obj/item/clothing/under/rank/medical/paramedic/nova/light
-	restricted_roles = list(JOB_PARAMEDIC)
-	requires_purchase = FALSE
-
-/datum/loadout_item/under/jumpsuit/paramed_light_skirt
-	name = "Light Paramedic Skirt"
-	item_path = /obj/item/clothing/under/rank/medical/paramedic/nova/light/skirt
-	restricted_roles = list(JOB_PARAMEDIC)
-	requires_purchase = FALSE
-
-/datum/loadout_item/under/jumpsuit/chemist_formal
-	name = "Chemist's Formal Jumpsuit"
-	item_path = /obj/item/clothing/under/rank/medical/chemist/nova/formal
-	restricted_roles = list(JOB_CHEMIST)
-	requires_purchase = FALSE
-
-/datum/loadout_item/under/jumpsuit/chemist_formal_skirt
-	name = "Chemist's Formal Jumpskirt"
-	item_path = /obj/item/clothing/under/rank/medical/chemist/nova/formal/skirt
-	restricted_roles = list(JOB_CHEMIST)
-	requires_purchase = FALSE
-
 /datum/loadout_item/under/jumpsuit/hlscientist
 	name = "Ridiculous Scientist Outfit"
-	item_path = /obj/item/clothing/under/rank/rnd/scientist/nova/hlscience
+	item_path = /obj/item/clothing/under/rank/rnd/scientist/hlscience
 	restricted_roles = list(JOB_SCIENTIST)
 	requires_purchase = FALSE
 
@@ -681,14 +672,14 @@ GLOBAL_LIST_INIT(loadout_miscunders, generate_loadout_items(/datum/loadout_item/
 
 /datum/loadout_item/under/jumpsuit/utility_med
 	name = "Medical Utility Uniform"
-	item_path = /obj/item/clothing/under/rank/medical/doctor/nova/utility
+	item_path = /obj/item/clothing/under/rank/medical/doctor/utility
 	restricted_roles = list(JOB_PARAMEDIC, JOB_MEDICAL_DOCTOR, JOB_CHEMIST, JOB_VIROLOGIST, JOB_GENETICIST ,JOB_CHIEF_MEDICAL_OFFICER)
 	requires_purchase = FALSE
 
 /datum/loadout_item/under/jumpsuit/utility_sci
 	name = "Science Utility Uniform"
-	item_path = /obj/item/clothing/under/rank/rnd/scientist/nova/utility
-	restricted_roles = list(JOB_SCIENTIST, JOB_ROBOTICIST, JOB_GENETICIST, JOB_RESEARCH_DIRECTOR)
+	item_path = /obj/item/clothing/under/rank/rnd/scientist/utility
+	restricted_roles = list(JOB_SCIENTIST, JOB_ROBOTICIST, JOB_GENETICIST, JOB_RESEARCH_DIRECTOR, JOB_XENOBIOLOGIST)
 	requires_purchase = FALSE
 
 /datum/loadout_item/under/jumpsuit/utility_cargo
@@ -699,7 +690,7 @@ GLOBAL_LIST_INIT(loadout_miscunders, generate_loadout_items(/datum/loadout_item/
 
 /datum/loadout_item/under/jumpsuit/utility_sec
 	name = "Security Utility Uniform"
-	item_path = /obj/item/clothing/under/rank/security/nova/utility
+	item_path = /obj/item/clothing/under/rank/security/utility
 	restricted_roles = list(JOB_SECURITY_OFFICER, JOB_DETECTIVE, JOB_WARDEN, JOB_BRIG_PHYSICIAN, JOB_SECURITY_ASSISTANT, JOB_HEAD_OF_SECURITY) //i dunno about the blueshield, they're a weird combo of sec and command, thats why they arent in the loadout pr im making
 	requires_purchase = FALSE
 
@@ -852,6 +843,14 @@ GLOBAL_LIST_INIT(loadout_miscunders, generate_loadout_items(/datum/loadout_item/
 	name = "Flower Dress"
 	item_path = /obj/item/clothing/under/dress/nova/flower
 
+/datum/loadout_item/under/miscellaneous/sweater //BUYABLE
+	name = "Cableknit Sweater"
+	item_path = /obj/item/clothing/under/sweater
+
+/datum/loadout_item/under/miscellaneous/sweater/keyhole //BUYABLE
+	name = "Keyhole Sweater"
+	item_path = /obj/item/clothing/under/sweater/keyhole
+
 /datum/loadout_item/under/miscellaneous/tactical_hawaiian_orange //BUYABLE
 	name = "Tactical Hawaiian Outfit - Orange"
 	item_path = /obj/item/clothing/under/tachawaiian
@@ -872,6 +871,18 @@ GLOBAL_LIST_INIT(loadout_miscunders, generate_loadout_items(/datum/loadout_item/
 	name = "Yukata"
 	item_path = /obj/item/clothing/under/costume/nova/yukata
 
+/datum/loadout_item/under/miscellaneous/yukata_black //BUYABLE
+	name = "Black Yukata"
+	item_path = /obj/item/clothing/under/costume/yukata
+
+/datum/loadout_item/under/miscellaneous/yukata_green //BUYABLE
+	name = "Green Yukata"
+	item_path = /obj/item/clothing/under/costume/yukata/green
+
+/datum/loadout_item/under/miscellaneous/yukata_white //BUYABLE
+	name = "White Yukata"
+	item_path = /obj/item/clothing/under/costume/yukata/white
+
 /datum/loadout_item/under/miscellaneous/qipao_black //BUYABLE
 	name = "Qipao"
 	item_path = /obj/item/clothing/under/costume/nova/qipao
@@ -891,6 +902,18 @@ GLOBAL_LIST_INIT(loadout_miscunders, generate_loadout_items(/datum/loadout_item/
 /datum/loadout_item/under/miscellaneous/kimono //BUYABLE
 	name = "Fancy Kimono"
 	item_path =  /obj/item/clothing/under/costume/skyrat/kimono
+
+/datum/loadout_item/under/miscellaneous/kimono_black //BUYABLE
+	name = "Black Kimono"
+	item_path =  /obj/item/clothing/under/costume/kimono
+
+/datum/loadout_item/under/miscellaneous/kimono_red //BUYABLE
+	name = "Red Kimono"
+	item_path =  /obj/item/clothing/under/costume/kimono/red
+
+/datum/loadout_item/under/miscellaneous/kimono_purple //BUYABLE
+	name = "Purple Kimono"
+	item_path =  /obj/item/clothing/under/costume/kimono/purple
 
 /datum/loadout_item/under/miscellaneous/chaps //BUYABLE
 	name = "Black Chaps"
@@ -928,23 +951,6 @@ GLOBAL_LIST_INIT(loadout_miscunders, generate_loadout_items(/datum/loadout_item/
 	name = "Jabroni Outfit"
 	item_path = /obj/item/clothing/under/costume/jabroni
 
-/datum/loadout_item/under/miscellaneous/blacknwhite
-	name = "Classic Prisoner Jumpsuit"
-	item_path = /obj/item/clothing/under/rank/prisoner/classic
-	restricted_roles = list(JOB_PRISONER)
-
-/datum/loadout_item/under/miscellaneous/redscrubs
-	name = "Red Scrubs"
-	item_path = /obj/item/clothing/under/rank/medical/scrubs/nova/red
-	restricted_roles = list(JOB_MEDICAL_DOCTOR, JOB_PARAMEDIC, JOB_VIROLOGIST, JOB_GENETICIST ,JOB_CHIEF_MEDICAL_OFFICER)
-	requires_purchase = FALSE
-
-/datum/loadout_item/under/miscellaneous/whitescrubs
-	name = "White Scrubs"
-	item_path = /obj/item/clothing/under/rank/medical/scrubs/nova/white
-	restricted_roles = list(JOB_MEDICAL_DOCTOR, JOB_PARAMEDIC, JOB_VIROLOGIST, JOB_GENETICIST ,JOB_CHIEF_MEDICAL_OFFICER)
-	requires_purchase = FALSE
-
 /datum/loadout_item/under/miscellaneous/taccas //BUYABLE
 	name = "Tacticasual Uniform"
 	item_path = /obj/item/clothing/under/misc/nova/taccas
@@ -976,6 +982,18 @@ GLOBAL_LIST_INIT(loadout_miscunders, generate_loadout_items(/datum/loadout_item/
 /datum/loadout_item/under/miscellaneous/qm_skirtle
 	name = "Quartermaster's Skirtleneck"
 	item_path = /obj/item/clothing/under/rank/cargo/qm/nova/turtleneck/skirt
+	restricted_roles = list(JOB_QUARTERMASTER)
+	requires_purchase = FALSE
+
+/datum/loadout_item/under/miscellaneous/qm_turtle
+	name = "Quartermaster's Turtleneck"
+	item_path = /obj/item/clothing/under/rank/cargo/qm/nova/turtleneck
+	restricted_roles = list(JOB_QUARTERMASTER)
+	requires_purchase = FALSE
+
+/datum/loadout_item/under/miscellaneous/qm_casual
+	name = "Quartermaster's Casualwear"
+	item_path = /obj/item/clothing/under/rank/cargo/qm/nova/casual
 	restricted_roles = list(JOB_QUARTERMASTER)
 	requires_purchase = FALSE
 

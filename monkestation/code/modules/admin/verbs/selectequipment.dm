@@ -19,5 +19,9 @@
 		if("Neutral Quirks Only")
 			SSquirks.AssignQuirks(target_mob_living, user, omit_positives = TRUE, omit_negatives = TRUE)
 
-	if(params["holyEffect"])
-		new /obj/effect/holy(target_mob_living.loc)
+	// Handle effect state from dropdown
+	switch(params["effectState"])
+		if("Holy")
+			new /obj/effect/holy(target_mob_living.loc)
+		if("Unholy")
+			target_mob_living.mods_bring_them_to_life_fancy(size = 1)

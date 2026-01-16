@@ -64,6 +64,7 @@ GLOBAL_LIST_INIT(armor_by_type, generate_armor_type_cache())
 	return FALSE
 
 /datum/armor/vv_get_dropdown()
+	SHOULD_CALL_PARENT(FALSE)
 	return list("", "MUST MODIFY ARMOR VALUES ON THE PARENT ATOM")
 
 /datum/armor/CanProcCall(procname)
@@ -195,7 +196,7 @@ GLOBAL_LIST_INIT(armor_by_type, generate_armor_type_cache())
 
 /// Checks if any of the armor values are non-zero, so this technically also counts negative armor!
 /datum/armor/proc/has_any_armor()
-	for(var/rating as anything in ARMOR_LIST_ALL())
+	for(var/rating in ARMOR_LIST_ALL())
 		if(vars[rating])
 			return TRUE
 	return FALSE

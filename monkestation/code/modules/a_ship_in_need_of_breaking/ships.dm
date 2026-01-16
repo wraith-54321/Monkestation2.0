@@ -1,6 +1,5 @@
 /datum/map_template/shipbreaker
 	should_place_on_top = TRUE
-	returns_created_atoms = TRUE
 	keep_cached_map = TRUE
 
 	var/emag_only = 0
@@ -45,7 +44,7 @@
 /datum/map_template/shipbreaker/mcsloop
 	name = "McSteal Sloop"
 	template_id = "McSloop"
-	description = "Little more then a expanded escape pod. Contains enough to survive and thrive on dangerous enviroments."
+	description = "Little more then a expanded escape pod. Contains enough to survive and thrive on dangerous environments."
 	mappath = "_maps/~monkestation/shipbreaking/mcsteal_sloop.dmm"
 
 /*

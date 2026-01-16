@@ -76,10 +76,8 @@
 /mob/living/carbon/human/proc/get_face_name(if_no_face="Unknown")
 	if(HAS_TRAIT(src, TRAIT_UNKNOWN))
 		return if_no_face //We're Unknown, no face information for you
-	if( wear_mask && (wear_mask.flags_inv&HIDEFACE) ) //Wearing a mask which hides our face, use id-name if possible
+	if(!is_face_visible()) //Wearing something which hides our face, use id-name if possible
 		return if_no_face
-	if( head && (head.flags_inv&HIDEFACE) )
-		return if_no_face //Likewise for hats
 	var/obj/item/bodypart/O = get_bodypart(BODY_ZONE_HEAD)
 	if( !O || (HAS_TRAIT(src, TRAIT_DISFIGURED)) || (O.brutestate+O.burnstate)>2 || cloneloss>50 || !real_name || HAS_TRAIT(src, TRAIT_INVISIBLE_MAN)) //disfigured. use id-name if possible
 		return if_no_face
@@ -89,7 +87,7 @@
 //Useful when player is being seen by other mobs
 /mob/living/carbon/human/proc/get_id_name(if_no_id = "Unknown")
 	var/obj/item/storage/wallet/wallet = wear_id
-	var/obj/item/modular_computer/pda/pda = wear_id
+	var/obj/item/modular_computer/pda = wear_id
 	var/obj/item/card/id/id = wear_id
 	if(HAS_TRAIT(src, TRAIT_UNKNOWN))
 		. = if_no_id //You get NOTHING, no id name, good day sir
@@ -112,6 +110,8 @@
 
 /mob/living/carbon/human/can_use_guns(obj/item/G)
 	. = ..()
+	if(G.trigger_guard == TRIGGER_GUARD_ALLOW_ALL)
+		return TRUE
 	if(G.trigger_guard == TRIGGER_GUARD_NORMAL)
 		if(HAS_TRAIT(src, TRAIT_CHUNKYFINGERS))
 			balloon_alert(src, "fingers are too big!")
@@ -199,11 +199,24 @@
 	WRITE_FILE(F["scar[char_index]-[scar_index]"], sanitize_text(valid_scars))
 
 /// Save any scars we have to our designated slot, then write our current slot so that the next time we call [/mob/living/carbon/human/proc/increment_scar_slot] (the next round we join), we'll be there
-/mob/living/carbon/human/proc/save_persistent_scars(nuke = FALSE)
-	if(!ckey || !mind?.original_character_slot_index || !client?.prefs.read_preference(/datum/preference/toggle/persistent_scars))
+/mob/living/carbon/human/proc/save_persistent_scars(nuke = FALSE, target_ckey)
+	if(!target_ckey)
+		target_ckey = ckey
+	if(!target_ckey || !mind?.original_character_slot_index)
 		return
 
-	var/path = "data/player_saves/[ckey[1]]/[ckey]/scars.sav"
+	var/persistent_scars_enabled = persistent_scars
+	if(isnull(persistent_scars_enabled))
+		if(client)
+			persistent_scars_enabled = client?.prefs?.read_preference(/datum/preference/toggle/persistent_scars)
+		else
+			var/client/user_client = GLOB.directory[target_ckey]
+			persistent_scars_enabled = user_client?.prefs?.read_preference(/datum/preference/toggle/persistent_scars)
+
+	if(!persistent_scars_enabled)
+		return
+
+	var/path = "data/player_saves/[target_ckey[1]]/[target_ckey]/scars.sav"
 	var/savefile/F = new /savefile(path)
 	var/char_index = mind.original_character_slot_index
 	var/scar_index = mind.current_scar_slot_index || F["current_scar_index"] || 1
@@ -227,7 +240,8 @@
 	var/t_his = p_their()
 	var/t_is = p_are()
 	//This checks to see if the body is revivable
-	if(key || !get_organ_by_type(/obj/item/organ/internal/brain) || ghost?.can_reenter_corpse)
+	var/client_like = client || HAS_TRAIT(src, TRAIT_MIND_TEMPORARILY_GONE)
+	if((client_like || !get_organ_by_type(/obj/item/organ/internal/brain) || ghost?.can_reenter_corpse) && !HAS_TRAIT(src, TRAIT_DEFIB_BLACKLISTED))
 		return span_deadsay("[t_He] [t_is] limp and unresponsive; there are no signs of life...")
 	else
 		return span_deadsay("[t_He] [t_is] limp and unresponsive; there are no signs of life and [t_his] soul has departed...")
@@ -276,3 +290,26 @@
 	mob_height = dna?.species?.update_species_heights(src) || base_mob_height
 	if(old_height != mob_height)
 		regenerate_icons()
+
+/// Returns an alist containing a "backup" of this human's current underwear, undershirt, and socks, plus their colors.
+/// Basically this is copy_clothing_prefs except it returns an alist instead of copying it to another human.
+/mob/living/carbon/human/proc/backup_clothing_prefs() as /alist
+	return alist(
+		"underwear" = underwear,
+		"underwear_color" = underwear_color,
+		"undershirt" = undershirt,
+		"socks" = socks,
+		"socks_color" = socks_color,
+		"jumpsuit_style" = jumpsuit_style,
+	)
+
+/// Restores the clothing prefs from an alist returned by backup_clothing_prefs()
+/mob/living/carbon/human/proc/restore_clothing_prefs(alist/backup)
+	if(length(backup) != 6)
+		CRASH("Invalid clothing backup alist passed, expected 6 entries!")
+	underwear = backup["underwear"]
+	underwear_color = backup["underwear_color"]
+	undershirt = backup["undershirt"]
+	socks = backup["socks"]
+	socks_color = backup["socks_color"]
+	jumpsuit_style = backup["jumpsuit_style"]

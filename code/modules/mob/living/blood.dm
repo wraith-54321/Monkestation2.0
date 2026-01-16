@@ -1,4 +1,5 @@
 #define BLOOD_DRIP_RATE_MOD 90 //Greater number means creating blood drips more often while bleeding
+#define DRUNK_POWER_TO_BLOOD_ALCOHOL 0.003 // Conversion between internal drunk power and common blood alcohol content
 
 /****************************************************
 				BLOOD SYSTEM
@@ -92,14 +93,9 @@
 	var/temp_bleed = 0
 	//Bleeding out
 	for(var/obj/item/bodypart/iter_part as anything in bodyparts)
-		var/iter_bleed_rate = iter_part.get_modified_bleed_rate()
-		temp_bleed += iter_bleed_rate * seconds_per_tick
-		if(HAS_TRAIT(src, TRAIT_HEAVY_BLEEDER))
-			temp_bleed *= 2
+		temp_bleed += iter_part.cached_bleed_rate * seconds_per_tick
 
 		if(iter_part.generic_bleedstacks) // If you don't have any bleedstacks, don't try and heal them
-			if(HAS_TRAIT(src, TRAIT_HEAVY_BLEEDER))
-				iter_part.adjustBleedStacks(-1, minimum = 0) /// we basically double up on bleedstacks
 			iter_part.adjustBleedStacks(-1, 0)
 
 	if(temp_bleed)
@@ -132,7 +128,7 @@
 	var/bleed_amt = 0
 	for(var/X in bodyparts)
 		var/obj/item/bodypart/iter_bodypart = X
-		bleed_amt += iter_bodypart.get_modified_bleed_rate()
+		bleed_amt += iter_bodypart.cached_bleed_rate
 	return bleed_amt
 
 /mob/living/carbon/human/get_bleed_rate()
@@ -147,7 +143,7 @@
  * * forced-
  */
 /mob/living/carbon/proc/bleed_warn(bleed_amt = 0, forced = FALSE)
-	if(!client || HAS_TRAIT(src, TRAIT_NOBLOOD))
+	if(!client || HAS_TRAIT(src, TRAIT_NOBLOOD) || HAS_TRAIT(src, TRAIT_NO_BLEED_WARN))
 		return
 	if(!COOLDOWN_FINISHED(src, bleeding_message_cd) && !forced)
 		return
@@ -273,8 +269,7 @@
 	return blood_data
 */
 
-/mob/living/proc/get_blood_type()
-	RETURN_TYPE(/datum/blood_type)
+/mob/living/proc/get_blood_type() as /datum/blood_type
 	if(HAS_TRAIT(src, TRAIT_NOBLOOD))
 		return null
 	return GLOB.blood_types[/datum/blood_type/animal]
@@ -294,10 +289,10 @@
 	return GLOB.blood_types[/datum/blood_type/xenomorph]
 
 /mob/living/carbon/human/get_blood_type()
-	if(!has_dna() || HAS_TRAIT(src, TRAIT_NOBLOOD)) // MONKESTATION EDIT: Made TRAIT_HUSK cascade into TRAIT_NOBLOOD, making snowflake checks unnecessary.
+	if(!dna || HAS_TRAIT(src, TRAIT_NOBLOOD)) // MONKESTATION EDIT: Made TRAIT_HUSK cascade into TRAIT_NOBLOOD, making snowflake checks unnecessary.
 		return null
-	if(check_holidays(APRIL_FOOLS) && is_clown_job(mind?.assigned_role))
-		return GLOB.blood_types[/datum/blood_type/clown]
+	/*if(check_holidays(APRIL_FOOLS) && is_clown_job(mind?.assigned_role))
+		return GLOB.blood_types[/datum/blood_type/clown]*/
 	if(dna.species.exotic_bloodtype)
 		return GLOB.blood_types[dna.species.exotic_bloodtype]
 	return GLOB.blood_types[dna.human_blood_type]
@@ -331,18 +326,29 @@
 	var/turf/targ = get_ranged_target_turf(src, splatter_direction, splatter_strength)
 	our_splatter.fly_towards(targ, splatter_strength)
 
+/mob/living/proc/get_blood_alcohol_content()
+	var/blood_alcohol_content = 0
+	var/datum/status_effect/inebriated/inebriation = has_status_effect(/datum/status_effect/inebriated)
+	if(!isnull(inebriation))
+		blood_alcohol_content = round(inebriation.drunk_value * DRUNK_POWER_TO_BLOOD_ALCOHOL, 0.01)
+
+	return blood_alcohol_content
+
 /**
  * Helper proc for throwing blood particles around, similar to the spray_blood proc.
  */
 /mob/living/proc/blood_particles(amount = rand(1, 3), angle = rand(0,360), min_deviation = -30, max_deviation = 30, min_pixel_z = 0, max_pixel_z = 6)
-	if(QDELETED(src) || !isturf(loc) || QDELING(loc) || !blood_volume || HAS_TRAIT(src, TRAIT_NOBLOOD))
+	if(QDELETED(src) || !isturf(loc) || !blood_volume || HAS_TRAIT(src, TRAIT_NOBLOOD))
 		return
+	var/list/blood_dna = get_blood_dna_list()
+	var/blood_color = get_blood_type()?.color
 	for(var/i in 1 to amount)
 		var/obj/effect/decal/cleanable/blood/particle/droplet = new(loc)
 		if(QDELETED(droplet)) // if they're deleting upon init, let's not waste any more time, any others will prolly just do the same thing
 			return
-		droplet.color = get_blood_type()?.color
-		droplet.add_mob_blood(src)
+		droplet.color = blood_color
+		if(blood_dna)
+			droplet.add_blood_DNA(blood_dna)
 		droplet.pixel_z = rand(min_pixel_z, max_pixel_z)
 		droplet.start_movement(angle + rand(min_deviation, max_deviation))
 

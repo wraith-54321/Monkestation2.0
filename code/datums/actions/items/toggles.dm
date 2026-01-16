@@ -113,3 +113,8 @@
 /datum/action/item_action/flip
 	name = "Flip"
 
+/datum/action/item_action/call_link
+	name = "Call MODlink"
+
+/datum/action/item_action/stomp
+	name = "Stomp"

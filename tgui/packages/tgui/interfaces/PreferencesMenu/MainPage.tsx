@@ -7,7 +7,6 @@ import {
   LabeledList,
   Popper,
   Stack,
-  TrackOutsideClicks,
   FitText,
   Input,
   Icon,
@@ -17,6 +16,7 @@ import {
   PreferencesMenuData,
   RandomSetting,
 } from './data';
+import { DeleteCharacterPopup } from './DeleteCharacterPopup';
 import { CharacterPreview } from '../common/CharacterPreview';
 import { RandomizationButton } from './RandomizationButton';
 import { ServerPreferencesFetcher } from './ServerPreferencesFetcher';
@@ -30,6 +30,7 @@ import {
 import { filterMap, sortBy } from 'common/collections';
 import { useRandomToggleState } from './useRandomToggleState';
 import { createSearch } from 'common/string';
+import { ReactNode } from 'react';
 
 const CLOTHING_CELL_SIZE = 64;
 const CLOTHING_SIDEBAR_ROWS = 10;
@@ -44,6 +45,8 @@ const CharacterControls = (props: {
   gender: Gender;
   setGender: (gender: Gender) => void;
   showGender: boolean;
+  canDeleteCharacter: boolean;
+  handleDeleteCharacter: () => void;
 }) => {
   return (
     <Stack>
@@ -75,6 +78,18 @@ const CharacterControls = (props: {
           />
         </Stack.Item>
       )}
+
+      <Stack.Item>
+        <Button
+          onClick={props.handleDeleteCharacter}
+          fontSize="22px"
+          icon="trash"
+          color="red"
+          tooltip="Delete character"
+          tooltipPosition="top"
+          disabled={!props.canDeleteCharacter}
+        />
+      </Stack.Item>
     </Stack>
   );
 };
@@ -148,10 +163,10 @@ const ChoicedSelection = (props: {
               <Stack.Item grow>
                 <Box
                   style={{
-                    'border-bottom': '1px solid #888',
-                    'font-weight': 'bold',
-                    'font-size': '14px',
-                    'text-align': 'center',
+                    borderBottom: '1px solid #888',
+                    fontWeight: 'bold',
+                    fontSize: '14px',
+                    textAlign: 'center',
                   }}
                 >
                   Select {props.name}
@@ -177,7 +192,7 @@ const ChoicedSelection = (props: {
                   }px`}
                   placeholder="Search options"
                   value={searchText}
-                  onInput={(_, value) => setSearchText(value)}
+                  onChange={(value) => setSearchText(value)}
                 />
               </Box>
             </Stack.Item>
@@ -247,10 +262,10 @@ const ChoicedSelection = (props: {
                     <Box
                       pb={0.25}
                       style={{
-                        'border-bottom': '1px solid rgba(255, 255, 255, 0.1)',
-                        'font-weight': 'bold',
-                        'font-size': '14px',
-                        'text-align': 'center',
+                        borderBottom: '1px solid rgba(255, 255, 255, 0.1)',
+                        fontWeight: 'bold',
+                        fontSize: '14px',
+                        textAlign: 'center',
                       }}
                     >
                       Select {features[feature].name}
@@ -286,31 +301,28 @@ const GenderButton = (props: {
 
   return (
     <Popper
-      options={{
-        placement: 'right-end',
-      }}
-      popperContent={
-        genderMenuOpen && (
-          <Stack backgroundColor="white" ml={0.5} p={0.3}>
-            {[Gender.Male, Gender.Female, Gender.Other].map((gender) => {
-              return (
-                <Stack.Item key={gender}>
-                  <Button
-                    selected={gender === props.gender}
-                    onClick={() => {
-                      props.handleSetGender(gender);
-                      setGenderMenuOpen(false);
-                    }}
-                    fontSize="22px"
-                    icon={GENDERS[gender].icon}
-                    tooltip={GENDERS[gender].text}
-                    tooltipPosition="top"
-                  />
-                </Stack.Item>
-              );
-            })}
-          </Stack>
-        )
+      placement="right-end"
+      isOpen={genderMenuOpen}
+      content={
+        <Stack backgroundColor="white" ml={0.5} p={0.3}>
+          {[Gender.Male, Gender.Female, Gender.Other].map((gender) => {
+            return (
+              <Stack.Item key={gender}>
+                <Button
+                  selected={gender === props.gender}
+                  onClick={() => {
+                    props.handleSetGender(gender);
+                    setGenderMenuOpen(false);
+                  }}
+                  fontSize="22px"
+                  icon={GENDERS[gender].icon}
+                  tooltip={GENDERS[gender].text}
+                  tooltipPosition="top"
+                />
+              </Stack.Item>
+            );
+          })}
+        </Stack>
       }
     >
       <Button
@@ -377,29 +389,25 @@ const MainFeature = (props: {
 
   return (
     <Popper
-      options={{
-        placement: 'bottom-start',
-      }}
-      popperContent={
-        isOpen && (
-          <TrackOutsideClicks onOutsideClick={handleCloseInternal}>
-            <ChoicedSelection
-              name={catalog.name}
-              catalog={catalog}
-              selected={currentValue}
-              supplementalFeatures={supplementalFeatures} // Pass array of features
-              supplementalValues={supplementalValues} // Pass array of values
-              onClose={handleCloseInternal}
-              onSelect={handleSelect}
-              searchText={searchText}
-              setSearchText={setSearchText}
-            />
-          </TrackOutsideClicks>
-        )
+      isOpen={isOpen}
+      placement="bottom-start"
+      content={
+        <ChoicedSelection
+          name={catalog.name}
+          catalog={catalog}
+          selected={currentValue}
+          supplementalFeatures={supplementalFeatures} // Pass array of features
+          supplementalValues={supplementalValues} // Pass array of values
+          onClose={handleCloseInternal}
+          onSelect={handleSelect}
+          searchText={searchText}
+          setSearchText={setSearchText}
+        />
       }
     >
       <Button
-        onClick={() => {
+        onClick={(event) => {
+          event?.stopPropagation();
           if (isOpen) {
             handleCloseInternal();
           } else {
@@ -468,10 +476,10 @@ const PreferenceList = (props: {
   act: typeof sendAct;
   preferences: Record<string, unknown>;
   randomizations: Record<string, RandomSetting>;
+  children?: ReactNode;
 }) => {
   return (
     <Stack.Item
-      basis="50%"
       grow
       style={{
         background: 'rgba(0, 0, 0, 0.5)',
@@ -498,6 +506,7 @@ const PreferenceList = (props: {
               <LabeledList.Item
                 key={featureId}
                 label={feature.name}
+                tooltip={feature.description}
                 verticalAlign="middle"
               >
                 <Stack fill>
@@ -524,6 +533,7 @@ const PreferenceList = (props: {
           },
         )}
       </LabeledList>
+      {props.children}
     </Stack.Item>
   );
 };
@@ -533,6 +543,10 @@ export const MainPage = (props: { openSpecies: () => void }) => {
   const [currentClothingMenu, setCurrentClothingMenu] = useLocalState<
     string | null
   >('currentClothingMenu', null);
+  const [deleteCharacterPopupOpen, setDeleteCharacterPopupOpen] = useLocalState(
+    'deleteCharacterPopupOpen',
+    false,
+  );
   const [multiNameInputOpen, setMultiNameInputOpen] = useLocalState(
     'multiNameInputOpen',
     false,
@@ -633,8 +647,14 @@ export const MainPage = (props: { openSpecies: () => void }) => {
               />
             )}
 
+            {deleteCharacterPopupOpen && (
+              <DeleteCharacterPopup
+                close={() => setDeleteCharacterPopupOpen(false)}
+              />
+            )}
+
             <Stack height={`${CLOTHING_SIDEBAR_ROWS * CLOTHING_CELL_SIZE}px`}>
-              <Stack.Item fill>
+              <Stack.Item grow>
                 <Stack vertical fill>
                   <Stack.Item>
                     <CharacterControls
@@ -646,6 +666,14 @@ export const MainPage = (props: { openSpecies: () => void }) => {
                       setGender={createSetPreference(act, 'gender')}
                       showGender={
                         currentSpeciesData ? !!currentSpeciesData.sexes : true
+                      }
+                      canDeleteCharacter={
+                        Object.values(data.character_profiles).filter(
+                          (name) => name,
+                        ).length > 1
+                      }
+                      handleDeleteCharacter={() =>
+                        setDeleteCharacterPopupOpen(true)
                       }
                     />
                   </Stack.Item>
@@ -659,11 +687,6 @@ export const MainPage = (props: { openSpecies: () => void }) => {
 
                   <Stack.Item position="relative">
                     <NameInput
-                      name={data.character_preferences.names[data.name_to_use]}
-                      handleUpdateName={createSetPreference(
-                        act,
-                        data.name_to_use,
-                      )}
                       openMultiNameInput={() => {
                         setMultiNameInputOpen(true);
                       }}
@@ -672,7 +695,7 @@ export const MainPage = (props: { openSpecies: () => void }) => {
                 </Stack>
               </Stack.Item>
 
-              <Stack.Item fill width={`${CLOTHING_CELL_SIZE * 2 + 15}px`}>
+              <Stack.Item width={`${CLOTHING_CELL_SIZE * 2 + 15}px`}>
                 <Stack height="100%" vertical wrap>
                   {mainFeatures.map(([clothingKey, clothing]) => {
                     const catalog =
@@ -710,7 +733,7 @@ export const MainPage = (props: { openSpecies: () => void }) => {
                 </Stack>
               </Stack.Item>
 
-              <Stack.Item grow basis={0}>
+              <Stack.Item grow={3}>
                 <Stack vertical fill>
                   <PreferenceList
                     act={act}

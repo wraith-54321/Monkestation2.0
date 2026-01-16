@@ -8,11 +8,15 @@ INITIALIZE_IMMEDIATE(/mob/living/carbon/human/dummy)
 
 /mob/living/carbon/human/dummy/Initialize(mapload)
 	. = ..()
-	ADD_TRAIT(src, TRAIT_GODMODE, INNATE_TRAIT)
+	add_traits(list(TRAIT_GODMODE, TRAIT_NO_TELEPORT), INNATE_TRAIT)
 
 /mob/living/carbon/human/dummy/Destroy()
 	in_use = FALSE
 	return ..()
+
+// no reason for these to ever be hearing sensitive, it just wastes time on spatial grid stuff
+/mob/living/carbon/human/dummy/become_hearing_sensitive(trait_source)
+	return
 
 /mob/living/carbon/human/dummy/Life(seconds_per_tick = SSMOBS_DT, times_fired)
 	return
@@ -23,6 +27,24 @@ INITIALIZE_IMMEDIATE(/mob/living/carbon/human/dummy)
 /mob/living/carbon/human/dummy/set_species(datum/species/mrace, icon_update = TRUE, pref_load = FALSE)
 	harvest_organs()
 	return ..()
+
+/mob/living/carbon/human/dummy/update_cached_insulation()
+	return
+
+/mob/living/carbon/human/dummy/get_insulation(temperature)
+	return temperature_insulation
+
+/mob/living/carbon/human/dummy/med_hud_set_health()
+	return
+
+/mob/living/carbon/human/dummy/med_hud_set_status()
+	return
+
+/mob/living/carbon/human/dummy/on_can_hear_music_trait_gain(datum/source)
+	return
+
+/mob/living/carbon/human/dummy/on_can_hear_music_trait_loss(datum/source)
+	return
 
 /*
 	MONKESTATION EDIT START
@@ -137,6 +159,7 @@ INITIALIZE_IMMEDIATE(/mob/living/carbon/human/dummy)
 	target.dna.features["anime_top"] = get_consistent_feature_entry(GLOB.anime_top_list) //Monkestation Addition
 	target.dna.features["anime_middle"] = get_consistent_feature_entry(GLOB.anime_middle_list) //Monkestation Addition
 	target.dna.features["anime_bottom"] = get_consistent_feature_entry(GLOB.anime_bottom_list) //Monkestation Addition
+	target.dna.features["anime_halo"] = get_consistent_feature_entry(GLOB.anime_halo_list)
 	target.dna.features["arachnid_appendages"] = get_consistent_feature_entry(GLOB.arachnid_appendages_list) //Monkestation Addition
 	target.dna.features["arachnid_chelicerae"] = get_consistent_feature_entry(GLOB.arachnid_chelicerae_list) //Monkestation Addition
 	target.dna.features["goblin_ears"] = get_consistent_feature_entry(GLOB.goblin_ears_list) //Monkestation Addition
@@ -203,7 +226,7 @@ GLOBAL_LIST_EMPTY(dummy_mob_list)
 
 	if(iscarbon(target))
 		var/mob/living/carbon/carbon_target = target
-		carbon_target.dna.transfer_identity(copycat, transfer_SE = TRUE)
+		carbon_target.dna.copy_dna(copycat.dna, COPY_DNA_SE|COPY_DNA_SPECIES)
 
 		if(ishuman(target))
 			var/mob/living/carbon/human/human_target = target
@@ -238,9 +261,10 @@ GLOBAL_LIST_EMPTY(dummy_mob_list)
 
 /mob/living/carbon/human/dummy/extra_tall
 	bound_height = 64
-
+	// this prevents the top of tall characters from being cut off.
+	appearance_flags = parent_type::appearance_flags & ~TILE_BOUND
 	var/list/extra_bodyparts = list()
 
 /mob/living/carbon/human/dummy/extra_tall/Destroy()
-	. = ..()
-	extra_bodyparts = null
+	extra_bodyparts.Cut()
+	return ..()

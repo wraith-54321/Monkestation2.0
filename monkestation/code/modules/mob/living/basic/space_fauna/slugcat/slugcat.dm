@@ -4,21 +4,6 @@
 	// language_holder = /datum/language_holder/slugcat
 	initial_language_holder = /datum/language_holder/slugcat
 
-/datum/language/wawa
-	name = "Slosh"
-	desc = "The language of the slugcats. They have mastered the art of conveying complex thoughts just using one versatile syllable."
-	key = "w"
-	syllables = list("wawa")
-	default_priority = 70
-
-	icon_state = "wawa"
-	icon = 'monkestation/icons/misc/language.dmi'
-
-/datum/language_holder/slugcat
-	understood_languages = list(/datum/language/common = list(LANGUAGE_MIND),
-								/datum/language/wawa = list(LANGUAGE_MIND))
-	spoken_languages = list(/datum/language/wawa = list(LANGUAGE_MIND))
-
 // wawa
 /datum/emote/living/wawa
 	key = "wawa"
@@ -28,8 +13,10 @@
 	message_mime = "wawa's silently!"
 	emote_type = EMOTE_AUDIBLE
 	vary = TRUE
-	cooldown = 10
-	audio_cooldown = 10
+	cooldown = 1 SECONDS
+	audio_cooldown = 1 SECONDS
+	falloff_exponent = 10
+	extra_range = SHORT_RANGE_SOUND_EXTRARANGE
 
 /datum/emote/living/wawa/get_sound(mob/living/user)
 	return pick(
@@ -52,6 +39,8 @@
 	emote_type = EMOTE_AUDIBLE
 	vary = TRUE
 	audio_cooldown = 1.8 SECONDS
+	falloff_exponent = 10
+	extra_range = SHORT_RANGE_SOUND_EXTRARANGE
 
 /datum/emote/living/wa/get_sound(mob/living/user)
 	return pick(

@@ -31,6 +31,7 @@ GLOBAL_LIST_INIT(creamable, typecacheof(list(
 			creamface.icon_state = "creampie_monkey"
 		else
 			creamface.icon_state = "creampie_human"
+		H.apply_height_filters(creamface)
 		H.add_mood_event("creampie", /datum/mood_event/creampie)
 	else if(iscorgi(parent))
 		creamface.icon_state = "creampie_corgi"
@@ -43,7 +44,7 @@ GLOBAL_LIST_INIT(creamable, typecacheof(list(
 /datum/component/creamed/Destroy(force)
 	var/atom/A = parent
 	A.cut_overlay(creamface)
-	qdel(creamface)
+	creamface = null
 	if(ishuman(A))
 		var/mob/living/carbon/human/human_parent = A
 		human_parent.clear_mood_event("creampie")
