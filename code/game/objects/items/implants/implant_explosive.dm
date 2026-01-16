@@ -232,7 +232,7 @@
 	// uses sleeps, which is bad for signal handlers to do.
 	INVOKE_ASYNC(src, PROC_REF(do_revive))
 
-/obj/item/implant/fakemacro/removed(mob/target, silent = FALSE, special = FALSE)
+/obj/item/implant/fakemacro/removed(mob/target, silent = FALSE, special = FALSE, forced = FALSE)
 	. = ..()
 	if(.)
 		UnregisterSignal(target, COMSIG_LIVING_DEATH)

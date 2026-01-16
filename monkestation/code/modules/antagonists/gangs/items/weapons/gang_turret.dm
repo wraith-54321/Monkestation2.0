@@ -24,11 +24,12 @@
 	if(isobserver(user) || faction_check_atom(user))
 		. += span_syndradio("It is current set to [mode ? "lethal" : "disable"] mode. Toggle modes with [span_bold("Alt-Click")]") //mode is a bool
 
-/obj/machinery/porta_turret/syndicate/toolbox/gang/AltClick(mob/user)
+/obj/machinery/porta_turret/syndicate/toolbox/gang/click_alt(mob/user)
 	. = ..()
 	if(faction_check_atom(user))
 		setState(on, !mode)
 		balloon_alert(user, "Set to [mode ? "lethal" : "disable"] mode.")
+		return CLICK_ACTION_SUCCESS
 
 /obj/projectile/bullet/toolbox_turret/non_lethal
 	damage_type = STAMINA

@@ -138,7 +138,7 @@
 
 	handler_ref.on_update() //im gonna say its cheaper to just always run this rather than set up some kind of janky check for it
 	if(implant)
-		new_datum.RegisterSignal(implant, COMSIG_PRE_IMPLANT_REMOVED, TYPE_PROC_REF(/datum/antagonist/gang_member, handle_pre_implant_removal))
+		new_datum.RegisterSignal(implant, COMSIG_IMPLANT_CHECK_REMOVAL, TYPE_PROC_REF(/datum/antagonist/gang_member, handle_pre_implant_removal)) //NEED TO UNREG THESE
 		new_datum.RegisterSignal(implant, COMSIG_IMPLANT_REMOVED, TYPE_PROC_REF(/datum/antagonist/gang_member, handle_implant_removal))
 		if(MEETS_GANG_RANK(new_datum, GANG_RANK_LIEUTENANT))
 			implant.add_communicator()

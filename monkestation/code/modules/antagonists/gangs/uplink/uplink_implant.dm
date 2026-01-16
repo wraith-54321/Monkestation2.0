@@ -84,7 +84,7 @@
 
 	target.mind.add_antag_datum(new_member_datum, given_gang)
 	handler.owning_gang ||= new_member_datum.gang_team
-	new_member_datum.RegisterSignal(src, COMSIG_PRE_IMPLANT_REMOVED, TYPE_PROC_REF(/datum/antagonist/gang_member, handle_pre_implant_removal))
+	new_member_datum.RegisterSignal(src, COMSIG_IMPLANT_CHECK_REMOVAL, TYPE_PROC_REF(/datum/antagonist/gang_member, handle_pre_implant_removal))
 	new_member_datum.RegisterSignal(src, COMSIG_IMPLANT_REMOVED, TYPE_PROC_REF(/datum/antagonist/gang_member, handle_implant_removal))
 	communicate?.Grant(target)
 	if(new_member_datum.gang_team)

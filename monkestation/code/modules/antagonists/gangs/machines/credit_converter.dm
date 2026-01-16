@@ -40,7 +40,7 @@
 		end_processing()
 		return
 
-	is_powered = use_power(ACTIVE_POWER_USE)
+//	is_powered = use_power(ACTIVE_POWER_USE) //WILL SEE IF THIS NEEDS TO BE ADDED BACK IN
 	/*if(is_powered != use_power(ACTIVE_POWER_USE))
 		is_powered = !is_powered
 		if(is_powered)

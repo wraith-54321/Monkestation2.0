@@ -124,11 +124,9 @@
  * * special - unused here
  */
 /obj/item/implant/proc/removed(mob/living/source, silent = FALSE, special = 0, forced = FALSE) //monkestation edit: adds forced
-//monkestation edit start
-	if((SEND_SIGNAL(src, COMSIG_PRE_IMPLANT_REMOVED, source, silent, special) & COMPONENT_STOP_IMPLANT_REMOVAL) && !forced) //we still want to send the signal even if forced
+	if((SEND_SIGNAL(src, COMSIG_IMPLANT_CHECK_REMOVAL, source, silent, special) & COMPONENT_STOP_IMPLANT_REMOVAL) && !forced) //we still want to send the signal even if forced
 		return FALSE
-//monkestation edit end
-
+	GLOB.special_roles
 	moveToNullspace()
 	imp_in = null
 	source.implants -= src
