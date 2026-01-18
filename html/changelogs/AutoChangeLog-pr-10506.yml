@@ -1,5 +1,0 @@
-author: "Absolucy"
-delete-after: True
-changes:
-  - bugfix: "Fixed the seed extractor not showing seed icons."
-  - bugfix: "Fixed the seed extractor's search not searching for reagents."
