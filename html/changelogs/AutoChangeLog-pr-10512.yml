@@ -1,0 +1,5 @@
+author: "Chelxox"
+delete-after: True
+changes:
+  - bugfix: "Food items with no reagents can now be eaten, although won't provide the eater with any sort of nutrition."
+  - rscadd: "Adds a chat warning if user eats reagentless (otherwise non-nutritive) food."
