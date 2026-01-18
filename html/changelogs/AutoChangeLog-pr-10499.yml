@@ -1,0 +1,5 @@
+author: "Absolucy"
+delete-after: True
+changes:
+  - rscadd: "Heretics can now actually create ghouls from oozeling cores. Flesh heretics have to right click with their grasp, and oozeling cores should work with Imperfect Ritual and Shattered Ritual."
+  - qol: "The \"Assist your master\" objective for heretic minions now include their master's name."
