@@ -61,7 +61,8 @@
  */
 /obj/item/implant/proc/implant(mob/living/target, mob/user, silent = FALSE, force = FALSE)
 	if(SEND_SIGNAL(src, COMSIG_IMPLANT_IMPLANTING, args) & COMPONENT_STOP_IMPLANTING)
-		return
+		return FALSE
+
 	LAZYINITLIST(target.implants)
 	if(!force && !can_be_implanted_in(target))
 		return FALSE
@@ -123,10 +124,10 @@
  * * silent - unused here
  * * special - unused here
  */
-/obj/item/implant/proc/removed(mob/living/source, silent = FALSE, special = 0, forced = FALSE) //monkestation edit: adds forced
+/obj/item/implant/proc/removed(mob/living/source = imp_in, silent = FALSE, special = FALSE, forced = FALSE)
 	if((SEND_SIGNAL(src, COMSIG_IMPLANT_CHECK_REMOVAL, source, silent, special) & COMPONENT_STOP_IMPLANT_REMOVAL) && !forced) //we still want to send the signal even if forced
 		return FALSE
-	GLOB.special_roles
+
 	moveToNullspace()
 	imp_in = null
 	source.implants -= src

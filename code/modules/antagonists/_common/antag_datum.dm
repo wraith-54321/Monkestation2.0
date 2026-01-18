@@ -213,10 +213,12 @@ GLOBAL_LIST_EMPTY(antagonists)
 
 //This handles the application of antag huds/special abilities
 /datum/antagonist/proc/apply_innate_effects(mob/living/mob_override)
+	SEND_SIGNAL(src, COMSIG_ANTAGONIST_INNATE_EFFECTS_APPLIED, (mob_override || owner.current)) //IMPORTANT TODO: SET SHOULD_CALL_PARENT(TRUE) in a future PR to avoid conflicts
 	return
 
 //This handles the removal of antag huds/special abilities
 /datum/antagonist/proc/remove_innate_effects(mob/living/mob_override)
+	SEND_SIGNAL(src, COMSIG_ANTAGONIST_INNATE_EFFECTS_REMOVED, (mob_override || owner.current))
 	return
 
 /// This is called when the antagonist is being mindshielded.

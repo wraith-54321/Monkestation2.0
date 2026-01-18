@@ -27,7 +27,7 @@
 /obj/item/gang_device/object_beacon/attack_self(mob/user, modifiers)
 	var/datum/antagonist/gang_member/antag_datum = IS_GANGMEMBER(user)
 	if(!antag_datum)
-		balloon_alert(user, "You can't figure out how to use [src].")
+		balloon_alert(user, "you can't figure out how to use [src].")
 		return
 
 	if(allowed_areas && !(get_area(src) in allowed_areas))

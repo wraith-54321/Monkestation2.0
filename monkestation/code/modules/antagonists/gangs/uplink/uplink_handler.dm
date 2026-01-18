@@ -3,6 +3,7 @@
 	can_take_objectives = FALSE
 	maximum_active_objectives = 0
 	maximum_potential_objectives = 0
+	uplink_flag = UPLINK_GANGS
 	///Ref to the gang that owns us
 	var/datum/team/gang/owning_gang
 

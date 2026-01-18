@@ -59,10 +59,10 @@ GLOBAL_LIST_EMPTY(gang_controlled_areas)
 		return FALSE
 
 	if(!isValidSurface(target))
-		target.balloon_alert(user, "Can't use there!")
+		target.balloon_alert(user, "can't use there!")
 		return FALSE
 
-	balloon_alert(user, "You start drawing a tag for your gang on \the [target]...")
+	balloon_alert(user, "you start drawing a tag for your gang on \the [target]...")
 	audible_message(span_notice("You hear spraying."))
 	playsound(user.loc, 'sound/effects/spray.ogg', 5, TRUE, 5, channel = CHANNEL_SOUND_EFFECTS)
 	if(!do_after(user, 5 SECONDS, target))
@@ -74,24 +74,24 @@ GLOBAL_LIST_EMPTY(gang_controlled_areas)
 		return FALSE
 
 	if(target_area.outdoors || !(target_area.type in GLOB.the_station_areas))
-		balloon_alert(user, "This area is not valid to take control of.")
+		balloon_alert(user, "this area is not valid to take control of.")
 		return FALSE
 
 	var/datum/team/gang/controlling_gang = GLOB.gang_controlled_areas[target_area]
 	if(controlling_gang == antag_datum.gang_team)
-		balloon_alert(user, "We already control this area.")
+		balloon_alert(user, "we already control this area.")
 		return FALSE
 
 	var/obj/effect/decal/cleanable/crayon/gang/controlling_tag = locate(/obj/effect/decal/cleanable/crayon/gang) in target //target will always be a turf by this point
 	if(controlling_gang && !controlling_tag)
-		balloon_alert(user, "An enemy gang has a tag elsewhere in this area blocking claiming it! Find it and spray over it.")
+		balloon_alert(user, "an enemy gang has a tag elsewhere in this area blocking claiming it! Find it and spray over it.")
 		return FALSE
 	else if(!resistant_coating_charges && controlling_tag?.resistant)
-		balloon_alert(user, "It looks like \the [controlling_tag] has a resistant coating and can only be removed by your own resistant paint!") //dont think too hard about it
+		balloon_alert(user, "it looks like \the [controlling_tag] has a resistant coating and can only be removed by your own resistant paint!") //dont think too hard about it
 		return FALSE
 
 	if(!antag_datum.gang_team.take_area(target_area))
-		balloon_alert(user, "Something is making it impossible to take this area.")
+		balloon_alert(user, "something is making it impossible to take this area.")
 		return FALSE
 
 	if(controlling_tag)
@@ -105,7 +105,7 @@ GLOBAL_LIST_EMPTY(gang_controlled_areas)
 		created_tag.resistant = TRUE
 
 	created_tag.add_hiddenprint(user)
-	balloon_alert(user, "You finish drawing \the [created_tag].")
+	balloon_alert(user, "you finish drawing \the [created_tag].")
 
 	audible_message(span_hear("You hear spraying."))
 	playsound(user.loc, 'sound/effects/spray.ogg', 5, TRUE, 5, channel = CHANNEL_SOUND_EFFECTS)

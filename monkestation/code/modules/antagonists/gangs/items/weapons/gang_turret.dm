@@ -11,7 +11,7 @@
 
 /obj/item/storage/toolbox/emergency/turret/gang/construction_checks(mob/living/user)
 	if(!IS_GANGMEMBER(user))
-		balloon_alert(user, "\The [src] refuses to expand!")
+		balloon_alert(user, "\the [src] refuses to expand!")
 		return FALSE
 	return TRUE
 
@@ -28,7 +28,7 @@
 	. = ..()
 	if(faction_check_atom(user))
 		setState(on, !mode)
-		balloon_alert(user, "Set to [mode ? "lethal" : "disable"] mode.")
+		balloon_alert(user, "set to [mode ? "lethal" : "disable"] mode.")
 		return CLICK_ACTION_SUCCESS
 
 /obj/projectile/bullet/toolbox_turret/non_lethal

@@ -1,4 +1,4 @@
-//might turn this into a cheap implant upgrade, also I should componentize this at some point
+//I should componentize this at some point
 /datum/action/innate/gang_communicate
 	name = "Gang Communicator"
 	desc = "Use your implant's built-in communication device to send a message to all other members of your gang. \
@@ -6,12 +6,14 @@
 	button_icon = 'icons/obj/radio.dmi'
 	button_icon_state = "walkietalkie"
 	check_flags = AB_CHECK_CONSCIOUS
+	///What is the source rank of this communicate, used for checking its removal
+	var/source_rank = GANG_RANK_MEMBER
 
 /datum/action/innate/gang_communicate/Activate()
 	if(!IsAvailable())
 		return
 
-	var/input = tgui_input_text(owner, "Message to tell to the other gang members.", "Gang Communicator")
+	var/input = tgui_input_text(owner, "Message to tell to your other gang members.", "Gang Communicator")
 	if(!input)
 		return
 
@@ -79,8 +81,10 @@
 
 	var/list/receiving_members = list()
 	for(var/datum/team/gang/team in receiving_gangs)
-		for(var/obj/item/implant/uplink/gang/implant in team.implants)
-			if(implant.imp_in && (!need_communicator || implant.communicate))
-				receiving_members += implant.imp_in
+		for(var/rank, member_list in team.member_datums_by_rank)
+			for(var/datum/antagonist/gang_member/member in astype(member_list, /list))
+				var/mob/living/curr = member.owner?.current
+				if(member.communicate && curr && curr.stat != DEAD)
+					receiving_members += curr
 
-	relay_to_list_and_observers(final_message, receiving_members, sender_datum?.owner?.current)
+	relay_to_list_and_observers(final_message, receiving_members, sender_mob)

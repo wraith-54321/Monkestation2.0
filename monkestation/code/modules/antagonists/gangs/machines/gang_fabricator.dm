@@ -1,3 +1,5 @@
+#define REMOVE_TC "Remove Telecrystals"
+
 /obj/machinery/gang_machine/fabricator
 	desc = "A machine with what look to be parts for assembling something."
 	icon = 'icons/obj/machines/mining_machines.dmi'
@@ -6,20 +8,20 @@
 	extra_examine_text = span_syndradio("A machine that can fabricate various items from inserted telecrystals.")
 	setup_tc_cost = 10
 	///Static assoc list of all our fabrication design datums
-	var/static/list/designs_by_name
+	var/static/list/designs_by_name = list()
 	///How much TC do we currently have stored
 	var/stored_tc = 0
 
 /obj/machinery/gang_machine/fabricator/Initialize(mapload, gang)
 	. = ..()
-	if(!designs_by_name)
-		designs_by_name = list()
+	if(!length(designs_by_name))
 		for(var/datum/gang_fabricator_design/design as anything in subtypesof(/datum/gang_fabricator_design))
 			if(!initial(design.name) || !initial(design.cost))
 				continue
 
 			design = new design()
 			designs_by_name[design.name] = design
+		designs_by_name[REMOVE_TC] = 1
 
 /obj/machinery/gang_machine/fabricator/deconstruct(disassembled)
 	. = ..()
@@ -33,23 +35,24 @@
 	if(.)
 		return
 
-	if(!IS_GANGMEMBER(user))
-		balloon_alert(user, "You can't figure out how to use [src].")
+	var/datum/antagonist/gang_member/member_datum = IS_GANGMEMBER(user)
+	if(!member_datum)
+		balloon_alert(user, "you can't figure out how to use [src].")
 		return
 
 	if(!(IS_IN_GANG(user, owner)))
-		balloon_alert(user, "\The [src] rejects you.")
+		balloon_alert(user, "\the [src] rejects you.")
 		return
 
 	if(!stored_tc)
-		balloon_alert(user, "No stored Telecrystals.")
+		balloon_alert(user, "no stored Telecrystals.")
 		return
 
-	var/datum/gang_fabricator_design/selected_design = tgui_input_list(user, "Select a design to fabricate", "Fabricator", designs_by_name + list("Remove Telecrystals" = 1))
+	var/datum/gang_fabricator_design/selected_design = tgui_input_list(user, "Select a design to fabricate", "Fabricator", designs_by_name)
 	if(!selected_design)
 		return
 
-	if(selected_design == "Remove Telecrystals")
+	if(selected_design == REMOVE_TC)
 		var/selected_amount = tgui_input_number(user, "How many Telecrystals do you want to remove?", "Fabricator", max_value = stored_tc, min_value = 0, round_value = TRUE)
 		if(selected_amount)
 			new /obj/item/stack/telecrystal(get_turf(src), selected_amount)
@@ -57,21 +60,25 @@
 		return
 
 	selected_design = designs_by_name[selected_design]
+	if(selected_design.required_rank > member_datum.rank)
+		balloon_alert(user, "you do not meet the rank required to produce this")
+		return
+
 	var/cost = selected_design.get_cost(owner)
 	var/input = tgui_alert(user, "Are you sure you want to fabricate [selected_design.name] for [cost] Telecrystal[cost == 1 ? "" : "s"]?", "Fabricator", list("Yes", "No"))
 	if(input == "Yes")
 		if(stored_tc >= cost)
 			selected_design.fabricate(src, owner, cost)
 			stored_tc -= cost
-			balloon_alert(user, "Fabricated [selected_design.name].")
+			balloon_alert(user, "fabricated [selected_design.name].")
 			return
-		balloon_alert(user, "Not enough stored Telecrystals.")
+		balloon_alert(user, "not enough stored Telecrystals.")
 
 /obj/machinery/gang_machine/fabricator/attackby(obj/item/weapon, mob/user, params)
 	if(setup && istype(weapon, /obj/item/stack/telecrystal))
 		var/obj/item/stack/telecrystal/tc = weapon
 		stored_tc += tc.amount
-		balloon_alert(user, "Inserted [tc.amount] telecrystals.")
+		balloon_alert(user, "inserted [tc.amount] telecrystals.")
 		qdel(tc)
 		return
 	return ..()
@@ -88,6 +95,8 @@
 	var/cost = 0
 	///Type of object to create, can also be a list
 	var/fabrication_type
+	///What rank is needed to create this item
+	var/required_rank = GANG_RANK_MEMBER
 
 /datum/gang_fabricator_design/proc/get_cost(datum/team/gang/owner)
 	return cost
@@ -128,12 +137,25 @@
 	var/obj/item/implanter/uplink/gang/implant = ..()
 	created_for?.track_implant(implant)
 
+/datum/gang_fabricator_design/lieutenant_promoter
+	name = "Lieutenant Promoter"
+	cost = 10
+	fabrication_type = /obj/item/gang_device/promoter
+
 /datum/gang_fabricator_design/boss_promoter
 	name = "Boss Promoter"
 	cost = 20
 	fabrication_type = /obj/item/gang_device/promoter/boss
+	required_rank = GANG_RANK_LIEUTENANT
 
-/datum/gang_fabricator_design/lieutenant_promoter
-	name = "Lieutenant Portmoter"
-	cost = 10
-	fabrication_type = /obj/item/gang_device/promoter
+/datum/gang_fabricator_design/leader_pinpointer
+	name = "Leader Pinpointer"
+	cost = 5
+	fabrication_type = /obj/item/pinpointer/gang_leader
+	required_rank = GANG_RANK_LIEUTENANT
+
+/datum/gang_fabricator_design/leader_pinpointer/create_item(created_type, turf/create_at, datum/team/gang/created_for)
+	var/obj/item/pinpointer/gang_leader/pinpointer = ..()
+	pinpointer.linked_to = created_for
+
+#undef REMOVE_TC

@@ -38,6 +38,8 @@
 	var/unlock_note
 	/// The failsafe code that causes this uplink to blow up.
 	var/failsafe_code
+	/// The action used to activate us by certain types of implants
+	var/datum/action/innate/activate_uplink/activation_action
 
 /datum/component/uplink/Initialize(
 	owner,
@@ -49,25 +51,8 @@
 	datum/uplink_handler/uplink_handler_override,
 )
 
-	if(!isitem(parent))
+	if(!isitem(parent) && !istype(parent, /datum/mind) && !istype(parent, /datum/antagonist))
 		return COMPONENT_INCOMPATIBLE
-
-	RegisterSignal(parent, COMSIG_ATOM_ATTACKBY, PROC_REF(OnAttackBy))
-	RegisterSignal(parent, COMSIG_ITEM_ATTACK_SELF, PROC_REF(interact))
-	if(istype(parent, /obj/item/implant))
-		RegisterSignal(parent, COMSIG_IMPLANT_ACTIVATED, PROC_REF(implant_activation))
-		RegisterSignal(parent, COMSIG_IMPLANT_IMPLANTING, PROC_REF(implanting))
-		RegisterSignal(parent, COMSIG_IMPLANT_OTHER, PROC_REF(old_implant))
-		RegisterSignal(parent, COMSIG_IMPLANT_EXISTING_UPLINK, PROC_REF(new_implant))
-	else if(istype(parent, /obj/item/modular_computer))
-		RegisterSignal(parent, COMSIG_TABLET_CHANGE_ID, PROC_REF(new_ringtone))
-		RegisterSignal(parent, COMSIG_TABLET_CHECK_DETONATE, PROC_REF(check_detonate))
-	else if(istype(parent, /obj/item/radio))
-		RegisterSignal(parent, COMSIG_RADIO_NEW_MESSAGE, PROC_REF(new_message))
-	else if(istype(parent, /obj/item/pen))
-		RegisterSignal(parent, COMSIG_PEN_ROTATED, PROC_REF(pen_rotation))
-	else if(istype(parent, /obj/item/uplink/replacement))
-		RegisterSignal(parent, COMSIG_MOVABLE_HEAR, PROC_REF(on_heard))
 
 	if(owner)
 		src.owner = owner
@@ -76,7 +61,7 @@
 			purchase_log = GLOB.uplink_purchase_logs_by_key[owner]
 		else
 			purchase_log = new(owner, src)
-		RegisterSignal(parent, COMSIG_ATOM_EXAMINE, PROC_REF(on_examine))
+
 	src.lockable = lockable
 	src.active = enabled
 	if(!uplink_handler_override)
@@ -88,18 +73,134 @@
 		uplink_handler.purchase_log = purchase_log
 	else
 		uplink_handler = uplink_handler_override
-	RegisterSignal(uplink_handler, COMSIG_UPLINK_HANDLER_ON_UPDATE, PROC_REF(handle_uplink_handler_update))
-	RegisterSignal(uplink_handler, COMSIG_UPLINK_HANDLER_REPLACEMENT_ORDERED, PROC_REF(handle_uplink_replaced))
+
 	if(!lockable)
 		active = TRUE
 		locked = FALSE
 
-	previous_attempts = list()
+/datum/component/uplink/RegisterWithParent()
+	if(isitem(parent))
+		RegisterSignal(parent, COMSIG_ATOM_ATTACKBY, PROC_REF(OnAttackBy))
+
+	RegisterSignal(parent, COMSIG_ITEM_ATTACK_SELF, PROC_REF(interact))
+	if(istype(parent, /obj/item/implant))
+		RegisterSignal(parent, COMSIG_IMPLANT_ACTIVATED, PROC_REF(implant_activation))
+		RegisterSignal(parent, COMSIG_IMPLANT_IMPLANTING, PROC_REF(implanting))
+		RegisterSignal(parent, COMSIG_IMPLANT_OTHER, PROC_REF(old_implant))
+		RegisterSignal(parent, COMSIG_IMPLANT_EXISTING_UPLINK, PROC_REF(new_implant))
+		var/obj/item/implant/implant_parent = parent
+		if(implant_parent.imp_in)
+			RegisterSignal(implant_parent.imp_in, COMSIG_ATOM_ATTACKBY, PROC_REF(uplink_holder_attackby))
+
+	else if(istype(parent, /obj/item/modular_computer))
+		RegisterSignal(parent, COMSIG_TABLET_CHANGE_ID, PROC_REF(new_ringtone))
+		RegisterSignal(parent, COMSIG_TABLET_CHECK_DETONATE, PROC_REF(check_detonate))
+
+	else if(istype(parent, /obj/item/radio))
+		RegisterSignal(parent, COMSIG_RADIO_NEW_MESSAGE, PROC_REF(new_message))
+
+	else if(istype(parent, /obj/item/pen))
+		previous_attempts = list()
+		RegisterSignal(parent, COMSIG_PEN_ROTATED, PROC_REF(pen_rotation))
+
+	else if(istype(parent, /obj/item/uplink/replacement))
+		RegisterSignal(parent, COMSIG_MOVABLE_HEAR, PROC_REF(on_heard))
+
+	else if(istype(parent, /obj/item/organ))
+		activation_action ||= new(null, src)
+		RegisterSignal(parent, COMSIG_ORGAN_IMPLANTED, PROC_REF(organ_implanted))
+		RegisterSignal(parent, COMSIG_ORGAN_REMOVED, PROC_REF(organ_removed))
+		var/obj/item/organ/organ_parent = parent
+		if(organ_parent.owner)
+			activation_action.Grant(organ_parent.owner)
+			RegisterSignal(organ_parent.owner, COMSIG_ATOM_ATTACKBY, PROC_REF(uplink_holder_attackby))
+
+	else if(istype(parent, /datum/mind))
+		activation_action ||= new(null, src)
+		RegisterSignal(parent, COMSIG_MIND_TRANSFERRED, PROC_REF(mind_transferred))
+		var/datum/mind/mind_parent = parent
+		if(mind_parent.current)
+			activation_action.Grant(mind_parent.current)
+			RegisterSignal(mind_parent.current, COMSIG_ATOM_ATTACKBY, PROC_REF(uplink_holder_attackby))
+
+	else if(istype(parent, /datum/antagonist))
+		activation_action ||= new(null, src)
+		RegisterSignal(parent, COMSIG_ANTAGONIST_INNATE_EFFECTS_APPLIED, PROC_REF(antag_effects_applied))
+		RegisterSignal(parent, COMSIG_ANTAGONIST_INNATE_EFFECTS_REMOVED, PROC_REF(antag_effects_removed))
+		var/mob/living/current = astype(parent, /datum/antagonist).owner?.current
+		if(current)
+			activation_action.Grant(current)
+			RegisterSignal(current, COMSIG_ATOM_ATTACKBY, PROC_REF(uplink_holder_attackby))
+	//parent type chain end
+
+	if(owner)
+		RegisterSignal(parent, COMSIG_ATOM_EXAMINE, PROC_REF(on_examine))
+
+	RegisterSignal(uplink_handler, COMSIG_UPLINK_HANDLER_ON_UPDATE, PROC_REF(handle_uplink_handler_update))
+	RegisterSignal(uplink_handler, COMSIG_UPLINK_HANDLER_REPLACEMENT_ORDERED, PROC_REF(handle_uplink_replaced))
+
+/datum/component/uplink/UnregisterFromParent()
+	UnregisterSignal(parent, list(COMSIG_ATOM_ATTACKBY, COMSIG_ITEM_ATTACK_SELF))
+	if(istype(parent, /obj/item/implant))
+		UnregisterSignal(parent, list(COMSIG_IMPLANT_ACTIVATED, COMSIG_IMPLANT_IMPLANTING, COMSIG_IMPLANT_OTHER, COMSIG_IMPLANT_EXISTING_UPLINK))
+		var/obj/item/implant/implant_parent = parent
+		if(implant_parent.imp_in)
+			UnregisterSignal(implant_parent.imp_in, COMSIG_ATOM_ATTACKBY)
+
+	else if(istype(parent, /obj/item/modular_computer))
+		UnregisterSignal(parent, list(COMSIG_TABLET_CHANGE_ID, COMSIG_TABLET_CHECK_DETONATE))
+
+	else if(istype(parent, /obj/item/radio))
+		UnregisterSignal(parent, COMSIG_RADIO_NEW_MESSAGE)
+
+	else if(istype(parent, /obj/item/pen))
+		UnregisterSignal(parent, COMSIG_PEN_ROTATED)
+
+	else if(istype(parent, /obj/item/uplink/replacement))
+		UnregisterSignal(parent, COMSIG_MOVABLE_HEAR)
+
+	else if(istype(parent, /obj/item/organ))
+		activation_action.Remove(activation_action.owner)
+		UnregisterSignal(parent, list(COMSIG_ORGAN_IMPLANTED, COMSIG_ORGAN_REMOVED))
+
+	else if(istype(parent, /datum/mind))
+		UnregisterSignal(parent, COMSIG_MIND_TRANSFERRED)
+		UnregisterSignal(astype(parent, /datum/mind).current, COMSIG_ATOM_ATTACKBY)
+
+	else if(istype(parent, /datum/antagonist))
+		UnregisterSignal(parent, list(COMSIG_ANTAGONIST_INNATE_EFFECTS_APPLIED, COMSIG_ANTAGONIST_INNATE_EFFECTS_REMOVED))
+		UnregisterSignal(astype(parent, /datum/antagonist).owner?.current, COMSIG_ATOM_ATTACKBY)
+	//parent type chain end
+
+	if(activation_action?.owner)
+		activation_action.Remove(activation_action.owner)
+
+	if(owner)
+		UnregisterSignal(parent, COMSIG_ATOM_EXAMINE)
+
+	UnregisterSignal(uplink_handler, list(COMSIG_UPLINK_HANDLER_ON_UPDATE, COMSIG_UPLINK_HANDLER_REPLACEMENT_ORDERED))
+
+/datum/component/uplink/Destroy()
+	QDEL_NULL(activation_action)
+	purchase_log = null
+	uplink_handler = null
+	previous_attempts = null
+	return ..()
 
 /datum/component/uplink/proc/handle_uplink_handler_update()
 	SIGNAL_HANDLER
 	SStgui.update_uis(src)
 	SStgui.update_static_data_for_all_viewers()
+
+/datum/component/uplink/proc/uplink_holder_attackby(atom/attacked, obj/item/stack/telecrystal/attacking_item, mob/living/attacking_mob, params)
+	SIGNAL_HANDLER
+	if(!istype(attacking_item) || (ismob(attacked) && attacked != attacking_mob))
+		return
+
+	to_chat(attacking_mob, span_notice("You press [attacking_item] onto [attacked == attacking_mob ? "yourself" : "\the [attacked]"] \
+										and charge [attacked.p_theirs()] hidden uplink."))
+	load_tc(attacking_mob, attacking_item)
+	return COMPONENT_NO_AFTERATTACK
 
 /// When a new uplink is made via the syndicate beacon it locks all lockable uplinks and destroys replacement uplinks
 /datum/component/uplink/proc/handle_uplink_replaced()
@@ -136,7 +237,7 @@
 	if(!silent)
 		to_chat(user, span_notice("You slot [telecrystals] into [parent] and charge its internal uplink."))
 	var/amt = telecrystals.amount
-	uplink_handler.telecrystals += amt
+	add_telecrystals(amt)
 	telecrystals.use(amt)
 	log_uplink("[key_name(user)] loaded [amt] telecrystals into [parent]'s uplink")
 
@@ -174,213 +275,6 @@
 		INVOKE_ASYNC(src, PROC_REF(ui_interact), user)
 	// an unlocked uplink blocks also opening the PDA or headset menu
 	return COMPONENT_CANCEL_ATTACK_CHAIN
-
-
-/datum/component/uplink/ui_state(mob/user)
-	return GLOB.inventory_state
-
-/datum/component/uplink/ui_interact(mob/user, datum/tgui/ui)
-	active = TRUE
-	ui = SStgui.try_update_ui(user, src, ui)
-	if(!ui)
-		ui = new(user, src, "Uplink", name)
-		// This UI is only ever opened by one person,
-		// and never is updated outside of user input.
-		ui.set_autoupdate(FALSE)
-		ui.open()
-
-/datum/component/uplink/ui_data(mob/user)
-	if(!user.mind)
-		return
-	var/list/data = list()
-	data["telecrystals"] = uplink_handler.telecrystals
-	data["progression_points"] = uplink_handler.progression_points * (istype(uplink_handler, /datum/uplink_handler/gang) ? 60 : 1) //monkestation edit: adds gang check(pain)
-	data["current_expected_progression"] = SStraitor.current_global_progression
-	data["maximum_active_objectives"] = uplink_handler.maximum_active_objectives
-	data["progression_scaling_deviance"] = SStraitor.progression_scaling_deviance
-	data["current_progression_scaling"] = SStraitor.current_progression_scaling
-
-	data["maximum_potential_objectives"] = uplink_handler.maximum_potential_objectives
-	if(uplink_handler.has_objectives)
-		var/list/primary_objectives = list()
-		for(var/datum/objective/task as anything in uplink_handler.primary_objectives)
-			var/list/task_data = list()
-			if(length(primary_objectives) > length(GLOB.phonetic_alphabet))
-				task_data["task_name"] = "DIRECTIVE [length(primary_objectives) + 1]" //The english alphabet is WEAK
-			else
-				task_data["task_name"] = "DIRECTIVE [uppertext(GLOB.phonetic_alphabet[length(primary_objectives) + 1])]"
-			task_data["task_text"] = task.explanation_text
-			primary_objectives += list(task_data)
-
-		var/list/potential_objectives = list()
-		for(var/index in 1 to uplink_handler.potential_objectives.len)
-			var/datum/traitor_objective/objective = uplink_handler.potential_objectives[index]
-			var/list/objective_data = objective.uplink_ui_data(user)
-			objective_data["id"] = index
-			potential_objectives += list(objective_data)
-
-		var/list/active_objectives = list()
-		for(var/index in 1 to uplink_handler.active_objectives.len)
-			var/datum/traitor_objective/objective = uplink_handler.active_objectives[index]
-			var/list/objective_data = objective.uplink_ui_data(user)
-			objective_data["id"] = index
-			active_objectives += list(objective_data)
-
-		data["primary_objectives"] = primary_objectives
-		data["potential_objectives"] = potential_objectives
-		data["active_objectives"] = active_objectives
-		data["completed_final_objective"] = uplink_handler.final_objective
-
-	var/list/stock_list = uplink_handler.item_stock.Copy()
-	var/list/extra_purchasable_stock = list()
-	var/list/extra_purchasable = list()
-	for(var/datum/uplink_item/item as anything in uplink_handler.extra_purchasable)
-		if(item.stock_key in stock_list)
-			extra_purchasable_stock[REF(item)] = stock_list[item.stock_key]
-			stock_list -= item
-		var/atom/actual_item = item.item
-		extra_purchasable += list(list(
-			"id" = item.type,
-			"name" = item.name,
-			"icon" = actual_item.icon,
-			"icon_state" = actual_item.icon_state,
-			"cost" = item.cost,
-			"desc" = item.desc,
-			"category" = item.category ? initial(item.category.name) : null,
-			"purchasable_from" = item.purchasable_from,
-			"restricted" = item.restricted,
-			"limited_stock" = item.limited_stock,
-			"restricted_roles" = item.restricted_roles,
-			"restricted_species" = item.restricted_species,
-			"progression_minimum" = 0,
-			"ref" = REF(item),
-		))
-
-	var/list/remaining_stock = list()
-	for(var/item in stock_list)
-		remaining_stock[item] = stock_list[item]
-	data["extra_purchasable"] = extra_purchasable
-	data["extra_purchasable_stock"] = extra_purchasable_stock
-	data["current_stock"] = remaining_stock
-	data["shop_locked"] = uplink_handler.shop_locked
-	data["purchased_items"] = length(uplink_handler.purchase_log?.purchase_log)
-	data["can_renegotiate"] = user.mind == uplink_handler.owner && uplink_handler.can_replace_objectives?.Invoke() == TRUE
-//monkestation edit start
-	data["locked_entries"] = uplink_handler.locked_entries
-	data["is_contractor"] = (uplink_handler.uplink_flag == UPLINK_CONTRACTORS)
-	var/list/contractor_items = list()
-	for(var/datum/contractor_item/item in uplink_handler.contractor_market_items)
-		contractor_items += list(list(
-			"id" = item.type,
-			"name" = item.name,
-			"desc" = item.desc,
-			"cost" = item.cost,
-			"stock" = item.stock,
-			"item_icon" = item.item_icon,
-		))
-	data["contractor_items"] = contractor_items
-	data["contractor_rep"] = uplink_handler.contractor_rep
-//monkestation edit end
-	return data
-
-/datum/component/uplink/ui_static_data(mob/user)
-	var/list/data = list()
-	data["uplink_flag"] = uplink_handler.uplink_flag
-	data["has_progression"] = uplink_handler.has_progression
-	data["has_objectives"] = uplink_handler.has_objectives
-	data["lockable"] = lockable
-	data["assigned_role"] = uplink_handler.assigned_role
-	data["assigned_species"] = uplink_handler.assigned_species
-	data["debug"] = uplink_handler.debug_mode
-	return data
-
-/datum/component/uplink/ui_assets(mob/user)
-	return list(
-		get_asset_datum(/datum/asset/json/uplink),
-	)
-
-/datum/component/uplink/ui_act(action, params, datum/tgui/ui, datum/ui_state/state)
-	. = ..()
-	if(.)
-		return
-	if(!active)
-		return
-	switch(action)
-		if("buy")
-			var/datum/uplink_item/item
-			if(params["ref"])
-				item = locate(params["ref"]) in uplink_handler.extra_purchasable
-				if(!item)
-					return
-			else
-				var/datum/uplink_item/item_path = text2path(params["path"])
-				if(!ispath(item_path, /datum/uplink_item))
-					return
-				item = SStraitor.uplink_items_by_type[item_path]
-			uplink_handler.purchase_item(ui.user, item, parent)
-		if("buy_raw_tc")
-			if (uplink_handler.telecrystals <= 0)
-				return
-			var/desired_amount = tgui_input_number(ui.user, "How many raw telecrystals to buy?", "Buy Raw TC", default = uplink_handler.telecrystals, max_value = uplink_handler.telecrystals)
-			if(!desired_amount || desired_amount < 1)
-				return
-			uplink_handler.purchase_raw_tc(ui.user, desired_amount, parent)
-		if("lock")
-			if(!lockable)
-				return TRUE
-			lock_uplink()
-		if("renegotiate_objectives")
-			uplink_handler.replace_objectives?.Invoke()
-			SStgui.update_uis(src)
-
-	if(!uplink_handler.has_objectives)
-		return TRUE
-
-	if(uplink_handler.owner?.current != ui.user || !uplink_handler.can_take_objectives)
-		return TRUE
-
-//monkestation edit start
-	switch(action)
-		if("buy_contractor")
-			var/item = params["item"]
-			for(var/datum/contractor_item/hub_item in uplink_handler.contractor_market_items)
-				if(hub_item.name == item)
-					hub_item.handle_purchase(uplink_handler, ui.user)
-//monkestation edit end
-
-	switch(action)
-		if("regenerate_objectives")
-			uplink_handler.generate_objectives()
-			return TRUE
-
-	var/list/objectives
-	switch(action)
-		if("start_objective")
-			objectives = uplink_handler.potential_objectives
-		if("objective_act", "finish_objective", "objective_abort")
-			objectives = uplink_handler.active_objectives
-
-	if(!objectives)
-		return
-
-	var/objective_index = round(text2num(params["index"]))
-	if(objective_index < 1 || objective_index > length(objectives))
-		return TRUE
-	var/datum/traitor_objective/objective = objectives[objective_index]
-
-	// Objective actions
-	switch(action)
-		if("start_objective")
-			uplink_handler.take_objective(ui.user, objective)
-		if("objective_act")
-			uplink_handler.ui_objective_act(ui.user, objective, params["objective_action"])
-		if("finish_objective")
-			if(!objective.finish_objective(ui.user))
-				return
-			uplink_handler.complete_objective(objective)
-		if("objective_abort")
-			uplink_handler.abort_objective(objective)
-	return TRUE
 
 /// Proc that locks uplinks
 /datum/component/uplink/proc/lock_uplink()
@@ -549,4 +443,56 @@
 	explosion(parent, devastation_range = 1, heavy_impact_range = 2, light_impact_range = 3)
 	qdel(parent) //Alternatively could brick the uplink.
 
+//organ parent
+/datum/component/uplink/proc/organ_implanted(obj/item/organ/implanted, mob/living/carbon/receiver)
+	SIGNAL_HANDLER
+	activation_action.Grant(receiver)
+	RegisterSignal(receiver, COMSIG_ATOM_ATTACKBY, PROC_REF(uplink_holder_attackby))
+
+/datum/component/uplink/proc/organ_removed(obj/item/organ/removed, mob/living/carbon/old_owner)
+	SIGNAL_HANDLER
+	activation_action.Remove(old_owner)
+	UnregisterSignal(old_owner, COMSIG_ATOM_ATTACKBY)
+
+//mind parent
+/datum/component/uplink/proc/mind_transferred(datum/mind/transferred, mob/previous_body)
+	SIGNAL_HANDLER
+	activation_action.Remove(previous_body)
+	activation_action.Grant(transferred.current)
+	UnregisterSignal(previous_body, COMSIG_ATOM_ATTACKBY)
+	RegisterSignal(transferred.current, COMSIG_ATOM_ATTACKBY, PROC_REF(uplink_holder_attackby))
+
+//antag datum parent
+/datum/component/uplink/proc/antag_effects_applied(datum/antagonist/gained, mob/living/applied_to)
+	SIGNAL_HANDLER
+	activation_action.Grant(applied_to)
+	RegisterSignal(applied_to, COMSIG_ATOM_ATTACKBY, PROC_REF(uplink_holder_attackby))
+
+/datum/component/uplink/proc/antag_effects_removed(datum/antagonist/lost, mob/living/removed_from)
+	SIGNAL_HANDLER
+	activation_action.Remove(removed_from)
+	UnregisterSignal(removed_from, COMSIG_ATOM_ATTACKBY)
+
 #undef PEN_ROTATIONS
+
+///Generic action to active an uplink
+/datum/action/innate/activate_uplink
+	name = "Activate Uplink"
+	desc = "Activate a concealed uplink."
+	button_icon = 'icons/obj/radio.dmi'
+	button_icon_state = "radio"
+	///Ref to our uplink component
+	var/datum/component/uplink/link
+
+/datum/action/innate/activate_uplink/New(Target, datum/component/uplink/link)
+	. = ..()
+	src.link = link
+
+/datum/action/innate/activate_uplink/Destroy()
+	link = null
+	return ..()
+
+/datum/action/innate/activate_uplink/Activate()
+	. = ..()
+	link.locked = FALSE
+	link.interact(null, owner)

@@ -24,8 +24,8 @@
 		return
 
 	var/list/ranking_member_handlers = list()
-	var/list/member_datums_by_rank = antag_owner.gang_team.member_datums_by_rank //this is actualy slightly cheaper(but I actually just dont want the next line to be too long)
-	for(var/datum/antagonist/gang_member/antag_datum in member_datums_by_rank["[GANG_RANK_BOSS]"] + member_datums_by_rank["[GANG_RANK_LIEUTENANT]"])
+	var/list/member_datums_by_rank = antag_owner.gang_team.member_datums_by_rank
+	for(var/datum/antagonist/gang_member/antag_datum in member_datums_by_rank[GANG_RANK_BOSS] + member_datums_by_rank[GANG_RANK_LIEUTENANT])
 		if(!antag_datum.owner)
 			continue
 

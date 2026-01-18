@@ -1,5 +1,5 @@
 ///Assoc list of all gangs keyed to their tag
-GLOBAL_LIST_EMPTY(all_gangs_by_tag)
+GLOBAL_ALIST_EMPTY(all_gangs_by_tag)
 
 /datum/team/gang
 	name = "Syndicate Gang"
@@ -36,7 +36,7 @@ GLOBAL_LIST_EMPTY(all_gangs_by_tag)
 		"Gib",
 	)
 	///Assoc list of member antag datums keyed to their rank
-	var/list/member_datums_by_rank = list()
+	var/alist/member_datums_by_rank = alist()
 	///List of area types owned by this gang, used to make some checks cheaper
 	var/list/claimed_areas = list()
 	///List of gang claimed area types that generally cannot change ownership

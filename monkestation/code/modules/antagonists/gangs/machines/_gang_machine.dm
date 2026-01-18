@@ -29,7 +29,7 @@ PROCESSING_SUBSYSTEM_DEF(gang_machines) //temp SS
 	if(!setup && setup_tc_cost && istype(weapon, /obj/item/stack/telecrystal) && setup_checks(user, our_area) && IS_GANGMEMBER(user))
 		var/obj/item/stack/telecrystal/tc = weapon
 		if(!tc.use(setup_tc_cost))
-			balloon_alert(user, "You need at least [setup_tc_cost] telecrystals to setup \the [src].")
+			balloon_alert(user, "you need at least [setup_tc_cost] telecrystals to setup \the [src].")
 			return ..()
 		do_setup(our_area, user)
 		return
@@ -49,7 +49,7 @@ PROCESSING_SUBSYSTEM_DEF(gang_machines) //temp SS
 	var/area/our_area = passed_area || get_area(src)
 	if(!our_area || !(our_area.type in GLOB.the_station_areas))
 		if(user)
-			balloon_alert(user, "\The [src] must be on the station.")
+			balloon_alert(user, "\the [src] must be on the station.")
 		return FALSE
 	return TRUE
 

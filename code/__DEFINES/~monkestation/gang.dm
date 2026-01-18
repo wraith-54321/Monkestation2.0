@@ -6,7 +6,7 @@
 
 #define SEND_MESSAGE_TO_ALL_GANGS(sent_message, span, append) \
 	var/list/gang_list = list(); \
-	for(var/gang in GLOB.all_gangs_by_tag) { \
-		gang_list += GLOB.all_gangs_by_tag[gang]; \
+	for(var/tag, gang in GLOB.all_gangs_by_tag) { \
+		gang_list += gang; \
 	} \
 	send_gang_message(null, gang_list, sent_message, span, append);
