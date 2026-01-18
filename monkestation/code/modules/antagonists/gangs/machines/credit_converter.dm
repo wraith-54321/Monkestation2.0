@@ -67,7 +67,7 @@
 /obj/machinery/gang_machine/credit_converter/attackby(obj/item/weapon, mob/user, params)
 	if(istype(weapon, /obj/item/holochip) || istype(weapon, /obj/item/stack/spacecash))
 		if(!setup)
-			to_chat(span_warning("[src] needs to be setup first!"))
+			to_chat(user, span_warning("[src] needs to be setup first!"))
 			return ..()
 
 		stored_credits += weapon.get_item_credit_value()
