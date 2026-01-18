@@ -1,7 +1,0 @@
-author: "Lawlolawl"
-delete-after: True
-changes:
-  - qol: "You can no longer place PDAs, pens, or radio headsets into autolathes for recycling (traitor inconspicuous uplinks)"
-  - bugfix: "Deconstructing PDAs results in the inserted item in the pen slot (e.g. pen, crayon, cig, penlight etc) being dropped on the floor correctly."
-  - rscadd: "Added description text for when PDAs are missing a power cell."
-  - bugfix: "Traitor objective tools (nuke core screwdriver, SM extraction scalpel & hemostat) can no longer be recycled in autolathes."

@@ -1,4 +1,0 @@
-author: "Lawlolawl"
-delete-after: True
-changes:
-  - bugfix: "Fixed indestructible items (nuke disk, hand tele etc.) teleporting to ore silo in vault when attempting to place them into a protolathe. No one was stupid enough to try it in the last 5 months since porting tg's rework, apparently."

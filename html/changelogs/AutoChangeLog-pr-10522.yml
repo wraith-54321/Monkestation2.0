@@ -1,4 +1,0 @@
-author: "iliyaxox"
-delete-after: True
-changes:
-  - bugfix: "Blueshift's brig infirmary now has supplied medkits instead of empty ones."
