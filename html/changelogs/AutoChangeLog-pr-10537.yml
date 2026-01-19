@@ -1,5 +1,0 @@
-author: "JohnFulpWillard"
-delete-after: True
-changes:
-  - bugfix: "NTSL's \"Mute Poly\" achievement works as it's supposed to."
-  - rscadd: "NTSL's language scripting has been changed. Please update your scripts (The reference is updated for this as well)"
