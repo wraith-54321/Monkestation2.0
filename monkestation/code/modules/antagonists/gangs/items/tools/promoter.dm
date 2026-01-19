@@ -37,7 +37,7 @@
 			if(lieutenant_datum.owner?.current)
 				real_lieutenants++
 		if(real_lieutenants >= MAX_LIEUTENANTS)
-			balloon_alert(user, "you already have the maximum amount of lieutenants")
+			balloon_alert(user.owner.current, "you already have the maximum amount of lieutenants")
 			return FALSE
 	return TRUE
 
@@ -46,13 +46,13 @@
 
 /obj/item/gang_device/promoter/boss/extra_checks(datum/antagonist/gang_member/target, datum/antagonist/gang_member/user)
 	if(!MEETS_GANG_RANK(target, GANG_RANK_LIEUTENANT))
-		balloon_alert(user, "[target.owner.current] must be a lieutenant to be promoted")
+		balloon_alert(user.owner.current, "[target.owner.current] must be a lieutenant to be promoted")
 		return FALSE
 
 	var/list/boss_list = target.gang_team.member_datums_by_rank[GANG_RANK_BOSS]
 	if(length(boss_list))
 		for(var/datum/antagonist/gang_member/boss_datum in boss_list)
 			if(boss_datum.owner?.current)
-				balloon_alert(user, "you still have a living boss")
+				balloon_alert(user.owner.current, "you still have a living boss")
 				return FALSE
 	return TRUE

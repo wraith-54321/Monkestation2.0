@@ -8,6 +8,7 @@
 	antag_hud_name = "hud_gangster"
 	ui_name = "AntagInfoGang"
 	stinger_sound = 'sound/ambience/antag/familieswork.ogg'
+	antag_count_points = 5 //mini traitor
 	///Ref to our team
 	var/datum/team/gang/gang_team
 	///What is our rank
@@ -88,9 +89,11 @@
 		current.faction -= "[REF(gang_team)]"
 		communicate?.Remove(current)
 
-/datum/antagonist/gang_member/on_removal()
+/datum/antagonist/gang_member/on_removal(obj/item/implant/uplink/gang/removed_implant)
 	handler = null
 	. = ..()
+	if(removed_implant)
+		removed_implant.removed()
 	gang_team.member_datums_by_rank[rank] -= src
 	if(communicate?.source_rank < GANG_RANK_LIEUTENANT)
 		QDEL_NULL(communicate)
@@ -132,9 +135,10 @@
 		communicate = null
 	else if(implant)
 		new_datum.RegisterSignal(implant, COMSIG_IMPLANT_REMOVED, TYPE_PROC_REF(/datum/antagonist/gang_member, handle_implant_removal))
+		implant = null //null implant so it wont get passed to on_removal()
 
 	var/datum/mind/owner_ref = owner //we need to keep a temp ref of this to use after on_removal()
-	on_removal()
+	on_removal(implant)
 	owner_ref?.add_antag_datum(new_datum, gang_team)
 	var/active_length = length(handler_ref.active_objectives)
 	while(active_length && handler_ref.maximum_active_objectives < active_length)
@@ -169,6 +173,7 @@
 	name = "\improper Syndicate Gang Lieutenant"
 	hud_icon = 'monkestation/icons/mob/huds/antag_hud.dmi'
 	//show_to_ghosts = TRUE
+	antag_count_points = 8
 	antag_hud_name = "gang_lieutenant"
 	rank = GANG_RANK_LIEUTENANT
 
@@ -176,6 +181,7 @@
 	name = "\improper Syndicate Gang Boss"
 	hud_icon = 'monkestation/icons/mob/huds/antag_hud.dmi'
 	//show_to_ghosts = TRUE
+	antag_count_points = 12
 	antag_hud_name = "gang_boss"
 	rank = GANG_RANK_BOSS
 	given_gear_type = /obj/item/storage/box/syndicate/gang_boss_kit

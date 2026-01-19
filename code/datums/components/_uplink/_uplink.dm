@@ -187,6 +187,10 @@
 	previous_attempts = null
 	return ..()
 
+/datum/component/uplink/PostTransfer()
+	if(!isitem(parent) && !istype(parent, /datum/mind) && !istype(parent, /datum/antagonist))
+		return COMPONENT_INCOMPATIBLE
+
 /datum/component/uplink/proc/handle_uplink_handler_update()
 	SIGNAL_HANDLER
 	SStgui.update_uis(src)
@@ -228,10 +232,6 @@
 	lockable |= uplink.lockable
 	active |= uplink.active
 	uplink_handler.uplink_flag |= uplink.uplink_handler.uplink_flag
-
-/datum/component/uplink/Destroy()
-	purchase_log = null
-	return ..()
 
 /datum/component/uplink/proc/load_tc(mob/user, obj/item/stack/telecrystal/telecrystals, silent = FALSE)
 	if(!silent)
