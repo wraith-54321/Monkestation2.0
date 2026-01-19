@@ -93,7 +93,8 @@
 	handler = null
 	. = ..()
 	if(removed_implant)
-		removed_implant.removed()
+		removed_implant.removed(removed_implant.imp_in, silent = TRUE, forced = TRUE)
+		qdel(removed_implant)
 	gang_team.member_datums_by_rank[rank] -= src
 	if(communicate?.source_rank < GANG_RANK_LIEUTENANT)
 		QDEL_NULL(communicate)
