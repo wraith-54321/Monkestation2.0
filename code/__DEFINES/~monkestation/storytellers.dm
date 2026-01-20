@@ -83,7 +83,7 @@
 ///Below are defines for roundstart point pool. The GAIN ones are multiplied by ready population
 
 #define ROUNDSTART_ROLESET_BASE 60
-#define ROUNDSTART_ROLESET_GAIN 32
+#define ROUNDSTART_ROLESET_GAIN 38
 
 #define SHARED_HIGH_THREAT	"high threat event"
 #define SHARED_ANOMALIES	"anomalous event"
