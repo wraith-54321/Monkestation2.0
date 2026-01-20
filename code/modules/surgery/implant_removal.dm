@@ -73,7 +73,6 @@
 			implant.on_surgical_removal_complete()
 
 		display_pain(target, "You can feel your [implant.name] pulled out of you!")
-//		implant.removed(target) //monkestation removal
 
 		var/obj/item/implantcase/case
 		for(var/obj/item/implantcase/implant_case in user.held_items)

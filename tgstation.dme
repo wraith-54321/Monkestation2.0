@@ -1369,6 +1369,7 @@
 #include "code\datums\components\wearertargeting.dm"
 #include "code\datums\components\wet_floor.dm"
 #include "code\datums\components\_uplink\_uplink.dm"
+#include "code\datums\components\_uplink\parent_type_handling.dm"
 #include "code\datums\components\_uplink\uplink_ui.dm"
 #include "code\datums\components\container_item\container_item.dm"
 #include "code\datums\components\container_item\tank_holder.dm"

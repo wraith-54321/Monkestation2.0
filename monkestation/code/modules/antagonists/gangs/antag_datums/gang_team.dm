@@ -71,12 +71,20 @@ GLOBAL_ALIST_EMPTY(all_gangs_by_tag)
 	GLOB.all_gangs_by_tag -= gang_tag
 	return ..()
 
-///datum/team/gang/process(seconds_per_tick)
+///Get the uplink handler belonging to the passed mind, and create it if they dont have one
+/datum/team/gang/proc/get_specific_handler(datum/mind/owner)
+	var/datum/uplink_handler/gang/handler = handlers[owner]
+	if(!handler)
+		handler = new
+		handlers[owner] = handler
+		handler.owner = owner
+		handler.owning_gang = src
+	return handler
 
 ///Update the amount of threat local to each of our uplinks and then call their UI update
 /datum/team/gang/proc/update_handler_threat()
-	for(var/datum/uplink_handler/handler as anything in handlers)
-		handler = handlers[handler]
+	for(var/owner, handle in handlers)
+		var/datum/uplink_handler/handler = handle
 		handler.progression_points = threat
 		if(handler.maximum_potential_objectives > handler.potential_objectives + handler.active_objectives)
 			handler.generate_objectives()
@@ -84,8 +92,8 @@ GLOBAL_ALIST_EMPTY(all_gangs_by_tag)
 
 ///Update the duplicate objectives for all our handlers
 /datum/team/gang/proc/update_duplicate_objectives()
-	for(var/datum/uplink_handler/handler as anything in handlers)
-		handlers[handler].potential_duplicate_objectives = potential_duplicate_objectives
+	for(var/owner, handler in handlers)
+		astype(handler, /datum/uplink_handler).potential_duplicate_objectives = potential_duplicate_objectives
 
 ///Setup our team objectives
 /datum/team/gang/proc/setup_objectives()

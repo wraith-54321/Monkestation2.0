@@ -1,3 +1,5 @@
+#define ADD_UPLINK_COMPONENT AddComponent(/datum/component/uplink, owner = owner.key, lockable = TRUE, enabled = FALSE, uplink_handler_override = handler)
+
 /datum/antagonist/gang_member
 	name = "\improper Syndicate gang member"
 	roundend_category = "gangs"
@@ -17,10 +19,12 @@
 	var/datum/uplink_handler/gang/handler
 	///Typepath of item to give on_gain(), set to null to give nothing
 	var/given_gear_type = /obj/item/toy/crayon/spraycan/gang
-	///Set to TRUE when this datum is being removed due to rank change
-	var/changing_rank = FALSE
 	///Ref to our gang communicator action, if we have one
-	var/datum/action/innate/gang_communicate/communicate
+	var/datum/action/innate/gang_communicate/communicate //make this work correctly
+	///Are we currently changing rank
+	var/changing_rank = FALSE
+	///A weakref to the implant we are from
+	var/datum/weakref/implant_source
 
 /datum/antagonist/gang_member/New()
 	. = ..()
@@ -44,20 +48,22 @@
 	member_list += src
 
 	objectives += gang_team.objectives
+	handler = gang_team.get_specific_handler(owner)
+
+	if(iscarbon(owner.current))
+		var/mob/living/carbon/carbon_current = owner.current
+		handler.assigned_role = owner.assigned_role?.title //might not want to have these
+		handler.assigned_species = carbon_current.dna?.species?.id
+
 	if(!handler.primary_objectives)
 		handler.primary_objectives = objectives.Copy()
 	else
 		handler.primary_objectives |= objectives
-	handler.can_take_objectives = !!rank //return it as a bool
-	handler.maximum_active_objectives = 1 * rank //this actually just works, but if you for some reason ever mess with ranks this will break
-	handler.maximum_potential_objectives = 3 * rank
-	if(handler.maximum_potential_objectives)
-		handler.generate_objectives()
-	handler.on_update()
+
+	check_handler_values()
 
 	hud_keys = gang_team.gang_tag
-	if(owner?.current)
-		add_team_hud(owner.current, /datum/antagonist/gang_member)
+	if(owner.current)
 		if(given_gear_type)
 			var/obj/item/given_item = new given_gear_type(get_turf(owner.current))
 			var/mob/living/carbon/carbon_current = (iscarbon(owner.current) ? owner.current : null)
@@ -66,12 +72,12 @@
 	return ..()
 
 /datum/antagonist/gang_member/on_body_transfer(mob/living/old_body, mob/living/new_body)
-	var/obj/item/implant/uplink/gang/implant = locate() in old_body.implants
-	if(!implant)
+	var/obj/item/implant/uplink/gang/old_implant = implant_source?.resolve()
+	if(!old_implant)
 		return ..()
 
-	implant.removed(old_body, special = TRUE, forced = TRUE)
-	implant.implant(new_body)
+	old_implant.removed(old_body, special = TRUE, forced = TRUE)
+	old_implant.implant(new_body)
 	return ..()
 
 //might need to handle body transfer
@@ -81,6 +87,7 @@
 	if(current)
 		current.faction += "[REF(gang_team)]"
 		communicate?.Grant(current)
+		add_team_hud(current, /datum/antagonist/gang_member)
 
 /datum/antagonist/gang_member/remove_innate_effects(mob/living/mob_override)
 	. = ..()
@@ -89,10 +96,11 @@
 		current.faction -= "[REF(gang_team)]"
 		communicate?.Remove(current)
 
-/datum/antagonist/gang_member/on_removal(obj/item/implant/uplink/gang/removed_implant)
+/datum/antagonist/gang_member/on_removal(obj/item/implant/uplink/gang/removed_implant=implant_source?.resolve(),should_remove_implant=(rank<GANG_RANK_LIEUTENANT&&!changing_rank))
 	handler = null
+	UnregisterSignal(removed_implant, COMSIG_IMPLANT_REMOVED)
 	. = ..()
-	if(removed_implant)
+	if(!QDELETED(removed_implant) && should_remove_implant)
 		removed_implant.removed(removed_implant.imp_in, silent = TRUE, forced = TRUE)
 		qdel(removed_implant)
 	gang_team.member_datums_by_rank[rank] -= src
@@ -114,10 +122,28 @@
 	given_implant.give_gear = TRUE
 	given_implant.implant(new_owner.current, force = TRUE, forced_gang = GLOB.all_gangs_by_tag[selected_gang])
 
-/datum/antagonist/gang_member/ui_static_data(mob/user)
-	var/list/data = ..()
-	data["gang_name"] = gang_team.name
-	return data
+///do the logic for a new implant depending on our rank
+/datum/antagonist/gang_member/proc/handle_new_implant(obj/item/implant/uplink/gang/handled)
+	if(QDELETED(handled))
+		CRASH("handle_new_implant() being passed a qdeling implant")
+
+	if(rank < GANG_RANK_LIEUTENANT)
+		RegisterSignal(handled, COMSIG_IMPLANT_REMOVED, PROC_REF(on_implant_removal))
+		implant_source = WEAKREF(handled)
+	else
+		if(!GetComponent(/datum/component/uplink))
+			ADD_UPLINK_COMPONENT
+		qdel(handled)
+
+///Set the values in our handler to be correct for our rank
+/datum/antagonist/gang_member/proc/check_handler_values() //could maybe move this onto the handlers themselves
+	handler.can_take_objectives = !!rank //return it as a bool
+	handler.maximum_active_objectives = 1 * rank //this actually just works, but if you for some reason ever mess with ranks this will break
+	handler.maximum_potential_objectives = 3 * rank
+	if(handler.maximum_potential_objectives)
+		handler.generate_objectives()
+
+	handler.on_update()
 
 ///Change our datum type to a different one
 /datum/antagonist/gang_member/proc/change_rank(datum/antagonist/gang_member/new_datum) //might want to make a specific proc for demotion
@@ -127,19 +153,23 @@
 	silent = TRUE
 	changing_rank = TRUE
 	var/datum/uplink_handler/handler_ref = handler
-	new_datum.handler = handler_ref
-	var/obj/item/implant/uplink/gang/implant = (locate() in owner?.current?.implants)
-	var/datum/component/uplink/uplink_component = implant?.GetComponent(/datum/component/uplink)
+	var/datum/component/uplink/uplink_component
+	if(rank >= GANG_RANK_LIEUTENANT)
+		uplink_component = GetComponent(/datum/component/uplink)
+	else
+		uplink_component = implant_source?.resolve()?.GetComponent(/datum/component/uplink)
+
 	if(MEETS_GANG_RANK(new_datum, GANG_RANK_LIEUTENANT))
 		new_datum.TakeComponent(uplink_component)
 		new_datum.set_communicate_source(communicate)
 		communicate = null
-	else if(implant)
-		new_datum.RegisterSignal(implant, COMSIG_IMPLANT_REMOVED, TYPE_PROC_REF(/datum/antagonist/gang_member, handle_implant_removal))
-		implant = null //null implant so it wont get passed to on_removal()
+
+	var/obj/item/implant/uplink/gang/our_implant = implant_source?.resolve()
+	if(our_implant)
+		new_datum.handle_new_implant(our_implant)
 
 	var/datum/mind/owner_ref = owner //we need to keep a temp ref of this to use after on_removal()
-	on_removal(implant)
+	on_removal()
 	owner_ref?.add_antag_datum(new_datum, gang_team)
 	var/active_length = length(handler_ref.active_objectives)
 	while(active_length && handler_ref.maximum_active_objectives < active_length)
@@ -154,7 +184,7 @@
 		objective.handle_cleanup()
 		potential_length = length(handler_ref.potential_objectives)
 
-	handler_ref.on_update() //im gonna say its cheaper to just always run this rather than set up some kind of janky check for it
+	handler_ref.on_update()
 
 ///Create our communicate action if we dont have one then set its source
 /datum/antagonist/gang_member/proc/set_communicate_source(datum/action/innate/gang_communicate/commune, source = rank)
@@ -163,12 +193,17 @@
 		communicate.Grant(owner?.current) //if owner is the same or null then Grant() just returns, so this is safe
 	communicate.source_rank = source
 
-/datum/antagonist/gang_member/proc/handle_implant_removal(datum/source, mob/living/mob_source, silent, special)
+/datum/antagonist/gang_member/proc/on_implant_removal(datum/source, mob/living/mob_source, silent, special)
 	SIGNAL_HANDLER
-	if(special) //we use special as the flag to check for being tranferred
+	if(special || changing_rank)
 		return
 
-	on_removal(source)
+	on_removal(source, FALSE)
+
+/datum/antagonist/gang_member/ui_static_data(mob/user)
+	var/list/data = ..()
+	data["gang_name"] = gang_team.name
+	return data
 
 /datum/antagonist/gang_member/lieutenant
 	name = "\improper Syndicate Gang Lieutenant"
@@ -204,3 +239,5 @@
 	var/mob/living/current = mob_override || owner?.current
 	if(current)
 		allocate?.Remove(current)
+
+#undef ADD_UPLINK_COMPONENT
