@@ -157,7 +157,7 @@
 	if(rank >= GANG_RANK_LIEUTENANT)
 		uplink_component = GetComponent(/datum/component/uplink)
 	else
-		uplink_component = implant_source?.resolve()?.GetComponent(/datum/component/uplink)
+		uplink_component = astype(implant_source?.resolve(), /datum)?.GetComponent(/datum/component/uplink)
 
 	if(MEETS_GANG_RANK(new_datum, GANG_RANK_LIEUTENANT))
 		new_datum.TakeComponent(uplink_component)
