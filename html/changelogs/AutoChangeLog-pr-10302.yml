@@ -1,8 +1,0 @@
-author: "Chelxox"
-delete-after: True
-changes:
-  - rscadd: "Introduces the Cassette Library Terminal: browse through and buy cassettes with this easy method!"
-  - image: "Adds on and off sprites for the cassette library terminal."
-  - map: "Places cassette library terminals on all maps on rotation."
-  - admin: "Adds admin logs for when a user buys their own cassette tapes multiple times."
-  - server: "Attention! Cassette library terminal messes with SQL entries. May need operator intervention to fully implement."

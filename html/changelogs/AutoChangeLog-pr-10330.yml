@@ -1,5 +1,0 @@
-author: "Absolucy"
-delete-after: True
-changes:
-  - refactor: "Refactored how mobs target turrets and mechs, which should hopefully be more performant."
-  - refactor: "Refactored turrets so they only process if something potentially \"interesting\" is within its range."
