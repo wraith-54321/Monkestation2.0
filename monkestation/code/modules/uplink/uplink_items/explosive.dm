@@ -1,9 +1,3 @@
-/datum/uplink_item/explosives/detomatix
-	purchasable_from = ~UPLINK_GANGS
-
-/datum/uplink_item/explosives/syndicate_bomb
-	purchasable_from = ~UPLINK_GANGS
-
 /datum/uplink_item/explosives/soap_clusterbang
 	surplus = 60
 
@@ -24,7 +18,7 @@
 	desc = "A robust, 4 round pump-action grenade launcher. Comes preloaded with three 40mm HE shells."
 	cost = 10
 	item = /obj/item/gun/ballistic/shotgun/china_lake
-	purchasable_from = ~UPLINK_CLOWN_OPS
+	purchasable_from = ~(UPLINK_CLOWN_OPS | UPLINK_GANGS)
 
 /datum/uplink_item/explosives/grenade_launcher
 	name = "40mm Grenade Launcher"

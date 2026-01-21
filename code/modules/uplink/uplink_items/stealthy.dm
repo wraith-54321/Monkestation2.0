@@ -47,7 +47,7 @@
 	item = /obj/item/suppressor
 	cost = 3
 	surplus = 10
-	purchasable_from = ~(UPLINK_CLOWN_OPS | UPLINK_GANGS) //monkestation edit: adds UPLINK_GANGS
+	purchasable_from = ~(UPLINK_CLOWN_OPS)
 
 /datum/uplink_item/stealthy_weapons/holster
 	name = "Syndicate Holster"
@@ -65,7 +65,6 @@
 	cost = 4
 	purchasable_from = ~(UPLINK_NUKE_OPS | UPLINK_CLOWN_OPS)
 
-
 /datum/uplink_item/stealthy_weapons/origami_kit
 	name = "Boxed Origami Kit"
 	desc = "This box contains a guide on how to craft masterful works of origami, allowing you to transform normal pieces of paper into \
@@ -76,7 +75,6 @@
 	surplus = 50 //monkestation edit: from 0 to 50
 	purchasable_from = ~UPLINK_NUKE_OPS //clown ops intentionally left in, because that seems like some s-tier shenanigans.
 
-
 /datum/uplink_item/stealthy_weapons/martialarts
 	name = "Martial Arts Scroll"
 	desc = "This scroll contains the secrets of an ancient martial arts technique. You will master unarmed combat \
@@ -85,7 +83,7 @@
 	progression_minimum = 30 MINUTES
 	cost = 12 //monke edit
 	surplus = 30 //monkestation edit: from 0 to 30
-	purchasable_from = ~(UPLINK_NUKE_OPS | UPLINK_CLOWN_OPS | UPLINK_GANGS) //monkestation edit: adds UPLINK_GANGS
+	purchasable_from = ~(UPLINK_NUKE_OPS | UPLINK_CLOWN_OPS | UPLINK_GANGS)
 
 /datum/uplink_item/stealthy_weapons/crossbow
 	name = "Miniature Energy Crossbow"
@@ -98,7 +96,7 @@
 	item = /obj/item/gun/energy/recharge/ebow
 	cost = 10
 	surplus = 50
-	purchasable_from = ~(UPLINK_NUKE_OPS | UPLINK_CLOWN_OPS | UPLINK_GANGS) //monkestation edit: adds UPLINK_GANGS
+	purchasable_from = ~(UPLINK_NUKE_OPS | UPLINK_CLOWN_OPS)
 
 /datum/uplink_item/stealthy_weapons/contrabaton
 	name = "Contractor Baton"

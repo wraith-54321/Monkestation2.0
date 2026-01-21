@@ -17,7 +17,7 @@
 			as well as causing significant demoralization amongst Nanotrasen crew."
 	item = /obj/item/mod/control/pre_equipped/infiltrator
 	cost = 6
-	purchasable_from = ~(UPLINK_NUKE_OPS | UPLINK_CLOWN_OPS)
+	purchasable_from = ~(UPLINK_NUKE_OPS | UPLINK_CLOWN_OPS | UPLINK_GANGS)
 
 /datum/uplink_item/suits/noslip
 	name = "MODsuit Anti-Slip Module"
@@ -32,7 +32,6 @@
 			sightings, however." //monkestation edit
 	item = /obj/item/storage/box/syndie_kit/space
 	cost = 4
-
 
 /datum/uplink_item/suits/modsuit
 	name = "Syndicate MODsuit"

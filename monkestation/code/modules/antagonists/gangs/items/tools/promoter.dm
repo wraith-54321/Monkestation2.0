@@ -17,12 +17,15 @@
 		return ..()
 
 	var/datum/antagonist/gang_member/user_datum = IS_GANGMEMBER(user)
+	if(!user_datum)
+		return ..()
+
 	var/datum/antagonist/gang_member/target_datum = IS_GANGMEMBER(target)
-	if(!debug&&(!user_datum||!target_datum||user_datum.rank<GANG_RANK_LIEUTENANT||user_datum.gang_team!=target_datum.gang_team||target_datum.rank>=initial(promoted_to.rank)))
+	if(!debug&&(!target_datum || user_datum.rank < GANG_RANK_LIEUTENANT || user_datum.gang_team != target_datum.gang_team || target_datum.rank >= initial(promoted_to.rank)))
 		to_chat(user, span_notice("You cannot promote [target]"))
 		return ..()
 
-	if(!extra_checks(target_datum, user_datum))
+	if(!debug && !extra_checks(target_datum, user_datum))
 		return ..()
 
 	target_datum.change_rank(promoted_to)

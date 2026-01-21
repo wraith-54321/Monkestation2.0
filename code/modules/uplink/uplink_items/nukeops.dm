@@ -730,7 +730,7 @@
 			operatives in the fight, even while under fire. Don't cross the streams!"
 	item = /obj/item/gun/medbeam
 	cost = 15
-	purchasable_from = UPLINK_NUKE_OPS | UPLINK_CLOWN_OPS | UPLINK_GANGS //monkestation edit: adds UPLINK_GANGS
+	purchasable_from = UPLINK_NUKE_OPS | UPLINK_CLOWN_OPS
 
 /datum/uplink_item/device_tools/medkit
 	name = "Syndicate Combat Medic Kit"
@@ -893,11 +893,11 @@
 	desc = "A strange red potion that's said to turn you into a tiny red space man at 3AM, seems to work at any time though. \
 			Drinking this potion will turn you very small allowing you to be carried in backpacks by your fellow operatives, \
 			seems to not make goblins or monkeys any smaller though. No money refunds."
-	purchasable_from = UPLINK_NUKE_OPS | UPLINK_CLOWN_OPS
+	purchasable_from = UPLINK_NUKE_OPS | UPLINK_CLOWN_OPS | UPLINK_GANGS
 	item = /obj/item/amogus_potion
 	cost = 7
 
-/datum/uplink_item/ammo/LMG
+/datum/uplink_item/ammo/lmg
 	name = "6.5 FMJ Quarad drum"
 	desc = "A surplus 120 round drum of FMJ bullets for the Quarad"
 	item = /obj/item/ammo_box/magazine/c65xeno_drum/evil
@@ -905,7 +905,7 @@
 	purchasable_from = UPLINK_NUKE_OPS
 	illegal_tech = FALSE
 
-/datum/uplink_item/ammo/LMG/incendiary
+/datum/uplink_item/ammo/lmg/incendiary
 	name = "6.5 Inferno Quarad drum"
 	desc = "A 120 round drum of Inferno bullets for the Quarad. They leave a trail of fire"
 	item = /obj/item/ammo_box/magazine/c65xeno_drum/incendiary/evil
@@ -913,7 +913,7 @@
 	purchasable_from = UPLINK_NUKE_OPS
 	illegal_tech = FALSE
 
-/datum/uplink_item/ammo/LMG/pierce
+/datum/uplink_item/ammo/lmg/pierce
 	name = "6.5 UDS Quarad drum"
 	desc = "No, NOT depleted uranium. 120 round drum of piercing and irradiating bullets for the Quarad"
 	item = /obj/item/ammo_box/magazine/c65xeno_drum/pierce/evil

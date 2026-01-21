@@ -49,9 +49,11 @@
 
 	starting_tc = 0
 	new_uplink.unlock_text = "Your Syndicate Uplink has been cunningly implanted in you, for a small TC fee. Simply trigger the uplink to access it."
-	if(!uplink_handler && istype(target)) //if our uplink_handler is unset then a new one will get created by the component
-		new_uplink.uplink_handler.assigned_role = target.mind.assigned_role?.title
-		new_uplink.uplink_handler.assigned_species = target.dna?.species?.id
+	if(!uplink_handler) //if our uplink_handler is unset then a new one will get created by the component
+		new_uplink.uplink_handler.owner = target.mind
+		if(istype(target))
+			new_uplink.uplink_handler.assigned_role = target.mind.assigned_role?.title
+			new_uplink.uplink_handler.assigned_species = target.dna?.species?.id
 	return new_uplink
 
 /**
