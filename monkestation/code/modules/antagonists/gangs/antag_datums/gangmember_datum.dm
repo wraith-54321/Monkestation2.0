@@ -137,23 +137,23 @@
 /datum/antagonist/gang_member/get_preview_icon()
 	var/icon/final_icon = render_preview_outfit(preview_outfit)
 
-	final_icon.Blend(make_henchmen_icon("Business Hair", /datum/outfit/gang_lieutenant_preview), ICON_UNDERLAY, -8, 0)
-	final_icon.Blend(make_henchmen_icon("CIA"), ICON_UNDERLAY, 8, 0)
+	final_icon.Blend(make_henchmen_icon("Business Hair", /datum/outfit/gang_lieutenant_preview), ICON_UNDERLAY, -world.icon_size / 4, 0)
+	final_icon.Blend(make_henchmen_icon("CIA"), ICON_UNDERLAY, world.icon_size / 4, 0)
 
-	//final_icon.Scale(64, 64)
+	final_icon.Scale(64, 64)
 
 	return finish_preview_icon(final_icon)
 
 /datum/antagonist/gang_member/proc/make_henchmen_icon(hairstyle, outfit = /datum/outfit/gang_member_preview)
-	var/mob/living/carbon/human/dummy/consistent/assistant = new
-	assistant.set_hairstyle(hairstyle, update = TRUE)
+	var/mob/living/carbon/human/dummy/consistent/henchman = new
+	henchman.set_hairstyle(hairstyle, update = TRUE)
 
-	var/icon/assistant_icon = render_preview_outfit(/datum/outfit/job/assistant/consistent, assistant)
-	assistant_icon.ChangeOpacity(0.5)
+	var/icon/henchman_icon = render_preview_outfit(outfit, henchman)
+	henchman_icon.ChangeOpacity(0.5)
 
-	qdel(assistant)
+	qdel(henchman)
 
-	return assistant_icon
+	return henchman_icon
 
 ///do the logic for a new implant depending on our rank
 /datum/antagonist/gang_member/proc/handle_new_implant(obj/item/implant/uplink/gang/handled)
