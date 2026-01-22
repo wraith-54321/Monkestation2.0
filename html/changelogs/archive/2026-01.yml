@@ -362,3 +362,25 @@
       times.
   - server: Attention! Cassette library terminal messes with SQL entries. May need
       operator intervention to fully implement.
+2026-01-22:
+  Chelxox:
+  - map: Added 2 more security officer lockers on Oshean's security office, making
+      it 6.
+  Gboster-0:
+  - bugfix: wheelchairs now properly take 1 second to unbuckle people
+  - bugfix: you can no longer stand in the same place whilst unbuckling someone in
+      a wheelchair, and unbuckle them from 2 tiles away
+  SirNightKnight:
+  - qol: mop buckets have 500 reagent capacity .
+  - bugfix: fixed the vacuum upgrade not working.
+  - qol: janitors have a liquid pump beacon in their outfit.
+  - qol: slightly increased to the stock of the JaniDrobe to accommodate a third set
+      of janitor gear. it also now has space cleaner.
+  - rscadd: dumping a mop bucket over a scrubber vent doesnt expose the tile to the
+      reagents inside.
+  - qol: normal mop buckets can be dumped the same way as janitorial carts.
+  - balance: removed backpack watertank slowdown.
+  - qol: light replacers can be made at engineering prolathes.
+  - bugfix: fixed trashbags not working on janitorial carts when storing items.
+  iliyaxox:
+  - rscadd: Added a cassette library and postbox to Theseus' radio outpost.
