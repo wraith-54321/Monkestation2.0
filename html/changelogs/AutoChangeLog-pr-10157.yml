@@ -1,0 +1,6 @@
+author: "JupiterJaeden, flleeppyy"
+delete-after: True
+changes:
+  - rscadd: "Adds an 'Armory De-Authorization Announcement' for when the armory is closed using the auth console, similar to the one for opening the armory."
+  - qol: "The reasons for opening the armory in the auth console now have tooltips giving details explaining what situations they apply to."
+  - admin: "Adds admin logging for opening and closing the armory."
