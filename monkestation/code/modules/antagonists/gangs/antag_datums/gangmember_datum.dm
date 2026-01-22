@@ -12,6 +12,7 @@
 	stinger_sound = 'sound/ambience/antag/familieswork.ogg'
 	antag_count_points = 5 //mini traitor
 	base_type = /datum/antagonist/gang_member
+	preview_outfit = /datum/outfit/gang_boss_preview
 	///Ref to our team
 	var/datum/team/gang/gang_team
 	///What is our rank
@@ -133,6 +134,27 @@
 
 	return !HAS_TRAIT(new_owner, TRAIT_UNCONVERTABLE)
 
+/datum/antagonist/gang_member/get_preview_icon()
+	var/icon/final_icon = render_preview_outfit(preview_outfit)
+
+	final_icon.Blend(make_henchmen_icon("Business Hair", /datum/outfit/gang_lieutenant_preview), ICON_UNDERLAY, -8, 0)
+	final_icon.Blend(make_henchmen_icon("CIA"), ICON_UNDERLAY, 8, 0)
+
+	//final_icon.Scale(64, 64)
+
+	return finish_preview_icon(final_icon)
+
+/datum/antagonist/gang_member/proc/make_henchmen_icon(hairstyle, outfit = /datum/outfit/gang_member_preview)
+	var/mob/living/carbon/human/dummy/consistent/assistant = new
+	assistant.set_hairstyle(hairstyle, update = TRUE)
+
+	var/icon/assistant_icon = render_preview_outfit(/datum/outfit/job/assistant/consistent, assistant)
+	assistant_icon.ChangeOpacity(0.5)
+
+	qdel(assistant)
+
+	return assistant_icon
+
 ///do the logic for a new implant depending on our rank
 /datum/antagonist/gang_member/proc/handle_new_implant(obj/item/implant/uplink/gang/handled)
 	if(QDELETED(handled))
@@ -252,3 +274,28 @@
 		allocate?.Remove(current)
 
 #undef ADD_UPLINK_COMPONENT
+
+/datum/outfit/gang_lieutenant_preview
+	head = /obj/item/clothing/head/fedora
+	uniform = /obj/item/clothing/under/suit/checkered
+	r_hand = /obj/item/gun/ballistic/automatic/tommygun
+	gloves = /obj/item/clothing/gloves/color/black
+	shoes = /obj/item/clothing/shoes/laceup
+
+/datum/outfit/gang_boss_preview
+	head = /obj/item/clothing/head/fedora/white
+	glasses = /obj/item/clothing/glasses/sunglasses/big
+	uniform = /obj/item/clothing/under/suit/white
+	gloves = /obj/item/clothing/gloves/color/white
+	shoes = /obj/item/clothing/shoes/cowboy/white
+	r_hand = /obj/item/storage/briefcase/secure
+	l_hand = /obj/item/storage/canesword/syndicate
+
+/datum/outfit/gang_member_preview
+	head = /obj/item/clothing/head/henchmen_hat/traitor
+	uniform = /obj/item/clothing/under/color/black
+	gloves = /obj/item/clothing/gloves/color/light_brown
+	suit = /obj/item/clothing/suit/jacket/henchmen_coat/traitor
+	shoes = /obj/item/clothing/shoes/laceup
+	l_hand = /obj/item/switchblade/extended
+	r_hand = /obj/item/gun/ballistic/automatic/mini_uzi

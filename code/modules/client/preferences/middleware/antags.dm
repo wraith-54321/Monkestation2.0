@@ -84,6 +84,7 @@
 		ROLE_COMMANDO_OPERATIVE = /datum/antagonist/nukeop/commando,
 		ROLE_COMMANDO_OPERATIVE_MIDROUND = /datum/antagonist/nukeop/commando,
 		ROLE_DARKSPAWN = /datum/antagonist/darkspawn,
+		ROLE_GANG_MEMBER = /datum/antagonist/gang_member,
 		// monkestation end
 	)
 

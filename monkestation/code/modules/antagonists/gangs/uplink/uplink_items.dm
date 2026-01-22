@@ -59,10 +59,10 @@
 	w_class = WEIGHT_CLASS_BULKY
 
 /obj/item/storage/briefcase/tommygun/Initialize(mapload)
+	. = ..()
 	atom_storage.max_slots = 3
 	atom_storage.max_total_storage = 8
 	atom_storage.set_holdable(list(/obj/item/ammo_box/magazine/tommygunm45), exception_hold_list = list(/obj/item/gun/ballistic/automatic/tommygun/gang))
-	return ..()
 
 /obj/item/storage/briefcase/tommygun/PopulateContents()
 	new /obj/item/gun/ballistic/automatic/tommygun/gang(src)

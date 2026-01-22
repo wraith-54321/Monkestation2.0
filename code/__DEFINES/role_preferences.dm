@@ -160,7 +160,7 @@ GLOBAL_LIST_INIT(special_roles, list(
 	ROLE_TRAITOR = 0,
 	ROLE_WIZARD = 14,
 //monkestation edit start
-	ROLE_CLOCK_CULTIST = 14,
+	ROLE_CLOCK_CULTIST = 300,
 	ROLE_BLOODSUCKER = 0,
 	ROLE_GANG_MEMBER = 300, //set extra high for testing to make sure picked players have some degree of playtime
 	ROLE_ASSAULT_OPERATIVE = 14,
