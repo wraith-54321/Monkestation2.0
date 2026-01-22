@@ -2,14 +2,42 @@
 	name = "Type U3 Uzi"
 	desc = "A lightweight, burst-fire submachine gun, for when you really want someone dead. Uses 9mm rounds."
 	item = /obj/item/gun/ballistic/automatic/mini_uzi
-	cost = 15
+	cost = 16
 	purchasable_from = UPLINK_GANGS
 
 /datum/uplink_item/ammo/uzi_mag
 	name = "U3 Uzi Magazine"
 	desc = "A single 32 round magazine for the U3 Uzi SMG."
 	item = /obj/item/ammo_box/magazine/uzim9mm
-	cost = 3
+	cost = 5
+	purchasable_from = UPLINK_GANGS
+
+/datum/uplink_item/ammo/bulk_9mm_box
+	name = "Bulk 9mm Ammo Box"
+	desc = "A box containing 120 rounds of 9mm ammunition."
+	item = /obj/item/ammo_box/c9mm/bulk
+	cost = 10
+	purchasable_from = UPLINK_GANGS
+
+/datum/uplink_item/ammo/ap_9mm_box
+	name = "Bulk 9mm Ammo Box"
+	desc = "A box containing 30 rounds of AP 9mm ammunition."
+	item = /obj/item/ammo_box/c9mm/ap
+	cost = 4
+	purchasable_from = UPLINK_GANGS
+
+/datum/uplink_item/ammo/ap_9mm_box
+	name = "Bulk 9mm Ammo Box"
+	desc = "A box containing 30 rounds of hollowpoint 9mm ammunition."
+	item = /obj/item/ammo_box/c9mm/hp
+	cost = 4
+	purchasable_from = UPLINK_GANGS
+
+/datum/uplink_item/ammo/ap_9mm_box
+	name = "Bulk 9mm Ammo Box"
+	desc = "A box containing 30 rounds of incendiary 9mm ammunition."
+	item = /obj/item/ammo_box/c9mm/fire
+	cost = 4
 	purchasable_from = UPLINK_GANGS
 
 /datum/uplink_item/dangerous/gang_turret
@@ -18,6 +46,28 @@
 	item = /obj/item/storage/toolbox/emergency/turret/gang
 	cost = 12
 	purchasable_from = UPLINK_GANGS
+
+/datum/uplink_item/dangerous/tommygun
+	name = "Thomson SMG"
+	desc = "A classic design nicknamed the \"Tommy Gun\" carrying an impressive 50 round drum magazine chambered in .45,\
+			sure to mow down your enemies. Comes with 2 magazines and a stylish carrying case."
+	item = /obj/item/storage/briefcase/tommygun
+	cost = 25
+	purchasable_from = UPLINK_GANGS
+
+/obj/item/storage/briefcase/tommygun
+	w_class = WEIGHT_CLASS_BULKY
+
+/obj/item/storage/briefcase/tommygun/Initialize(mapload)
+	atom_storage.max_slots = 3
+	atom_storage.max_total_storage = 8
+	atom_storage.set_holdable(list(/obj/item/ammo_box/magazine/tommygunm45), exception_hold_list = list(/obj/item/gun/ballistic/automatic/tommygun/gang))
+	return ..()
+
+/obj/item/storage/briefcase/tommygun/PopulateContents()
+	new /obj/item/gun/ballistic/automatic/tommygun/gang(src)
+	new /obj/item/ammo_box/magazine/tommygunm45(src)
+	new /obj/item/ammo_box/magazine/tommygunm45(src)
 
 /datum/uplink_item/device_tools/gang_communicator
 	name = "Uplink Communicator Upgrade"

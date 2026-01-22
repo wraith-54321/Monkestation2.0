@@ -88,3 +88,10 @@
 					receiving_members += curr
 
 	relay_to_list_and_observers(final_message, receiving_members, sender_mob)
+
+///Send a message to every gang, is a proc so admins can use it
+/proc/mass_gang_message(message, span = "<span class='alertsyndie'>", append)
+	var/list/gang_list = list()
+	for(var/tag, gang in GLOB.all_gangs_by_tag)
+		gang_list += gang
+	send_gang_message(gang_list, null, message, span, append)

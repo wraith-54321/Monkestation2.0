@@ -25,7 +25,7 @@
 	desc = "A single round break-operation grenade launcher. Comes preloaded with a 40mm HE shell."
 	cost = 5
 	item = /obj/item/gun/ballistic/revolver/grenadelauncher/unrestricted
-	purchasable_from = ~UPLINK_CLOWN_OPS
+	purchasable_from = ~(UPLINK_CLOWN_OPS | UPLINK_GANGS)
 
 /datum/uplink_item/explosives/a40mm
 	name = "Box of 40mm HE Grenades"

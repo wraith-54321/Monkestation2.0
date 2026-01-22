@@ -9,8 +9,8 @@ GLOBAL_ALIST_EMPTY(all_gangs_by_tag)
 	var/gang_tag = "Error"
 	///Assoc list of uplink handlers for our gang members, keyed to the mind that owns the handler
 	var/list/datum/uplink_handler/handlers = list()
-	///How much threat does the gang have
-	var/threat = 0
+	///How much rep does the gang have
+	var/rep = 0
 	///How much TC does the gang boss have left to allocate
 	var/unallocated_tc = 0
 	///Static list of all gang tags
@@ -71,6 +71,44 @@ GLOBAL_ALIST_EMPTY(all_gangs_by_tag)
 	GLOB.all_gangs_by_tag -= gang_tag
 	return ..()
 
+/datum/team/gang/roundend_report()
+	var/list/report = list()
+	var/used_telecrystals = 0
+	var/purchases = ""
+
+	report += "<span class='header'>\The [name]:</span>"
+	report += "The [member_name]s were:"
+	report += printplayerlist(members)
+
+	if(length(objectives))
+		report += "<span class='header'>Team had following objectives:</span>"
+		var/win = TRUE
+		var/objective_count = 1
+		for(var/datum/objective/objective in objectives)
+			if(!objective.check_completion())
+				win = FALSE
+			report += "<B>Objective #[objective_count]</B>: [objective.explanation_text] [objective.get_roundend_success_suffix()]"
+			objective_count++
+		report += win ? span_greentext("The [name] was successful!") : span_redtext("The [name] have failed!")
+
+	if(length(completed_objectives))
+		var/completed_objectives_text = "Completed Uplink Objectives: "
+		for(var/datum/traitor_objective/objective in completed_objectives)
+			if(objective.objective_state == OBJECTIVE_STATE_COMPLETED)
+				completed_objectives_text += "<br><B>[objective.name]</B> - ([objective.telecrystal_reward] TC, [objective.progression_reward] Reputation)"
+		report += completed_objectives_text + "<br>"
+
+	for(var/mind, handler in handlers)
+		var/datum/uplink_handler/handler_datum = handler
+		var/datum/uplink_purchase_log/log = handler_datum.purchase_log
+		if(log)
+			used_telecrystals += log.total_spent
+			purchases += log.generate_render(show_key = FALSE)
+	report += "<br>"
+	report += "(Members used [used_telecrystals] TC) [purchases]"
+	report += span_big("<br>The gang had a total of [rep] Reputation.")
+	return "<div class='panel redborder'>[report.Join("<br>")]</div>"
+
 ///Get the uplink handler belonging to the passed mind, and create it if they dont have one
 /datum/team/gang/proc/get_specific_handler(datum/mind/owner)
 	var/datum/uplink_handler/gang/handler = handlers[owner]
@@ -81,11 +119,11 @@ GLOBAL_ALIST_EMPTY(all_gangs_by_tag)
 		handler.owning_gang = src
 	return handler
 
-///Update the amount of threat local to each of our uplinks and then call their UI update
-/datum/team/gang/proc/update_handler_threat()
+///Update the amount of rep local to each of our uplinks and then call their UI update
+/datum/team/gang/proc/update_handler_rep()
 	for(var/owner, handle in handlers)
 		var/datum/uplink_handler/handler = handle
-		handler.progression_points = threat
+		handler.progression_points = rep
 		if(handler.maximum_potential_objectives > handler.potential_objectives + handler.active_objectives)
 			handler.generate_objectives()
 		handler.on_update()
@@ -97,7 +135,7 @@ GLOBAL_ALIST_EMPTY(all_gangs_by_tag)
 
 ///Setup our team objectives
 /datum/team/gang/proc/setup_objectives()
-	add_objective(new /datum/objective/highest_gang_threat())
+	add_objective(new /datum/objective/highest_gang_rep())
 
 ///Called to make us start tracking an implant
 /datum/team/gang/proc/track_implant(obj/item/implant/uplink/gang/tracked_implant)
@@ -124,7 +162,7 @@ GLOBAL_ALIST_EMPTY(all_gangs_by_tag)
 /datum/team/gang/proc/handle_completed_objective(datum/traitor_objective/tracked_objective)
 	SIGNAL_HANDLER
 	unallocated_tc += tracked_objective.telecrystal_reward
-	threat += tracked_objective.progression_reward
+	rep += tracked_objective.progression_reward
 	handle_tracked_objective(tracked_objective)
 
 /datum/team/gang/proc/handle_tracked_objective(datum/traitor_objective/tracked_objective)

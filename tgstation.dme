@@ -8771,6 +8771,7 @@
 #include "monkestation\code\modules\storytellers\converted_events\solo\clown_operative.dm"
 #include "monkestation\code\modules\storytellers\converted_events\solo\commando_operative.dm"
 #include "monkestation\code\modules\storytellers\converted_events\solo\darkspawn.dm"
+#include "monkestation\code\modules\storytellers\converted_events\solo\gangs.dm"
 #include "monkestation\code\modules\storytellers\converted_events\solo\heretic.dm"
 #include "monkestation\code\modules\storytellers\converted_events\solo\malf.dm"
 #include "monkestation\code\modules\storytellers\converted_events\solo\monsterhunter.dm"

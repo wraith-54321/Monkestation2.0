@@ -11,6 +11,7 @@
 	ui_name = "AntagInfoGang"
 	stinger_sound = 'sound/ambience/antag/familieswork.ogg'
 	antag_count_points = 5 //mini traitor
+	base_type = /datum/antagonist/gang_member
 	///Ref to our team
 	var/datum/team/gang/gang_team
 	///What is our rank
@@ -54,6 +55,9 @@
 		var/mob/living/carbon/carbon_current = owner.current
 		handler.assigned_role = owner.assigned_role?.title //might not want to have these
 		handler.assigned_species = carbon_current.dna?.species?.id
+
+	if(!implant_source?.resolve() && !GetComponent(/datum/component/uplink))
+		ADD_UPLINK_COMPONENT
 
 	if(!handler.primary_objectives)
 		handler.primary_objectives = objectives.Copy()
@@ -121,6 +125,13 @@
 	var/obj/item/implant/uplink/gang/given_implant = new created_type(new_owner.current)
 	given_implant.give_gear = TRUE
 	given_implant.implant(new_owner.current, force = TRUE, forced_gang = GLOB.all_gangs_by_tag[selected_gang])
+
+/datum/antagonist/gang_member/can_be_owned(datum/mind/new_owner)
+	. = ..()
+	if(!.)
+		return
+
+	return !HAS_TRAIT(new_owner, TRAIT_UNCONVERTABLE)
 
 ///do the logic for a new implant depending on our rank
 /datum/antagonist/gang_member/proc/handle_new_implant(obj/item/implant/uplink/gang/handled)

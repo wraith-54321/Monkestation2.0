@@ -1,5 +1,5 @@
 /datum/component/uplink/ui_state(mob/user)
-	return GLOB.inventory_state
+	return (isitem(parent) && !isorgan(parent)) ? GLOB.inventory_state : GLOB.always_state
 
 /datum/component/uplink/ui_interact(mob/user, datum/tgui/ui)
 	active = TRUE

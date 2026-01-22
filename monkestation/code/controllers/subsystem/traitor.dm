@@ -15,24 +15,24 @@
 		var/list/rewards = given_rewards[area_owner]
 		var/area_mult = gang_area_multipliers[area] || 0.167 //one sixth
 		if(!rewards)
-			rewards = list("tc" = 0, "threat" = 0)
+			rewards = list("tc" = 0, "rep" = 0)
 			given_rewards[area_owner] = rewards
 		//note these values assume we are running on time, might be able to make these be based on SPT
 		rewards["tc"] += area_mult / DESIRED_AREAS_PER_TC_PER_MINUTE
-		rewards["threat"] += area_mult / DESIRED_AREAS_PER_THREAT_PER_MINUTE
+		rewards["rep"] += area_mult / DESIRED_AREAS_PER_THREAT_PER_MINUTE
 
-	var/static/list/cached_extra_threat
-	if(!cached_extra_threat)
-		cached_extra_threat = list()
+	var/static/list/cached_extra_rep
+	if(!cached_extra_rep)
+		cached_extra_rep = list()
 
 	for(var/datum/team/gang/gang_team in given_rewards)
-		var/threat_value = given_rewards[gang_team]["threat"] + (cached_extra_threat[gang_team] || 0)
-		var/rounded_threat_value = round(threat_value, 0.1)
-		cached_extra_threat[gang_team] = threat_value - rounded_threat_value
+		var/rep_value = given_rewards[gang_team]["rep"] + (cached_extra_rep[gang_team] || 0)
+		var/rounded_rep_value = round(rep_value, 0.1)
+		cached_extra_rep[gang_team] = rep_value - rounded_rep_value
 
 		gang_team.unallocated_tc += round(given_rewards[gang_team]["tc"], 0.001)
-		gang_team.threat += rounded_threat_value
-		gang_team.update_handler_threat()
+		gang_team.rep += rounded_rep_value
+		gang_team.update_handler_rep()
 
 ///Returns an assoc list of areas with what their value multipliers are, if something is not in this list its value will be multiplied by 1
 /datum/controller/subsystem/traitor/proc/build_gang_area_values()

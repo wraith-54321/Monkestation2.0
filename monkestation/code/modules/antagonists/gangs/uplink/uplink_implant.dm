@@ -35,8 +35,10 @@
 		to_chat(user, span_warning("You can't figure out how to use \the [src]."))
 		return FALSE
 
-	if(IS_GANGMEMBER(target))
+	var/datum/antagonist/gang_member/new_member_datum = new antag_type()
+	if(!new_member_datum.can_be_owned(target.mind))
 		to_chat(user, span_warning("\The [src] refuses to implant [target]."))
+		qdel(new_member_datum)
 		return FALSE
 
 	. = ..()
@@ -45,7 +47,6 @@
 
 	var/datum/team/gang/given_gang = forced_gang || gang_user?.gang_team
 	var/is_new_handler = !given_gang?.handlers[target.mind]
-	var/datum/antagonist/gang_member/new_member_datum = new antag_type()
 	if(!give_gear)
 		new_member_datum.given_gear_type = null
 

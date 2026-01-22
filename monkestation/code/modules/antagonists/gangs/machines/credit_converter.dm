@@ -5,7 +5,7 @@
 	desc = "A suspicious looking machine with something that looks like a slot to input credits. Maybe its a vending machine?"
 	icon_state = "exonet_node"
 	circuit = /obj/item/circuitboard/machine/gang_credit_converter
-	extra_examine_text = span_syndradio("A machine that will slowly convert inserted credits to threat for the gang that owns it.")
+	extra_examine_text = span_syndradio("A machine that will slowly convert inserted credits to rep for the gang that owns it.")
 	setup_tc_cost = 15
 	///Were we powered last time we checked
 	var/is_powered = TRUE
@@ -45,21 +45,21 @@
 		is_powered = !is_powered
 		if(is_powered)
 			extra_examine_text = initial(extra_examine_text)*/
-	var/desired_threat = round((DESIRED_THREAT_PER_PROCESS * seconds_per_tick) * is_powered ? 1 : 0.5, 0.1)
-	var/threat_to_give = 0
+	var/desired_rep = round((DESIRED_THREAT_PER_PROCESS * seconds_per_tick) * is_powered ? 1 : 0.5, 0.1)
+	var/rep_to_give = 0
 	var/credits_to_pay = 0
 	var/min_cost = DESIRED_THREAT_PER_PROCESS * CREDITS_PER_THREAT
-	if((stored_credits / CREDITS_PER_THREAT) < desired_threat)
+	if((stored_credits / CREDITS_PER_THREAT) < desired_rep)
 		end_processing()
 		if(stored_credits < min_cost)
 			return
 		credits_to_pay = min_cost
-		threat_to_give = DESIRED_THREAT_PER_PROCESS
+		rep_to_give = DESIRED_THREAT_PER_PROCESS
 	else
-		threat_to_give = desired_threat
-		credits_to_pay = round(desired_threat * CREDITS_PER_THREAT, 0.1)
+		rep_to_give = desired_rep
+		credits_to_pay = round(desired_rep * CREDITS_PER_THREAT, 0.1)
 
-	owner.threat += threat_to_give //for now im just gonna leave updating the UI for this to the traitor SS loop as I need to check how expensive it is
+	owner.rep += rep_to_give //for now im just gonna leave updating the UI for this to the traitor SS loop as I need to check how expensive it is
 	stored_credits -= credits_to_pay
 	if(stored_credits < min_cost)
 		end_processing()
