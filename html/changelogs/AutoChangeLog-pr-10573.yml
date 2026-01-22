@@ -1,0 +1,4 @@
+author: "Gboster-0"
+delete-after: True
+changes:
+  - bugfix: "arachnids no longer get a tackle attack buff due to their appendages"
