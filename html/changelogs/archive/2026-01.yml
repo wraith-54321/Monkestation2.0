@@ -384,3 +384,20 @@
   - bugfix: fixed trashbags not working on janitorial carts when storing items.
   iliyaxox:
   - rscadd: Added a cassette library and postbox to Theseus' radio outpost.
+2026-01-23:
+  Gboster-0:
+  - bugfix: arachnids no longer get a tackle attack buff due to their appendages
+  JupiterJaeden:
+  - balance: Nerfs the base regen extract (the type that the rest derive from) from
+      healing 5 dmg of every type per second -> 4.
+  - balance: Nerfs the purple regen extract from healing 10 dmg of every type per
+      second -> 4.
+  - balance: Removes the extra diminishing penalty for the purple regen extract, so
+      now every additional one (during the 90s cooldown) uses the standard 0.75 multiplier
+      instead of 0.5.
+  JupiterJaeden, flleeppyy:
+  - rscadd: Adds an 'Armory De-Authorization Announcement' for when the armory is
+      closed using the auth console, similar to the one for opening the armory.
+  - qol: The reasons for opening the armory in the auth console now have tooltips
+      giving details explaining what situations they apply to.
+  - admin: Adds admin logging for opening and closing the armory.

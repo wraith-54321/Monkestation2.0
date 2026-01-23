@@ -1,6 +1,0 @@
-author: "JupiterJaeden"
-delete-after: True
-changes:
-  - balance: "Nerfs the base regen extract (the type that the rest derive from) from healing 5 dmg of every type per second -> 4."
-  - balance: "Nerfs the purple regen extract from healing 10 dmg of every type per second -> 4."
-  - balance: "Removes the extra diminishing penalty for the purple regen extract, so now every additional one (during the 90s cooldown) uses the standard 0.75 multiplier instead of 0.5."
