@@ -50,24 +50,34 @@
 /datum/uplink_item/dangerous/tommygun
 	name = "Thomson SMG"
 	desc = "A classic design nicknamed the \"Tommy Gun\" carrying an impressive 50 round drum magazine chambered in .45,\
-			sure to mow down your enemies. Comes with 2 magazines and a stylish carrying case."
-	item = /obj/item/storage/briefcase/tommygun
+			sure to mow down your enemies. Comes with 2 magazines, a spiffy outfit, and a stylish case to carry it in."
+	item = /obj/item/storage/box/syndicate/tommygun_kit
 	cost = 25
 	purchasable_from = UPLINK_GANGS
 
 /obj/item/storage/briefcase/tommygun
 	w_class = WEIGHT_CLASS_BULKY
+	desc = "A case specially designed to carry an unloaded Thomson SMG and its magazines, doesnt look like much else would fit inside."
 
 /obj/item/storage/briefcase/tommygun/Initialize(mapload)
 	. = ..()
-	atom_storage.max_slots = 3
-	atom_storage.max_total_storage = 8
-	atom_storage.set_holdable(list(/obj/item/ammo_box/magazine/tommygunm45), exception_hold_list = list(/obj/item/gun/ballistic/automatic/tommygun/gang))
+	atom_storage.max_specific_storage = WEIGHT_CLASS_BULKY
+	atom_storage.set_holdable(list(/obj/item/gun/ballistic/automatic/tommygun, /obj/item/ammo_box/magazine/tommygunm45))
 
 /obj/item/storage/briefcase/tommygun/PopulateContents()
 	new /obj/item/gun/ballistic/automatic/tommygun/gang(src)
 	new /obj/item/ammo_box/magazine/tommygunm45(src)
 	new /obj/item/ammo_box/magazine/tommygunm45(src)
+
+/obj/item/storage/box/syndicate/tommygun_kit
+	name = "Tommygun Kit"
+
+/obj/item/storage/box/syndicate/tommygun_kit/PopulateContents()
+	new /obj/item/storage/briefcase/tommygun(src)
+	new /obj/item/clothing/head/fedora(src)
+	new /obj/item/clothing/under/suit/checkered(src)
+	new /obj/item/clothing/gloves/color/black(src)
+	new /obj/item/clothing/shoes/laceup(src)
 
 /datum/uplink_item/device_tools/gang_communicator
 	name = "Uplink Communicator Upgrade"

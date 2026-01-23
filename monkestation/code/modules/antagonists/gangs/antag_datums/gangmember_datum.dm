@@ -269,21 +269,21 @@
 
 #undef ADD_UPLINK_COMPONENT
 
-/datum/outfit/gang_lieutenant_preview
-	head = /obj/item/clothing/head/fedora
-	uniform = /obj/item/clothing/under/suit/checkered
-	r_hand = /obj/item/gun/ballistic/automatic/tommygun
-	gloves = /obj/item/clothing/gloves/color/black
-	shoes = /obj/item/clothing/shoes/laceup
-
 /datum/outfit/gang_boss_preview
 	head = /obj/item/clothing/head/fedora/white
 	glasses = /obj/item/clothing/glasses/sunglasses/big
 	uniform = /obj/item/clothing/under/suit/white
 	gloves = /obj/item/clothing/gloves/color/white
 	shoes = /obj/item/clothing/shoes/cowboy/white
-	r_hand = /obj/item/storage/briefcase/secure
+	r_hand = /obj/item/storage/briefcase/secure/empty
 	//l_hand = /obj/item/storage/canesword/syndicate sadly breaks the preview icon, for some reason
+
+/datum/outfit/gang_lieutenant_preview
+	head = /obj/item/clothing/head/fedora
+	uniform = /obj/item/clothing/under/suit/checkered
+	r_hand = /obj/item/gun/ballistic/automatic/tommygun
+	gloves = /obj/item/clothing/gloves/color/black
+	shoes = /obj/item/clothing/shoes/laceup
 
 /datum/outfit/gang_member_preview
 	head = /obj/item/clothing/head/henchmen_hat/traitor
