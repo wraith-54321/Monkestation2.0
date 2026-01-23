@@ -136,22 +136,16 @@
 
 /datum/antagonist/gang_member/get_preview_icon()
 	var/icon/final_icon = render_preview_outfit(preview_outfit)
-
-	final_icon.Blend(make_henchmen_icon("Business Hair", /datum/outfit/gang_lieutenant_preview), ICON_UNDERLAY, -world.icon_size / 4, 0)
-	final_icon.Blend(make_henchmen_icon("CIA"), ICON_UNDERLAY, world.icon_size / 4, 0)
-
-	final_icon.Scale(64, 64)
-
+	final_icon.Blend(make_henchmen_icon("CIA"), ICON_OVERLAY, world.icon_size / 4, 0)
+	final_icon.Blend(make_henchmen_icon("Business Hair"), ICON_OVERLAY, -world.icon_size / 4, 0)
 	return finish_preview_icon(final_icon)
 
-/datum/antagonist/gang_member/proc/make_henchmen_icon(hairstyle, outfit = /datum/outfit/gang_member_preview)
+/datum/antagonist/gang_member/proc/make_henchmen_icon(hairstyle, outfit = /datum/outfit/gang_lieutenant_preview)
 	var/mob/living/carbon/human/dummy/consistent/henchman = new
 	henchman.set_hairstyle(hairstyle, update = TRUE)
 
 	var/icon/henchman_icon = render_preview_outfit(outfit, henchman)
-	henchman_icon.ChangeOpacity(0.5)
-
-	qdel(henchman)
+	henchman_icon.ChangeOpacity(0.8)
 
 	return henchman_icon
 
@@ -289,7 +283,7 @@
 	gloves = /obj/item/clothing/gloves/color/white
 	shoes = /obj/item/clothing/shoes/cowboy/white
 	r_hand = /obj/item/storage/briefcase/secure
-	l_hand = /obj/item/storage/canesword/syndicate
+	//l_hand = /obj/item/storage/canesword/syndicate sadly breaks the preview icon, for some reason
 
 /datum/outfit/gang_member_preview
 	head = /obj/item/clothing/head/henchmen_hat/traitor
