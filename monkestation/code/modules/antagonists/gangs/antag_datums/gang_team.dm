@@ -124,7 +124,7 @@ GLOBAL_ALIST_EMPTY(all_gangs_by_tag)
 	for(var/owner, handle in handlers)
 		var/datum/uplink_handler/handler = handle
 		handler.progression_points = rep
-		if(handler.maximum_potential_objectives > handler.potential_objectives + handler.active_objectives)
+		if(handler.maximum_potential_objectives > length(handler.potential_objectives) + length(handler.active_objectives))
 			handler.generate_objectives()
 		handler.on_update()
 

@@ -153,8 +153,8 @@
 		UnregisterSignal(parent, COMSIG_MOVABLE_HEAR)
 
 	else if(istype(parent, /obj/item/organ))
-		activation_action.Remove(activation_action.owner)
 		UnregisterSignal(parent, list(COMSIG_ORGAN_IMPLANTED, COMSIG_ORGAN_REMOVED))
+		UnregisterSignal(astype(parent, /obj/item/organ).owner, COMSIG_ATOM_ATTACKBY)
 
 	else if(istype(parent, /datum/mind))
 		UnregisterSignal(parent, COMSIG_MIND_TRANSFERRED)

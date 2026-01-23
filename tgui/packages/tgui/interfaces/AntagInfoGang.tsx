@@ -115,12 +115,12 @@ const MainPage = (props: any) => {
               <br />
               <br />
               <span>
-                Your main job as a gang member is to increase the threat level
-                of your gang and follow the orders of your superiors. The main
-                way to increase threat level is to claim areas by spraying them
-                with the specially designed spraycans given to gangs. Claimed
-                areas will also generate telecrystals that can be distributed by
-                the gang boss and lieutenants.
+                Your main job as a gang member is to increase the reputation of
+                your gang and follow the orders of your superiors. The main way
+                to increase reputation is to claim areas by spraying them with
+                the special spraycans given to gangs. Claimed areas will also
+                generate telecrystals that can be distributed by the gang boss
+                and lieutenants.
               </span>
               <br />
               <br />
@@ -196,7 +196,7 @@ const OtherInfo = () => {
             <Stack.Item>
               <span>
                 The credit converter will slowly turn inserted credits into
-                additional threat level.
+                additional reputation.
               </span>
               <br />
               <br />
@@ -209,7 +209,7 @@ const OtherInfo = () => {
               <span>
                 Resistant spraycans will give you 5 sprays worth of a resistant
                 coating that when used can only be removed by other resistant
-                sprays, dont think about it.
+                sprays, dont think about it too hard.
               </span>
             </Stack.Item>
           </Stack>

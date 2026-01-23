@@ -10,7 +10,7 @@
 	description = "In order to properly assert control you must hold at least %NEEDED% of %AREAS% for %TIMER%."
 	progression_reward = list(4, 8)
 	telecrystal_reward = list(3, 4)
-	progression_maximum = 15
+	progression_maximum = 30
 
 	///What area types can be chosen from to be selected as claim targets to be put in picked_areas
 	var/list/valid_areas = list(/area/station/cargo,
@@ -133,9 +133,10 @@
 	telecrystal_reward = list(4, 5)
 	needed_area_count = 3
 	picked_count = 6
+	progression_maximum = 45
 
 /datum/traitor_objective/gang/claim_areas/secure_areas
-	progression_maximum = 30
+	progression_maximum = 75
 	progression_minimum = 10
 	progression_reward = list(7, 14)
 	telecrystal_reward = list(4, 5)
@@ -148,11 +149,12 @@
 	telecrystal_reward = list(5, 6)
 	needed_area_count = 3
 	picked_count = 6
+	progression_maximum = 10000 //TEMP
 
 /datum/traitor_objective/gang/claim_areas/department
 	name = "Expand your influence by taking control of %NEEDED% areas in %DEPARTMENT%."
 	description = "In order to properly assert control you must hold at least %NEEDED% areas in %DEPARTMENT% for %TIMER%."
-	progression_maximum = 30
+	progression_maximum = 10000 //TEMP
 	progression_minimum = 10
 	progression_reward = list(15, 20)
 	telecrystal_reward = list(3, 4)
@@ -181,7 +183,7 @@
 	return ..()
 
 /datum/traitor_objective/gang/claim_areas/department/high_risk
-	progression_maximum = 45
+	progression_maximum = 10000 //TEMP
 	progression_minimum = 15
 	progression_reward = list(20, 25)
 	telecrystal_reward = list(6, 7)
