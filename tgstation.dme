@@ -7022,6 +7022,7 @@
 #include "monkestation\code\modules\antagonists\gangs\antag_datums\gangmember_datum.dm"
 #include "monkestation\code\modules\antagonists\gangs\datums\gang_examine.dm"
 #include "monkestation\code\modules\antagonists\gangs\items\kits.dm"
+#include "monkestation\code\modules\antagonists\gangs\items\subspace_blocker_implant.dm"
 #include "monkestation\code\modules\antagonists\gangs\items\tools\communicate_upgrader.dm"
 #include "monkestation\code\modules\antagonists\gangs\items\tools\gang_device.dm"
 #include "monkestation\code\modules\antagonists\gangs\items\tools\gang_spraycan.dm"

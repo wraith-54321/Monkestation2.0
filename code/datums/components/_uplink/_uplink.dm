@@ -274,8 +274,9 @@
 /datum/component/uplink/proc/interact(datum/source, mob/user)
 	SIGNAL_HANDLER
 
-	if(locked)
+	if(locked || HAS_MIND_TRAIT(user, TRAIT_UPLINK_USE_BLOCKED))
 		return
+
 	active = TRUE
 	if(user)
 		INVOKE_ASYNC(src, PROC_REF(ui_interact), user)
