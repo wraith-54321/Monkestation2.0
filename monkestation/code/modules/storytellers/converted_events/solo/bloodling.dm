@@ -37,7 +37,7 @@
 	weight = 4
 	max_occurrences = 0
 	maximum_antags = 1
-	min_players = 45
+	min_players = 40
 	denominator = 30
 
 /datum/round_event_control/antagonist/solo/bloodling/roundstart

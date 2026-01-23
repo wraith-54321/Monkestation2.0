@@ -235,7 +235,7 @@
 /datum/antagonist/gang_member/lieutenant
 	name = "\improper Syndicate Gang Lieutenant"
 	hud_icon = 'monkestation/icons/mob/huds/antag_hud.dmi'
-	//show_to_ghosts = TRUE
+	show_to_ghosts = TRUE
 	antag_count_points = 8
 	antag_hud_name = "gang_lieutenant"
 	rank = GANG_RANK_LIEUTENANT
@@ -243,7 +243,7 @@
 /datum/antagonist/gang_member/boss
 	name = "\improper Syndicate Gang Boss"
 	hud_icon = 'monkestation/icons/mob/huds/antag_hud.dmi'
-	//show_to_ghosts = TRUE
+	show_to_ghosts = TRUE
 	antag_count_points = 12
 	antag_hud_name = "gang_boss"
 	rank = GANG_RANK_BOSS
