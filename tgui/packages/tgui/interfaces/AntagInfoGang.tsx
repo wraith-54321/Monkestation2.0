@@ -177,7 +177,9 @@ const GangBosses = () => {
               <span>
                 As a boss you act as the leader of your gang, everyone within
                 your gang must listen and obey you, you are also the only one
-                able to allocate telecrystals gained from controlled areas.
+                able to allocate telecrystals gained from controlled areas. You
+                are limited to only 2 lieutenants, so choose who you want to
+                lead under you carefully.
               </span>
             </Stack.Item>
           </Stack>

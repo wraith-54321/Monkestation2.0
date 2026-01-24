@@ -50,19 +50,23 @@
 	if(!give_gear)
 		new_member_datum.given_gear_type = null
 
+	var/is_ranking = MEETS_GANG_RANK(new_member_datum, GANG_RANK_LIEUTENANT)
+	if(!is_ranking)
+		new_member_datum.handle_new_implant(src) //need to call this here to ensure the weakref to us gets set correctly
+
 	target.mind.add_antag_datum(new_member_datum, given_gang)
 	given_gang = new_member_datum.gang_team //ensure the value is up to date
 	uplink_handler = new_member_datum.handler
 	if(is_new_handler)
 		new_member_datum.handler.telecrystals = starting_tc
 
-	if(!MEETS_GANG_RANK(new_member_datum, GANG_RANK_LIEUTENANT))
+	if(!is_ranking)
 		add_uplink(target)
 		given_gang.track_implant(src)
 		if(has_communicator)
 			new_member_datum.set_communicate_source()
-
-	new_member_datum.handle_new_implant(src) //this will qdel us
+	else
+		new_member_datum.handle_new_implant(src) //this will qdel us so do it last
 
 /obj/item/implant/uplink/gang/proc/add_communicator(datum/antagonist/gang_member/member_datum)
 	if(has_communicator)

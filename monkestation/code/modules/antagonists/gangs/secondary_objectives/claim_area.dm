@@ -91,15 +91,6 @@
 
 ///generate our picked_areas
 /datum/traitor_objective/gang/claim_areas/proc/get_picked_areas()
-/*	var/list/temp = list()
-	for(var/checked_area in GLOB.the_station_areas)
-		temp[checked_area] = 1
-
-	for(var/valid_area in valid_areas)
-		if(temp[valid_area])
-			message_admins("1")
-			picked_areas += valid_area*/
-
 	picked_areas = typecacheof(valid_areas, root_path_only, include_roots)
 	shuffle_inplace(picked_areas)
 	var/list/claimed_areas = owner.claimed_areas + owner.permanently_claimed_areas

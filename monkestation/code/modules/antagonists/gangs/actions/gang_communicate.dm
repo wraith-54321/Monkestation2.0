@@ -43,7 +43,7 @@
 	if(!owner_gang)
 		CRASH("[src] attempting to activate without valid owner gang.")
 
-	sender_mob.whisper(input, sanitize = TRUE)
+	sender_mob.whisper(input)
 	send_gang_message(owner_gang, antag_datum, sanitize_text(input))
 
 /**

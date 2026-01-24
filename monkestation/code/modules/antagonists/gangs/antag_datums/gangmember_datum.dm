@@ -1,7 +1,7 @@
 #define ADD_UPLINK_COMPONENT AddComponent(/datum/component/uplink, owner = owner.key, lockable = TRUE, enabled = FALSE, uplink_handler_override = handler)
 
 /datum/antagonist/gang_member
-	name = "\improper Syndicate gang member"
+	name = "\improper Syndicate Gang Member"
 	roundend_category = "gangs"
 	job_rank = ROLE_GANG_MEMBER
 	antag_moodlet = /datum/mood_event/focused

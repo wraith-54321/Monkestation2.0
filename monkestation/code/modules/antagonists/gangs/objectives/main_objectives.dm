@@ -1,6 +1,6 @@
 /datum/objective/highest_gang_rep
-	name = "Highest rep level"
-	explanation_text = "Have more rep level then any other gang."
+	name = "Highest reputation"
+	explanation_text = "Have more reputation then any other gang."
 
 /datum/objective/highest_gang_rep/check_completion()
 	var/static/datum/team/gang/highest_rep_gang
