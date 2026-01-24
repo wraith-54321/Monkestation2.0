@@ -234,7 +234,8 @@ SUBSYSTEM_DEF(gamemode)
 	return (get_antag_cap() > get_antag_count())
 
 /// Gets candidates for antagonist roles.
-/datum/controller/subsystem/gamemode/proc/get_candidates(be_special, job_ban, observers, ready_newplayers, living_players, required_time, inherit_required_time = TRUE, midround_antag_pref, no_antags = TRUE, list/restricted_roles, list/required_roles)
+/datum/controller/subsystem/gamemode/proc/get_candidates(role, job_ban, observers, ready_newplayers, living_players, required_time, inherit_required_time = TRUE, \
+														midround_antag_pref, no_antags = TRUE, list/restricted_roles, list/required_roles)
 	var/list/candidates = list()
 	var/list/candidate_candidates = list() //lol
 
@@ -260,9 +261,6 @@ SUBSYSTEM_DEF(gamemode)
 		if(QDELETED(candidate) || !candidate.key || !candidate.client || (!observers && !candidate.mind))
 			continue
 		if(!observers)
-			if(!SSticker.HasRoundStarted() && !isliving(candidate))
-				continue
-
 			if(isliving(candidate) && !HAS_MIND_TRAIT(candidate, TRAIT_JOINED_AS_CREW))
 				continue
 
@@ -279,21 +277,18 @@ SUBSYSTEM_DEF(gamemode)
 			if(length(required_roles) && !(candidate.mind.assigned_role.title in required_roles))
 				continue
 
-		if(be_special)
-			if(!(candidate.client.prefs) || !(be_special in candidate.client.prefs.be_special))
+		if(role)
+			if(!candidate.client?.prefs || !(role in candidate.client.prefs.be_special))
 				continue
 
 			var/time_to_check
 			if(required_time)
 				time_to_check = required_time
 			else if(inherit_required_time)
-				time_to_check = GLOB.special_roles[be_special]
+				time_to_check = GLOB.special_roles[role]
 
-			if(time_to_check && candidate.client.get_remaining_days(time_to_check) > 0)
+			if(time_to_check && candidate.client?.get_remaining_days(time_to_check) > 0)
 				continue
-
-		//if(midround_antag_pref)
-			//continue
 
 		if(job_ban && is_banned_from(candidate.ckey, list(job_ban, ROLE_SYNDICATE)))
 			continue
