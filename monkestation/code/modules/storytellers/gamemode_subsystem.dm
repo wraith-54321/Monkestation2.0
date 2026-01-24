@@ -162,7 +162,7 @@ SUBSYSTEM_DEF(gamemode)
 	///Handle scheduled events
 	for(var/datum/scheduled_event/sch_event in scheduled_events)
 		if(world.time >= sch_event.start_time)
-			sch_event.try_fire()
+			INVOKE_ASYNC(sch_event, TYPE_PROC_REF(/datum/scheduled_event, try_fire))
 		else if(!sch_event.alerted_admins && world.time >= sch_event.start_time - 1 MINUTES)
 			///Alert admins 1 minute before running and allow them to cancel or refund the event, once again.
 			sch_event.alerted_admins = TRUE
