@@ -97,7 +97,6 @@ SUBSYSTEM_DEF(gamemode)
 	var/halted_storyteller = FALSE
 
 	/// Ready players for roundstart events.
-	var/ready_players = 0
 	var/active_players = 0
 	var/head_crew = 0
 	var/eng_crew = 0
@@ -261,7 +260,7 @@ SUBSYSTEM_DEF(gamemode)
 		if(QDELETED(candidate) || !candidate.key || !candidate.client || (!observers && !candidate.mind))
 			continue
 		if(!observers)
-			if(!ready_players && !isliving(candidate))
+			if(!SSticker.HasRoundStarted() && !isliving(candidate))
 				continue
 
 			if(isliving(candidate) && !HAS_MIND_TRAIT(candidate, TRAIT_JOINED_AS_CREW))
@@ -317,20 +316,21 @@ SUBSYSTEM_DEF(gamemode)
 	scheduled_events -= removed
 	qdel(removed)
 
-/// We need to calculate ready players for the sake of roundstart events becoming eligible.
-/datum/controller/subsystem/gamemode/proc/calculate_ready_players()
-	ready_players = 0
-	for(var/mob/dead/new_player/player as anything in GLOB.new_player_list)
-		if(player.ready == PLAYER_READY_TO_PLAY)
-			ready_players++
-
 /// We roll points to be spent for roundstart events, including antagonists.
 /datum/controller/subsystem/gamemode/proc/roll_pre_setup_points()
 	if(current_storyteller.disable_distribution || halted_storyteller)
 		return
 
-	//get our roleset points
-	var/calc_value = ROUNDSTART_ROLESET_BASE + round(ROUNDSTART_ROLESET_GAIN * ready_players)
+	var/non_ready_players = 0
+	var/ready_players = 0
+	for(var/mob/dead/new_player/player as anything in GLOB.new_player_list)
+		if(player.ready == PLAYER_READY_TO_PLAY)
+			ready_players++
+		else
+			non_ready_players++
+
+	//get our roleset points, non ready players count for 1/3rd
+	var/calc_value = ROUNDSTART_ROLESET_BASE + round(ROUNDSTART_ROLESET_GAIN * ready_players) + round((ROUNDSTART_ROLESET_GAIN * non_ready_players) / 3)
 	calc_value *= roundstart_roleset_multiplier
 	calc_value *= current_storyteller.starting_point_multipliers[EVENT_TRACK_ROLESET]
 	calc_value *= (rand(100 - current_storyteller.roundstart_points_variance, 100 + current_storyteller.roundstart_points_variance)/100)
@@ -427,7 +427,6 @@ ADMIN_VERB(forceGamemode, R_FUN, FALSE, "Open Gamemode Panel", "Opens the gamemo
 
 ///Attempts to select players for special roles the mode might have.
 /datum/controller/subsystem/gamemode/proc/pre_setup()
-	calculate_ready_players()
 	roll_pre_setup_points()
 	return TRUE
 
