@@ -143,6 +143,9 @@
 #define ROLE_CYBER_TAC "Cyber Tac"
 #define ROLE_NETGUARDIAN "NetGuardian Prime"
 
+
+
+
 /// This defines the antagonists you can operate with in the settings.
 /// Keys are the antagonist, values are the number of days since the player's
 /// first connection in order to play.
