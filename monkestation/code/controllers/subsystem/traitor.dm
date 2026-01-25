@@ -6,6 +6,10 @@
 	var/list/gang_area_multipliers
 
 /datum/controller/subsystem/traitor/proc/handle_gangs()
+	var/static/log_cooldown
+	if(!log_cooldown)
+		log_cooldown = world.time + 5 MINUTES
+
 	if(!gang_area_multipliers)
 		gang_area_multipliers = build_gang_area_values()
 
@@ -33,6 +37,14 @@
 		gang_team.unallocated_tc += round(given_rewards[gang_team]["tc"], 0.001)
 		gang_team.rep += rounded_rep_value
 		gang_team.update_handler_rep()
+
+	if(world.time >= log_cooldown)
+		log_cooldown = world.time + 5 MINUTES
+		var/text = ""
+		for(var/tag, gang in GLOB.all_gangs_by_tag)
+			var/datum/team/gang/g = gang
+			text += "[g.name]: [g.rep]"
+		log_game(text)
 
 ///Returns an assoc list of areas with what their value multipliers are, if something is not in this list its value will be multiplied by 1
 /datum/controller/subsystem/traitor/proc/build_gang_area_values()

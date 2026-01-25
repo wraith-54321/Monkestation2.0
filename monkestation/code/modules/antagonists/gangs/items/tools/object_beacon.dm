@@ -4,7 +4,7 @@
 	gang_examine = "A device used to call down a %TYPE% in a stylish drop pod."
 	///Object type to call down
 	var/atom/created_type
-	///Areas we are restricted to being activated in, if any
+	///Area types we are restricted to being activated in, if any
 	var/list/allowed_areas
 	///What does %TYPE% get replaced with on init, if unset then just use created_type's name
 	var/description_name
@@ -13,11 +13,11 @@
 	if(created_type)
 		gang_examine = replacetext(gang_examine, "%TYPE%", "[description_name ? "[description_name]" : initial(created_type.name)]")
 
-	if(allowed_areas)
-		for(var/type in allowed_areas) //maybe I should try and cache this, ehh
-			allowed_areas += GLOB.areas_by_type[type]
-			allowed_areas -= type
-		gang_examine += " This one can only be used in [english_list(allowed_areas)]."
+	if(length(allowed_areas))
+		var/list/area_names = list()
+		for(var/area/area_type in allowed_areas) //maybe I should try and cache this, ehh
+			area_names += area_type::name
+		gang_examine += " This one can only be used in [english_list(area_names)]."
 	return ..()
 
 /obj/item/gang_device/object_beacon/Destroy(force)
@@ -30,7 +30,7 @@
 		balloon_alert(user, "you can't figure out how to use [src].")
 		return
 
-	if(allowed_areas && !(get_area(src) in allowed_areas))
+	if(allowed_areas && !(astype(get_area(src), /area).type in allowed_areas))
 		balloon_alert(user, "[src] can't be used here.")
 		return
 
@@ -47,7 +47,9 @@
 		"explosionSize" = list(0,0,0,0),
 		"bluespace" = TRUE
 	))
+	SEND_SIGNAL(src, COMSIG_GANG_OBJECT_BEACON_ACTIVATED, spawn_override)
 	qdel(src)
+
 
 /obj/item/gang_device/object_beacon/gang_machine
 
@@ -55,7 +57,7 @@
 	var/turf/our_turf = get_turf(src)
 	var/obj/machinery/gang_machine/created_machine = new created_type(our_turf)
 	created_machine.alpha = 0 //to hopefully avoid any flashing before coming down
-	created_machine.owner = user_datum.gang_team
+	created_machine.set_owner(user_datum.gang_team)
 	created_machine.do_setup()
 	. = ..(user_datum, created_machine, our_turf) //yes its a parent call with args, dont worry about it
 	created_machine.alpha = 255

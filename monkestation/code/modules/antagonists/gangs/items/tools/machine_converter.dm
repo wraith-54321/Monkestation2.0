@@ -1,4 +1,4 @@
-#define MACHINE_CONVERSION_TIME 30 SECONDS
+#define MACHINE_CONVERSION_TIME 15 SECONDS
 //an item that will change the ownership of a gang machine to that of the user's gang, also note that THIS WORKS ON OBJECTIVE MACHINES AS WELL
 //RANDOM WAREHOUSE WEAPON
 //SUPER CLAIM AREA OBJECTIVE
@@ -22,7 +22,7 @@
 		balloon_alert(user, "\the [src] wont work on \the [target].")
 		return
 
-	if(antag_datum.gang_team == target.owner)
+	if(antag_datum.gang_team == target.get_owner())
 		balloon_alert(user, "your gang already controls \the [target].")
 		return
 
@@ -30,7 +30,7 @@
 		return
 
 	balloon_alert(user, "ownership transfer successful.")
-	target.owner = antag_datum.gang_team
+	target.set_owner(antag_datum.gang_team)
 	qdel(src)
 
 #undef MACHINE_CONVERSION_TIME

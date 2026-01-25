@@ -3,6 +3,7 @@ PROCESSING_SUBSYSTEM_DEF(gang_machines) //temp SS
 	flags = SS_BACKGROUND|SS_POST_FIRE_TIMING|SS_NO_INIT|SS_KEEP_TIMING
 	wait = 10 SECONDS
 
+//CONVERT THIS TO A COMPONENT
 /obj/machinery/gang_machine
 	name = "suspicious machine"
 	desc = "You should not be seeing this!"
@@ -16,7 +17,7 @@ PROCESSING_SUBSYSTEM_DEF(gang_machines) //temp SS
 	///How much TC do we cost to set up
 	var/setup_tc_cost = 0
 	///Ref to the gang that owns this machine
-	var/datum/team/gang/owner
+	VAR_PROTECTED/datum/team/gang/owner
 	///Have we been setup
 	var/setup = FALSE
 
@@ -58,4 +59,19 @@ PROCESSING_SUBSYSTEM_DEF(gang_machines) //temp SS
 	setup = TRUE
 	if(!owner)
 		var/datum/antagonist/gang_member/antag_datum = IS_GANGMEMBER(user)
-		owner = antag_datum?.gang_team
+		set_owner(antag_datum?.gang_team)
+
+///getter proc for our owner
+/obj/machinery/gang_machine/proc/get_owner() as /datum/team/gang
+	return owner
+
+///set our owner
+/obj/machinery/gang_machine/proc/set_owner(datum/team/gang/new_owner)
+	if(!istype(new_owner))
+		new_owner = GLOB.all_gangs_by_tag[new_owner]
+
+	if(!isnull(new_owner))
+		return
+
+	SEND_SIGNAL(src, COMSIG_GANG_MACHINE_CHANGED_OWNER, new_owner, owner)
+	owner = new_owner

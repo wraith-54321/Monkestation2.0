@@ -1,6 +1,3 @@
-#define CREDITS_PER_THREAT 60
-#define DESIRED_THREAT_PER_PROCESS 2 //we process on SStraitor which has a wait of 10 SECONDS
-
 /obj/machinery/gang_machine/credit_converter
 	desc = "A suspicious looking machine with something that looks like a slot to input credits. Maybe its a vending machine?"
 	icon_state = "exonet_node"
@@ -11,6 +8,10 @@
 	var/is_powered = TRUE
 	///How many credits do we have stored
 	var/stored_credits = 0
+	///How much rep should we generate per process tick
+	var/desired_rep_per_process = 2 //we process on SStraitor which has a wait of 10 SECONDS
+	///How many credits does each point of rep cost
+	var/credits_per_rep = 150
 
 /obj/machinery/gang_machine/credit_converter/do_setup(area/passed_area)
 	. = ..()
@@ -23,10 +24,10 @@
 
 	send_gang_message(owner, null, "Credit converter activated in [initial(our_area.name)]", "<span class='alertsyndie'>")
 
-/obj/machinery/gang_machine/credit_converter/examine(mob/user)
+/*/obj/machinery/gang_machine/credit_converter/examine(mob/user)
 	. = ..()
 	if(!powered())
-		. += "It looks to lack power and seems to be operating slower."
+		. += "It looks to lack power and seems to be operating slower."*/
 
 /obj/machinery/gang_machine/credit_converter/deconstruct(disassembled)
 	. = ..()
@@ -37,32 +38,31 @@
 
 /obj/machinery/gang_machine/credit_converter/process(seconds_per_tick)
 	if(!owner || !setup)
-		end_processing()
-		return
+		return PROCESS_KILL
 
+	. = TRUE
 //	is_powered = use_power(ACTIVE_POWER_USE) //WILL SEE IF THIS NEEDS TO BE ADDED BACK IN
 	/*if(is_powered != use_power(ACTIVE_POWER_USE))
 		is_powered = !is_powered
 		if(is_powered)
 			extra_examine_text = initial(extra_examine_text)*/
-	var/desired_rep = round((DESIRED_THREAT_PER_PROCESS * seconds_per_tick) * is_powered ? 1 : 0.5, 0.1)
+	var/desired_rep = round((is_powered ? desired_rep_per_process : (desired_rep_per_process / 2)), 0.1)
 	var/rep_to_give = 0
 	var/credits_to_pay = 0
-	var/min_cost = DESIRED_THREAT_PER_PROCESS * CREDITS_PER_THREAT
-	if((stored_credits / CREDITS_PER_THREAT) < desired_rep)
-		end_processing()
-		if(stored_credits < min_cost)
+	if((stored_credits / credits_per_rep) < desired_rep)
+		. = PROCESS_KILL
+		if(stored_credits < credits_per_rep)
 			return
-		credits_to_pay = min_cost
-		rep_to_give = DESIRED_THREAT_PER_PROCESS
+		credits_to_pay = round(stored_credits - (stored_credits % credits_per_rep))
+		rep_to_give = credits_to_pay / credits_per_rep
 	else
 		rep_to_give = desired_rep
-		credits_to_pay = round(desired_rep * CREDITS_PER_THREAT, 0.1)
+		credits_to_pay = round(desired_rep * credits_per_rep)
 
-	owner.rep += rep_to_give //for now im just gonna leave updating the UI for this to the traitor SS loop as I need to check how expensive it is
+	owner.rep += rep_to_give
 	stored_credits -= credits_to_pay
-	if(stored_credits < min_cost)
-		end_processing()
+	if(stored_credits < credits_per_rep)
+		return PROCESS_KILL
 
 /obj/machinery/gang_machine/credit_converter/attackby(obj/item/weapon, mob/user, params)
 	if(istype(weapon, /obj/item/holochip) || istype(weapon, /obj/item/stack/spacecash))
@@ -73,7 +73,7 @@
 		stored_credits += weapon.get_item_credit_value()
 		balloon_alert(user, "you insert \the [weapon] into [src].")
 		qdel(weapon)
-		if(stored_credits >= DESIRED_THREAT_PER_PROCESS * CREDITS_PER_THREAT)
+		if(stored_credits >= desired_rep_per_process * credits_per_rep)
 			begin_processing()
 		return
 	return ..()
@@ -82,6 +82,3 @@
 	name = "Suspicious Circuitboard"
 	greyscale_colors = CIRCUIT_COLOR_SECURITY
 	build_path = /obj/machinery/gang_machine/credit_converter
-
-#undef CREDITS_PER_THREAT
-#undef DESIRED_THREAT_PER_PROCESS
