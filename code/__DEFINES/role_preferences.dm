@@ -148,6 +148,7 @@
 /// first connection in order to play.
 GLOBAL_LIST_INIT(special_roles, list(
 	// Roundstart
+	ROLE_GANG_MEMBER = 300, //set extra high for testing to make sure picked players have some degree of playtime
 	ROLE_BROTHER = 0,
 	ROLE_CHANGELING = 0,
 	ROLE_CLOWN_OPERATIVE = 14,
@@ -164,8 +165,6 @@ GLOBAL_LIST_INIT(special_roles, list(
 	ROLE_ASSAULT_OPERATIVE = 14,
 	ROLE_BLOODLING = 15,
 	ROLE_DARKSPAWN = 14,
-	ROLE_CLOCK_CULTIST = 300,
-	ROLE_GANG_MEMBER = 300, //set extra high for testing to make sure picked players have some degree of playtime
 
 
 	// Midround
