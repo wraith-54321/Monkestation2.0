@@ -40,11 +40,13 @@
 
 	if(world.time >= log_cooldown)
 		log_cooldown = world.time + 5 MINUTES
-		var/text = ""
+		var/text = "gang_rep_values: "
 		for(var/tag, gang in GLOB.all_gangs_by_tag)
 			var/datum/team/gang/g = gang
-			text += "[g.name]: [g.rep]"
+			text += "[g.name]: [g.rep] "
+		text += "at: [DisplayTimeText(world.time)]"
 		log_game(text)
+
 
 ///Returns an assoc list of areas with what their value multipliers are, if something is not in this list its value will be multiplied by 1
 /datum/controller/subsystem/traitor/proc/build_gang_area_values()

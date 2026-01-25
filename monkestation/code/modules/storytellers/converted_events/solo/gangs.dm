@@ -3,6 +3,7 @@
 	tags = list(TAG_COMMUNAL, TAG_DESTRUCTIVE, TAG_COMBAT, TAG_TEAM_ANTAG, TAG_CREW_ANTAG, TAG_MUNDANE)
 	antag_flag = ROLE_GANG_MEMBER
 	antag_datum = /datum/antagonist/gang_member/boss
+	typepath = /datum/round_event/antagonist/solo/gangs
 	shared_occurence_type = SHARED_HIGH_THREAT
 	repeated_mode_adjust = TRUE
 	restricted_roles = list(
@@ -42,3 +43,10 @@
 	weight = 0
 	max_occurrences = 0
 	preferred_events = list(/datum/round_event_control/antagonist/solo/traitor = 1)
+
+/datum/round_event/antagonist/solo/gangs
+
+/datum/round_event/antagonist/solo/gangs/add_datum_to_mind(datum/mind/antag_mind)
+	var/datum/antagonist/gang_member/boss/boss_datum = ..()
+	boss_datum.handler.telecrystals = /obj/item/implant/uplink/gang/boss::starting_tc
+	return boss_datum

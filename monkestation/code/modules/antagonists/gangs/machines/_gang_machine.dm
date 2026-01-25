@@ -70,7 +70,7 @@ PROCESSING_SUBSYSTEM_DEF(gang_machines) //temp SS
 	if(!istype(new_owner))
 		new_owner = GLOB.all_gangs_by_tag[new_owner]
 
-	if(!isnull(new_owner))
+	if(isnull(new_owner))
 		return
 
 	SEND_SIGNAL(src, COMSIG_GANG_MACHINE_CHANGED_OWNER, new_owner, owner)

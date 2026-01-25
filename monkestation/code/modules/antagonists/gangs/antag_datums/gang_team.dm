@@ -117,6 +117,7 @@ GLOBAL_ALIST_EMPTY(all_gangs_by_tag)
 		handlers[owner] = handler
 		handler.owner = owner
 		handler.owning_gang = src
+		handler.purchase_log = new
 	return handler
 
 ///Update the amount of rep local to each of our uplinks and then call their UI update
