@@ -307,9 +307,10 @@ SUBSYSTEM_DEF(gamemode)
 	remove_scheduled_event(refunded)
 
 /// Removes a scheduled event.
-/datum/controller/subsystem/gamemode/proc/remove_scheduled_event(datum/scheduled_event/removed)
+/datum/controller/subsystem/gamemode/proc/remove_scheduled_event(datum/scheduled_event/removed, should_del = TRUE)
 	scheduled_events -= removed
-	qdel(removed)
+	if(should_del)
+		qdel(removed)
 
 /// We roll points to be spent for roundstart events, including antagonists.
 /datum/controller/subsystem/gamemode/proc/roll_pre_setup_points()
