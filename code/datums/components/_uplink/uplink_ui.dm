@@ -53,7 +53,7 @@
 		data["active_objectives"] = active_objectives
 		data["completed_final_objective"] = uplink_handler.final_objective
 
-	var/list/stock_list = uplink_handler.item_stock.Copy()
+	var/list/stock_list = uplink_handler.get_item_stock().Copy()
 	var/list/extra_purchasable_stock = list()
 	var/list/extra_purchasable = list()
 	for(var/datum/uplink_item/item as anything in uplink_handler.extra_purchasable)

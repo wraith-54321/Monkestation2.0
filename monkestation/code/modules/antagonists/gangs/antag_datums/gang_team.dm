@@ -35,6 +35,8 @@ GLOBAL_ALIST_EMPTY(all_gangs_by_tag)
 		"Max",
 		"Gib",
 	)
+	///Used for limited stock uplink items
+	var/list/shared_team_stock = list(UPLINK_SHARED_STOCK_SURPLUS = 3)
 	///Assoc list of member antag datums keyed to their rank
 	var/alist/member_datums_by_rank = alist()
 	///List of area types owned by this gang, used to make some checks cheaper
