@@ -1,6 +1,7 @@
 /datum/traitor_objective_category/gang_protect_machine
 	name = "Protect Machine(gang)"
-	objectives = list(/datum/traitor_objective/gang/protect_machine/telecrystal_beacon = 1)
+	objectives = list(/datum/traitor_objective/gang/protect_machine/telecrystal_beacon = 1,
+					/datum/traitor_objective/gang/protect_machine/credit_siphon = 1)
 
 /datum/traitor_objective/gang/protect_machine
 	name = "Call down a %MACHINE% in one of %AREAS% and protect it."
