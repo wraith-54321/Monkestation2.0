@@ -1,3 +1,5 @@
+#define SECONDARY_CRATE_BUDGET 30
+
 /datum/uplink_item/dangerous/uzi
 	name = "Type U3 Uzi"
 	desc = "A lightweight, burst-fire submachine gun, for when you really want someone dead. Uses 9mm rounds."
@@ -143,7 +145,7 @@
 	if(item.item == ABSTRACT_UPLINK_ITEM)
 		return null
 
-/datum/uplink_item/bundles_tc/surplus/gang_pods/spawn_item(spawn_path, mob/user, datum/uplink_handler/handler, atom/movable/source)
+/datum/uplink_item/bundles_tc/surplus/gang_pods/spawn_item(spawn_path, mob/user, datum/uplink_handler/gang/handler, atom/movable/source)
 	var/obj/structure/closet/crate/surplus_crate = new crate_type()
 	if(!istype(surplus_crate))
 		CRASH("crate_type is not a crate")
@@ -164,27 +166,35 @@
 	))
 
 	var/secondary_count = 0
+	var/list/pod_areas = list()
 	while(secondary_count < 2)
 		secondary_count++
-		var/obj/structure/closet/crate/secondary_crate = new crate_type()
-		fill_crate(secondary_crate, possible_items, handler?.purchase_log, 30)
-		total_budget -= 30 //IMPROVE THIS
+		surplus_crate = new crate_type()
+		fill_crate(surplus_crate, possible_items, handler?.purchase_log, SECONDARY_CRATE_BUDGET)
+		total_budget -= SECONDARY_CRATE_BUDGET
+		var/turf/target_turf = get_safe_random_station_turf()
+		pod_areas += target_turf.loc
 		podspawn(list(
-			"target" = get_safe_random_station_turf(),
+			"target" = target_turf,
 			"style" = STYLE_SYNDICATE,
-			"spawn" = secondary_crate,
+			"spawn" = surplus_crate,
+			"delays" = list(POD_TRANSIT = 1, POD_FALLING = 30 SECONDS, POD_OPENING = 1 SECONDS),
 		))
 
+	if(istype(handler)) //make sure we were actually bought by a gang uplink
+		send_gang_message(list(handler.owning_gang), "Additional supply pods at: [english_list(pod_areas)]", null, "<span class='alertsyndie'>")
+
 	while(total_budget)
-		var/datum/uplink_item/uplink_item = pick_possible_item(possible_items, total_budget)
-		if(!uplink_item)
-			continue
-		total_budget -= uplink_item.cost
-		var/created = new uplink_item.item(surplus_crate)
+		var/next_cost = rand(1, min(20, total_budget))
+		surplus_crate = new crate_type()
+		fill_crate(surplus_crate, possible_items, handler?.purchase_log, next_cost)
+		total_budget -= next_cost
 		podspawn(list(
 			"target" = get_safe_random_station_turf(),
 			"style" = STYLE_SYNDICATE,
-			"spawn" = created,
+			"spawn" = surplus_crate,
 		))
 
 	return source
+
+#undef SECONDARY_CRATE_BUDGET

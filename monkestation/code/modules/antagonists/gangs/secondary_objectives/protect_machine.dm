@@ -6,7 +6,7 @@
 /datum/traitor_objective/gang/protect_machine
 	name = "Call down a %MACHINE% in one of %AREAS% and protect it."
 	description = "Use the provided beacon to call a %MACHINE% into a valid area and protect it for %TIMER%. \
-				When \the %MACHINE% is called it will be announced to all gangs, so prepare for a fight. \
+				When the %MACHINE% is called it will be announced to all gangs, so prepare for a fight. \
 				%HANDS%"
 	abstract_type = /datum/traitor_objective/gang/protect_machine
 	telecrystal_penalty = 3
