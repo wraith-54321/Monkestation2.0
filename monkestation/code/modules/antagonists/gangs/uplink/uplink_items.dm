@@ -121,3 +121,70 @@
 	item = /obj/item/gang_device/machine_converter
 	cost = 5
 	purchasable_from = UPLINK_GANGS
+
+//spawns a few pods the buying gang gets to know the location of, as well as items spread randomly around the station
+/datum/uplink_item/bundles_tc/surplus/gang_pods
+	name = "Bulk Crate Pods"
+	desc = "A total of 180 TC worth of items will be delivered, however due to space limitations the items will be within multiple pods. \
+			A pod containing 50 TC worth will be dropped to your current location, while 2 others eaching containing 30 TC worth will be \
+			dropped to carefully selected areas around the station, we will inform you of where these are. The rest of the value will come in \
+			single pods dropped randomly throughout the station."
+	cost = 50
+	purchasable_from = UPLINK_GANGS
+	stock_key = UPLINK_SHARED_STOCK_SURPLUS
+	crate_tc_value = 180
+
+/datum/uplink_item/bundles_tc/surplus/gang_pods/pick_possible_item(list/possible_items, tc_budget)
+	. = ..()
+	if(!.)
+		return
+
+	var/datum/uplink_item/item = .
+	if(item.item == ABSTRACT_UPLINK_ITEM)
+		return null
+
+/datum/uplink_item/bundles_tc/surplus/gang_pods/spawn_item(spawn_path, mob/user, datum/uplink_handler/handler, atom/movable/source)
+	var/obj/structure/closet/crate/surplus_crate = new crate_type()
+	if(!istype(surplus_crate))
+		CRASH("crate_type is not a crate")
+
+	var/list/possible_items = generate_possible_items(user, handler)
+	if(!possible_items || !length(possible_items))
+		handler.telecrystals += cost
+		to_chat(user, span_warning("You get the feeling something went wrong and that you should inform syndicate command"))
+		qdel(surplus_crate)
+		CRASH("surplus crate failed to generate possible items")
+
+	var/total_budget = crate_tc_value - 50
+	fill_crate(surplus_crate, possible_items, handler?.purchase_log, 50)
+	podspawn(list(
+		"target" = get_turf(user),
+		"style" = STYLE_SYNDICATE,
+		"spawn" = surplus_crate,
+	))
+
+	var/secondary_count = 0
+	while(secondary_count < 2)
+		secondary_count++
+		var/obj/structure/closet/crate/secondary_crate = new crate_type()
+		fill_crate(secondary_crate, possible_items, handler?.purchase_log, 30)
+		total_budget -= 30 //IMPROVE THIS
+		podspawn(list(
+			"target" = get_safe_random_station_turf(),
+			"style" = STYLE_SYNDICATE,
+			"spawn" = secondary_crate,
+		))
+
+	while(total_budget)
+		var/datum/uplink_item/uplink_item = pick_possible_item(possible_items, total_budget)
+		if(!uplink_item)
+			continue
+		total_budget -= uplink_item.cost
+		var/created = new uplink_item.item(surplus_crate)
+		podspawn(list(
+			"target" = get_safe_random_station_turf(),
+			"style" = STYLE_SYNDICATE,
+			"spawn" = created,
+		))
+
+	return source
