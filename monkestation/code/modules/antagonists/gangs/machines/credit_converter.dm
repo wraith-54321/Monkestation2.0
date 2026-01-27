@@ -12,6 +12,7 @@
 	var/desired_rep_per_process = 2 //we process on SStraitor which has a wait of 10 SECONDS
 	///How many credits does each point of rep cost
 	var/credits_per_rep = 150
+	var/gives_message = TRUE
 
 /obj/machinery/gang_machine/credit_converter/do_setup(area/passed_area)
 	. = ..()
@@ -22,7 +23,8 @@
 	if(!our_area)
 		return
 
-	send_gang_message(owner, null, "Credit converter activated in [initial(our_area.name)]", "<span class='alertsyndie'>")
+	if(gives_message)
+		send_gang_message(list(owner), "Credit converter activated in [initial(our_area.name)]", null, "<span class='alertsyndie'>")
 
 /*/obj/machinery/gang_machine/credit_converter/examine(mob/user)
 	. = ..()

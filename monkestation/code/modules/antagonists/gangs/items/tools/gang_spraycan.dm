@@ -90,13 +90,16 @@ GLOBAL_LIST_EMPTY(gang_controlled_areas)
 		balloon_alert(user, "it looks like \the [controlling_tag] has a resistant coating and can only be removed by your own resistant paint!") //dont think too hard about it
 		return FALSE
 
-	if(!antag_datum.gang_team.take_area(target_area))
+	var/datum/team/gang/gang_team = antag_datum.gang_team
+	if(!gang_team.take_area(target_area))
 		balloon_alert(user, "something is making it impossible to take this area.")
 		return FALSE
 
-	if(controlling_tag)
+	if(controlling_tag) //give rep and TC
 		controlling_tag.overridden = TRUE
 		qdel(controlling_tag)
+		gang_team.rep += 1
+		gang_team.unallocated_tc += 0.2 //MAKE THESE BE A DEFINE
 
 	var/obj/effect/decal/cleanable/crayon/gang/created_tag = new(target, paint_color, antag_datum.gang_team?.gang_tag, "[antag_datum.gang_team?.gang_tag] tag", \
 																null, null, antag_datum.gang_team, target_area, TRUE)

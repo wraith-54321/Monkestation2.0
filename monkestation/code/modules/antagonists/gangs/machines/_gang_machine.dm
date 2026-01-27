@@ -8,7 +8,6 @@ PROCESSING_SUBSYSTEM_DEF(gang_machines) //temp SS
 	name = "suspicious machine"
 	desc = "You should not be seeing this!"
 	density = TRUE
-	layer = BELOW_OBJ_LAYER
 	idle_power_usage = 0
 	processing_flags = START_PROCESSING_MANUALLY
 	subsystem_type = /datum/controller/subsystem/processing/gang_machines
@@ -24,6 +23,10 @@ PROCESSING_SUBSYSTEM_DEF(gang_machines) //temp SS
 /obj/machinery/gang_machine/Initialize(mapload, gang)
 	. = ..()
 	owner = gang
+
+/obj/machinery/gang_machine/Destroy()
+	owner = null
+	return ..()
 
 /obj/machinery/gang_machine/attackby(obj/item/weapon, mob/user, params)
 	var/area/our_area = get_area(src)

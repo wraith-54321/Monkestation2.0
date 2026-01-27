@@ -5,6 +5,7 @@
 	icon_state = "dominator-Blue"
 	credits_per_rep = 50
 	desired_rep_per_process = 3
+	gives_message = FALSE
 
 /obj/machinery/gang_machine/credit_converter/siphon/Initialize(mapload, gang)
 	. = ..()
@@ -22,3 +23,10 @@
 /obj/machinery/gang_machine/credit_converter/siphon/proc/announce()
 	priority_announce("Data theft signal detected, source registered on local gps units.")
 	AddComponent(/datum/component/gps, "Data Theft Signal")
+
+//used by objectives
+/obj/machinery/gang_machine/credit_converter/siphon/proc/send_activation_signal()
+	if(QDELETED(src))
+		return
+
+	SEND_SIGNAL(src, COMSIG_GANG_MACHINE_ACTIVATED, src)

@@ -57,11 +57,14 @@
 
 /datum/traitor_objective/gang/claim_areas/on_objective_taken(mob/user)
 	. = ..()
-	RegisterSignal(owner, COMSIG_GANG_TOOK_AREA, PROC_REF(on_area_taken)) //NEED TO PROCESS ON OBJECTIVE TAKEN AS WELL
+	RegisterSignal(owner, COMSIG_GANG_TOOK_AREA, PROC_REF(on_area_taken))
 	RegisterSignal(owner, COMSIG_GANG_LOST_AREA, PROC_REF(on_area_lost))
 	for(var/area/area as anything in owner.claimed_areas)
 		if(is_type_in_typecache(area, picked_areas))
 			owned_count++
+
+	if(owned_count >= needed_area_count)
+		START_PROCESSING(SSprocessing, src)
 
 /datum/traitor_objective/gang/claim_areas/ungenerate_objective()
 	STOP_PROCESSING(SSprocessing, src)

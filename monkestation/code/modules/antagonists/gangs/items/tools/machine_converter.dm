@@ -22,15 +22,21 @@
 		balloon_alert(user, "\the [src] wont work on \the [target].")
 		return
 
-	if(antag_datum.gang_team == target.get_owner())
+	var/datum/team/gang/last_owner = target.get_owner()
+	if(antag_datum.gang_team == last_owner)
 		balloon_alert(user, "your gang already controls \the [target].")
 		return
 
-	if(!do_after(user, MACHINE_CONVERSION_TIME, target))
+	if(!do_after(user, MACHINE_CONVERSION_TIME, target, extra_checks = CALLBACK(src, PROC_REF(do_after_checks), target, last_owner)))
 		return
 
 	balloon_alert(user, "ownership transfer successful.")
 	target.set_owner(antag_datum.gang_team)
 	qdel(src)
+
+/obj/item/gang_device/machine_converter/proc/do_after_checks(obj/machinery/gang_machine/target, datum/team/gang/last_owner)
+	. = TRUE
+	if(QDELETED(target) || target.get_owner() != last_owner)
+		return FALSE
 
 #undef MACHINE_CONVERSION_TIME

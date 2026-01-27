@@ -18,3 +18,8 @@
 
 	owner = antag_datum.gang_team
 	return ..()
+
+/datum/traitor_objective/gang/fail_objective(penalty_cost, trigger_update)
+	. = ..()
+	if(penalty_cost && objective_state == OBJECTIVE_STATE_FAILED)
+		owner.unallocated_tc -= penalty_cost //double total TC rewards but also double failure cost

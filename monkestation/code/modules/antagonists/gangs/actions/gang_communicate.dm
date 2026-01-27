@@ -44,7 +44,7 @@
 		CRASH("[src] attempting to activate without valid owner gang.")
 
 	sender_mob.whisper(input)
-	send_gang_message(owner_gang, antag_datum, sanitize_text(input))
+	send_gang_message(list(owner_gang), input, sender_mob)
 
 /**
  * Send a message to everyone in the passed gang(s)
@@ -55,24 +55,31 @@
  * append - Extra text to append onto the end of sent_message
  * need_communicator - Do we only send to people with a communicator upgrade
  */
-/proc/send_gang_message(list/receiving_gangs, datum/antagonist/gang_member/sender_datum, sent_message, span = "<span class='syndradio'>", append, need_communicator = TRUE)
+/proc/send_gang_message(list/receiving_gangs, sent_message, atom/sender, span = "<span class='syndradio'>", append, need_communicator = TRUE)
 	if(!receiving_gangs)
 		CRASH("send_gang_message() called without receiving_gangs.")
 
 	var/final_message = ""
-	var/mob/living/sender_mob = sender_datum?.owner?.current
-	if(sender_mob)
-		var/sender_rank = "Member"
-		if(sender_datum.rank == GANG_RANK_LIEUTENANT)
-			sender_rank = "Lieutenant"
-			span += "<span class='big'>"
-			append = "</span>"
-		else if(sender_datum.rank == GANG_RANK_BOSS)
-			sender_rank = "Boss"
-			span = "<span class='alertsyndie'>"
+	if(ismob(sender))
+		var/mob/living/sender_mob = sender
+		var/datum/antagonist/gang_member/sender_datum = IS_GANGMEMBER(sender_mob)
+		var/sender_rank = ""
+		switch(sender_datum?.rank)
+			if(GANG_RANK_MEMBER)
+				sender_rank = "Member"
+			if(GANG_RANK_LIEUTENANT)
+				sender_rank = "Lieutenant"
+				span += "<span class='big'>"
+				append = "</span>"
+			if(GANG_RANK_BOSS)
+				sender_rank = "Boss"
+				span = "<span class='alertsyndie'>"
+
 		final_message = span + "<i><b>[sender_rank] \
 						[findtextEx(sender_mob.name, sender_mob.real_name) ? sender_mob.name : "[sender_mob.real_name] (as [sender_mob.name])"]</b> transmits, \"" \
 						+ sent_message + "\"</i></span>" + append
+	else if(sender)
+		final_message = span + "[sender]: " + sent_message + "</span>" + append
 	else
 		final_message = span + sent_message + "</span>" + append
 
@@ -84,14 +91,14 @@
 		for(var/rank, member_list in team.member_datums_by_rank)
 			for(var/datum/antagonist/gang_member/member in astype(member_list, /list))
 				var/mob/living/curr = member.owner?.current
-				if(member.communicate && curr && curr.stat != DEAD)
+				if((!need_communicator || member.communicate) && curr && curr.stat != DEAD)
 					receiving_members += curr
 
-	relay_to_list_and_observers(final_message, receiving_members, sender_mob)
+	relay_to_list_and_observers(final_message, receiving_members, sender)
 
 ///Send a message to every gang, is a proc so admins can use it
-/proc/mass_gang_message(message, span = "<span class='alertsyndie'>", append)
+/proc/mass_gang_message(message, sender, span = "<span class='alertsyndie'>", append)
 	var/list/gang_list = list()
 	for(var/tag, gang in GLOB.all_gangs_by_tag)
 		gang_list += gang
-	send_gang_message(gang_list, null, message, span, append)
+	send_gang_message(gang_list, message, sender, span, append)

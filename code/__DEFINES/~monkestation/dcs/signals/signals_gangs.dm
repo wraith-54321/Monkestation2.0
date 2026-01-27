@@ -3,3 +3,6 @@
 
 ///sent by object beacons when they are activated: (spawn_override)
 #define COMSIG_GANG_OBJECT_BEACON_ACTIVATED "g_obj_beacon_used"
+
+///sent by gang machines when they activate
+#define COMSIG_GANG_MACHINE_ACTIVATED "g_machine_activated"

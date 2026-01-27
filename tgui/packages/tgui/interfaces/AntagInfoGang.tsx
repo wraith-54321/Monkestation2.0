@@ -120,7 +120,8 @@ const MainPage = (props: any) => {
                 to increase reputation is to claim areas by spraying them with
                 the special spraycans given to gangs. Claimed areas will also
                 generate telecrystals that can be distributed by the gang boss
-                and lieutenants.
+                and lieutenants. Spraying over a tag owned by another gang will
+                also instantly grant a reputation and part of a telecrystal.
               </span>
               <br />
               <br />
