@@ -78,3 +78,19 @@ PROCESSING_SUBSYSTEM_DEF(gang_machines) //temp SS
 
 	SEND_SIGNAL(src, COMSIG_GANG_MACHINE_CHANGED_OWNER, new_owner, owner)
 	owner = new_owner
+
+///used by objectives
+/obj/machinery/gang_machine/proc/attempt_activation(should_del = FALSE)
+	if(QDELETED(src))
+		return
+
+	say("Activated")
+	send_gang_message(list(owner), "Activated", src, "<span class='alertsyndie'>")
+	SEND_SIGNAL(src, COMSIG_GANG_MACHINE_ACTIVATED)
+	activate()
+	if(should_del)
+		do_sparks(4, FALSE, src)
+		qdel(src)
+
+/obj/machinery/gang_machine/proc/activate()
+	return

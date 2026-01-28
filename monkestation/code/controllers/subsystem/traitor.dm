@@ -34,7 +34,7 @@
 		var/rounded_rep_value = round(rep_value, 0.1)
 		cached_extra_rep[gang_team] = rep_value - rounded_rep_value
 
-		gang_team.unallocated_tc += round(given_rewards[gang_team]["tc"], 0.001)
+		gang_team.unallocated_tc = round((gang_team.unallocated_tc + given_rewards[gang_team]["tc"]), 0.001)
 		gang_team.rep += rounded_rep_value
 		gang_team.update_handler_rep()
 

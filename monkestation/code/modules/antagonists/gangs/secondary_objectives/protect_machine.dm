@@ -26,6 +26,8 @@
 	var/beacon_sent = FALSE
 	///Used for tracking when our timer will be up
 	var/timer_finished_at
+	///Should our machine be deleted on activation
+	var/del_activated_machine = TRUE
 
 /datum/traitor_objective/gang/protect_machine/can_generate_objective(datum/mind/generating_for, list/possible_duplicates)
 	if(!..() || !length(valid_areas))
@@ -99,6 +101,7 @@
 	if(!can_change_hands)
 		RegisterSignal(created, COMSIG_GANG_MACHINE_CHANGED_OWNER, PROC_REF(owner_changed))
 	mass_gang_message("[created] activated in [get_area(created)].")
+	addtimer(CALLBACK(created, TYPE_PROC_REF(/obj/machinery/gang_machine, attempt_activation), del_activated_machine), protect_time)
 
 /datum/traitor_objective/gang/protect_machine/proc/machine_activated(obj/machinery/gang_machine/activated)
 	SIGNAL_HANDLER
@@ -118,7 +121,15 @@
 	telecrystal_reward = list(1, 2) //the TC reward is mostly from the machine
 	progression_minimum = 50
 	progression_maximum = 300
-	created_machine_type = /obj/machinery/gang_machine/delayed_effect/telecrystal_beacon
+	created_machine_type = /obj/machinery/gang_machine/telecrystal_beacon
+
+/obj/machinery/gang_machine/telecrystal_beacon
+	layer = ABOVE_OBJ_LAYER //these should be hard to hide
+	///How many TC do we give to our owner
+	var/given_tc = 30
+
+/obj/machinery/gang_machine/telecrystal_beacon/activate()
+	owner.unallocated_tc += given_tc
 
 /datum/traitor_objective/gang/protect_machine/credit_siphon
 	progression_reward = list(5, 10) //machine gives rep
@@ -127,7 +138,4 @@
 	progression_maximum = 3000
 	created_machine_type = /obj/machinery/gang_machine/credit_converter/siphon
 	can_change_hands = FALSE
-
-/datum/traitor_objective/gang/protect_machine/credit_siphon/beacon_activated(obj/item/gang_device/object_beacon/gang_machine/created_from, obj/machinery/gang_machine/created)
-	. = ..()
-	addtimer(CALLBACK(created, TYPE_PROC_REF(/obj/machinery/gang_machine/credit_converter/siphon, send_activation_signal)), protect_time)
+	del_activated_machine = FALSE
