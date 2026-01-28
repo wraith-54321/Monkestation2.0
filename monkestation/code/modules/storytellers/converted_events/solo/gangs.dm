@@ -42,7 +42,7 @@
 	earliest_start = 0 SECONDS
 	weight = 0
 	max_occurrences = 0
-	preferred_events = list(/datum/round_event_control/antagonist/solo/traitor = 1)
+//	preferred_events = list(/datum/round_event_control/antagonist/solo/traitor = 1)
 
 /datum/round_event/antagonist/solo/gangs
 
