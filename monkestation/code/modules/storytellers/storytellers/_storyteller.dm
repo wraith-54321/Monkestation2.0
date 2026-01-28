@@ -71,13 +71,14 @@
 		roundstart_checks = TRUE
 
 	var/datum/controller/subsystem/gamemode/mode = SSgamemode
-	if(mode.current_roundstart_event && (guarantees_roundstart_roleset || roundstart_checks))
+	if(mode.current_roundstart_event && !mode.ran_roundstart && (guarantees_roundstart_roleset || roundstart_checks))
 		buy_event(mode.current_roundstart_event, EVENT_TRACK_ROLESET, TRUE)
 		if(EVENT_TRACK_ROLESET in mode.forced_next_events) //current_roundstart_event gets set to the forced roleset if there is one
 			mode.forced_next_events[EVENT_TRACK_ROLESET] = null
 			mode.forced_next_events -= EVENT_TRACK_ROLESET
 
 		log_storyteller("Running SSgamemode.current_roundstart_event\[[SSgamemode.current_roundstart_event]\]")
+		mode.ran_roundstart = TRUE
 		var/sanity = 0
 		var/fire_return
 		do
