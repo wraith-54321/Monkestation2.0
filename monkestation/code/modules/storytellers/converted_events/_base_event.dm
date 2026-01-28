@@ -1,8 +1,6 @@
 /datum/round_event/antagonist
 	fakeable = FALSE
 	end_when = 6000 //This is so prompted picking events have time to run //TODO: refactor events so they can be the masters of themselves, instead of relying on some weirdly timed vars
-	///Do we make a round end report
-	var/excute_round_end_reports = FALSE //TODO: move all of these onto the antag datums like they are meant to be
 
 	// ALL of these variables are internal. Check the control event to change them
 	/// The antag flag passed from control
@@ -21,11 +19,6 @@
 	var/list/extra_spawned_events
 	// Same as above
 	var/list/preferred_events
-
-/datum/round_event/antagonist/setup()
-	. = ..()
-	if(excute_round_end_reports)
-		SSgamemode.round_end_data |= src
 
 /datum/round_event/antagonist/New(my_processing, datum/round_event_control/event_controller)
 	. = ..()
@@ -123,9 +116,6 @@
 	for(var/datum/mind/antag_mind as anything in setup_minds)
 		add_datum_to_mind(antag_mind, antag_mind.current)
 
-/datum/round_event/antagonist/proc/round_end_report()
-	return
-
 /datum/round_event/antagonist/proc/add_datum_to_mind(datum/mind/antag_mind)
 	antag_mind.add_antag_datum(antag_datum)
 
@@ -160,6 +150,7 @@
 	if(qdel_old_mob)
 		qdel(old_mob)
 	return new_character
+
 
 /datum/round_event/antagonist/ghost/start()
 	for(var/datum/mind/antag_mind as anything in setup_minds)

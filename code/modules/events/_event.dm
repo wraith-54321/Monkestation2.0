@@ -357,7 +357,7 @@ Runs the event
 			log_admin_private("[key_name(usr)] forced scheduled event [src.name].")
 			SSgamemode.forced_next_events[src.track] = src
 		if("fire")
-			if(roundstart && istype(src, /datum/round_event_control/antagonist/solo) && SSticker.HasRoundStarted())
+			if(roundstart && istype(src, /datum/round_event_control/antagonist) && SSticker.HasRoundStarted())
 				if(tgui_alert(usr, "[src] is a ROUNDSTART event, it will most likely not prompt players! Are you sure you want to fire this event?", buttons = list("Yes", "No"), ui_state = ADMIN_STATE(R_ADMIN)) != "Yes")
 					return
 			if(length(src.admin_setup))

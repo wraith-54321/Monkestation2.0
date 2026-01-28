@@ -112,7 +112,7 @@ SUBSYSTEM_DEF(gamemode)
 	var/wizardmode = FALSE //refactor this into just being a unique storyteller
 
 	/// What is our currently desired/selected roundstart event
-	var/datum/round_event_control/antagonist/solo/current_roundstart_event
+	var/datum/round_event_control/antagonist/current_roundstart_event
 	var/list/recent_storyteller_events = list()
 	/// Has a roundstart event been run
 	var/ran_roundstart = FALSE
@@ -468,10 +468,10 @@ ADMIN_VERB(forceGamemode, R_FUN, FALSE, "Open Gamemode Panel", "Opens the gamemo
 					if(!islist(value) && !isnull(value))
 						stack_trace("extra_spawned_events must be a list or null (tried to set invalid for [event_path])")
 						continue
-					if(!istype(event, /datum/round_event_control/antagonist/solo))
-						stack_trace("tried to set extra_spawned_events for event that isn't a subtype of /datum/round_event_control/antagonist/solo ([event_path])")
+					if(!istype(event, /datum/round_event_control/antagonist))
+						stack_trace("tried to set extra_spawned_events for event that isn't a subtype of /datum/round_event_control/antagonist ([event_path])")
 						continue
-					var/datum/round_event_control/antagonist/solo/antag_event = event
+					var/datum/round_event_control/antagonist/antag_event = event
 					LAZYNULL(antag_event.extra_spawned_events)
 					var/list/extra_spawned_events = fill_with_ones(value)
 					for(var/key in extra_spawned_events)
@@ -573,14 +573,6 @@ ADMIN_VERB(forceGamemode, R_FUN, FALSE, "Open Gamemode Panel", "Opens the gamemo
 		send_to_playing_players(span_notice("[current_storyteller.welcome_text]"))
 	else
 		send_to_observers(span_boldbig("<b>Storyteller is [current_storyteller.name]!</b>")) //observers still get to know
-
-/datum/controller/subsystem/gamemode/proc/round_end_report()
-	if(!length(round_end_data))
-		return
-	for(var/datum/round_event/antagonist/event in round_end_data)
-		if(!istype(event))
-			continue
-		event.round_end_report()
 
 /datum/controller/subsystem/gamemode/proc/store_roundend_data()
 	var/max_history = length(CONFIG_GET(number_list/repeated_mode_adjust))

@@ -79,7 +79,7 @@
 	///Our credits banner icon
 	var/event_icon_state
 	/// How many baseline antags do we spawn
-	var/base_antags = 1
+	var/base_antags = 1 //this seems to not actually get scaled
 	/// How many maximum antags can we spawn
 	var/maximum_antags = 2
 	/// For this many players we'll add 1 up to the maximum antag amount
@@ -140,14 +140,14 @@
 		return
 	if(!check_required_roles())
 		return FALSE
-	var/list/recent_storyteller_events = SSgamemode.recent_storyteller_events
+	/*var/list/recent_storyteller_events = SSgamemode.recent_storyteller_events
 	if(shared_occurence_type == SHARED_HIGH_THREAT && length(recent_storyteller_events))
 		var/list/last_round = recent_storyteller_events[1] //TODO: change this to a weight reduction
 		if(type in last_round)
 			return FALSE
 		for(var/datum/round_event_control/event as anything in last_round)
 			if(event::shared_occurence_type == shared_occurence_type)
-				return FALSE
+				return FALSE*/ //temp removal to see if this causes issues or not
 	var/antag_amt = get_antag_amount()
 	var/list/candidates = get_candidates()
 	if(length(candidates) < antag_amt)

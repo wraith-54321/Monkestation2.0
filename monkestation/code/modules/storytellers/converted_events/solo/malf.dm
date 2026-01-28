@@ -1,4 +1,4 @@
-/datum/round_event_control/antagonist/solo/malf
+/datum/round_event_control/antagonist/malf
 	antag_datum = /datum/antagonist/malf_ai
 	tags = list(TAG_COMBAT, TAG_DESTRUCTIVE, TAG_ALIEN, TAG_CREW_ANTAG, TAG_MUNDANE) //not exactly alien but close enough / Not actually crew but is part of the initial staff
 	antag_flag = ROLE_MALF
@@ -23,7 +23,7 @@
 	min_players = 35
 	max_occurrences = 1
 
-/datum/round_event_control/antagonist/solo/malf/trim_candidates(list/candidates)
+/datum/round_event_control/antagonist/malf/trim_candidates(list/candidates)
 	for(var/mob/living/player in candidates)
 		if(!isAI(player))
 			candidates -= player
@@ -38,12 +38,12 @@
 
 	return candidates
 
-/datum/round_event_control/antagonist/solo/malf/midround
+/datum/round_event_control/antagonist/malf/midround
 	name = "Malfunctioning AI Midround"
 	antag_flag = ROLE_MALF_MIDROUND
 	weight = 2
 
-/datum/round_event_control/antagonist/solo/malf/roundstart
+/datum/round_event_control/antagonist/malf/roundstart
 	name = "Roundstart Malf AI"
 	roundstart = TRUE
 	earliest_start = 0
