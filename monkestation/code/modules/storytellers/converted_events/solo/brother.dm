@@ -44,7 +44,7 @@
 	)
 	extra_spawned_events = list(
 		/datum/round_event_control/antagonist/traitor/roundstart = 8,
-		/datum/round_event_control/antagonist/bloodsucker/roundstart = 6,
+		/datum/round_event_control/antagonist/solo/bloodsucker/roundstart = 6,
 		/datum/round_event_control/antagonist/heretic/roundstart = 1,
 	)
 	var/static/allow_3_person_teams
