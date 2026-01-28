@@ -38,7 +38,7 @@
 	)
 	base_antags = 2
 	maximum_antags = 4
-	min_players = 35
+	min_players = 25
 	roundstart = TRUE
 	//title_icon = "darkspawn"
 	earliest_start = 0 SECONDS
