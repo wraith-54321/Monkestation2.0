@@ -117,7 +117,7 @@
 		add_datum_to_mind(antag_mind, antag_mind.current)
 
 /datum/round_event/antagonist/proc/add_datum_to_mind(datum/mind/antag_mind)
-	antag_mind.add_antag_datum(antag_datum)
+	return antag_mind.add_antag_datum(antag_datum)
 
 /datum/round_event/antagonist/proc/spawn_extra_events(wait = 1 SECONDS)
 	if(!LAZYLEN(extra_spawned_events))
