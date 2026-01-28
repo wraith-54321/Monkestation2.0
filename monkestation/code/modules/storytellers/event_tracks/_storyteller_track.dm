@@ -45,5 +45,5 @@
 /datum/storyteller_track/booster/on_trigger(datum/storyteller/triggered_by)
 	var/datum/storyteller_track/track = pick(SSgamemode.point_gain_multipliers - id)
 	track = SSgamemode.event_tracks[track]
-	track.points += 30
+	track.points += BOOSTER_POINT_THRESHOLD / 2
 	points = max(points - threshold, 0)

@@ -52,8 +52,6 @@
 	var/roundstart_checks = FALSE
 	///prob of roundstart antag
 	var/roundstart_prob = 25
-	///do we ignore ran_roundstart
-	var/ignores_roundstart = TRUE //this doesnt even work
 	///is a storyteller always able to be voted for(also does not count for the amount of storytellers to pick from)
 	var/always_votable = FALSE
 	///weight this has of being picked for random storyteller/showing up in the vote if not always_votable
@@ -73,14 +71,13 @@
 		roundstart_checks = TRUE
 
 	var/datum/controller/subsystem/gamemode/mode = SSgamemode
-	if(mode.current_roundstart_event && !mode.ran_roundstart && (guarantees_roundstart_roleset || roundstart_checks))
+	if(mode.current_roundstart_event && (guarantees_roundstart_roleset || roundstart_checks))
 		buy_event(mode.current_roundstart_event, EVENT_TRACK_ROLESET, TRUE)
 		if(EVENT_TRACK_ROLESET in mode.forced_next_events) //current_roundstart_event gets set to the forced roleset if there is one
 			mode.forced_next_events[EVENT_TRACK_ROLESET] = null
 			mode.forced_next_events -= EVENT_TRACK_ROLESET
 
 		log_storyteller("Running SSgamemode.current_roundstart_event\[[SSgamemode.current_roundstart_event]\]")
-		mode.ran_roundstart = TRUE
 		var/sanity = 0
 		var/fire_return
 		do
@@ -145,7 +142,8 @@
 		if(mode.active_players < pop_required)
 			message_admins("Storyteller failed to pick an event for track of [track] due to insufficient population. (required: [pop_required] active pop for [track]. Current: [mode.active_players])")
 			log_storyteller("Storyteller failed to pick an event for track of [track] due to insufficient population. (required: [pop_required] active pop for [track]. Current: [mode.active_players])")
-			mode.event_tracks[track].points *= TRACK_FAIL_POINT_PENALTY_MULTIPLIER
+			var/datum/storyteller_track/track_datum = mode.event_tracks[track]
+			track_datum.points -= track_datum.points - (TRACK_FAIL_POINT_PENALTY_MULTIPLIER * track_datum.points)
 			return
 		var/list/valid_events = list()
 		// Determine which events are valid to pick
@@ -153,8 +151,7 @@
 		var/started_time = world.time - SSticker.round_start_time
 		var/is_roundstart = started_time <= ROUNDSTART_VALID_TIMEFRAME
 		for(var/datum/round_event_control/event as anything in mode.event_pools[track])
-			if((is_roundstart ? (event.roundstart && SSgamemode.can_run_roundstart && (ignores_roundstart || !SSgamemode.ran_roundstart)) : !event.roundstart) && \
-			event.can_spawn_event(players_amt))
+			if((is_roundstart ? (event.roundstart && SSgamemode.can_run_roundstart) : !event.roundstart) && event.can_spawn_event(players_amt))
 				if(QDELETED(event))
 					mode.event_pools[track] -= event
 					message_admins("[event.name] was deleted!")
@@ -165,7 +162,8 @@
 		///If we didn't get any events, remove the points inform admins and dont do anything
 		if(!length(valid_events))
 			message_admins("Storyteller failed to pick an event for track of [track].")
-			mode.event_tracks[track].points *= TRACK_FAIL_POINT_PENALTY_MULTIPLIER
+			var/datum/storyteller_track/track_datum = mode.event_tracks[track]
+			track_datum.points -= track_datum.points - (TRACK_FAIL_POINT_PENALTY_MULTIPLIER * track_datum.points)
 			return
 		picked_event = pick_weight(valid_events)
 		if(!picked_event)
@@ -213,7 +211,6 @@
 	track_datum.points = max(track_datum.points - total_cost, 0)
 	message_admins("Storyteller purchased and triggered [bought_event] event, on [track] track, for [total_cost] cost.")
 	if(bought_event.roundstart)
-		SSgamemode.ran_roundstart = TRUE
 		mode.TriggerEvent(bought_event, forced)
 	else
 		mode.schedule_event(bought_event, 3 MINUTES, total_cost, _forced = forced)

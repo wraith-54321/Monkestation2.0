@@ -579,7 +579,7 @@ ADMIN_VERB(forceGamemode, R_FUN, FALSE, "Open Gamemode Panel", "Opens the gamemo
 /datum/controller/subsystem/gamemode/proc/round_end_report()
 	if(!length(round_end_data))
 		return
-	for(var/datum/round_event/event as anything in round_end_data)
+	for(var/datum/round_event/antagonist/event in round_end_data)
 		if(!istype(event))
 			continue
 		event.round_end_report()
