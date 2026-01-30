@@ -20,9 +20,9 @@
 	mode.update_crew_infos()
 	var/list/valid_events = list()
 	var/players_amt = get_active_player_count(alive_check = TRUE, afk_check = TRUE, human_check = TRUE)
-	for(var/datum/round_event_control/event as anything in mode.event_pools[track])
+	for(var/datum/round_event_control/event in mode.uncategorized[WIZARD_EVENT_UNCATEGORIZED])
 		if(QDELETED(event))
-			mode.event_pools[track] -= event
+			mode.uncategorized[WIZARD_EVENT_UNCATEGORIZED] -= event
 			message_admins("[event.name] was deleted!")
 			continue
 
