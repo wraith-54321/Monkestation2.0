@@ -81,10 +81,7 @@ SUBSYSTEM_DEF(gamemode)
 	var/list/round_end_data = list() //list of all reports that need to add round end reports
 
 	/// List of all uncategorized events, because they were wizard or holiday events
-	var/list/uncategorized = list()
-
-	/// Event frequency multiplier, it exists because wizard, eugh.
-	var/event_frequency_multiplier = 1
+	var/list/uncategorized = list(WIZARD_EVENT_UNCATEGORIZED = list(), NO_TRACK_UNCATEGORIZED = list())
 
 	/// Current preview page for the statistics UI.
 	var/statistics_track_page = EVENT_TRACK_MUNDANE
@@ -109,7 +106,8 @@ SUBSYSTEM_DEF(gamemode)
 	/// List of new player minds we currently want to give our roundstart antag to
 	var/list/roundstart_antag_minds = list()
 
-	var/wizardmode = FALSE //refactor this into just being a unique storyteller
+	/// Do we allow magic events to trigger
+//	var/allow_magic = FALSE
 
 	/// What is our currently desired/selected roundstart event
 	var/datum/round_event_control/antagonist/current_roundstart_event
@@ -143,9 +141,19 @@ SUBSYSTEM_DEF(gamemode)
 		last_point_gains[point_track] = 0
 
 	///Seeding events into track event pools needs to happen after event config vars are loaded
-	for(var/datum/round_event_control/event as anything in SSevents.control)
-		if(event.holidayID || event.wizardevent || !event.track)
-			uncategorized += event
+	for(var/datum/round_event_control/event in SSevents.control)
+		if(event.holidayID)
+			var/list/holiday_list = uncategorized[event.holidayID]
+			if(holiday_list)
+				holiday_list += event
+			else
+				uncategorized[event.holidayID] = list(event)
+			continue
+		else if(event.wizardevent)
+			uncategorized[WIZARD_EVENT_UNCATEGORIZED] += event
+			continue
+		else if(!event.track)
+			uncategorized[NO_TRACK_UNCATEGORIZED] += event
 			continue
 		event_pools[event.track] += event //Add it to the categorized event pools
 
@@ -414,10 +422,10 @@ ADMIN_VERB(force_event, R_FUN, FALSE, "Trigger Event", "Forces an event to occur
 ADMIN_VERB(forceGamemode, R_FUN, FALSE, "Open Gamemode Panel", "Opens the gamemode panel.", ADMIN_CATEGORY_EVENTS) // TG PORT
 	SSgamemode.admin_panel(user.mob)
 
-/datum/controller/subsystem/gamemode/proc/toggleWizardmode()
-	wizardmode = !wizardmode //TODO: decide what to do with wiz events
-	message_admins("Summon Events has been [wizardmode ? "enabled, events will occur [SSgamemode.event_frequency_multiplier] times as fast" : "disabled"]!")
-	log_game("Summon Events was [wizardmode ? "enabled" : "disabled"]!")
+/*/datum/controller/subsystem/gamemode/proc/toggleWizardmode()
+	allow_magic = !allow_magic
+	message_admins("Summon Events has been [allow_magic ? "enabled, events will occur [SSgamemode.event_frequency_multiplier] times as fast" : "disabled"]!")
+	log_game("Summon Events was [allow_magic ? "enabled" : "disabled"]!") */
 
 ///Attempts to select players for special roles the mode might have.
 /datum/controller/subsystem/gamemode/proc/pre_setup()

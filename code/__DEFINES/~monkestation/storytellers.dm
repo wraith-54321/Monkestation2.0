@@ -94,3 +94,8 @@
 
 ///the duration into the round for which roundstart events are still valid to run
 #define ROUNDSTART_VALID_TIMEFRAME 3 MINUTES
+
+//used for sorting uncategorized events
+#define WIZARD_EVENT_UNCATEGORIZED "wizard_event"
+
+#define NO_TRACK_UNCATEGORIZED "no_track"

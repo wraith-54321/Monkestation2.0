@@ -11,11 +11,7 @@
 	var/event_repetition_multiplier = 0.6
 	/// Multipliers for starting points.
 	var/list/starting_point_multipliers = list(
-		EVENT_TRACK_MUNDANE = 1,
-		EVENT_TRACK_MODERATE = 1,
-		EVENT_TRACK_MAJOR = 1,
-		EVENT_TRACK_ROLESET = 1,
-		EVENT_TRACK_OBJECTIVES = 1
+		EVENT_TRACK_ROLESET = 1
 		)
 	/// Multipliers for point gains.
 	var/list/point_gains_multipliers = list(
@@ -23,7 +19,6 @@
 		EVENT_TRACK_MODERATE = 1,
 		EVENT_TRACK_MAJOR = 1,
 		EVENT_TRACK_ROLESET = 1,
-		EVENT_TRACK_OBJECTIVES = 1
 		)
 	/// Multipliers of weight to apply for each tag of an event.
 	var/list/tag_multipliers
@@ -95,9 +90,8 @@
 		return
 
 	var/datum/controller/subsystem/gamemode/mode = SSgamemode
-	var/base_point = seconds_per_tick * mode.event_frequency_multiplier
 	for(var/track in mode.point_gain_multipliers)
-		mode.last_point_gains[track] = add_track_points(base_point, track)
+		mode.last_point_gains[track] = add_track_points(seconds_per_tick, track)
 
 /// Add points to a specific track with multipliers, returns how many points were added
 /// Passed track should be an ID, not a ref
@@ -129,58 +123,59 @@
 /// Find and buy a valid event from a track.
 /datum/storyteller/proc/find_and_buy_event_from_track(track)
 	. = FALSE
-	var/are_forced = FALSE
 	var/datum/controller/subsystem/gamemode/mode = SSgamemode
 	var/datum/round_event_control/picked_event
 	if(mode.forced_next_events[track]) //Forced event by admin
 		/// Dont check any prerequisites, it has been forced by an admin
 		picked_event = mode.forced_next_events[track]
 		mode.forced_next_events -= track
-		are_forced = TRUE
-	else
-		mode.update_crew_infos()
-		var/pop_required = mode.min_pop_thresholds[track]
-		if(mode.active_players < pop_required)
-			message_admins("Storyteller failed to pick an event for track of [track] due to insufficient population. (required: [pop_required] active pop for [track]. Current: [mode.active_players])")
-			log_storyteller("Storyteller failed to pick an event for track of [track] due to insufficient population. (required: [pop_required] active pop for [track]. Current: [mode.active_players])")
-			var/datum/storyteller_track/track_datum = mode.event_tracks[track]
-			track_datum.points -= track_datum.points - (TRACK_FAIL_POINT_PENALTY_MULTIPLIER * track_datum.points)
-			return
-		var/list/valid_events = list()
-		// Determine which events are valid to pick
-		var/players_amt = get_active_player_count(alive_check = TRUE, afk_check = TRUE, human_check = TRUE)
-		var/started_time = world.time - SSticker.round_start_time
-		var/is_roundstart = started_time <= ROUNDSTART_VALID_TIMEFRAME
-		for(var/datum/round_event_control/event as anything in mode.event_pools[track])
-			if((is_roundstart ? (event.roundstart && SSgamemode.can_run_roundstart) : !event.roundstart) && event.can_spawn_event(players_amt))
-				if(QDELETED(event))
-					mode.event_pools[track] -= event
-					message_admins("[event.name] was deleted!")
-					continue
+		buy_event(picked_event, track, TRUE)
+		return TRUE
 
-				if(calculate_single_weight(event) > 0)
-					valid_events[event] = round(event.calculated_weight * 10) //multiply weight by 10 to get first decimal value
-		///If we didn't get any events, remove the points inform admins and dont do anything
-		if(!length(valid_events))
-			message_admins("Storyteller failed to pick an event for track of [track].")
-			var/datum/storyteller_track/track_datum = mode.event_tracks[track]
-			track_datum.points -= track_datum.points - (TRACK_FAIL_POINT_PENALTY_MULTIPLIER * track_datum.points)
+	mode.update_crew_infos()
+	var/pop_required = mode.min_pop_thresholds[track]
+	if(mode.active_players < pop_required)
+		message_admins("Storyteller failed to pick an event for track of [track] due to insufficient population. (required: [pop_required] active pop for [track]. Current: [mode.active_players])")
+		log_storyteller("Storyteller failed to pick an event for track of [track] due to insufficient population. (required: [pop_required] active pop for [track]. Current: [mode.active_players])")
+		var/datum/storyteller_track/track_datum = mode.event_tracks[track]
+		track_datum.points -= track_datum.points - (TRACK_FAIL_POINT_PENALTY_MULTIPLIER * track_datum.points)
+		return
+
+	var/list/valid_events = list()
+	// Determine which events are valid to pick
+	var/players_amt = get_active_player_count(alive_check = TRUE, afk_check = TRUE, human_check = TRUE)
+	var/is_roundstart = world.time - SSticker.round_start_time <= ROUNDSTART_VALID_TIMEFRAME
+	for(var/datum/round_event_control/event as anything in mode.event_pools[track])
+		if(QDELETED(event))
+			mode.event_pools[track] -= event
+			message_admins("[event.name] was deleted!")
+			continue
+
+		if((is_roundstart ? (event.roundstart && SSgamemode.can_run_roundstart) : !event.roundstart) && event.can_spawn_event(players_amt) && calculate_single_weight(event) > 0)
+			valid_events[event] = round(event.calculated_weight * 10) //multiply weight by 10 to get first decimal value
+
+	//If we didn't get any events, remove the points inform admins and dont do anything
+	if(!length(valid_events))
+		message_admins("Storyteller failed to pick an event for track of [track].")
+		var/datum/storyteller_track/track_datum = mode.event_tracks[track]
+		track_datum.points -= track_datum.points - (TRACK_FAIL_POINT_PENALTY_MULTIPLIER * track_datum.points)
+		return
+
+	picked_event = pick_weight(valid_events)
+	if(!picked_event)
+		if(length(valid_events))
+			var/added_string = ""
+			for(var/datum/round_event_control/item as anything in valid_events)
+				added_string += "[item.name]:[valid_events[item]]; "
+			stack_trace("WARNING: Storyteller picked a null from event pool, defaulting to option 1, look at weights:[added_string]")
+			shuffle_inplace(valid_events)
+			picked_event = valid_events[1]
+		else
+			message_admins("WARNING: Storyteller picked a null from event pool. Aborting event roll.")
+			stack_trace("WARNING: Storyteller picked a null from event pool.")
+			SSgamemode.event_tracks[track].points = 0
 			return
-		picked_event = pick_weight(valid_events)
-		if(!picked_event)
-			if(length(valid_events))
-				var/added_string = ""
-				for(var/datum/round_event_control/item as anything in valid_events)
-					added_string += "[item.name]:[valid_events[item]]; "
-				stack_trace("WARNING: Storyteller picked a null from event pool, defaulting to option 1, look at weights:[added_string]")
-				shuffle_inplace(valid_events)
-				picked_event = valid_events[1]
-			else
-				message_admins("WARNING: Storyteller picked a null from event pool. Aborting event roll.")
-				stack_trace("WARNING: Storyteller picked a null from event pool.")
-				SSgamemode.event_tracks[track].points = 0
-				return
-	buy_event(picked_event, track, are_forced)
+	buy_event(picked_event, track)
 	return TRUE
 
 ///Attempt to buy a specific event if we can afford it, otherwise returns FALSE, note this does NOT take cost variance into account
@@ -208,7 +203,7 @@
 	// Perhaps use some bell curve instead of a flat variance?
 	var/total_cost = bought_event.cost * track_datum.threshold
 	if(!bought_event.roundstart)
-		total_cost *= (1 + (rand(-cost_variance, cost_variance)/100)) //Apply cost variance if not roundstart event
+		total_cost *= (1 + (rand(-cost_variance, cost_variance)/100)) //Apply cost variance if a not roundstart event
 	track_datum.points = max(track_datum.points - total_cost, 0)
 	message_admins("Storyteller purchased and triggered [bought_event] event, on [track] track, for [total_cost] cost.")
 	if(bought_event.roundstart)
