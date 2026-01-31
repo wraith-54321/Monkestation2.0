@@ -1,4 +1,0 @@
-author: "JohnFulpWillard"
-delete-after: True
-changes:
-  - bugfix: "[Theseus] NT Rep & BSO can now access eachother's offices again."
