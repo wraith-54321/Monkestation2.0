@@ -227,6 +227,8 @@ GLOBAL_LIST_INIT(summoned_magic_objectives, list(
 	if(istype(SSgamemode.current_storyteller, /datum/storyteller/wizard))
 		var/datum/storyteller/current_storyteller = SSgamemode.current_storyteller
 		for(var/mult in current_storyteller.point_gains_multipliers)
+			if(mult == EVENT_TRACK_ROLESET)
+				continue
 			current_storyteller.point_gains_multipliers[mult]++
 
 		if(user)
