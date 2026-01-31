@@ -244,7 +244,7 @@ SUBSYSTEM_DEF(gamemode)
 														midround_antag_pref, no_antags = TRUE, list/restricted_roles, list/required_roles)
 	var/list/candidates = list()
 	var/list/candidate_candidates = list() //lol
-
+	//should refactor this to use caching of whos valid for a given role
 	for(var/mob/player as anything in GLOB.player_list)
 		if(QDELETED(player) || player.mind?.picking)
 			continue
@@ -427,11 +427,6 @@ ADMIN_VERB(forceGamemode, R_FUN, FALSE, "Open Gamemode Panel", "Opens the gamemo
 	message_admins("Summon Events has been [allow_magic ? "enabled, events will occur [SSgamemode.event_frequency_multiplier] times as fast" : "disabled"]!")
 	log_game("Summon Events was [allow_magic ? "enabled" : "disabled"]!") */
 
-///Attempts to select players for special roles the mode might have.
-/datum/controller/subsystem/gamemode/proc/pre_setup()
-	roll_pre_setup_points()
-	return TRUE
-
 /// Loads json event config values from events.txt
 /datum/controller/subsystem/gamemode/proc/load_event_config_vars()
 	var/json_file = file("[global.config.directory]/events.json")
@@ -440,13 +435,10 @@ ADMIN_VERB(forceGamemode, R_FUN, FALSE, "Open Gamemode Panel", "Opens the gamemo
 	var/list/decoded = json_decode(file2text(json_file))
 	for(var/event_text_path in decoded)
 		var/event_path = text2path(event_text_path)
-		var/datum/round_event_control/event
-		for(var/datum/round_event_control/iterated_event as anything in SSevents.control)
-			if(iterated_event.type == event_path)
-				event = iterated_event
-				break
+		var/datum/round_event_control/event = SSevents.control_by_type[event_path]
 		if(!event)
 			continue
+
 		var/list/var_list = decoded[event_text_path]
 		for(var/variable in var_list)
 			var/value = var_list[variable]
@@ -480,7 +472,7 @@ ADMIN_VERB(forceGamemode, R_FUN, FALSE, "Open Gamemode Panel", "Opens the gamemo
 						stack_trace("tried to set extra_spawned_events for event that isn't a subtype of /datum/round_event_control/antagonist ([event_path])")
 						continue
 					var/datum/round_event_control/antagonist/antag_event = event
-					LAZYNULL(antag_event.extra_spawned_events)
+					antag_event.extra_spawned_events = null
 					var/list/extra_spawned_events = fill_with_ones(value)
 					for(var/key in extra_spawned_events)
 						var/extra_path = text2path(key)

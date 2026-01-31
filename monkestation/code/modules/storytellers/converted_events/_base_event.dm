@@ -20,15 +20,13 @@
 	// Same as above
 	var/list/preferred_events
 
-/datum/round_event/antagonist/New(my_processing, datum/round_event_control/event_controller)
+/datum/round_event/antagonist/New(my_processing, datum/round_event_control/antagonist/event_controller)
 	. = ..()
-	if(istype(event_controller, /datum/round_event_control/antagonist))
-		var/datum/round_event_control/antagonist/antag_event_controller = event_controller
-		if(antag_event_controller)
-			if(antag_event_controller.extra_spawned_events)
-				extra_spawned_events = fill_with_ones(antag_event_controller.extra_spawned_events)
-			if(antag_event_controller.preferred_events)
-				preferred_events = fill_with_ones(antag_event_controller.preferred_events)
+	if(istype(event_controller))
+		if(event_controller.extra_spawned_events)
+			extra_spawned_events = fill_with_ones(event_controller.extra_spawned_events)
+		if(event_controller.preferred_events)
+			preferred_events = fill_with_ones(event_controller.preferred_events)
 
 /datum/round_event/antagonist/setup()
 	var/datum/round_event_control/antagonist/cast_control = control
@@ -51,7 +49,7 @@
 
 	//guh
 	var/list/cliented_list = list()
-	for(var/mob/living/mob as anything in possible_candidates)
+	for(var/mob/living/mob in possible_candidates)
 		cliented_list += mob.client
 
 	if(length(cliented_list))
@@ -110,29 +108,32 @@
 
 	setup = TRUE
 	control.generate_image(picked_mobs)
-	spawn_extra_events()
 
 /datum/round_event/antagonist/start()
 	for(var/datum/mind/antag_mind as anything in setup_minds)
 		add_datum_to_mind(antag_mind, antag_mind.current)
+	spawn_extra_events()
 
 /datum/round_event/antagonist/proc/add_datum_to_mind(datum/mind/antag_mind)
 	return antag_mind.add_antag_datum(antag_datum)
 
-/datum/round_event/antagonist/proc/spawn_extra_events(wait = 1 SECONDS)
-	if(!LAZYLEN(extra_spawned_events))
+/datum/round_event/antagonist/proc/spawn_extra_events()
+	if(!length(extra_spawned_events))
 		return
-	var/datum/round_event_control/event_type = pick_weight(extra_spawned_events)
-	if(!event_type)
+
+	var/list/spawned_copy = extra_spawned_events.Copy()
+	var/player_count = SSgamemode.get_correct_popcount()
+	var/datum/round_event_control/event
+	while(!event && length(spawned_copy))
+		event = pick_n_take_weighted(spawned_copy)
+		event = SSevents.control_by_type[event]
+		if(!event.can_spawn_event(player_count))
+			event = null
+
+	if(!event)
 		return
-	var/datum/round_event_control/triggered_event = SSevents.control_by_type[event_type]
-	if(wait)
-		log_storyteller("[src] queued extra event [triggered_event] (running in [DisplayTimeText(wait)])")
-		//wait a second to avoid any potential omnitraitor bs (it will happen anyways)
-		addtimer(CALLBACK(triggered_event, TYPE_PROC_REF(/datum/round_event_control, run_event), FALSE, null, FALSE, "storyteller"), wait)
-	else
-		log_storyteller("[src] triggered extra event [triggered_event]")
-		triggered_event.run_event(random = FALSE, event_cause = "storyteller")
+
+	event.run_event(random = FALSE, event_cause = "storyteller")
 
 /datum/round_event/antagonist/proc/create_human_mob_copy(turf/create_at, mob/living/carbon/human/old_mob, qdel_old_mob = TRUE)
 	if(!old_mob?.client)

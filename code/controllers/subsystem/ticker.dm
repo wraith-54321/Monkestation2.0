@@ -275,10 +275,8 @@ SUBSYSTEM_DEF(ticker)
 	CHECK_TICK
 	//Configure mode and assign player to special mode stuff
 	var/can_continue = 0
-	//monkestation addition start
-	can_continue =	SSgamemode.pre_setup()
+	SSgamemode.roll_pre_setup_points()
 	CHECK_TICK
-	//monkestation addition end
 	can_continue = src.mode.pre_setup() //Choose antagonists
 	CHECK_TICK
 	can_continue = can_continue && SSjob.DivideOccupations() //Distribute jobs

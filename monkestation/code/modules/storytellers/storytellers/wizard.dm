@@ -39,7 +39,8 @@
 	var/datum/storyteller_track/track_datum = mode.event_tracks[track]
 	track_datum.points = max(track_datum.points - track_datum.threshold, 0)
 	message_admins("Storyteller purchased and triggered [picked_event] event, on [track] track, for [track_datum.threshold] cost.")
-	mode.TriggerEvent(picked_event) //TODO: let scheduled events have an unset track so we can schedule these
+	//TODO: let scheduled events have an unset track so we can schedule these
+	INVOKE_ASYNC(mode, TYPE_PROC_REF(/datum/controller/subsystem/gamemode, TriggerEvent), picked_event)
 	SSgamemode.triggered_round_events |= picked_event.type
 	return TRUE
 
