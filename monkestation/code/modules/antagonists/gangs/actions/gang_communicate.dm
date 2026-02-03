@@ -98,7 +98,10 @@
 
 ///Send a message to every gang, is a proc so admins can use it
 /proc/mass_gang_message(message, sender, span = "<span class='alertsyndie'>", append)
+	if(!length(SSgangs.all_gangs_by_tag))
+		return
+
 	var/list/gang_list = list()
-	for(var/tag, gang in GLOB.all_gangs_by_tag)
+	for(var/tag, gang in SSgangs.all_gangs_by_tag)
 		gang_list += gang
 	send_gang_message(gang_list, message, sender, span, append)

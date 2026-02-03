@@ -85,8 +85,6 @@ SUBSYSTEM_DEF(traitor)
 			handler.progression_points += amount_to_give
 		handler.update_objectives()
 		handler.on_update()
-	if(length(GLOB.gang_controlled_areas)) //monkestation edit
-		handle_gangs() //monkestation edit
 
 /datum/controller/subsystem/traitor/proc/register_uplink_handler(datum/uplink_handler/uplink_handler)
 	if(!uplink_handler.has_progression || istype(uplink_handler, /datum/uplink_handler/gang)) //monkestation edit: adds the gang handler check

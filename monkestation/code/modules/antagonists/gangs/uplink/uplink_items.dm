@@ -51,7 +51,7 @@
 
 /datum/uplink_item/dangerous/tommygun
 	name = "Thomson SMG"
-	desc = "A classic design nicknamed the \"Tommy Gun\" carrying an impressive 50 round drum magazine chambered in .45,\
+	desc = "A classic design nicknamed the \"Tommy Gun\" carrying an impressive 35 round drum magazine chambered in .45,\
 			sure to mow down your enemies. Comes with 2 magazines, a spiffy outfit, and a stylish case to carry it in."
 	item = /obj/item/storage/box/syndicate/tommygun_kit
 	cost = 25
@@ -68,8 +68,8 @@
 
 /obj/item/storage/briefcase/tommygun/PopulateContents()
 	new /obj/item/gun/ballistic/automatic/tommygun/gang(src)
-	new /obj/item/ammo_box/magazine/tommygunm45(src)
-	new /obj/item/ammo_box/magazine/tommygunm45(src)
+	new /obj/item/ammo_box/magazine/tommygunm45/gang(src)
+	new /obj/item/ammo_box/magazine/tommygunm45/gang(src)
 
 /obj/item/storage/box/syndicate/tommygun_kit
 	name = "Tommygun Kit"
@@ -80,6 +80,9 @@
 	new /obj/item/clothing/under/suit/checkered(src)
 	new /obj/item/clothing/gloves/color/black(src)
 	new /obj/item/clothing/shoes/laceup(src)
+
+/obj/item/ammo_box/magazine/tommygunm45/gang
+	max_ammo = 35
 
 /datum/uplink_item/device_tools/gang_communicator
 	name = "Uplink Communicator Upgrade"
@@ -122,6 +125,13 @@
 	desc = "A small device that can be used to convert the ownership of a machine owned by another gang to that of your own."
 	item = /obj/item/gang_device/machine_converter
 	cost = 5
+	purchasable_from = UPLINK_GANGS
+
+/datum/uplink_item/device_tools/gang_pin
+	name = "Gang Pin"
+	desc = "A pin to show affiliation to a gang."
+	item = /obj/item/clothing/accessory/gang_pin
+	cost = 0 //TEMP, KILL ANYONE WHO ABUSES THIS
 	purchasable_from = UPLINK_GANGS
 
 //spawns a few pods the buying gang gets to know the location of, as well as items spread randomly around the station

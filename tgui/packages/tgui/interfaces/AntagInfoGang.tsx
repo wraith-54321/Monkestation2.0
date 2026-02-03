@@ -122,6 +122,9 @@ const MainPage = (props: any) => {
                 generate telecrystals that can be distributed by the gang boss
                 and lieutenants. Spraying over a tag owned by another gang will
                 also instantly grant a reputation and part of a telecrystal.
+                Representing your gang is important! If you do not properly do
+                so you will get a large mood debuff. Your gang can be
+                represented by wearing its outfit, such as the provided pins.
               </span>
               <br />
               <br />

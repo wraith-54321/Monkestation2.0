@@ -1,8 +1,3 @@
-PROCESSING_SUBSYSTEM_DEF(gang_machines) //temp SS
-	name = "Gang Machines"
-	flags = SS_BACKGROUND|SS_POST_FIRE_TIMING|SS_NO_INIT|SS_KEEP_TIMING
-	wait = 10 SECONDS
-
 //CONVERT THIS TO A COMPONENT
 /obj/machinery/gang_machine
 	name = "suspicious machine"
@@ -10,7 +5,7 @@ PROCESSING_SUBSYSTEM_DEF(gang_machines) //temp SS
 	density = TRUE
 	idle_power_usage = 0
 	processing_flags = START_PROCESSING_MANUALLY
-	subsystem_type = /datum/controller/subsystem/processing/gang_machines
+	subsystem_type = /datum/controller/subsystem/processing/gangs
 	///Additional text to give to gang members on examine
 	var/extra_examine_text = ""
 	///How much TC do we cost to set up
@@ -71,7 +66,7 @@ PROCESSING_SUBSYSTEM_DEF(gang_machines) //temp SS
 ///set our owner
 /obj/machinery/gang_machine/proc/set_owner(datum/team/gang/new_owner)
 	if(!istype(new_owner))
-		new_owner = GLOB.all_gangs_by_tag[new_owner]
+		new_owner = SSgangs.all_gangs_by_tag?[new_owner]
 
 	if(isnull(new_owner))
 		return

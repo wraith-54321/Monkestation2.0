@@ -1,6 +1,3 @@
-///Assoc list of all gangs keyed to their tag
-GLOBAL_ALIST_EMPTY(all_gangs_by_tag)
-
 /datum/team/gang
 	name = "Syndicate Gang"
 	///What gang data do we use(what syndicate orginization are we aligned with)
@@ -37,7 +34,7 @@ GLOBAL_ALIST_EMPTY(all_gangs_by_tag)
 	)
 	///Used for limited stock uplink items
 	var/list/shared_team_stock = list(UPLINK_SHARED_STOCK_SURPLUS = 3)
-	///Assoc list of member antag datums keyed to their rank
+	///Nested assoc list of member antag datums keyed to their rank
 	var/alist/member_datums_by_rank = alist()
 	///List of area types owned by this gang, used to make some checks cheaper
 	var/list/claimed_areas = list()
@@ -53,24 +50,23 @@ GLOBAL_ALIST_EMPTY(all_gangs_by_tag)
 /datum/team/gang/New(starting_members)
 	. = ..()
 //	set_gang_info()
-	var/list/possible_tags = all_gang_tags - GLOB.all_gangs_by_tag
+	FRESH_INIT_SUBSYSTEM(SSgangs)
+	var/list/possible_tags = all_gang_tags - SSgangs.all_gangs_by_tag
 	if(!length(possible_tags))
 		stack_trace("Gang created without possible_tags.")
 	else
 		gang_tag = pick(possible_tags)
 
-	if(GLOB.all_gangs_by_tag[gang_tag])
-		stack_trace("Gang([src]) created with duplicate tag([gang_tag]) to already exsisting gang([GLOB.all_gangs_by_tag[gang_tag]]).")
-		message_admins("Gang([src]) created with duplicate tag([gang_tag]) to already exsisting gang([GLOB.all_gangs_by_tag[gang_tag]]), overriding old gang.")
-	GLOB.all_gangs_by_tag[gang_tag] = src
+	if(SSgangs.all_gangs_by_tag[gang_tag])
+		stack_trace("Gang([src]) created with duplicate tag([gang_tag]) to already exsisting gang([SSgangs.all_gangs_by_tag[gang_tag]]).")
+		message_admins("Gang([src]) created with duplicate tag([gang_tag]) to already exsisting gang([SSgangs.all_gangs_by_tag[gang_tag]]), overriding old gang.")
+	SSgangs.all_gangs_by_tag[gang_tag] = src
 	name = "[gang_tag] Gang"
 	member_name = "[gang_tag] Gang Member"
 	setup_objectives()
-//	START_PROCESSING(SStraitor, src)
 
 /datum/team/gang/Destroy(force, ...)
-//	STOP_PROCESSING(SStraitor, src)
-	GLOB.all_gangs_by_tag -= gang_tag
+	SSgangs.all_gangs_by_tag -= gang_tag
 	return ..()
 
 /datum/team/gang/roundend_report()

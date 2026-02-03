@@ -4,7 +4,7 @@
 	name = "\improper Syndicate Gang Member"
 	roundend_category = "gangs"
 	job_rank = ROLE_GANG_MEMBER
-	antag_moodlet = /datum/mood_event/focused
+	antag_moodlet = /datum/mood_event/poor_gang_representation
 	hijack_speed = 0.5 //TODO: make hyjacking give rep to the team that does it
 	antagpanel_category = "Gang"
 	antag_hud_name = "hud_gangster"
@@ -27,6 +27,8 @@
 	var/changing_rank = FALSE
 	///A weakref to the implant we are from
 	var/datum/weakref/implant_source
+	///Our total representation, gained through wearing gang outfits
+	var/total_representation = 0
 
 /datum/antagonist/gang_member/New()
 	. = ..()
@@ -89,17 +91,24 @@
 /datum/antagonist/gang_member/apply_innate_effects(mob/living/mob_override)
 	. = ..()
 	var/mob/living/current = mob_override || owner?.current
-	if(current)
-		current.faction += "[REF(gang_team)]"
-		communicate?.Grant(current)
-		add_team_hud(current, /datum/antagonist/gang_member)
+	if(!current)
+		return
+
+	current.faction += "[REF(gang_team)]"
+	communicate?.Grant(current)
+	add_team_hud(current, /datum/antagonist/gang_member)
+	RegisterSignal(current, COMSIG_LIVING_ACCESSORY_EQUIPPED, PROC_REF(owner_accessory_equipped))
+	RegisterSignal(current, COMSIG_LIVING_ACCESSORY_DROPPED, PROC_REF(owner_accessory_dropped))
 
 /datum/antagonist/gang_member/remove_innate_effects(mob/living/mob_override)
 	. = ..()
 	var/mob/living/current = mob_override || owner?.current
-	if(current)
-		current.faction -= "[REF(gang_team)]"
-		communicate?.Remove(current)
+	if(!current)
+		return
+
+	current.faction -= "[REF(gang_team)]"
+	communicate?.Remove(current)
+	UnregisterSignal(current, list(COMSIG_LIVING_ACCESSORY_DROPPED, COMSIG_LIVING_ACCESSORY_EQUIPPED))
 
 /datum/antagonist/gang_member/on_removal(obj/item/implant/uplink/gang/removed_implant=implant_source?.resolve(),should_remove_implant=(rank<GANG_RANK_LIEUTENANT&&!changing_rank))
 	handler = null
@@ -121,11 +130,11 @@
 		for(var/obj/item/implant/uplink/gang/implant as anything in typesof(/obj/item/implant/uplink/gang))
 			implant_types_to_give[initial(implant.antag_type)] = implant
 
-	var/datum/team/gang/selected_gang = tgui_input_list(admin, "What gang would you like them to be a part of?", "Select Gang", GLOB.all_gangs_by_tag + "New Gang")
+	var/datum/team/gang/selected_gang = tgui_input_list(admin, "What gang would you like them to be a part of?", "Select Gang", (SSgangs.all_gangs_by_tag || list()) + "New Gang")
 	var/created_type = implant_types_to_give[src.type]
 	var/obj/item/implant/uplink/gang/given_implant = new created_type(new_owner.current)
 	given_implant.give_gear = TRUE
-	given_implant.implant(new_owner.current, force = TRUE, forced_gang = GLOB.all_gangs_by_tag[selected_gang])
+	given_implant.implant(new_owner.current, force = TRUE, forced_gang = SSgangs.all_gangs_by_tag?[selected_gang])
 
 /datum/antagonist/gang_member/can_be_owned(datum/mind/new_owner)
 	. = ..()
@@ -133,6 +142,13 @@
 		return
 
 	return !HAS_TRAIT(new_owner, TRAIT_UNCONVERTABLE)
+
+/datum/antagonist/gang_member/give_antag_moodies(mob/living/given_to)
+	if(total_representation < 2)
+		antag_moodlet = /datum/mood_event/poor_gang_representation
+	else
+		antag_moodlet = /datum/mood_event/good_gang_representation
+	return ..()
 
 /datum/antagonist/gang_member/get_preview_icon()
 	var/icon/final_icon = render_preview_outfit(preview_outfit)
@@ -220,12 +236,39 @@
 		communicate.Grant(owner?.current) //if owner is the same or null then Grant() just returns, so this is safe
 	communicate.source_rank = source
 
+///Call to register a piece of gang clothing as being worn by our owner
+/datum/antagonist/gang_member/proc/register_gang_outfit(obj/item/clothing/equipped, value = SSgangs.gang_outfits[equipped])
+	total_representation += value
+	clear_antag_moodies()
+	give_antag_moodies()
+
 /datum/antagonist/gang_member/proc/on_implant_removal(datum/source, mob/living/mob_source, silent, special)
 	SIGNAL_HANDLER
 	if(special || changing_rank)
 		return
 
 	on_removal(source, FALSE)
+
+/datum/antagonist/gang_member/proc/owner_equipped_item(mob/living/owner, obj/item/clothing/equipped_item, slot)
+	SIGNAL_HANDLER
+	if(!istype(equipped_item) || !(slot & equipped_item.slot_flags))
+		return
+
+	var/value = SSgangs.gang_outfits[equipped_item]
+	if(value)
+		register_gang_outfit(equipped_item, value)
+
+/datum/antagonist/gang_member/proc/owner_accessory_equipped(mob/living/owner, obj/item/clothing/accessory/equipped, obj/item/clothing/attached_to)
+	SIGNAL_HANDLER
+	var/value = SSgangs.gang_outfits[equipped]
+	if(value)
+		register_gang_outfit(equipped, value)
+
+/datum/antagonist/gang_member/proc/owner_accessory_dropped(mob/living/owner, obj/item/clothing/accessory/dropped, obj/item/clothing/attached_to)
+	SIGNAL_HANDLER
+	var/value = SSgangs.gang_outfits[dropped]
+	if(value)
+		register_gang_outfit(dropped, -value)
 
 /datum/antagonist/gang_member/ui_static_data(mob/user)
 	var/list/data = ..()

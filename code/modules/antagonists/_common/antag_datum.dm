@@ -216,13 +216,15 @@ GLOBAL_LIST_EMPTY(antagonists)
 	return
 
 //This handles the application of antag huds/special abilities
-/datum/antagonist/proc/apply_innate_effects(mob/living/mob_override)
+/datum/antagonist/proc/apply_innate_effects(mob/living/mob_override) //make mob_override default to owner.current
 	SEND_SIGNAL(src, COMSIG_ANTAGONIST_INNATE_EFFECTS_APPLIED, (mob_override || owner.current)) //IMPORTANT TODO: SET SHOULD_CALL_PARENT(TRUE) in a future PR to avoid conflicts
+	give_antag_moodies(mob_override || owner.current)
 	return
 
 //This handles the removal of antag huds/special abilities
 /datum/antagonist/proc/remove_innate_effects(mob/living/mob_override)
 	SEND_SIGNAL(src, COMSIG_ANTAGONIST_INNATE_EFFECTS_REMOVED, (mob_override || owner.current))
+	clear_antag_moodies(mob_override || owner.current)
 	return
 
 /// This is called when the antagonist is being mindshielded.
@@ -276,7 +278,6 @@ GLOBAL_LIST_EMPTY(antagonists)
 			to_chat(owner.current, type_policy)
 
 	apply_innate_effects()
-	give_antag_moodies()
 	RegisterSignal(owner, COMSIG_PRE_MINDSHIELD_IMPLANT, PROC_REF(pre_mindshield))
 	RegisterSignal(owner, COMSIG_MINDSHIELD_IMPLANTED, PROC_REF(on_mindshield))
 	if(is_banned(owner.current) && replace_banned)
@@ -331,7 +332,6 @@ GLOBAL_LIST_EMPTY(antagonists)
 		CRASH("Antag datum with no owner.")
 
 	remove_innate_effects()
-	clear_antag_moodies()
 	LAZYREMOVE(owner.antag_datums, src)
 	if(!LAZYLEN(owner.antag_datums))
 		owner.current?.remove_from_current_living_antags()
@@ -380,18 +380,18 @@ GLOBAL_LIST_EMPTY(antagonists)
 /**
  * Proc that assigns this antagonist's ascribed moodlet to the player.
  */
-/datum/antagonist/proc/give_antag_moodies()
-	if(!antag_moodlet)
+/datum/antagonist/proc/give_antag_moodies(mob/living/given_to = owner.current)
+	if(!antag_moodlet || !given_to)
 		return
-	owner.current.add_mood_event("antag_moodlet_[type]", antag_moodlet)
+	given_to.add_mood_event("antag_moodlet_[type]", antag_moodlet)
 
 /**
  * Proc that removes this antagonist's ascribed moodlet from the player.
  */
-/datum/antagonist/proc/clear_antag_moodies()
-	if(!antag_moodlet)
+/datum/antagonist/proc/clear_antag_moodies(mob/living/cleared_from = owner.current)
+	if(!antag_moodlet || !cleared_from)
 		return
-	owner.current.clear_mood_event("antag_moodlet_[type]")
+	cleared_from.clear_mood_event("antag_moodlet_[type]")
 
 /**
  * Proc that will return the team this antagonist belongs to, when called. Helpful with antagonists that may belong to multiple potential teams in a single round.
