@@ -33,3 +33,12 @@
   - map: Escape pods hallway and Pathology are now properly on camera.
   - map: Garden spawns with only 1 set of a variety of seeds, instead of the giant
       pile of 5.
+2026-02-03:
+  Absolucy, dwasint:
+  - rscadd: Added A* pathfinding, currently used by the Navigate verb/button.
+  - rscadd: Navigation now works properly across multiple Z-levels, creating a full
+      path up/down stairs, instead of requiring you to re-use the navigator manually
+      when changing Z-levels.
+  Absolucy, mcbalaam, Ez-Briz:
+  - admin: Added a new TGUI spawn panel, removing it's ancestors - HTML "Create X"
+      panels
