@@ -1,0 +1,4 @@
+author: "Absolucy, Majkl-J"
+delete-after: True
+changes:
+  - bugfix: "Ruins will now correctly spawn their tied ruins in."
