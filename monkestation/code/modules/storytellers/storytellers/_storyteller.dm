@@ -225,10 +225,9 @@
 
 	var/weight_total = event.get_weight()
 	/// Apply tag multipliers if able
-	if(tag_multipliers)
-		for(var/tag in tag_multipliers)
-			if(tag in event.tags)
-				weight_total *= tag_multipliers[tag]
+	for(var/tag in tag_multipliers)
+		if(tag in event.tags)
+			weight_total *= tag_multipliers[tag]
 	/// Apply occurence multipliers if able
 	var/occurences = event.get_occurrences()
 	if(occurences)
