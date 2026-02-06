@@ -106,8 +106,10 @@
 		return FALSE
 
 	var/current_stock = get_item_stock()[to_purchase.stock_key]
-	var/stock = current_stock != null? current_stock : INFINITY
-	if(telecrystals < to_purchase.cost || stock <= 0)
+	if(isnull(current_stock))
+		current_stock = INFINITY
+
+	if(telecrystals < to_purchase.cost || current_stock <= 0)
 		return FALSE
 
 	return TRUE
@@ -119,14 +121,15 @@
 	if(!can_purchase_item(user, to_purchase) || !to_purchase.unique_checks(user, src, source)) //monkestation edit: adds the unique_checks() check
 		return
 
-	if(to_purchase.limited_stock != -1 && !(to_purchase.stock_key in item_stock))
-		item_stock[to_purchase.stock_key] = to_purchase.limited_stock
+	var/list/stock = get_item_stock()
+	if(to_purchase.limited_stock != -1 && !(to_purchase.stock_key in stock))
+		stock[to_purchase.stock_key] = to_purchase.limited_stock
 
 	telecrystals -= to_purchase.cost
 	to_purchase.purchase(user, src, source)
 
-	if(to_purchase.stock_key in item_stock)
-		item_stock[to_purchase.stock_key] -= 1
+	if(to_purchase.stock_key in stock)
+		stock[to_purchase.stock_key] -= 1
 
 	SSblackbox.record_feedback("nested tally", "traitor_uplink_items_bought", 1, list("[initial(to_purchase.name)]", "[to_purchase.cost]"))
 	on_update()

@@ -118,22 +118,24 @@
 
 /datum/traitor_objective/gang/protect_machine/telecrystal_beacon
 	progression_reward = list(15, 20)
-	telecrystal_reward = list(1, 2) //the TC reward is mostly from the machine
-	progression_minimum = 50
-	progression_maximum = 300
+	telecrystal_reward = list(5, 8) //the TC reward is mostly from the machine
+	passive_tc_reward = 0
+	progression_minimum = 100
+	progression_maximum = 500
 	created_machine_type = /obj/machinery/gang_machine/telecrystal_beacon
 
 /obj/machinery/gang_machine/telecrystal_beacon
 	layer = ABOVE_OBJ_LAYER //these should be hard to hide
-	///How many TC do we give to our owner
-	var/given_tc = 30
+	///How much passive TC do we give to our owner
+	var/given_tc = 1
 
 /obj/machinery/gang_machine/telecrystal_beacon/activate()
-	owner.unallocated_tc += given_tc
+	owner.passive_tc += given_tc
 
 /datum/traitor_objective/gang/protect_machine/credit_siphon
 	progression_reward = list(5, 10) //machine gives rep
-	telecrystal_reward = list(10, 15)
+	telecrystal_reward = list(10, 12)
+	passive_tc_reward = 0.7
 	progression_minimum = 300
 	progression_maximum = 3000
 	created_machine_type = /obj/machinery/gang_machine/credit_converter/siphon

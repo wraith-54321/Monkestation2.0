@@ -9,7 +9,6 @@
 	name = "Expand your influence by taking control of at least %NEEDED% of %AREAS%."
 	description = "In order to properly assert control you must hold at least %NEEDED% of %AREAS% for %TIMER%."
 	progression_reward = list(4, 8)
-	telecrystal_reward = list(3, 4)
 	progression_minimum = 0
 	progression_maximum = 30
 
@@ -125,7 +124,7 @@
 
 /datum/traitor_objective/gang/claim_areas/claim_multiple
 	progression_reward = list(5, 10)
-	telecrystal_reward = list(4, 5)
+	telecrystal_reward = list(2, 3)
 	needed_area_count = 3
 	picked_count = 6
 	progression_maximum = 45
@@ -134,7 +133,8 @@
 	progression_maximum = 75
 	progression_minimum = 10
 	progression_reward = list(7, 14)
-	telecrystal_reward = list(4, 5)
+	telecrystal_reward = list(3, 4)
+	passive_tc_reward = 0.2
 	valid_areas = list(/area/station/command,
 						/area/station/security,
 						/area/station/ai_monitored)
@@ -182,5 +182,6 @@
 	progression_minimum = 15
 	progression_reward = list(20, 25)
 	telecrystal_reward = list(6, 7)
+	passive_tc_reward = 0.3
 	valid_areas = list(/area/station/command = "command",
 						/area/station/security = "security")

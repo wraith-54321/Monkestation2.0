@@ -19,7 +19,6 @@
 	RegisterSignal(current, COMSIG_LIVING_DEATH, PROC_REF(on_death))
 	RegisterSignal(current, COMSIG_MOB_APPLY_DAMAGE_MODIFIERS, PROC_REF(on_damage_mod))
 	START_PROCESSING(SSprocessing, src)
-	mob_override.apply_damage()
 
 /datum/antagonist/battle_royale/remove_innate_effects(mob/living/mob_override)
 	. = ..()

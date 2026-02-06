@@ -8,11 +8,15 @@ GLOBAL_LIST_EMPTY(active_alternate_appearances)
 				AA.remove_atom_from_hud(src)
 				break
 
+///Add a new alt appearance to this atom, if we already have one with the passed key then we will return that instead
 /atom/proc/add_alt_appearance(type, key, ...)
 	if(!type || !key)
 		return
-	if(alternate_appearances && alternate_appearances[key])
-		return
+
+	var/key_value = alternate_appearances?[key]
+	if(key_value)
+		return key_value
+
 	if(!ispath(type, /datum/atom_hud/alternate_appearance))
 		CRASH("Invalid type passed in: [type]")
 
@@ -99,14 +103,14 @@ GLOBAL_LIST_EMPTY(active_alternate_appearances)
 	var/datum/atom_hud/alternate_appearance/basic/observers/ghost_appearance
 	uses_global_hud_category = FALSE
 
-/datum/atom_hud/alternate_appearance/basic/New(key, image/I, options = AA_TARGET_SEE_APPEARANCE)
+/datum/atom_hud/alternate_appearance/basic/New(key, image/img, options = AA_TARGET_SEE_APPEARANCE)
 	..()
 	transfer_overlays = options & AA_MATCH_TARGET_OVERLAYS
-	image = I
-	target = I.loc
+	image = img
+	target = img.loc
 	LAZYADD(target.update_on_z, image)
 	if(transfer_overlays)
-		I.copy_overlays(target)
+		img.copy_overlays(target)
 
 	add_atom_to_hud(target)
 	target.set_hud_image_active(appearance_key, exclusive_hud = src)
@@ -114,7 +118,7 @@ GLOBAL_LIST_EMPTY(active_alternate_appearances)
 	if((options & AA_TARGET_SEE_APPEARANCE) && ismob(target))
 		show_to(target)
 	if(add_ghost_version)
-		var/image/ghost_image = image(icon = I.icon , icon_state = I.icon_state, loc = I.loc)
+		var/image/ghost_image = image(icon = img.icon , icon_state = img.icon_state, loc = img.loc)
 		ghost_image.override = FALSE
 		ghost_image.alpha = 128
 		ghost_appearance = new /datum/atom_hud/alternate_appearance/basic/observers(key + "_observer", ghost_image, NONE)

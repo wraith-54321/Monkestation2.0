@@ -55,7 +55,7 @@
  * append - Extra text to append onto the end of sent_message
  * need_communicator - Do we only send to people with a communicator upgrade
  */
-/proc/send_gang_message(list/receiving_gangs, sent_message, atom/sender, span = "<span class='syndradio'>", append, need_communicator = TRUE)
+/proc/send_gang_message(list/receiving_gangs, sent_message, atom/sender, span = "<span class='syndradio'>", append)
 	if(!receiving_gangs)
 		CRASH("send_gang_message() called without receiving_gangs.")
 
@@ -88,11 +88,10 @@
 
 	var/list/receiving_members = list()
 	for(var/datum/team/gang/team in receiving_gangs)
-		for(var/rank, member_list in team.member_datums_by_rank)
-			for(var/datum/antagonist/gang_member/member in astype(member_list, /list))
-				var/mob/living/curr = member.owner?.current
-				if((!need_communicator || member.communicate) && curr && curr.stat != DEAD)
-					receiving_members += curr
+		for(var/datum/antagonist/gang_member/member in team.member_datums)
+			var/mob/living/curr = member.owner?.current
+			if(curr && curr.stat != DEAD)
+				receiving_members += curr
 
 	relay_to_list_and_observers(final_message, receiving_members, sender)
 

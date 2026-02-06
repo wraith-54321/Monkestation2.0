@@ -37,6 +37,9 @@
 	return TRUE
 
 /datum/uplink_item/bundles_tc/surplus/lootbox/spawn_item(spawn_path, mob/user, datum/uplink_handler/handler, atom/movable/source)
+	if(!handler)
+		CRASH("/datum/uplink_item/bundles_tc/surplus/lootbox/spawn_item() called without a passed handler.")
+
 	crate_tc_value = rand(1,20) * 5 // randomise how much in TC it gives, from 5 to 100 TC
 
 	if(crate_tc_value == 5) //horrible luck, welcome to gambling
@@ -60,13 +63,13 @@
 
 	var/list/possible_items = generate_possible_items(user, handler, TRUE)
 	// again safety check, if things fucked up badly we give them back their cost and return
-	if(!possible_items || !length(possible_items))
+	if(!length(possible_items))
 		handler.telecrystals += cost
 		to_chat(user, span_warning("You get the feeling something went wrong and that you should inform syndicate command."))
 		qdel(surplus_crate)
 		CRASH("lootbox crate failed to generate possible items")
 
-	fill_crate(surplus_crate, possible_items)
+	fill_crate(surplus_crate, possible_items, handler.purchase_log)
 
 	// unlike other chests, lets give them the chest with STYLE by droppodding in a STYLIZED pod
 	podspawn(list(

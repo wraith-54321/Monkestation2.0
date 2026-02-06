@@ -29,11 +29,16 @@
 	var/datum/weakref/implant_source
 	///Our total representation, gained through wearing gang outfits
 	var/total_representation = 0
+	///HUD for enemy gang members on us
+	var/datum/atom_hud/alternate_appearance/basic/has_antagonist/enemy_hud
+	///Our pin summon action
+	var/datum/action/cooldown/summon_gang_pin/pin_summon_action
 
 /datum/antagonist/gang_member/New()
 	. = ..()
 	if(rank >= GANG_RANK_LIEUTENANT)
 		set_communicate_source()
+		pin_summon_action = new
 
 /datum/antagonist/gang_member/create_team(datum/team/team)
 	if(!team)
@@ -50,6 +55,7 @@
 		member_list = list()
 		gang_team.member_datums_by_rank[rank] = member_list
 	member_list += src
+	gang_team.member_datums += src
 
 	objectives += gang_team.objectives
 	handler = gang_team.get_specific_handler(owner)
@@ -69,7 +75,7 @@
 
 	check_handler_values()
 
-	hud_keys = gang_team.gang_tag
+	set_hud_keys(gang_team.gang_tag)
 	if(owner.current)
 		if(given_gear_type)
 			var/obj/item/given_item = new given_gear_type(get_turf(owner.current))
@@ -77,6 +83,11 @@
 			if(!carbon_current?.equip_in_one_of_slots(given_item, list("backpack" = ITEM_SLOT_BACKPACK)))
 				owner.current.put_in_hands(given_item)
 	return ..()
+
+/datum/antagonist/gang_member/greet()
+	. = ..()
+	if(!silent)
+		to_chat(owner.current, span_alertsyndie("IF YOU HAVE A GAMEPLAY QUESTION, CHECK YOUR ANTAG INFO FIRST."))
 
 /datum/antagonist/gang_member/on_body_transfer(mob/living/old_body, mob/living/new_body)
 	var/obj/item/implant/uplink/gang/old_implant = implant_source?.resolve()
@@ -96,9 +107,15 @@
 
 	current.faction += "[REF(gang_team)]"
 	communicate?.Grant(current)
+	pin_summon_action?.Grant(current)
 	add_team_hud(current, /datum/antagonist/gang_member)
 	RegisterSignal(current, COMSIG_LIVING_ACCESSORY_EQUIPPED, PROC_REF(owner_accessory_equipped))
 	RegisterSignal(current, COMSIG_LIVING_ACCESSORY_DROPPED, PROC_REF(owner_accessory_dropped))
+	if(rank)
+		RegisterSignal(current, COMSIG_MOB_EXAMINATE, PROC_REF(owner_examinate))
+
+	for(var/datum/atom_hud/alternate_appearance/basic/has_antagonist/hud in gang_team.visible_enemy_huds)
+		hud.apply_to_new_mob(current)
 
 /datum/antagonist/gang_member/remove_innate_effects(mob/living/mob_override)
 	. = ..()
@@ -108,7 +125,14 @@
 
 	current.faction -= "[REF(gang_team)]"
 	communicate?.Remove(current)
-	UnregisterSignal(current, list(COMSIG_LIVING_ACCESSORY_DROPPED, COMSIG_LIVING_ACCESSORY_EQUIPPED))
+	pin_summon_action?.Remove(current)
+	UnregisterSignal(current, list(COMSIG_LIVING_ACCESSORY_DROPPED, COMSIG_LIVING_ACCESSORY_EQUIPPED, COMSIG_MOB_EXAMINATE))
+	if(enemy_hud)
+		for(var/datum/team/gang/enemy_gang in SSgangs.all_gangs - gang_team)
+			if(!enemy_gang.visible_enemy_huds)
+				continue
+			enemy_gang.visible_enemy_huds -= enemy_hud
+		QDEL_NULL(enemy_hud)
 
 /datum/antagonist/gang_member/on_removal(obj/item/implant/uplink/gang/removed_implant=implant_source?.resolve(),should_remove_implant=(rank<GANG_RANK_LIEUTENANT&&!changing_rank))
 	handler = null
@@ -118,6 +142,8 @@
 		removed_implant.removed(removed_implant.imp_in, silent = TRUE, forced = TRUE)
 		qdel(removed_implant)
 	gang_team.member_datums_by_rank[rank] -= src
+	gang_team.member_datums -= src
+	QDEL_NULL(pin_summon_action)
 	if(communicate?.source_rank < GANG_RANK_LIEUTENANT)
 		QDEL_NULL(communicate)
 
@@ -144,7 +170,7 @@
 	return !HAS_TRAIT(new_owner, TRAIT_UNCONVERTABLE)
 
 /datum/antagonist/gang_member/give_antag_moodies(mob/living/given_to)
-	if(total_representation < 2)
+	if(total_representation < 2 && iscarbon(given_to))
 		antag_moodlet = /datum/mood_event/poor_gang_representation
 	else
 		antag_moodlet = /datum/mood_event/good_gang_representation
@@ -236,11 +262,24 @@
 		communicate.Grant(owner?.current) //if owner is the same or null then Grant() just returns, so this is safe
 	communicate.source_rank = source
 
-///Call to register a piece of gang clothing as being worn by our owner
-/datum/antagonist/gang_member/proc/register_gang_outfit(obj/item/clothing/equipped, value = SSgangs.gang_outfits[equipped])
+///Call to update the state of our worn gang clothing
+/datum/antagonist/gang_member/proc/update_gang_outfit(obj/item/clothing/equipped, value = SSgangs.gang_outfits[equipped], mob/living/worn_on)
+	if(!value)
+		return
+
 	total_representation += value
-	clear_antag_moodies()
-	give_antag_moodies()
+	clear_antag_moodies(worn_on)
+	give_antag_moodies(worn_on)
+
+///Get our enemy_hud, and create it if its null
+/datum/antagonist/gang_member/proc/get_enemy_hud(passed_hud_keys, mob/living/target = owner?.current)
+	if(!enemy_hud && target)
+		enemy_hud = target.add_alt_appearance(/datum/atom_hud/alternate_appearance/basic/has_antagonist,
+																								"enemy_gang_member",
+																								hud_image_on(target, 'monkestation/icons/mob/huds/antag_hud.dmi', "enemy_gang"),
+																								/datum/antagonist/gang_member,
+																								passed_hud_keys)
+	return enemy_hud
 
 /datum/antagonist/gang_member/proc/on_implant_removal(datum/source, mob/living/mob_source, silent, special)
 	SIGNAL_HANDLER
@@ -249,26 +288,52 @@
 
 	on_removal(source, FALSE)
 
-/datum/antagonist/gang_member/proc/owner_equipped_item(mob/living/owner, obj/item/clothing/equipped_item, slot)
+/datum/antagonist/gang_member/proc/owner_equipped_item(mob/living/user, obj/item/clothing/equipped_item, slot)
 	SIGNAL_HANDLER
 	if(!istype(equipped_item) || !(slot & equipped_item.slot_flags))
 		return
 
 	var/value = SSgangs.gang_outfits[equipped_item]
 	if(value)
-		register_gang_outfit(equipped_item, value)
+		update_gang_outfit(equipped_item, value, user)
 
-/datum/antagonist/gang_member/proc/owner_accessory_equipped(mob/living/owner, obj/item/clothing/accessory/equipped, obj/item/clothing/attached_to)
+/datum/antagonist/gang_member/proc/owner_accessory_equipped(mob/living/user, obj/item/clothing/accessory/equipped, obj/item/clothing/attached_to)
 	SIGNAL_HANDLER
 	var/value = SSgangs.gang_outfits[equipped]
 	if(value)
-		register_gang_outfit(equipped, value)
+		update_gang_outfit(equipped, value, user)
 
-/datum/antagonist/gang_member/proc/owner_accessory_dropped(mob/living/owner, obj/item/clothing/accessory/dropped, obj/item/clothing/attached_to)
+/datum/antagonist/gang_member/proc/owner_accessory_dropped(mob/living/user, obj/item/clothing/accessory/dropped, obj/item/clothing/attached_to)
 	SIGNAL_HANDLER
 	var/value = SSgangs.gang_outfits[dropped]
 	if(value)
-		register_gang_outfit(dropped, -value)
+		update_gang_outfit(dropped, -value, user)
+
+/datum/antagonist/gang_member/proc/owner_examinate(mob/user, mob/living/target)
+	SIGNAL_HANDLER
+	if(!istype(target))
+		return
+
+	var/datum/antagonist/gang_member/antag_datum = IS_GANGMEMBER(target)
+	if(!antag_datum || antag_datum.total_representation < 2 || antag_datum.gang_team == gang_team)
+		return
+
+	//if they are in a gang then their alt appearances should be set
+	var/had_hud = antag_datum.enemy_hud
+	var/datum/atom_hud/alternate_appearance/basic/has_antagonist/hud = antag_datum.get_enemy_hud(hud_keys, target)
+	if(had_hud)
+		if(hud_keys in hud.valid_keys)
+			return
+
+		hud.valid_keys += hud_keys
+
+	target.balloon_alert(user, "you mark [target] as being in an enemy gang")
+	target.balloon_alert(target, "you sense you have been detected by another gang")
+	gang_team.visible_enemy_huds += hud
+	for(var/datum/mind/member in gang_team.members)
+		if(!member.current)
+			continue
+		hud.apply_to_new_mob(member.current)
 
 /datum/antagonist/gang_member/ui_static_data(mob/user)
 	var/list/data = ..()

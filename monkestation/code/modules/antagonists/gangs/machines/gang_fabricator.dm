@@ -151,11 +151,12 @@
 /datum/gang_fabricator_design/leader_pinpointer
 	name = "Leader Pinpointer"
 	cost = 5
-	fabrication_type = /obj/item/pinpointer/gang_leader
+	fabrication_type = /obj/item/pinpointer/gang/leader
 	required_rank = GANG_RANK_LIEUTENANT
 
 /datum/gang_fabricator_design/leader_pinpointer/create_item(created_type, turf/create_at, datum/team/gang/created_for)
-	var/obj/item/pinpointer/gang_leader/pinpointer = ..()
+	var/obj/item/pinpointer/gang/leader/pinpointer = ..()
 	pinpointer.linked_to = created_for
+	pinpointer.AddElement(/datum/element/extra_examine/gang, span_syndradio("A pinpointer used to find the leaders of the [created_for] gang."))
 
 #undef REMOVE_TC

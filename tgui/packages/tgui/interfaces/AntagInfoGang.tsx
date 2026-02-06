@@ -163,6 +163,16 @@ const Lieutenants = () => {
                 additional lieutenants or a new boss if the old one is
                 incapacitated.
               </span>
+              <span>
+                Should your boss or another lieutenant die or otherwise become
+                lost, you can print a tracker for them at your fabricator.
+              </span>
+              <span>
+                You and your boss are also able to mark the members of other
+                gangs as such, should they be wearing proper representation.
+                Simply examine them and they will gain a HUD visible to all
+                members of your gang.
+              </span>
             </Stack.Item>
           </Stack>
         </Section>
@@ -181,9 +191,9 @@ const GangBosses = () => {
               <span>
                 As a boss you act as the leader of your gang, everyone within
                 your gang must listen and obey you, you are also the only one
-                able to allocate telecrystals gained from controlled areas. You
-                are limited to only 2 lieutenants, so choose who you want to
-                lead under you carefully.
+                able to allocate telecrystals. This can be done with your
+                Allocate Telecrystals action. You are limited to only 2
+                lieutenants, so choose who you want to lead under you carefully.
               </span>
             </Stack.Item>
           </Stack>
@@ -205,17 +215,20 @@ const OtherInfo = () => {
                 additional reputation.
               </span>
               <br />
-              <br />
               <span>
                 Gang turrets can be purchased and can be toggled between a
                 lethal and non lethal mode.
               </span>
               <br />
-              <br />
               <span>
                 Resistant spraycans will give you 5 sprays worth of a resistant
                 coating that when used can only be removed by other resistant
                 sprays, dont think about it too hard.
+              </span>
+              <br />
+              <span>
+                If you are having trouble finding an enemy tag in an area you
+                can purchase a tag pinpointer in your uplink for 3 TC.
               </span>
             </Stack.Item>
           </Stack>

@@ -1,17 +1,10 @@
 #define SECONDARY_CRATE_BUDGET 30
 
-/datum/uplink_item/dangerous/uzi
-	name = "Type U3 Uzi"
-	desc = "A lightweight, burst-fire submachine gun, for when you really want someone dead. Uses 9mm rounds."
-	item = /obj/item/gun/ballistic/automatic/mini_uzi
-	cost = 16
-	purchasable_from = UPLINK_GANGS
-
 /datum/uplink_item/ammo/uzi_mag
 	name = "U3 Uzi Magazine"
 	desc = "A single 32 round magazine for the U3 Uzi SMG."
 	item = /obj/item/ammo_box/magazine/uzim9mm
-	cost = 5
+	cost = 6
 	purchasable_from = UPLINK_GANGS
 
 /datum/uplink_item/ammo/bulk_9mm_box
@@ -42,6 +35,16 @@
 	cost = 4
 	purchasable_from = UPLINK_GANGS
 
+/datum/uplink_item/dangerous/uzi
+	name = "Type U3 Uzi"
+	desc = "A lightweight, burst-fire submachine gun, for when you really want someone dead. Uses 9mm rounds."
+	item = /obj/item/gun/ballistic/automatic/mini_uzi/gang
+	cost = 16
+	purchasable_from = UPLINK_GANGS
+
+/obj/item/gun/ballistic/automatic/mini_uzi/gang
+	projectile_damage_multiplier = 0.85 //25.5 damage
+
 /datum/uplink_item/dangerous/gang_turret
 	name = "Disposable Sentry Gun"
 	desc = "A disposable gang aligned sentry gun deployment system cleverly disguised as a toolbox, apply wrench for functionality."
@@ -54,7 +57,7 @@
 	desc = "A classic design nicknamed the \"Tommy Gun\" carrying an impressive 35 round drum magazine chambered in .45,\
 			sure to mow down your enemies. Comes with 2 magazines, a spiffy outfit, and a stylish case to carry it in."
 	item = /obj/item/storage/box/syndicate/tommygun_kit
-	cost = 25
+	cost = 30
 	purchasable_from = UPLINK_GANGS
 
 /obj/item/storage/briefcase/tommygun
@@ -127,11 +130,11 @@
 	cost = 5
 	purchasable_from = UPLINK_GANGS
 
-/datum/uplink_item/device_tools/gang_pin
-	name = "Gang Pin"
-	desc = "A pin to show affiliation to a gang."
-	item = /obj/item/clothing/accessory/gang_pin
-	cost = 0 //TEMP, KILL ANYONE WHO ABUSES THIS
+/datum/uplink_item/device_tools/gang_machine_converter
+	name = "Gang Tag Tracker"
+	desc = "A small pinpointer able to find the gang tags within a given area."
+	item = /obj/item/pinpointer/gang/tag
+	cost = 3
 	purchasable_from = UPLINK_GANGS
 
 //spawns a few pods the buying gang gets to know the location of, as well as items spread randomly around the station

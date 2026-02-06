@@ -34,6 +34,8 @@
 	)
 	///Used for limited stock uplink items
 	var/list/shared_team_stock = list(UPLINK_SHARED_STOCK_SURPLUS = 3)
+	///List of all our member antagonist datums
+	var/list/member_datums = list()
 	///Nested assoc list of member antag datums keyed to their rank
 	var/alist/member_datums_by_rank = alist()
 	///List of area types owned by this gang, used to make some checks cheaper
@@ -46,11 +48,16 @@
 	var/list/potential_duplicate_objectives = list()
 	///The list of objectives our members have completed, used for the round end screen
 	var/list/completed_objectives = list()
+	///The list of enemy_huds visible to us
+	var/list/visible_enemy_huds
+	///How many telecrystals do we generate each minute
+	var/passive_tc = 0
 
 /datum/team/gang/New(starting_members)
 	. = ..()
 //	set_gang_info()
 	FRESH_INIT_SUBSYSTEM(SSgangs)
+	SSgangs.all_gangs += src
 	var/list/possible_tags = all_gang_tags - SSgangs.all_gangs_by_tag
 	if(!length(possible_tags))
 		stack_trace("Gang created without possible_tags.")
@@ -66,6 +73,7 @@
 	setup_objectives()
 
 /datum/team/gang/Destroy(force, ...)
+	SSgangs.all_gangs -= src
 	SSgangs.all_gangs_by_tag -= gang_tag
 	return ..()
 
@@ -158,10 +166,11 @@
 	RegisterSignal(tracked_objective, COMSIG_TRAITOR_OBJECTIVE_FAILED, PROC_REF(handle_tracked_objective))
 	RegisterSignal(tracked_objective, COMSIG_TRAITOR_OBJECTIVE_COMPLETED, PROC_REF(handle_completed_objective))
 
-/datum/team/gang/proc/handle_completed_objective(datum/traitor_objective/tracked_objective)
+/datum/team/gang/proc/handle_completed_objective(datum/traitor_objective/gang/tracked_objective)
 	SIGNAL_HANDLER
 	unallocated_tc += tracked_objective.telecrystal_reward
 	rep += tracked_objective.progression_reward
+	passive_tc = round(passive_tc + tracked_objective.passive_tc_reward, 0.1) //hopefully curb floating point errors a little
 	handle_tracked_objective(tracked_objective)
 
 /datum/team/gang/proc/handle_tracked_objective(datum/traitor_objective/tracked_objective)

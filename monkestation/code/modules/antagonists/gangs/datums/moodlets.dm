@@ -1,6 +1,6 @@
 /datum/mood_event/poor_gang_representation
 	description = "I hate not properly representing my gang!"
-	mood_change = -12 //should be very punished for not wearing gang outfits, might make this higher
+	mood_change = -16 //should be VERY punished for not wearing gang outfits
 	hidden = TRUE
 
 /datum/mood_event/good_gang_representation

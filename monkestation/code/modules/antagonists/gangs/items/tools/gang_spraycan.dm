@@ -99,7 +99,7 @@ GLOBAL_LIST_EMPTY(gang_controlled_areas)
 		controlling_tag.overridden = TRUE
 		qdel(controlling_tag)
 		gang_team.rep += 1
-		gang_team.unallocated_tc += 0.2 //MAKE THESE BE A DEFINE
+		gang_team.unallocated_tc += 0.4 //MAKE THESE BE A DEFINE
 
 	var/obj/effect/decal/cleanable/crayon/gang/created_tag = new(target, paint_color, antag_datum.gang_team?.gang_tag, "[antag_datum.gang_team?.gang_tag] tag", \
 																null, null, antag_datum.gang_team, target_area, TRUE)
@@ -113,7 +113,6 @@ GLOBAL_LIST_EMPTY(gang_controlled_areas)
 	audible_message(span_hear("You hear spraying."))
 	playsound(user.loc, 'sound/effects/spray.ogg', 5, TRUE, 5, channel = CHANNEL_SOUND_EFFECTS)
 
-/obj/item/toy/crayon/spraycan/gang/proc/creation_checks(atom/target, mob/user, datum/antagonist/gang_member/antag_datum)
 
 /obj/item/toy/crayon/spraycan/gang/resistant
 	resistant_coating_charges = 5
@@ -136,7 +135,8 @@ GLOBAL_LIST_EMPTY(gang_controlled_areas)
 
 /obj/effect/decal/cleanable/crayon/gang/Initialize(mapload, main, type, e_name, graf_rot, alt_icon, datum/team/gang/passed_gang, area/passed_area, already_taken)
 	. = ..()
-	if(passed_gang)
+	if(passed_gang) //if a gang was passed then SSgangs will already have been init
+		SSgangs.gang_tags_by_area[passed_area] = src
 		gang_owner = passed_gang
 		if(already_taken)
 			return
@@ -146,6 +146,9 @@ GLOBAL_LIST_EMPTY(gang_controlled_areas)
 			passed_gang.take_area(our_area) //need to move this to be a check
 
 /obj/effect/decal/cleanable/crayon/gang/Destroy()
+	if(length(SSgangs.gang_tags_by_area))
+		SSgangs.gang_tags_by_area -= get_area(src)
+
 	if(overridden)
 		return ..()
 

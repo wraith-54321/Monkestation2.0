@@ -1,5 +1,8 @@
-#define DESIRED_AREAS_PER_TC_PER_MINUTE 10
+#define DESIRED_AREAS_PER_TC_PER_MINUTE 30
 #define DESIRED_AREAS_PER_THREAT_PER_MINUTE 4
+#define MINUTE_MULT 0.167 //based on how many times we fire, currently 1/6 as we fire 6 times per minute
+#define TC_PER_MINUTE_PER_REPRESENTATION 0.05
+#define REP_PER_MINUTE_PER_REPRESENTATION 0.5
 PROCESSING_SUBSYSTEM_DEF(gangs)
 	name = "Gangs"
 	flags = SS_NO_INIT | SS_KEEP_TIMING | SS_HIBERNATE
@@ -7,10 +10,14 @@ PROCESSING_SUBSYSTEM_DEF(gangs)
 	runlevels = RUNLEVEL_GAME
 	///assoc list of areas with values of amounts to multiply their rewards by
 	var/list/gang_area_multipliers
+	///list of all gangs
+	var/list/all_gangs
 	///assoc list of gangs keyed to their tag
 	var/alist/all_gangs_by_tag
 	///assoc list of stored rep for a gang
 	var/list/cached_extra_rep
+	///assoc list of gang tags keyed to the area they are in
+	var/alist/gang_tags_by_area
 	///assoc list of gang outfit items with key values of how much representation they provide
 	var/alist/gang_outfits = alist() //starts as a list so we dont need to init the entire SS for a single peice of clothing getting spawned
 
@@ -20,8 +27,10 @@ PROCESSING_SUBSYSTEM_DEF(gangs)
 
 /datum/controller/subsystem/processing/gangs/Initialize()
 	initialized = TRUE
+	all_gangs = list()
 	all_gangs_by_tag = alist()
 	cached_extra_rep = list()
+	gang_tags_by_area = alist()
 	gang_area_multipliers = list(
 	/area/station/command = 2,
 	/area/station/security = 2,
@@ -31,7 +40,7 @@ PROCESSING_SUBSYSTEM_DEF(gangs)
 	for(var/area in gang_area_multipliers)
 		var/mult = gang_area_multipliers[area]
 		for(var/type in typesof(area))
-			gang_area_multipliers[type] = mult * 0.167
+			gang_area_multipliers[type] = mult * MINUTE_MULT
 
 /datum/controller/subsystem/processing/gangs/fire(resumed)
 	if(!initialized) //we hibernate so this wont get called until we are needed
@@ -42,13 +51,20 @@ PROCESSING_SUBSYSTEM_DEF(gangs)
 		log_cooldown = world.time + 5 MINUTES
 
 	var/list/given_rewards = list()
-	for(var/area in GLOB.gang_controlled_areas) //might want to use this to give gangs a printout of their controlled areas
-		var/datum/team/gang/area_owner = GLOB.gang_controlled_areas[area]
-		var/list/rewards = given_rewards[area_owner]
-		var/area_mult = gang_area_multipliers[area] || 0.167 //one sixth
-		if(!rewards)
-			rewards = list("tc" = 0, "rep" = 0)
-			given_rewards[area_owner] = rewards
+	for(var/datum/team/gang/gang_team in all_gangs)
+		var/list/temp = list("tc" = gang_team.passive_tc * MINUTE_MULT, "rep" = 0)
+		given_rewards[gang_team] = temp
+		var/tc_pointer = &temp["tc"] //cant wait to find out this is actually slower then just accessing key value each time because BYOND is magical
+		var/rep_pointer = &temp["rep"]
+		var/tc_mult = TC_PER_MINUTE_PER_REPRESENTATION * MINUTE_MULT
+		var/rep_mult = REP_PER_MINUTE_PER_REPRESENTATION * MINUTE_MULT
+		for(var/datum/antagonist/gang_member/member in gang_team.member_datums)
+			*tc_pointer += member.total_representation * tc_mult
+			*rep_pointer += member.total_representation * rep_mult
+
+	for(var/area, owner in GLOB.gang_controlled_areas) //might want to use this to give gangs a printout of their controlled areas
+		var/list/rewards = given_rewards[owner]
+		var/area_mult = gang_area_multipliers[area] || MINUTE_MULT
 		//note these values assume we are running on time, might be able to make these be based on SPT
 		rewards["tc"] += area_mult / DESIRED_AREAS_PER_TC_PER_MINUTE
 		rewards["rep"] += area_mult / DESIRED_AREAS_PER_THREAT_PER_MINUTE
@@ -61,8 +77,7 @@ PROCESSING_SUBSYSTEM_DEF(gangs)
 		gang_team.unallocated_tc = round((gang_team.unallocated_tc + given_rewards[gang_team]["tc"]), 0.001)
 		gang_team.rep = round(rounded_rep_value + gang_team.rep, 0.1)
 
-	for(var/tag, gang in all_gangs_by_tag)
-		var/datum/team/gang/gang_datum = gang
+	for(var/datum/team/gang/gang_datum in all_gangs)
 		gang_datum.update_handler_rep()
 
 	//if this ends up being kept the code for this can be improved
@@ -87,3 +102,6 @@ PROCESSING_SUBSYSTEM_DEF(gangs)
 
 #undef DESIRED_AREAS_PER_TC_PER_MINUTE
 #undef DESIRED_AREAS_PER_THREAT_PER_MINUTE
+#undef MINUTE_MULT
+#undef TC_PER_MINUTE_PER_REPRESENTATION
+#undef REP_PER_MINUTE_PER_REPRESENTATION

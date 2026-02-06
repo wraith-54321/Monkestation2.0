@@ -1,6 +1,6 @@
 /datum/action/innate/allocate_gang_tc
 	name = "Allocate Telecrystals"
-	desc = "Allocate the free flowing telecrystals within your gang's network to yourself and your lieutenants."
+	desc = "Allocate gained telecrystals to yourself and your lieutenants."
 	button_icon = 'icons/obj/telescience.dmi'
 	button_icon_state = "telecrystal_3"
 	check_flags = AB_CHECK_CONSCIOUS

@@ -237,6 +237,7 @@ monkestation end */
 	return ..()
 
 /datum/antagonist/heretic/apply_innate_effects(mob/living/mob_override)
+	. = ..()
 	var/mob/living/our_mob = mob_override || owner.current
 	handle_clown_mutation(our_mob, "Ancient knowledge described to you has allowed you to overcome your clownish nature, allowing you to wield weapons without harming yourself.")
 	our_mob.faction |= FACTION_HERETIC

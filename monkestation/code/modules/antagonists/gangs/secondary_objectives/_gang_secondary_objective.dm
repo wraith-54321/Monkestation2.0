@@ -1,11 +1,14 @@
 //some gang objectives are still subtypes of other things due to those types handling more logic than this
-/datum/traitor_objective/gang
+/datum/traitor_objective/gang //need to convert this into a component
 	name = "gang objective"
 	description = "this is a gang objective, also something broke if your seeing this"
-	progression_minimum = 5 //gangs start with no valid objectives to make sure they claim a few areas as they dont gain points for free like traitors
+	progression_minimum = 0
 	valid_uplinks = UPLINK_GANGS
 	global_progression_influence_intensity = 0
 	abstract_type = /datum/traitor_objective/gang
+	telecrystal_reward = list(1, 2)
+	///How much passive TC do we give on completetion
+	var/passive_tc_reward = 0.1
 	///Ref to the gang that owns this objective
 	var/datum/team/gang/owner
 
