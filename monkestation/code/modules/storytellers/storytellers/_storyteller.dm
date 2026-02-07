@@ -59,7 +59,7 @@
 
 // process() has waitfor = FALSE, so use this if you want to wait til it's done doing its thing
 /datum/storyteller/proc/tick(seconds_per_tick)
-	if(!round_started || disable_distribution) // we are differing roundstarted ones until base roundstart so we can get cooler stuff
+	if(!round_started || disable_distribution)
 		return
 
 	if(!guarantees_roundstart_roleset && prob(roundstart_prob) && !roundstart_checks)
