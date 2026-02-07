@@ -1,7 +1,0 @@
-author: "Siro"
-delete-after: True
-changes:
-  - rscadd: "Scryers can be worn as an accessory like a medal or pin. Scryers can still be used as normal neck items if you want."
-  - balance: "Scryer accessory can be stripped with a 4 second delay from examine. Must be adjacent to the wearer."
-  - code_imp: "modlink code slightly adapted for accessory/scryer_accessory"
-  - code_imp: "Fixed a few potential bugs that showed up if an accessory was qdel before forcemove. Didn't happen normally but could have potentially happened and does with this addition."
