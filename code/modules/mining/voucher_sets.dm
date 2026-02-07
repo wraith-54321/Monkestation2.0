@@ -77,7 +77,7 @@
 		/obj/item/storage/backpack/duffelbag/mining_conscript,
 	)
 
-//MONKESTATION EDIT START
+
 //categories
 /datum/voucher_set/security
 
@@ -165,22 +165,13 @@
 		)
 
 /datum/voucher_set/security/utility/donut_box
-	name = "Box of Donuts"
+	name = "Variety Box of Donuts"
 	description = "Tantalizing..."
 	icon = 'icons/obj/food/donuts.dmi'
 	icon_state = "donutbox"
 	set_items = list(
-		/obj/item/storage/fancy/donut_box,
+		/obj/item/storage/fancy/donut_box/random,
 		/obj/item/reagent_containers/cup/glass/coffee,
-		)
-
-/datum/voucher_set/security/utility/flashbangs
-	name = "Box of Flashbangs"
-	description = "<B>WARNING: These devices are extremely dangerous and can cause blindness or deafness in repeated use.</B>"
-	icon = 'icons/obj/weapons/grenade.dmi'
-	icon_state = "flashbang"
-	set_items = list(
-		/obj/item/storage/box/flashbangs,
 		)
 
 /datum/voucher_set/security/utility/smokebombs
@@ -191,7 +182,6 @@
 	set_items = list(
 		/obj/item/storage/box/sec_smokebomb,
 		)
-
 
 /datum/voucher_set/security/utility/barrier
 	name = "Barrier Grenades"
