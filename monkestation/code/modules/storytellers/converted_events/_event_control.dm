@@ -123,6 +123,34 @@
 /datum/round_event_control/antagonist/generate_image(list/mobs)
 	SScredits.generate_major_icon(mobs, event_icon_state)
 
+/datum/round_event_control/antagonist/can_spawn_event(players_amt, allow_magic = FALSE, fake_check = FALSE)
+	. = ..()
+	if(!.)
+		return
+	if(!check_required_roles())
+		return FALSE
+
+	var/antag_amt = get_antag_amount()
+	var/list/candidates = get_candidates()
+	if(length(candidates) < antag_amt)
+		return FALSE
+
+/datum/round_event_control/antagonist/get_weight()
+	. = ..()
+	var/static/last_round_high_threat
+	if(shared_occurence_type == SHARED_HIGH_THREAT)
+		if(isnull(last_round_high_threat))
+			last_round_high_threat = FALSE
+			if(length(SSgamemode.recent_storyteller_events))
+				for(var/datum/round_event_control/event as anything in SSgamemode.recent_storyteller_events[1])
+					if(event::shared_occurence_type == SHARED_HIGH_THREAT)
+						last_round_high_threat = TRUE
+						break //good indents
+
+		if(last_round_high_threat) //half weight if there was a high threat last round
+			. *= 0.5
+	return .
+
 /datum/round_event_control/antagonist/proc/check_required_roles()
 	if(!length(required_roles))
 		return TRUE
@@ -134,25 +162,6 @@
 
 /datum/round_event_control/antagonist/proc/trim_candidates(list/candidates)
 	return candidates
-
-/datum/round_event_control/antagonist/can_spawn_event(players_amt, allow_magic = FALSE, fake_check = FALSE)
-	. = ..()
-	if(!.)
-		return
-	if(!check_required_roles())
-		return FALSE
-	/*var/list/recent_storyteller_events = SSgamemode.recent_storyteller_events
-	if(shared_occurence_type == SHARED_HIGH_THREAT && length(recent_storyteller_events))
-		var/list/last_round = recent_storyteller_events[1] //TODO: change this to a weight reduction
-		if(type in last_round)
-			return FALSE
-		for(var/datum/round_event_control/event as anything in last_round)
-			if(event::shared_occurence_type == shared_occurence_type)
-				return FALSE*/ //temp removal to see if this causes issues or not
-	var/antag_amt = get_antag_amount()
-	var/list/candidates = get_candidates()
-	if(length(candidates) < antag_amt)
-		return FALSE
 
 /datum/round_event_control/antagonist/proc/get_antag_amount()
 	var/people = SSgamemode.get_correct_popcount()
