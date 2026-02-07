@@ -331,8 +331,9 @@ SUBSYSTEM_DEF(gamemode)
 		else
 			non_ready_players++
 
+	var/gain_per_player = ROUNDSTART_ROLESET_GAIN - (ready_players % 10) //every 10 ready players reduces scaling per player by 1
 	//get our roleset points, non ready players count for 1/3rd
-	var/calc_value = ROUNDSTART_ROLESET_BASE + round(ROUNDSTART_ROLESET_GAIN * ready_players) + round((ROUNDSTART_ROLESET_GAIN * non_ready_players) / 3)
+	var/calc_value = ROUNDSTART_ROLESET_BASE + round(gain_per_player * ready_players) + round((gain_per_player * non_ready_players) / 3)
 	calc_value *= roundstart_roleset_multiplier
 	calc_value *= current_storyteller.starting_point_multipliers[EVENT_TRACK_ROLESET]
 	calc_value *= (rand(100 - current_storyteller.roundstart_points_variance, 100 + current_storyteller.roundstart_points_variance)/100)
