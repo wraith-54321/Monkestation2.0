@@ -26,6 +26,7 @@
 	var/datum/team/antag_team = antag.get_team()
 	if(antag_team)
 		antag_team.add_member(src)
+
 	INVOKE_ASYNC(antag, TYPE_PROC_REF(/datum/antagonist, on_gain))
 	log_game("[key_name(src)] has gained antag datum [antag.name]([antag.type]).")
 	picking = FALSE

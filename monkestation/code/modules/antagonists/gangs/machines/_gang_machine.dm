@@ -68,10 +68,12 @@
 	if(!istype(new_owner))
 		new_owner = SSgangs.all_gangs_by_tag?[new_owner]
 
-	if(isnull(new_owner))
+	if(isnull(new_owner) || new_owner == owner)
 		return
 
 	SEND_SIGNAL(src, COMSIG_GANG_MACHINE_CHANGED_OWNER, new_owner, owner)
+	if(owner) //for now only send if ownership is being trasnferred
+		SEND_SIGNAL(new_owner, COMSIG_GANG_TOOK_MACHINE, src, owner)
 	owner = new_owner
 
 ///used by objectives

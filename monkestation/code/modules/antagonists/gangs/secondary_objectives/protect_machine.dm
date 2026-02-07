@@ -9,7 +9,6 @@
 				When the %MACHINE% is called it will be announced to all gangs, so prepare for a fight. \
 				%HANDS%"
 	abstract_type = /datum/traitor_objective/gang/protect_machine
-	telecrystal_penalty = 3
 	///What areas our machine can be called into
 	var/list/valid_areas = list()
 	///How many valid areas should we have
@@ -28,11 +27,6 @@
 	var/timer_finished_at
 	///Should our machine be deleted on activation
 	var/del_activated_machine = TRUE
-
-/datum/traitor_objective/gang/protect_machine/can_generate_objective(datum/mind/generating_for, list/possible_duplicates)
-	if(!..() || !length(valid_areas))
-		return FALSE
-	return TRUE
 
 /datum/traitor_objective/gang/protect_machine/generate_objective(datum/mind/generating_for, list/possible_duplicates)
 	if(!owner || !get_valid_areas())
@@ -119,6 +113,7 @@
 /datum/traitor_objective/gang/protect_machine/telecrystal_beacon
 	progression_reward = list(15, 20)
 	telecrystal_reward = list(5, 8) //the TC reward is mostly from the machine
+	telecrystal_penalty = 3
 	passive_tc_reward = 0
 	progression_minimum = 100
 	progression_maximum = 500
@@ -135,6 +130,7 @@
 /datum/traitor_objective/gang/protect_machine/credit_siphon
 	progression_reward = list(5, 10) //machine gives rep
 	telecrystal_reward = list(10, 12)
+	telecrystal_penalty = 3
 	passive_tc_reward = 0.7
 	progression_minimum = 300
 	progression_maximum = 3000

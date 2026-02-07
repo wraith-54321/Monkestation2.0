@@ -6,7 +6,6 @@
 	valid_uplinks = UPLINK_GANGS
 	global_progression_influence_intensity = 0
 	abstract_type = /datum/traitor_objective/gang
-	telecrystal_reward = list(1, 2)
 	///How much passive TC do we give on completetion
 	var/passive_tc_reward = 0.1
 	///Ref to the gang that owns this objective
