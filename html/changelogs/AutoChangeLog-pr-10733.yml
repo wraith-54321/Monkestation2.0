@@ -1,0 +1,8 @@
+author: "SirNightKnight"
+delete-after: True
+changes:
+  - qol: "added some missing warning line decals to the decal painter."
+  - qol: "decal painters can paint windows."
+  - bugfix: "standardized tile decal alphas a bit better."
+  - bugfix: "fixed a bug where holosign projectors could not be placed on tables."
+  - rscdel: "removed random department colors for windows and made them be colored the same as their respective department's decal color."
