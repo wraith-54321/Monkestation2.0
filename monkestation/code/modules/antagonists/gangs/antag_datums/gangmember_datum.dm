@@ -274,7 +274,7 @@
 ///Get our enemy_hud, and create it if its null
 /datum/antagonist/gang_member/proc/get_enemy_hud(passed_hud_keys, mob/living/target = owner?.current)
 	if(!enemy_hud && target)
-		enemy_hud = target.add_alt_appearance(/datum/atom_hud/alternate_appearance/basic/has_antagonist,
+		enemy_hud = target.alternate_appearances?["enemy_gang_member"] || target.add_alt_appearance(/datum/atom_hud/alternate_appearance/basic/has_antagonist,
 																								"enemy_gang_member",
 																								hud_image_on(target, 'monkestation/icons/mob/huds/antag_hud.dmi', "enemy_gang"),
 																								/datum/antagonist/gang_member,

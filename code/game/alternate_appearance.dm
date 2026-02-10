@@ -1,21 +1,19 @@
 GLOBAL_LIST_EMPTY(active_alternate_appearances)
 
 /atom/proc/remove_alt_appearance(key)
-	if(alternate_appearances)
-		for(var/K in alternate_appearances)
-			var/datum/atom_hud/alternate_appearance/AA = alternate_appearances[K]
-			if(AA.appearance_key == key)
-				AA.remove_atom_from_hud(src)
-				break
+	var/datum/atom_hud/alternate_appearance/alt_app = alternate_appearances[key]
+	alt_app?.remove_atom_from_hud(src)
 
 ///Add a new alt appearance to this atom, if we already have one with the passed key then we will return that instead
 /atom/proc/add_alt_appearance(type, key, ...)
 	if(!type || !key)
 		return
+	if(alternate_appearances && alternate_appearances[key])
+		return
 
-	var/key_value = alternate_appearances?[key]
+	/*var/key_value = alternate_appearances?[key]
 	if(key_value)
-		return key_value
+		return key_value*/
 
 	if(!ispath(type, /datum/atom_hud/alternate_appearance))
 		CRASH("Invalid type passed in: [type]")
@@ -81,16 +79,16 @@ GLOBAL_LIST_EMPTY(active_alternate_appearances)
 		// If that failed, probably shouldn't be seeing it at all, so nuke it
 		hide_from(source, absolute = TRUE)
 
-/datum/atom_hud/alternate_appearance/add_atom_to_hud(atom/A, image/I)
+/datum/atom_hud/alternate_appearance/add_atom_to_hud(atom/new_hud_atom)
 	. = ..()
 	if(.)
-		LAZYINITLIST(A.alternate_appearances)
-		A.alternate_appearances[appearance_key] = src
+		LAZYINITLIST(new_hud_atom.alternate_appearances)
+		new_hud_atom.alternate_appearances[appearance_key] = src
 
-/datum/atom_hud/alternate_appearance/remove_atom_from_hud(atom/A)
+/datum/atom_hud/alternate_appearance/remove_atom_from_hud(atom/hud_atom_to_remove)
 	. = ..()
 	if(.)
-		LAZYREMOVE(A.alternate_appearances, appearance_key)
+		LAZYREMOVE(hud_atom_to_remove.alternate_appearances, appearance_key)
 
 /datum/atom_hud/alternate_appearance/proc/copy_overlays(atom/other, cut_old)
 	return
