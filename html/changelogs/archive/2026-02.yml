@@ -215,3 +215,13 @@
   - rscadd: Added a USB port to the Holographic Signboard, allowing circuit access.
   pseudo-savant:
   - rscadd: Ported over the flatpacker from /tg/ to monkestation
+2026-02-10:
+  SirNightKnight:
+  - qol: added some missing warning line decals to the decal painter.
+  - qol: decal painters can paint windows.
+  - bugfix: standardized tile decal alphas a bit better.
+  - bugfix: fixed a bug where holosign projectors could not be placed on tables.
+  - rscdel: removed random department colors for windows and made them be colored
+      the same as their respective department's decal color.
+  Tractor-Maam:
+  - map: fixed confessional intercoms on Oshan
