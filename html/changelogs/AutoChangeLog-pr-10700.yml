@@ -1,0 +1,5 @@
+author: "Tractor-Maam"
+delete-after: True
+changes:
+  - rscadd: "Added the Advanced Health Analyzer cyborg upgrade to the Medical Cyborg Upgrades technode."
+  - bugfix: "Syndicate Medical Cyborgs can now read their analyzer in the dark, on par with their standard counterparts."
