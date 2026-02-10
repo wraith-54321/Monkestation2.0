@@ -138,11 +138,12 @@
 		if(victim.movement_type & (FLYING | FLOATING))
 			return FALSE
 
+//why is this even a thing
 /*	if(item_value_consumed < 100)
 		var/turf/target = get_edge_target_turf(src, pick(GLOB.alldirs))
 		victim.throw_at(target, rand(1, 5), rand(1, 5))
 		to_chat(victim, span_warning("The pit has not swallowed enough items to accept creatures yet!"))
-		return FALSE */ //why is this even a thing
+		return FALSE */
 	victim.add_traits(list(TRAIT_FALLING_INTO_BINGLE_HOLE, TRAIT_NO_TRANSFORM), REF(src))
 	item_value_consumed += get_item_value(victim)
 	// Only animate if we're actually swallowing
