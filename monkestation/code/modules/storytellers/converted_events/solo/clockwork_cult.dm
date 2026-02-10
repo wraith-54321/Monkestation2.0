@@ -44,6 +44,14 @@
 	event_icon_state = "clockcult"
 	preferred_events = list(/datum/round_event_control/antagonist/bloodcult = 1)
 
+/datum/round_event_control/antagonist/clockcult/get_candidates()
+	var/list/candidates = ..()
+	for(var/mob/candidate in candidates)
+		var/datum/preferences/prefs = candidate.client?.prefs
+		if(!prefs?.exp[ROLE_CLOCK_CULTIST])
+			candidates -= candidate
+	return candidates
+
 /datum/round_event/antagonist/clockcult
 	end_when = 60000
 
