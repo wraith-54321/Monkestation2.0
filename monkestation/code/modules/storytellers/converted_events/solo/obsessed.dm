@@ -21,7 +21,8 @@
 		JOB_BRIDGE_ASSISTANT,
 	)
 	weight = 4
-	max_occurrences = 3
+	max_occurrences = 2
+	cost = 0.6 //very low impact roleset
 
 /datum/round_event_control/antagonist/obsessed/midround
 	name = "Compulsive Obsession"
