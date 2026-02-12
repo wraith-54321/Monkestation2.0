@@ -1,5 +1,0 @@
-author: "timothymtorres, JohnFulpWillard"
-delete-after: True
-changes:
-  - refactor: "Secure safes now use TGUI"
-  - rscadd: "Safes can now be constructed."
