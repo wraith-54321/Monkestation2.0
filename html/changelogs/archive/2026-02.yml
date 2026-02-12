@@ -241,3 +241,8 @@
   - map: fixed broken morgue trays on Blueshift.
   flleeppyy:
   - bugfix: Fix "Internet routing relays" button not doing anything
+2026-02-12:
+  Absolucy:
+  - qol: Oshan hotspots will now try to go a few extra steps if they drift into a
+      wall, to hopefully avoid them being stuck in a wall.
+  - rscdel: Liquids no longer interact with air temperature.
