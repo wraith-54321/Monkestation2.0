@@ -21,6 +21,8 @@
 	var/give_slab = TRUE
 	///ref to our turf_healing component, used for deletion when deconverted
 	var/datum/component/turf_healing/owner_turf_healing
+	///how many invokers does this antag datum count for
+	var/invocation_value = 1
 	///used for holy water deconversion, slightly easier to have this here then on the team, might want to refactor this to an assoc global list
 	var/static/list/servant_deconversion_phrases = list("spoken" = list("VG OHEAF!", "SBE GUR TYBEL-BS ENGINE!", "Gur yvtug jvyy fuvar.", "Whfgv`pne fnir zr.", "Gur Nex zhfg abg snyy.",
 																		"Rzvarapr V pnyy gur`r!", "Lbh frr bayl qnexarff.", "Guv`f vf abg gur raq.", "Gv`px, Gbpx"),
@@ -221,6 +223,7 @@
 //these can just solo invoke things that normally take multiple servants
 /datum/antagonist/clock_cultist/solo
 	name = "Servant of Ratvar (Solo)"
+	invocation_value = 100
 
 //putting this here to avoid extra edits to the main file
 /datum/antagonist/cult

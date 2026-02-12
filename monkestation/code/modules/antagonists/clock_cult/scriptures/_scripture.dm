@@ -155,11 +155,13 @@ GLOBAL_LIST_EMPTY(clock_scriptures_by_type)
 		if(potential_invoker.stat || !potential_invoker.mind)
 			continue
 
-		if(IS_CLOCK(potential_invoker))
+		var/datum/antagonist/clock_cultist/antag_datum = potential_invoker.mind?.has_antag_datum(/datum/antagonist/clock_cultist)
+		if(antag_datum)
+			invokers += antag_datum.invocation_value
+		else if(FACTION_CLOCK in potential_invoker.faction)
 			invokers++
 
-		if(potential_invoker?.mind.has_antag_datum(/datum/antagonist/clock_cultist/solo)) // They count for infinite so they can do all scriptures solo
-			invokers = INFINITY
+		if(invokers >= invokers_required)
 			break
 
 	if(invokers < invokers_required)
