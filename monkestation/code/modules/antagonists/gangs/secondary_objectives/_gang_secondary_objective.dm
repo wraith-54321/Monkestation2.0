@@ -25,3 +25,6 @@
 	. = ..()
 	if(penalty_cost && objective_state == OBJECTIVE_STATE_FAILED)
 		owner.unallocated_tc -= penalty_cost //double total TC rewards but also double failure cost
+
+/datum/traitor_objective/gang/get_extra_reward_data()
+	return "[passive_tc_reward] Passive TC"

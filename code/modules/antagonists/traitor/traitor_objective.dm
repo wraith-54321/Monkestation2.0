@@ -247,8 +247,12 @@
 		"objective_state" = objective_state,
 		"original_progression" = original_progression * ((valid_uplinks & UPLINK_GANGS) ? 100 : 1), //monkestation edit: adds the gang check,
 		"telecrystal_penalty" = telecrystal_penalty,
-		"contractor_rep" = given_contractor_rep, //monkestation edit
+		"extra_rewards" = get_extra_reward_data(),
 	)
+
+///Return the extra_rewards this objective gives, if any
+/datum/traitor_objective/proc/get_extra_reward_data()
+	return "[given_contractor_rep] REP"
 
 /datum/traitor_objective/proc/on_objective_taken(mob/user)
 	SStraitor.on_objective_taken(src)

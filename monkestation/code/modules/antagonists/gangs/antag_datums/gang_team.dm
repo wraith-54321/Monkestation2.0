@@ -49,7 +49,7 @@
 	///The list of objectives our members have completed, used for the round end screen
 	var/list/completed_objectives = list()
 	///The list of enemy_huds visible to us
-	var/list/visible_enemy_huds
+	var/list/visible_enemy_huds = list()
 	///How many telecrystals do we generate each minute
 	var/passive_tc = 0
 

@@ -79,7 +79,7 @@
 		return PROCESS_KILL
 
 	if(owned_count >= needed_area_count)
-		time_fulfilled += seconds_per_tick * (1 SECONDS)
+		time_fulfilled += seconds_per_tick SECONDS
 
 	if(time_fulfilled >= hold_time)
 		succeed_objective()

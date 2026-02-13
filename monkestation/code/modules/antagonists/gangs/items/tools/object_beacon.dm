@@ -44,15 +44,16 @@
 	if(!created_type)
 		return
 
+	var/turf/our_turf = location_override || get_turf(src)
 	var/obj/structure/closet/supplypod/pod_spawn = podspawn(list(
-		"target" = location_override || get_turf(src),
+		"target" = our_turf,
 		"style" = STYLE_SYNDICATE,
 		"spawn" = spawn_override || created_type,
 		"explosionSize" = list(0,0,0,0),
 		"bluespace" = TRUE
 	))
 	spawn_override ||= locate(created_type) in pod_spawn.contents
-	SEND_SIGNAL(src, COMSIG_GANG_OBJECT_BEACON_ACTIVATED, spawn_override)
+	SEND_SIGNAL(src, COMSIG_GANG_OBJECT_BEACON_ACTIVATED, spawn_override, our_turf)
 	qdel(src)
 
 

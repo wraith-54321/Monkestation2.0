@@ -8,6 +8,8 @@
 	subsystem_type = /datum/controller/subsystem/processing/gangs
 	///Additional text to give to gang members on examine
 	var/extra_examine_text = ""
+	///The actual name of the machine
+	var/actual_name
 	///How much TC do we cost to set up
 	var/setup_tc_cost = 0
 	///Ref to the gang that owns this machine
@@ -23,10 +25,10 @@
 	owner = null
 	return ..()
 
-/obj/machinery/gang_machine/attackby(obj/item/weapon, mob/user, params)
+/obj/machinery/gang_machine/attackby(obj/item/attacking_item, mob/user, params)
 	var/area/our_area = get_area(src)
-	if(!setup && setup_tc_cost && istype(weapon, /obj/item/stack/telecrystal) && setup_checks(user, our_area) && IS_GANGMEMBER(user))
-		var/obj/item/stack/telecrystal/tc = weapon
+	if(!setup && setup_tc_cost && istype(attacking_item, /obj/item/stack/telecrystal) && setup_checks(user, our_area) && IS_GANGMEMBER(user))
+		var/obj/item/stack/telecrystal/tc = attacking_item
 		if(!tc.use(setup_tc_cost))
 			balloon_alert(user, "you need at least [setup_tc_cost] telecrystals to setup \the [src].")
 			return ..()

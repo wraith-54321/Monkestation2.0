@@ -27,6 +27,8 @@
 	var/timer_finished_at
 	///Should our machine be deleted on activation
 	var/del_activated_machine = TRUE
+	///The world.time our objective finishes
+	var/finish_at = 0
 
 /datum/traitor_objective/gang/protect_machine/generate_objective(datum/mind/generating_for, list/possible_duplicates)
 	if(!owner || !get_valid_areas())
@@ -46,12 +48,14 @@
 	var/list/buttons = list()
 	if(!beacon_sent)
 		buttons += add_ui_button("", "Pressing this will materialize a machine beacon in your hand.", "globe", "beacon")
+	else if(finish_at && finish_at < world.time)
+		buttons += add_ui_button("[DisplayTimeText(finish_at - world.time)]", "This tells you how much longer until the machine activates.", "clock", "none")
 	return buttons
 
 /datum/traitor_objective/gang/protect_machine/ui_perform_action(mob/living/user, action)
 	. = ..()
 	switch(action)
-		if("beaon")
+		if("beacon")
 			if(beacon_sent)
 				return
 			beacon_sent = TRUE
@@ -87,15 +91,16 @@
 	UnregisterSignal(destroyed, COMSIG_QDELETING)
 	fail_objective(telecrystal_penalty)
 
-/datum/traitor_objective/gang/protect_machine/proc/beacon_activated(obj/item/gang_device/object_beacon/gang_machine/created_from, obj/machinery/gang_machine/created)
+/datum/traitor_objective/gang/protect_machine/proc/beacon_activated(obj/item/gang_device/object_beacon/gang_machine/created_from, obj/machinery/gang_machine/created, turf/location)
 	SIGNAL_HANDLER
 	UnregisterSignal(created_from, list(COMSIG_GANG_OBJECT_BEACON_ACTIVATED, COMSIG_QDELETING))
 	RegisterSignal(created, COMSIG_GANG_MACHINE_ACTIVATED, PROC_REF(machine_activated))
 	RegisterSignal(created, COMSIG_QDELETING, PROC_REF(on_tracked_qdeled))
 	if(!can_change_hands)
 		RegisterSignal(created, COMSIG_GANG_MACHINE_CHANGED_OWNER, PROC_REF(owner_changed))
-	mass_gang_message("[created] activated in [get_area(created)].")
+	mass_gang_message("[created] activated in [get_area(location)].")
 	addtimer(CALLBACK(created, TYPE_PROC_REF(/obj/machinery/gang_machine, attempt_activation), del_activated_machine), protect_time)
+	finish_at = world.time + protect_time
 
 /datum/traitor_objective/gang/protect_machine/proc/machine_activated(obj/machinery/gang_machine/activated)
 	SIGNAL_HANDLER
@@ -120,6 +125,10 @@
 	created_machine_type = /obj/machinery/gang_machine/telecrystal_beacon
 
 /obj/machinery/gang_machine/telecrystal_beacon
+	name = "Telecrystal Beacon"
+	desc = "An ominous looking machine."
+	icon = 'icons/obj/abductor.dmi'
+	icon_state = "core"
 	layer = ABOVE_OBJ_LAYER //these should be hard to hide
 	///How much passive TC do we give to our owner
 	var/given_tc = 1
