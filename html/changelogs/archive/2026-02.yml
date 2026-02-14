@@ -271,3 +271,11 @@
   - bugfix: interactor mechcomp can actually interact
   SirNightKnight:
   - bugfix: fixed hat stacking logic for plasmaman helmets being weird.
+2026-02-14:
+  PotatoTomahto:
+  - balance: meltdown nanite program ignores safety threshold when activating
+  Tractor-Maam:
+  - rscadd: the medical bandolier can now be crafted.
+  - rscadd: the medical bandolier now stacks items put inside.
+  notghosti:
+  - map: Pubby morgue now has surgery tools

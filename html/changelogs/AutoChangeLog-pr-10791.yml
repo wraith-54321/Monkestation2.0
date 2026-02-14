@@ -1,5 +1,0 @@
-author: "Tractor-Maam"
-delete-after: True
-changes:
-  - rscadd: "the medical bandolier can now be crafted."
-  - rscadd: "the medical bandolier now stacks items put inside."
