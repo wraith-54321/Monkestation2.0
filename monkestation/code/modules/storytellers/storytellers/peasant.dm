@@ -17,6 +17,7 @@
 		EVENT_TRACK_ROLESET = 1,
 		EVENT_TRACK_OBJECTIVES = 1,
 	)
+	weight = 2
 	population_max = 50
 
 /datum/storyteller/peasant/can_run_event(datum/round_event_control/event)
