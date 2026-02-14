@@ -230,6 +230,12 @@ const OtherInfo = () => {
                 If you are having trouble finding an enemy tag in an area you
                 can purchase a tag pinpointer in your uplink for 3 TC.
               </span>
+              <br />
+              <span>
+                Using gang paint is a great way to gain rep, every 40 painted
+                tiles will grant an additional rep. Buckets can be made at your
+                fabricator.
+              </span>
             </Stack.Item>
           </Stack>
         </Section>

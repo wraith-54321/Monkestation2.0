@@ -18,6 +18,10 @@ PROCESSING_SUBSYSTEM_DEF(gangs)
 	var/list/cached_extra_rep
 	///assoc list of gang tags keyed to the area they are in
 	var/alist/gang_tags_by_area
+	///List of all possible gang tags
+	var/list/all_gang_tags
+	///List of remaining paint colors
+	var/list/possible_gang_colors
 	///assoc list of gang outfit items with key values of how much representation they provide
 	var/alist/gang_outfits = alist() //starts as a list so we dont need to init the entire SS for a single peice of clothing getting spawned
 
@@ -31,6 +35,51 @@ PROCESSING_SUBSYSTEM_DEF(gangs)
 	all_gangs_by_tag = alist()
 	cached_extra_rep = list()
 	gang_tags_by_area = alist()
+	//19 possible tags, you really shouldnt need more then this
+	all_gang_tags = list(
+		"Omni",
+		"Newton",
+		"Clandestine",
+		"Prima",
+		"Zero-G",
+		"Osiron",
+		"Psyke",
+		"Diablo",
+		"Blasto",
+		"North",
+		"Donk",
+		"Sleeping Carp",
+		"Gene",
+		"Cyber",
+		"Tunnel",
+		"Sirius",
+		"Waffle",
+		"Max",
+		"Gib",
+	)
+
+	//19 colors, as to match the amount of tags, you should avoid particularly light shades and colors as they dont show up well
+	possible_gang_colors = list(
+		COLOR_GOLD,
+		COLOR_SYNDIE_RED,
+		COLOR_MAROON,
+		COLOR_ALMOST_BLACK,
+		COLOR_CARP_RIFT_RED,
+		COLOR_OLIVE,
+		COLOR_VIBRANT_LIME,
+		COLOR_CHRISTMAS_GREEN,
+		COLOR_CYAN,
+		COLOR_BLUE,
+		COLOR_TEAL,
+		COLOR_AMETHYST,
+		COLOR_LIGHT_PINK,
+		COLOR_PURPLE,
+		COLOR_MAGENTA,
+		COLOR_STRONG_VIOLET,
+		COLOR_MOSTLY_PURE_ORANGE,
+		COLOR_MODERATE_BLUE,
+		COLOR_SOFT_RED,
+	)
 	gang_area_multipliers = list(
 	/area/station/command = 2,
 	/area/station/security = 2,

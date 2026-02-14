@@ -4,34 +4,14 @@
 	var/datum/gang_data/our_gang_type = /datum/gang_data
 	///Temp for while I decide if I want to use gang_data or not
 	var/gang_tag = "Error"
+	///The color this gang uses
+	var/gang_color = COLOR_BLACK
 	///Assoc list of uplink handlers for our gang members, keyed to the mind that owns the handler
 	var/list/datum/uplink_handler/handlers = list()
 	///How much rep does the gang have
 	var/rep = 0
 	///How much TC does the gang boss have left to allocate
 	var/unallocated_tc = 0
-	///Static list of all gang tags
-	var/static/list/all_gang_tags = list(
-		"Omni",
-		"Newton",
-		"Clandestine",
-		"Prima",
-		"Zero-G",
-		"Osiron",
-		"Psyke",
-		"Diablo",
-		"Blasto",
-		"North",
-		"Donk",
-		"Sleeping Carp",
-		"Gene",
-		"Cyber",
-		"Tunnel",
-		"Sirius",
-		"Waffle",
-		"Max",
-		"Gib",
-	)
 	///Used for limited stock uplink items
 	var/list/shared_team_stock = list(UPLINK_SHARED_STOCK_SURPLUS = 3)
 	///List of all our member antagonist datums
@@ -52,17 +32,24 @@
 	var/list/visible_enemy_huds = list()
 	///How many telecrystals do we generate each minute
 	var/passive_tc = 0
+	///How many tiles have we painted
+	var/painted_tiles = 0
 
 /datum/team/gang/New(starting_members)
 	. = ..()
 //	set_gang_info()
 	FRESH_INIT_SUBSYSTEM(SSgangs)
 	SSgangs.all_gangs += src
-	var/list/possible_tags = all_gang_tags - SSgangs.all_gangs_by_tag
+	var/list/possible_tags = SSgangs.all_gang_tags - SSgangs.all_gangs_by_tag
 	if(!length(possible_tags))
 		stack_trace("Gang created without possible_tags.")
 	else
 		gang_tag = pick(possible_tags)
+
+	if(length(SSgangs.possible_gang_colors))
+		gang_color = pick_n_take(SSgangs.possible_gang_colors)
+	else
+		stack_trace("Gang created with no remaining possible_gang_colors.")
 
 	if(SSgangs.all_gangs_by_tag[gang_tag])
 		stack_trace("Gang([src]) created with duplicate tag([gang_tag]) to already exsisting gang([SSgangs.all_gangs_by_tag[gang_tag]]).")
@@ -72,12 +59,23 @@
 	member_name = "[gang_tag] Gang Member"
 	setup_objectives()
 
-/datum/team/gang/Destroy(force, ...)
+/datum/team/gang/Destroy(force)
 	SSgangs.all_gangs -= src
 	SSgangs.all_gangs_by_tag -= gang_tag
 	return ..()
 
 /datum/team/gang/roundend_report()
+	//TODO: move this somewhere else
+	var/static/has_calculated_tiles
+	if(!has_calculated_tiles)
+		has_calculated_tiles = TRUE
+		var/list/datum/team/gang/gangs_by_color = list()
+		for(var/datum/team/gang/gang_team in SSgangs.all_gangs)
+			gangs_by_color[gang_team.gang_color] = gang_team
+
+		for(var/turf/station_turf in GLOB.station_turfs)
+			gangs_by_color[station_turf.atom_colours?[WASHABLE_COLOUR_PRIORITY]]?.painted_tiles++
+
 	var/list/report = list()
 	var/used_telecrystals = 0
 	var/purchases = ""
@@ -112,6 +110,9 @@
 			purchases += log.generate_render(show_key = FALSE)
 	report += "<br>"
 	report += "(Members used [used_telecrystals] TC) [purchases]"
+	report += "<br>"
+	report += "The gang claimed [painted_tiles] tiles."
+	rep += painted_tiles % 40 //every 40 tiles is a rep
 	report += span_big("<br>The gang had a total of [rep] Reputation.")
 	return "<div class='panel redborder'>[report.Join("<br>")]</div>"
 

@@ -141,6 +141,7 @@
 	name = "Lieutenant Promoter"
 	cost = 10
 	fabrication_type = /obj/item/gang_device/promoter
+	required_rank = GANG_RANK_LIEUTENANT
 
 /datum/gang_fabricator_design/boss_promoter
 	name = "Boss Promoter"
@@ -158,5 +159,14 @@
 	var/obj/item/pinpointer/gang/leader/pinpointer = ..()
 	pinpointer.linked_to = created_for
 	pinpointer.AddElement(/datum/element/extra_examine/gang, span_syndradio("A pinpointer used to find the leaders of the [created_for] gang."))
+
+/datum/gang_fabricator_design/gang_paintbucket
+	name = "Gang Paintbucket"
+	cost = 1
+	fabrication_type = /obj/item/paint/gang
+
+/datum/gang_fabricator_design/gang_paintbucket/create_item(created_type, turf/create_at, datum/team/gang/created_for)
+	var/obj/item/paint/gang/bucket = ..()
+	bucket.paint_color = created_for.gang_color
 
 #undef REMOVE_TC

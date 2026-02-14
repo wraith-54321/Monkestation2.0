@@ -7052,6 +7052,7 @@
 #include "monkestation\code\modules\antagonists\gangs\items\subspace_blocker_implant.dm"
 #include "monkestation\code\modules\antagonists\gangs\items\tools\communicate_upgrader.dm"
 #include "monkestation\code\modules\antagonists\gangs\items\tools\gang_device.dm"
+#include "monkestation\code\modules\antagonists\gangs\items\tools\gang_paintbucket.dm"
 #include "monkestation\code\modules\antagonists\gangs\items\tools\gang_spraycan.dm"
 #include "monkestation\code\modules\antagonists\gangs\items\tools\machine_converter.dm"
 #include "monkestation\code\modules\antagonists\gangs\items\tools\mobroach_beacon.dm"

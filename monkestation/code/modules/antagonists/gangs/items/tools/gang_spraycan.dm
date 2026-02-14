@@ -101,8 +101,8 @@ GLOBAL_LIST_EMPTY(gang_controlled_areas)
 		gang_team.rep += 1
 		gang_team.unallocated_tc += 0.4 //MAKE THESE BE A DEFINE
 
-	var/obj/effect/decal/cleanable/crayon/gang/created_tag = new(target, paint_color, antag_datum.gang_team?.gang_tag, "[antag_datum.gang_team?.gang_tag] tag", \
-																null, null, antag_datum.gang_team, target_area, TRUE)
+	var/obj/effect/decal/cleanable/crayon/gang/created_tag = new(target, gang_team.gang_color, gang_team.gang_tag, "[gang_team.gang_tag] tag", \
+																null, null, gang_team, target_area, TRUE)
 	if(resistant_coating_charges)
 		resistant_coating_charges--
 		created_tag.resistant = TRUE
