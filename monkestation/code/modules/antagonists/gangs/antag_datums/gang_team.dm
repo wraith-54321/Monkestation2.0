@@ -75,6 +75,7 @@
 
 		for(var/turf/station_turf in GLOB.station_turfs)
 			gangs_by_color[station_turf.atom_colours?[WASHABLE_COLOUR_PRIORITY]]?.painted_tiles++
+	rep += painted_tiles % 40 //every 40 tiles is a rep
 
 	var/list/report = list()
 	var/used_telecrystals = 0
@@ -112,7 +113,6 @@
 	report += "(Members used [used_telecrystals] TC) [purchases]"
 	report += "<br>"
 	report += "The gang claimed [painted_tiles] tiles."
-	rep += painted_tiles % 40 //every 40 tiles is a rep
 	report += span_big("<br>The gang had a total of [rep] Reputation.")
 	return "<div class='panel redborder'>[report.Join("<br>")]</div>"
 
