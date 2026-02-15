@@ -151,7 +151,7 @@ PROCESSING_SUBSYSTEM_DEF(gangs)
 		gangs_by_color[station_turf.atom_colours?[WASHABLE_COLOUR_PRIORITY]]?.painted_tiles++
 
 	for(var/datum/team/gang/gang_team in all_gangs)
-		gang_team.rep += painted_tiles % PAINTED_TILES_PER_REP
+		gang_team.rep += gang_team.painted_tiles % PAINTED_TILES_PER_REP
 
 ///Call to add a piece of clothing to gang_outfits
 /datum/controller/subsystem/processing/gangs/proc/register_gang_clothing(obj/item/clothing/registered, value = 1)
