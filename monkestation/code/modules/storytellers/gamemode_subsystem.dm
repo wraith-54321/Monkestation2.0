@@ -145,7 +145,7 @@ SUBSYSTEM_DEF(gamemode)
 		if(event.holidayID)
 			if(check_holidays(event.holidayID))
 				if(event.roundstart) //if we are roundstart and valid then force our triggering at roundstart
-					SSticker.OnRoundstart(CALLBACK(event, TYPE_PROC_REF(/datum/round_event_control, run_event), FALSE, admin_forced = TRUE))
+					SSticker.OnRoundstart(CALLBACK(event, TYPE_PROC_REF(/datum/round_event_control, run_event), FALSE, null, TRUE))
 				else
 					event_pools[event.track] += event //if we are a valid holiday then put us in our track so we can trigger, TODO: rework this to be less flakey
 					continue
