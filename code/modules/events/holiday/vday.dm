@@ -136,6 +136,9 @@ GLOBAL_LIST(valentine_mobs)
 	if(write_action)
 		. += span_boldnotice("You could perhaps send this valentine's card to someone!")
 
+/obj/item/paper/valentine/item_action_slot_check(slot, mob/user, datum/action/action)
+	return !!user.is_holding(src)
+
 /obj/item/paper/valentine/proc/mark_as_used()
 	used = TRUE
 	remove_item_action(write_action)
