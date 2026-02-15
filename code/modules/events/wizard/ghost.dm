@@ -1,6 +1,6 @@
 /datum/round_event_control/wizard/ghost //The spook is real
 	name = "G-G-G-Ghosts!"
-	weight = 3
+	weight = 0
 	typepath = /datum/round_event/wizard/ghost
 	max_occurrences = 1
 	earliest_start = 0 MINUTES

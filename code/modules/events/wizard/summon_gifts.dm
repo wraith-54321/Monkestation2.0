@@ -1,7 +1,7 @@
 /datum/round_event_control/wizard/summon_gifts
 	name = "Gifts For Everyone!"
 	weight = 3
-	max_occurrences = 2
+	max_occurrences = 5
 	earliest_start = 0 MINUTES
 	typepath = /datum/round_event/wizard/summon_gifts
 	description = "Gives every sentient carbon mob an xmas gift."

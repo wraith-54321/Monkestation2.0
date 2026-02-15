@@ -13,7 +13,7 @@
 	icon = 'icons/hud/screen_alert.dmi'
 	icon_state = "wounded"
 	minimum_time = 80 MINUTES // This will probably immediately end the round if it gets finished. //monkestation edit: from 90 to 80 minutes
-	ritual_invoke_time = 60 SECONDS // Really give the crew some time to interfere with this one.
+	ritual_invoke_time = 40 SECONDS // Give the crew a bit of extra time to stop it
 	dire_warning = TRUE
 	glow_colour = "#be000048"
 	/// Things to yell before you die
