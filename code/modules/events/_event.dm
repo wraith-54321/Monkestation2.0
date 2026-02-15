@@ -50,7 +50,7 @@
 	// monkestation start
 	/// The typepath to the event group this event is a part of.
 	var/datum/event_group/event_group = null
-	/// Is this event only able to be triggered at roundstart
+	/// Is this event only able to be triggered at roundstart, any event with a valid holiday id and this set will be automatically triggered
 	var/roundstart = FALSE
 	/// Multiplier for the point cost of this event
 	var/cost = 1
