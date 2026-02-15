@@ -14,7 +14,7 @@
 	/// With what color will we paint with
 	var/paint_color = COLOR_WHITE
 	/// How many uses are left
-	var/paintleft = 10
+	var/paintleft = 50
 
 /obj/item/paint/Initialize(mapload)
 	. = ..()

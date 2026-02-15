@@ -65,18 +65,6 @@
 	return ..()
 
 /datum/team/gang/roundend_report()
-	//TODO: move this somewhere else
-	var/static/has_calculated_tiles
-	if(!has_calculated_tiles)
-		has_calculated_tiles = TRUE
-		var/list/datum/team/gang/gangs_by_color = list()
-		for(var/datum/team/gang/gang_team in SSgangs.all_gangs)
-			gangs_by_color[gang_team.gang_color] = gang_team
-
-		for(var/turf/station_turf in GLOB.station_turfs)
-			gangs_by_color[station_turf.atom_colours?[WASHABLE_COLOUR_PRIORITY]]?.painted_tiles++
-	rep += painted_tiles % 40 //every 40 tiles is a rep
-
 	var/list/report = list()
 	var/used_telecrystals = 0
 	var/purchases = ""

@@ -252,7 +252,7 @@
 
 ///Return the extra_rewards this objective gives, if any
 /datum/traitor_objective/proc/get_extra_reward_data()
-	return "[given_contractor_rep] REP"
+	return isnum(given_contractor_rep) ? "[given_contractor_rep] REP" : null
 
 /datum/traitor_objective/proc/on_objective_taken(mob/user)
 	SStraitor.on_objective_taken(src)
