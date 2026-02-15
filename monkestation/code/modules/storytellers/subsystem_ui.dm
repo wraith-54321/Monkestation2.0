@@ -158,7 +158,9 @@
 		if(ALL_EVENTS)
 			event_lookup = SSevents.control
 		if(UNCATEGORIZED_EVENTS)
-			event_lookup = uncategorized
+			event_lookup = list()
+			for(var/category, event_list in uncategorized)
+				event_lookup += event_list
 		else
 			event_lookup = event_pools[statistics_track_page]
 	var/list/assoc_spawn_weight = list()
