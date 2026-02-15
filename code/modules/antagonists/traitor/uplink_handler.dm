@@ -99,7 +99,7 @@
 
 	if(to_purchase.lock_other_purchases)
 		// Can't purchase an uplink item that locks other purchases if you've already purchased something
-		if(length(purchase_log.purchase_log) > 0)
+		if(length(purchase_log?.purchase_log) > 0)
 			return FALSE
 
 	if(!check_if_restricted(to_purchase))
