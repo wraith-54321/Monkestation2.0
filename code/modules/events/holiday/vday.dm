@@ -36,6 +36,7 @@ GLOBAL_LIST(valentine_mobs)
 
 /datum/round_event/valentines/start()
 	LAZYINITLIST(GLOB.valentine_mobs)
+	RegisterSignal(SSdcs, COMSIG_GLOB_CREWMEMBER_JOINED, PROC_REF(give_latejoin_card))
 	for(var/mob/living/carbon/human/player in GLOB.player_list)
 		if(!is_valid_valentine(player))
 			continue
@@ -50,6 +51,7 @@ GLOBAL_LIST(valentine_mobs)
 		to_chat(player, span_notice(span_slightly_larger("A message appears [where], it looks like it has space to write somebody's name on it!")))
 
 /datum/round_event/valentines/end()
+	UnregisterSignal(SSdcs, COMSIG_GLOB_CREWMEMBER_JOINED)
 	// Remove all the date candidates, anyone who got a mutual date now has the antag datum
 	LAZYNULL(GLOB.valentine_mobs)
 
@@ -115,6 +117,20 @@ GLOBAL_LIST(valentine_mobs)
 /datum/round_event/valentines/announce(fake)
 	priority_announce("It's Valentine's Day! Give a valentine to that special someone! You've all received complimentary Valentine's cards to send to your potential dates! \
 	Anyone who doesn't pick their date will be given a chance to be assigned one shortly.", sound = SSstation.announcer.get_rand_alert_sound())
+
+/datum/round_event/valentines/proc/give_latejoin_card(datum/source, mob/living/carbon/human/new_crewmember, rank)
+	SIGNAL_HANDLER
+	if(!ishuman(new_crewmember) || !is_valid_valentine(new_crewmember))
+		return
+	var/obj/item/paper/valentine/card = new(new_crewmember.drop_location())
+	var/static/list/slots = list(
+		LOCATION_LPOCKET = ITEM_SLOT_LPOCKET,
+		LOCATION_RPOCKET = ITEM_SLOT_RPOCKET,
+		LOCATION_BACKPACK = ITEM_SLOT_BACKPACK,
+		LOCATION_HANDS = ITEM_SLOT_HANDS
+	)
+	var/where = new_crewmember.equip_in_one_of_slots(card, slots, FALSE) || "at your feet"
+	to_chat(new_crewmember, span_notice(span_slightly_larger("A message appears [where], it looks like it has space to write somebody's name on it!")))
 
 /obj/item/paper/valentine
 	name = "valentine"
