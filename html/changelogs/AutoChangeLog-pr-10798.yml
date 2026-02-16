@@ -1,4 +1,0 @@
-author: "Tractor-Maam"
-delete-after: True
-changes:
-  - code_imp: "NTNet relays never stop processing, making them more likely to Actually Get DDoSed Properly now."
