@@ -1,0 +1,5 @@
+author: "Sorenon"
+delete-after: True
+changes:
+  - rscadd: "Added a low chance for players to fart upon violent collisions or just after death, adding some gritty realism this codebase desperately craves"
+  - rscadd: "Updated the Loud Ass quirk to make players always fart upon violent collisions or just after death."
