@@ -246,7 +246,7 @@ GLOBAL_LIST(valentine_mobs)
 	icon_state = pick("candyheart", "candyheart2", "candyheart3", "candyheart4")
 
 /proc/is_valid_valentine(mob/living/target)
-	if(QDELETED(target))
+	if((!iscarbon(target) && !issilicon(target)) || QDELING(target))
 		return FALSE
 	if(target.stat == DEAD)
 		return FALSE
