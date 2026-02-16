@@ -1,0 +1,6 @@
+author: "SirNightKnight"
+delete-after: True
+changes:
+  - qol: "added an icon for holopads when there's an outgoing call."
+  - bugfix: "fixed holopad lights getting stuck."
+  - rscadd: "the old robot and repair drone icons are available as AI hologram choices."
