@@ -1,0 +1,4 @@
+author: "CocoKailey"
+delete-after: True
+changes:
+  - balance: "Changed the liquid_fire_power variable of various alcoholic beverages to be varying numbers below the baseline of liquid_fire_power = 10 that exists with ethanol."
