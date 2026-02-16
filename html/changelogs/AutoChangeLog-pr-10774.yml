@@ -1,0 +1,4 @@
+author: "SirNightKnight"
+delete-after: True
+changes:
+  - code_imp: "updated custom vendor code to generate off vending machine types instead of a pre-defined list."
