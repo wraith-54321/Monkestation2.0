@@ -1,0 +1,9 @@
+author: "mc-oofert, SirNightKnight"
+delete-after: True
+changes:
+  - bugfix: "gibtonite rigging works again (attaching assemblies to it so you can remotely detonate it). rigging a gibtonite shortens the timer to 5 seconds from 10."
+  - balance: "fixed the export price of all materials and lavaland items/loot."
+  - balance: "getting hit by a gibtonite chunk knocks you over if it travelled more than two tiles."
+  - balance: "added more lavaland loot to the lavaland artifact export lists, moved some items around so they are more valuable."
+  - balance: "exporting lavaland loot/items is more lucrative."
+  - balance: "gibtonite is more valuable the higher the quality is."
