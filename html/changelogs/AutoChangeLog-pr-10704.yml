@@ -1,7 +1,0 @@
-author: "JohnFulpWillard"
-delete-after: True
-changes:
-  - bugfix: "Simians vault over railings properly."
-  - bugfix: "Simians have a new species description."
-  - bugfix: "Simians now have a Simianize gene (could also be found in Humans)."
-  - qol: "Monkeys/Simians can now have their genes edited."

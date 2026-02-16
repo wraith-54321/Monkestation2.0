@@ -1,4 +1,0 @@
-author: "Siro"
-delete-after: True
-changes:
-  - bugfix: "Adds an Adjacent check after the dash to prevent the attack after dashing if they aren't truly adjacent to the target."

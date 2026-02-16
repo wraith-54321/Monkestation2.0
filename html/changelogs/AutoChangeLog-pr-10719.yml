@@ -1,6 +1,0 @@
-author: "Siro"
-delete-after: True
-changes:
-  - rscadd: "New no knock back status effect. Disables knock back from structures with density like walls."
-  - bugfix: "Knock back is prevented from being tossed while slipping. Puzzles like clown ruins can now be completed again."
-  - map: "Clown ruins on lavaland readded."
