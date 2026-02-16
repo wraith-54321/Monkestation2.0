@@ -1,0 +1,13 @@
+author: "SirNightKnight"
+delete-after: True
+changes:
+  - balance: "all prefilled bottles containing 30 units are now filled with 50 units  so they are at capacity. this includes all poisons."
+  - balance: "removed singular pills from the spawning pool for the medical supplies crate."
+  - balance: "slightly increased the inventory of the nanomed plus and nanomed drug vendors."
+  - balance: "added formaldehyde bottles and neurine pills to the nanomed drug vendor."
+  - balance: "added bruise packs and regenerative meshes to the nanomed plus."
+  - balance: "emergency medical helmet does more brain damage when emagged."
+  - bugfix: "fixed a bug where the emergency medical helmet forced the wearer to speak when dead."
+  - qol: "made the emergency medical helmet siren louder."
+  - qol: "smart fridges can hold test tubes."
+  - balance: "removed rescue hooks from the nanomed plus."
