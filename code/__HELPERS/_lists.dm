@@ -68,6 +68,8 @@
 #define LAZYACCESS(L, I) (L ? (isnum(I) ? (I > 0 && I <= length(L) ? L[I] : null) : L[I]) : null)
 ///Sets the item K to the value V, if the list is null it will initialize it
 #define LAZYSET(L, K, V) if(!L) { L = list(); } L[K] = V;
+///Sets the item K to the value V, if the list is null it will initialize it as an alist
+#define LAZYASSOCSET(L, K, V) if(!L) { L = alist(); } L[K] = V;
 ///Sets the length of a lazylist
 #define LAZYSETLEN(L, V) if (!L) { L = list(); } L.len = V;
 ///Returns the length of the list

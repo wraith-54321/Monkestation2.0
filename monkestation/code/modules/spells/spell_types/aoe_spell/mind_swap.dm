@@ -85,6 +85,7 @@
 			|| mind_to_swap.has_antag_datum(/datum/antagonist/wizard) \
 			|| mind_to_swap.has_antag_datum(/datum/antagonist/cult) \
 			|| mind_to_swap.has_antag_datum(/datum/antagonist/changeling) \
+			|| mind_to_swap.has_antag_datum(/datum/antagonist/clock_cultist) \
 			|| mind_to_swap.key?[1] == "@" \
 			)
 			return
@@ -98,12 +99,12 @@
 
 /datum/action/cooldown/spell/aoe/mind_swap/after_cast(atom/cast_on)
 	. = ..()
-	if(!swap_ghosts.len == swap_mobs.len)
+	if(!length(swap_ghosts) == length(swap_mobs))
 		message_admins("Mindswap mob count not equal to ghost count.")
 
 	cycle_inplace(swap_mobs)
 
-	for(var/i=1, i <= swap_mobs.len, ++i)
+	for(var/i = 1, i <= length(swap_mobs), ++i)
 		var/mob/living/current_mob = swap_mobs[i]
 		var/mob/dead/observer/current_ghost = swap_ghosts[i]
 		current_ghost.mind.transfer_to(current_mob)
@@ -111,6 +112,7 @@
 		if(current_mob == wizard_body && !(made_false_wizard))
 			make_fake_wizard(wizard_body)
 			made_false_wizard = TRUE
+			wizard_body = null
 
 		SEND_SOUND(current_mob, sound('sound/magic/mandswap.ogg'))
 
@@ -121,6 +123,9 @@
 
 /datum/action/cooldown/spell/aoe/mind_swap/proc/make_fake_wizard(mob/living/imposter_mob) //for making the fake wizard
 	var/datum/antagonist/wizard/master = owner.mind.has_antag_datum(/datum/antagonist/wizard)
+	if(!master)
+		return
+
 	if(!master.wiz_team)
 		master.create_wiz_team()
 
@@ -129,7 +134,7 @@
 	imposter.wiz_team = master.wiz_team
 	master.wiz_team.add_member(imposter)
 	imposter_mob.mind.add_antag_datum(imposter)
-	imposter_mob.mind.special_role = "imposter"
+	imposter_mob.mind.special_role = "imposter" //SUS
 	imposter_mob.log_message("is an imposter!", LOG_ATTACK, color="red")
 
 	SEND_SOUND(imposter_mob, sound('sound/effects/magic.ogg')) //I want to replace this with the sus SFX so badly
@@ -137,5 +142,5 @@
 /datum/action/cooldown/spell/aoe/mind_swap/badmin
 	name = "Greater Mind Swap"
 	desc = "This spell will randomly swap the minds of everyone around you in a huge area, yourself included."
-	aoe_radius = 12
+	aoe_radius = 10
 	cooldown_time = 30 SECONDS

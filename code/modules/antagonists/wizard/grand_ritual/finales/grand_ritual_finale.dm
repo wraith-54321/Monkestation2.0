@@ -41,7 +41,7 @@
  * * invoker - The wizard casting this.
  */
 /datum/grand_finale/proc/trigger(mob/living/invoker)
-	// Do something cool.
+	//SSshuttle.registerEvacBlocker("wizard finale")
 
 /// Tries to equip something into an inventory slot, then hands, then the floor.
 /datum/grand_finale/proc/equip_to_slot_then_hands(mob/living/carbon/human/invoker, slot, obj/item/item)
