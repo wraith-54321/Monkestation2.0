@@ -109,30 +109,32 @@
 	COOLDOWN_START(src, armor_cooldown, REACTION_COOLDOWN_DURATION)
 	new_spell = new new_spell(binding_owner.mind || binding_owner)
 	new_spell.owner_has_control = FALSE
-	new_spell.spell_requirements = ~SPELL_REQUIRES_WIZARD_GARB
+	new_spell.spell_requirements = NONE
 	new_spell.Grant(binding_owner)
-
+	new_spell.cast(binding_owner)
 	binding_owner.visible_message("The [src] glows brightly and casts [new_spell.name]!")
 	qdel(new_spell)
 
 /obj/item/clothing/neck/neckless/wizard_reactive/proc/set_owner(mob/living/new_owner)
-	var/mob/living/old_owner = binding_owner
-	if(old_owner)
-		UnregisterSignal(old_owner, list(COMSIG_LIVING_CHECK_BLOCK, COMSIG_QDELETING))
+	if(new_owner == binding_owner)
+		return
+
+	if(binding_owner)
+		UnregisterSignal(binding_owner, list(COMSIG_LIVING_CHECK_BLOCK, COMSIG_QDELETING))
 
 	binding_owner = new_owner
 	if(new_owner)
 		RegisterSignal(new_owner, COMSIG_QDELETING, PROC_REF(owner_qdel))
 		RegisterSignal(new_owner, COMSIG_LIVING_CHECK_BLOCK, PROC_REF(check_block))
 
-/obj/item/clothing/neck/neckless/wizard_reactive/proc/check_block(mob/living/carbon/human/owner, atom/movable/hitby, damage = 0, attack_text = "the attack", attack_type = MELEE_ATTACK, armour_penetration = 0)
+/obj/item/clothing/neck/neckless/wizard_reactive/proc/check_block(mob/living/carbon/human/owner, atom/movable/hitby, damage, attack_text, attack_type, armour_penetration)
 	SIGNAL_HANDLER
-	if(!prob(50)) //high chance so it doesnt do a damage block
+	if(!prob(50)) //high chanc, so no damage blocking
 		return
 	if(!COOLDOWN_FINISHED(src, armor_cooldown))
 		owner.visible_message("The [src] glows faintly for a second and then fades.")
-		return FALSE
-	talisman_activation()
+		return
+	INVOKE_ASYNC(src, PROC_REF(talisman_activation))
 
 /obj/item/clothing/neck/neckless/wizard_reactive/proc/owner_qdel()
 	SIGNAL_HANDLER
