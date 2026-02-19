@@ -105,7 +105,7 @@
 	binding_owner = WEAKREF(user)
 
 /obj/item/clothing/neck/neckless/wizard_reactive/hit_reaction(mob/owner)
-	if(!(prob(hit_reaction_chance)) || !(binding_owner))
+	if(!(prob(hit_reaction_chance)) || !(binding_owner?.resolve()))
 		return FALSE
 	if(!COOLDOWN_FINISHED(src, armor_cooldown))
 		owner.visible_message("The [src] glows faintly for a second and then fades.")
@@ -122,11 +122,6 @@
 	new_spell.owner_has_control = FALSE
 	new_spell.spell_requirements = ~SPELL_REQUIRES_WIZARD_GARB
 	new_spell.Grant(binding_ref)
-
-	if(!new_spell.cast(binding_ref))
-		binding_ref.visible_message("The [src] glows brightly and then fades, looks like something went wrong!")
-		qdel(new_spell)
-		return
 
 	binding_ref.visible_message("The [src] glows brightly and casts [new_spell.name]!")
 	qdel(new_spell)

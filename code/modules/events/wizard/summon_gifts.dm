@@ -5,6 +5,8 @@
 	earliest_start = 0 MINUTES
 	typepath = /datum/round_event/wizard/summon_gifts
 	description = "Gives every sentient carbon mob an xmas gift."
+	min_wizard_trigger_potency = 0
+	max_wizard_trigger_potency = 100
 
 /datum/round_event/wizard/summon_gifts/start()
 	for(var/mob/living/carbon/gifted_mob in GLOB.alive_player_list) //sentient monkeys get gifts too!

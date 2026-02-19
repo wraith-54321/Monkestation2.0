@@ -6,7 +6,7 @@
 	earliest_start = 0 MINUTES
 	description = "Everyone is given 40U of adminordrazine(100 ticks, theoretically)."
 	min_wizard_trigger_potency = 0
-	max_wizard_trigger_potency = 7
+	max_wizard_trigger_potency = 100
 
 /datum/round_event/wizard/invincible/start()
 	for(var/mob/living/carbon/human/H in GLOB.alive_mob_list)

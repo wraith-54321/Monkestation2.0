@@ -6,7 +6,7 @@
 	earliest_start = 0 MINUTES
 	description = "Spawns a doppelganger of the wizard."
 	min_wizard_trigger_potency = 2
-	max_wizard_trigger_potency = 7
+	max_wizard_trigger_potency = 100
 
 /datum/round_event/wizard/imposter/start()
 	var/list/candidates = SSpolling.poll_ghost_candidates("Would you like to be an [span_notice("imposter wizard")]?",

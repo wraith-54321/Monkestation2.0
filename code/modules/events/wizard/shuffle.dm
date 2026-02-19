@@ -9,7 +9,7 @@
 	earliest_start = 0 MINUTES
 	description = "Shuffles everyone around on the station."
 	min_wizard_trigger_potency = 0
-	max_wizard_trigger_potency = 7
+	max_wizard_trigger_potency = 100
 
 /datum/round_event/wizard/shuffleloc/start()
 	var/list/moblocs = list()

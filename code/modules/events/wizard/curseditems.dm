@@ -15,7 +15,7 @@
 	name = "Cursed Items"
 	weight = 3
 	typepath = /datum/round_event/wizard/cursed_items
-	max_occurrences = 3
+	max_occurrences = 1
 	earliest_start = 0 MINUTES
 	description = "Gives everyone a cursed item."
 
@@ -23,7 +23,8 @@
 //it will be able to be put into that slot from the hand, but then get stuck there. To avoid this make a new subtype of any
 //item you want to equip to the hand, and set its slots_flags = null. Only items equiped to hands need do this.
 
-/datum/round_event/wizard/cursed_items/start()
+/datum/round_event/wizard/cursed_items
+	//TODO: refactor this to use outfit datums
 	var/item_set = pick(
 		BIG_FAT_DOOBIE,
 		BOXING,
@@ -32,6 +33,8 @@
 		VOICE_MODULATORS,
 		WIZARD_MIMICRY,
 	)
+
+/datum/round_event/wizard/cursed_items/start()
 	var/list/loadout[SLOTS_AMT]
 	var/ruins_spaceworthiness = FALSE
 	var/ruins_wizard_loadout = FALSE
@@ -67,7 +70,7 @@
 			continue
 		if(item_set == CATGIRLS_2015) //Wizard code means never having to say you're sorry
 			target.gender = FEMALE
-		for(var/iterable in 1 to loadout.len)
+		for(var/iterable in 1 to length(loadout))
 			if(!loadout[iterable])
 				continue
 
