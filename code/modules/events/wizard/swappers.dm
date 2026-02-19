@@ -33,6 +33,7 @@
 	event.amount_to_spawn = chosen_value
 
 /datum/action/cooldown/spell/aoe/mind_swap/swapper
+	name = "Mind Swap(swapper)"
 	///Does our owner currently have the appearence we give
 	var/gave_appearance = FALSE
 	///The holder for our maptext
