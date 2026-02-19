@@ -25,7 +25,7 @@
 
 /datum/round_event/wizard/cursed_items
 	//TODO: refactor this to use outfit datums
-	var/item_set = pick(
+	var/list/iset = list(
 		BIG_FAT_DOOBIE,
 		BOXING,
 		CATGIRLS_2015,
@@ -35,6 +35,7 @@
 	)
 
 /datum/round_event/wizard/cursed_items/start()
+	var/list/item_set = pick_n_take(iset)
 	var/list/loadout[SLOTS_AMT]
 	var/ruins_spaceworthiness = FALSE
 	var/ruins_wizard_loadout = FALSE
