@@ -324,7 +324,7 @@
 		return
 
 	//half AP effectiveness
-	var/damage_taken = take_damage(attacking_item.force*attacking_item.demolition_mod, attacking_item.damtype, MELEE, TRUE, get_dir(src, user), attacking_item.armour_penetration%2)
+	var/damage_taken = take_damage(attacking_item.force*attacking_item.demolition_mod, attacking_item.damtype, MELEE, TRUE, get_dir(src, user), round(attacking_item.armour_penetration/2))
 	try_damage_component(damage_taken, user.zone_selected)
 
 	var/hit_verb = length(attacking_item.attack_verb_simple) ? "[pick(attacking_item.attack_verb_simple)]" : "hit"

@@ -11,7 +11,7 @@
 	button_icon_state = "Sentinel's Compromise"
 	category = SPELLTYPE_SERVITUDE //you have a healing spell please please PLEASE use it
 	slab_overlay = "compromise"
-	use_time = 15 SECONDS
+	use_time = 0
 	recital_sound = 'sound/magic/magic_missile.ogg'
 	fast_invoke_mult = 0.8
 

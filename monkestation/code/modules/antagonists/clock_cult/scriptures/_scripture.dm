@@ -311,14 +311,15 @@ GLOBAL_LIST_EMPTY(clock_scriptures_by_type)
 	return ..()
 
 /datum/scripture/slab/invoke()
-	progress = new(invoker, use_time, invoking_slab)
+	if(use_time)
+		progress = new(invoker, use_time, invoking_slab)
+		time_left = use_time
+		count_down()
 	uses_left = uses
-	time_left = use_time
 	invoking_slab.charge_overlay = slab_overlay
 	invoking_slab.update_overlays()
 	invoking_slab.active_scripture = src
 	pointed_spell.set_click_ability(invoker)
-	count_down()
 	SSthe_ark.clock_power -= power_cost
 	GLOB.clock_vitality -= vitality_cost
 	invoke_success()
