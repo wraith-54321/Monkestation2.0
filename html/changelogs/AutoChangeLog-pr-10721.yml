@@ -1,0 +1,4 @@
+author: "PotatoTomahto"
+delete-after: True
+changes:
+  - rscadd: "adds the (actual) cassette tapes to loadout"
