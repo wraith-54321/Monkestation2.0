@@ -43,8 +43,7 @@
 	current.log_message("has been converted to the cult of Ratvar!", LOG_ATTACK, color="#960000")
 	if(issilicon(current))
 		handle_silicon_conversion(current)
-	. = ..() //have to call down here so objectives display correctly
-	ADD_TRAIT(owner, TRAIT_MAGICALLY_GIFTED, REF(src))
+	return ..() //have to call down here so objectives display correctly
 
 /datum/antagonist/clock_cultist/greet()
 	. = ..()
@@ -73,10 +72,11 @@
 
 /datum/antagonist/clock_cultist/apply_innate_effects(mob/living/mob_override)
 	. = ..()
-	var/mob/living/current = owner.current
+	var/mob/living/current = mob_override || owner.current
 	current.faction |= FACTION_CLOCK
 	current.grant_language(/datum/language/ratvar, source = LANGUAGE_CULTIST)
 	current.throw_alert("clockinfo", /atom/movable/screen/alert/clockwork/clocksense)
+	current.add_traits(list(TRAIT_MAGICALLY_GIFTED, TRAIT_NO_MINDSWAP), REF(src))
 	if(!iseminence(current))
 		add_team_hud(current)
 		communicate.Grant(current)
@@ -85,16 +85,17 @@
 
 		owner_turf_healing = current.AddComponent(/datum/component/turf_healing, healing_types = list(TOX = (iscarbon(current) ? 4 : 1)), healing_turfs = GLOB.clock_turf_types)
 		RegisterSignal(current, COMSIG_CLOCKWORK_SLAB_USED, PROC_REF(switch_recall_slab))
-		handle_clown_mutation(current, mob_override ? null : "The light of Ratvar allows you to overcome your clownish nature, allowing you to wield weapons without harming yourself.")
+		handle_clown_mutation(current, mob_override ? "" : "The light of Ratvar allows you to overcome your clownish nature, allowing you to wield weapons without harming yourself.")
 		add_forbearance(current)
 
 /datum/antagonist/clock_cultist/remove_innate_effects(mob/living/mob_override)
 	. = ..()
-	var/mob/living/current = owner.current
+	var/mob/living/current = mob_override || owner.current
 	current.faction -= FACTION_CLOCK
 	current.remove_language(/datum/language/ratvar, source = LANGUAGE_CULTIST)
 	current.clear_alert("clockinfo")
 	current.remove_filter("forbearance")
+	current.remove_traits(list(TRAIT_MAGICALLY_GIFTED, TRAIT_NO_MINDSWAP), REF(src))
 	if(!iseminence(current))
 		communicate.Remove(current)
 		recall.Remove(current)

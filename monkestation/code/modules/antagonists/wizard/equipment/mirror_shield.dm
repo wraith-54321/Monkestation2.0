@@ -15,6 +15,7 @@
 	worn_icon = 'monkestation/icons/mob/clothing/back.dmi'
 	worn_icon_state = "wizard_mirror_shield"
 	force = 20
+	armour_penetration = 25
 	slot_flags = ITEM_SLOT_BACK
 	w_class = WEIGHT_CLASS_BULKY
 	attack_verb_continuous = list("bumps", "prods")
