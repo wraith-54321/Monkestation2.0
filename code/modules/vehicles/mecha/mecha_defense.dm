@@ -52,9 +52,8 @@
 /obj/vehicle/sealed/mecha/run_atom_armor(damage_amount, damage_type, damage_flag = 0, attack_dir, armour_penetration)
 	. = ..()
 	if(attack_dir)
-		var/facing_modifier = get_armour_facing(abs(dir2angle(dir) - dir2angle(attack_dir)))
 		if(.)
-			. *= facing_modifier
+			. *= get_armour_facing(abs(dir2angle(dir) - dir2angle(attack_dir)))
 
 /obj/vehicle/sealed/mecha/attack_hand(mob/living/user, list/modifiers)
 	. = ..()
@@ -324,7 +323,7 @@
 		return
 
 	//half AP effectiveness
-	var/damage_taken = take_damage(attacking_item.force*attacking_item.demolition_mod, attacking_item.damtype, MELEE, TRUE, get_dir(src, user)/*, round(attacking_item.armour_penetration, 1)*/)
+	var/damage_taken = take_damage(attacking_item.force*attacking_item.demolition_mod, attacking_item.damtype, MELEE, TRUE, get_dir(src, user), round(attacking_item.armour_penetration, 1))
 	try_damage_component(damage_taken, user.zone_selected)
 
 	var/hit_verb = length(attacking_item.attack_verb_simple) ? "[pick(attacking_item.attack_verb_simple)]" : "hit"
