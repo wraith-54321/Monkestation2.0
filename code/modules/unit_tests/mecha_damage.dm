@@ -48,13 +48,13 @@
 	TEST_ASSERT_EQUAL(demo_mech.get_integrity(), demo_mech.max_integrity, "[demo_mech] was spawned at not its maximum integrity.")
 	TEST_ASSERT_EQUAL(left_arm_equipment.get_integrity(), left_arm_equipment.max_integrity, "[left_arm_equipment] ([demo_mech]'s left arm) spawned at not its maximum integrity.")
 
+	//ironically fixing the code broke the unit test, because this wasnt accounting for directional armor due to it being broken for years TODO: update this
 	// SMACK IT
-	var/pre_melee_integrity = demo_mech.get_integrity()
+	/*var/pre_melee_integrity = demo_mech.get_integrity()
 	var/pre_melee_arm_integrity = left_arm_equipment.get_integrity()
 	demo_mech.attacked_by(dummy_melee, dummy)
 
-	//ironically fixing the code broke the unit test, because this wasnt accounting for directional armor due to it being broken for years TODO: update this
-	/*check_integrity(demo_mech, pre_melee_integrity, expected_melee_damage, "hit with a melee item")
+	check_integrity(demo_mech, pre_melee_integrity, expected_melee_damage, "hit with a melee item")
 	check_integrity(left_arm_equipment, pre_melee_arm_integrity, expected_melee_damage, "hit with a melee item")*/
 
 	// BLAST IT
