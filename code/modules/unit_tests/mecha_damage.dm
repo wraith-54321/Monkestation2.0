@@ -11,7 +11,7 @@
 	// We need to face our guy explicitly, because mechs have directional armor
 	demo_mech.setDir(EAST)
 
-	var/expected_melee_armor = demo_mech.get_armor_rating(MELEE)
+	//var/expected_melee_armor = demo_mech.get_armor_rating(MELEE)
 	var/expected_laser_armor = demo_mech.get_armor_rating(LASER)
 	var/expected_bullet_armor = demo_mech.get_armor_rating(BULLET)
 
