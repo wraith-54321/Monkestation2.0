@@ -1,4 +1,0 @@
-author: "drgnmstrc"
-delete-after: True
-changes:
-  - map: "tweaked AI upload room in kilo to fix borg spawns"
