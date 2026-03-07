@@ -1,0 +1,4 @@
+author: "JohnFulpWillard"
+delete-after: True
+changes:
+  - bugfix: "Simians can now safely climb stuff with click & drag, while vaulting remains on sprinting into something that can be climbed."
