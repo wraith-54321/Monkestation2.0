@@ -1,4 +1,0 @@
-author: "JohnFulpWillard"
-delete-after: True
-changes:
-  - bugfix: "Bingles can now walk over their bingle floors even if it's in space. The bingle pit also prevents you from falling down Z-levels now if it's on openspace."

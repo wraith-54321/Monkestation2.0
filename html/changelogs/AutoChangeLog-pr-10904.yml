@@ -1,4 +1,0 @@
-author: "Cujo"
-delete-after: True
-changes:
-  - bugfix: "Fixed being able to use sign language while handcuffed, on a stasis bed, or in mechs"
