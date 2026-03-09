@@ -144,3 +144,19 @@
       it spawned with one that, when removed, cannot be readded.)
   - spellcheck: fixed a typo on the peashooter breech recipe.
   - rscadd: Autopsy scanners now fit in medkits.
+2026-03-09:
+  Mantlecrawler:
+  - bugfix: deforest masks are now properly sterile
+  TheColorCyan:
+  - rscadd: Security officer spawn with armor vest and helmet instead of dusters once
+      again
+  flleeppyy:
+  - bugfix: Probably fixed some obscure issue with preferences not loading for some
+      people
+  - rscadd: clear_prefs_cache for Kick topic
+  notghosti:
+  - balance: Borers can no longer force people to preform self stunning emotes such
+      as 'collaspe' 'surrender' and 'faint'
+  - balance: Force host speak cooldown has been lowered (30 -> 25 seconds)
+  - bugfix: moon amulet can no longer apply a infinite hallucination
+  - admin: Admin heals now remove Moon conversion
