@@ -1,5 +1,0 @@
-author: "Glyphee"
-delete-after: True
-changes:
-  - balance: "moved goblin speed to torso"
-  - bugfix: "goblin accent oversight"
