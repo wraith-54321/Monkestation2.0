@@ -1,0 +1,6 @@
+author: "SirNightKnight"
+delete-after: True
+changes:
+  - rscadd: "active magboots will negate unwrenching high pressure atmospheric component to a certain degree (about 9,000 kPa)."
+  - qol: "experimental gas analzyers are small sized the same as normal gas anazlyers."
+  - qol: "air alarms have a toggle filters button for  which inverts the state all filters of the scrubbers. saves a few clicks :p"
