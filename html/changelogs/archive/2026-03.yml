@@ -219,3 +219,31 @@
   - map: 'blueshift: adds chemical dispenser to chemistry lab'
   - map: 'delta: changed access for experimentation lab from science maintenance to
       research'
+2026-03-14:
+  Cujo:
+  - bugfix: Changed Oshan medical protolathe to techfab. Now allows printing of computer
+      and machine boards.
+  - rscadd: Adds missing robotic repair toolbox to tramstation medical
+  Gboster-0:
+  - rscadd: Added the devil as an admin-spawn only antagonist
+  Shoddd:
+  - bugfix: fixes a few typos
+  - bugfix: fixes incorrect descriptions with body bags
+  - qol: closets now tell you you can repaint them with airlock sprayer
+  - map: added wire chem to pubby
+  - map: added comp printer to voidraptor
+  - map: fixes Helio patho areas
+  SirNightKnight:
+  - balance: wizard smite always pulls from heavy smites, moved fireball and lightning
+      to the light smite category as they are relatively harmless. capped the smite
+      spell at level one since adding more levels does nothing.
+  - bugfix: moved taking candy corn out of the detectives fedora to right alt click.
+  - rscadd: active magboots will negate unwrenching high pressure atmospheric component
+      to a certain degree (about 9,000 kPa).
+  - qol: experimental gas analzyers are small sized the same as normal gas anazlyers.
+  - qol: air alarms have a toggle filters button for  which inverts the state all
+      filters of the scrubbers. saves a few clicks :p
+  notghosti:
+  - map: Theseus curator booth is less defensible against pickle ricks. Kill them,
+      kill them all.
+  - map: Added basic air set up to thesues curator booth

@@ -1,4 +1,0 @@
-author: "Cujo"
-delete-after: True
-changes:
-  - rscadd: "Adds missing robotic repair toolbox to tramstation medical"
