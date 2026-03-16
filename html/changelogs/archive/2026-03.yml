@@ -282,3 +282,37 @@
   - bugfix: you can't unfold hardlight planes into regular sheet of paper
   wonderinghost:
   - map: Minor oshan fixes to atmos, library, and med
+2026-03-16:
+  Cujo:
+  - bugfix: No longer applies hard of hearing to people who are genetically deaf or
+      using quirk trait
+  JohnFulpWillard:
+  - bugfix: '[IceBox] Fixed Brig Medical area''s intercom & APC.'
+  OliverOtter:
+  - balance: Chaplain and Curator are unable to roll vampire. (they can still be vassalized
+      into one)
+  - balance: Chaplain is unable to roll heretic.
+  Shoddd:
+  - balance: removed thermal pistols from imports
+  - balance: changeling transform power now works while dead
+  - balance: changeling hallucination power now makes others appear as a changeling
+  - balance: cryogenic sting is now a effect and works again
+  - bugfix: you can no longer roll changeling chemicals as allergies
+  - bugfix: storage cavity now drops items inside when power is lost
+  - qol: holopay no longer has a range limit
+  SirNightKnight:
+  - rscadd: added pocket extinguishers, t-ray scanners, ignition switch controllers
+      to the engineering protolathe.
+  - qol: made hand labelers, radio headsets, and station bounced radios universal
+      protolathe designs.
+  - bugfix: fixed a bug where inducers wouldn't update their sprite correctly when
+      removing/adding a cell.
+  - qol: added an initial lathe design for basic fishing hooks and line.
+  - balance: the standalone Syndicate autosurgeon is 3 TC instead of 5.
+  - bugfix: all pre-loaded Syndicate autosurgeons are one use.
+  - bugfix: bone repair surgeries require you to close up the patient with the final
+      step.
+  - code_imp: demodularized most autosurgeon code so it's in one file.
+  - bugfix: wound surgeries don't delete themself automatically when the wound is
+      fixed.
+  - bugfix: gave cauterizing slash wounds a sound.
