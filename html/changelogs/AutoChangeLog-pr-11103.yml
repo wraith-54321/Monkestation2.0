@@ -1,0 +1,4 @@
+author: "JohnFulpWillard"
+delete-after: True
+changes:
+  - bugfix: "[IceBox] Fixed Brig Medical area's intercom & APC."
