@@ -1,0 +1,5 @@
+author: "LettuceGuardian"
+delete-after: True
+changes:
+  - rscadd: "Alternative skin for the blueshield MOD."
+  - code_imp: "Demodularized the blueshield MOD code."
