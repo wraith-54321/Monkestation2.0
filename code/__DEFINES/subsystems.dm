@@ -99,7 +99,7 @@
 		var/previous_initialized_value = SSatoms.initialized;\
 		SSatoms.initialized = INITIALIZATION_INNEW_MAPLOAD;\
 		args[1] = TRUE;\
-		SSatoms.InitAtom(src, FALSE, args);\
+		SSatoms.InitAtom(src, FALSE, FALSE, args);\
 		SSatoms.initialized = previous_initialized_value;\
 	}\
 }

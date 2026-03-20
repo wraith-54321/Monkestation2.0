@@ -55,6 +55,11 @@ SUBSYSTEM_DEF(atoms)
 	clear_tracked_initalize(source)
 	SSicon_smooth.free_deferred(source)
 
+	if(!length(swap_paths))
+		get_extra_swap_paths()
+	compile_swap_paths()
+	do_atom_swap()
+
 	if(late_loaders.len)
 		for(var/I in 1 to late_loaders.len)
 			var/atom/A = late_loaders[I]
@@ -105,8 +110,7 @@ SUBSYSTEM_DEF(atoms)
 		count = atoms.len
 		#endif
 
-		for(var/I in 1 to atoms.len)
-			var/atom/A = atoms[I]
+		for(var/atom/A as anything in atoms)
 			if(!(A.flags_1 & INITIALIZED_1))
 				// Unrolled CHECK_TICK setup to let us enable/disable mapload based off source
 				if(TICK_CHECK)
@@ -114,7 +118,7 @@ SUBSYSTEM_DEF(atoms)
 					stoplag()
 					if(mapload_source)
 						set_tracked_initalized(INITIALIZATION_INNEW_MAPLOAD, mapload_source)
-				InitAtom(A, TRUE, mapload_arg)
+				InitAtom(A, TRUE, TRUE, mapload_arg)
 	else
 		#ifdef TESTING
 		count = 0
@@ -122,7 +126,7 @@ SUBSYSTEM_DEF(atoms)
 
 		for(var/atom/A as anything in world)
 			if(!(A.flags_1 & INITIALIZED_1))
-				InitAtom(A, FALSE, mapload_arg)
+				InitAtom(A, FALSE, TRUE, mapload_arg)
 				#ifdef TESTING
 				++count
 				#endif
@@ -135,7 +139,7 @@ SUBSYSTEM_DEF(atoms)
 	testing("Initialized [count] atoms")
 
 /// Init this specific atom
-/datum/controller/subsystem/atoms/proc/InitAtom(atom/A, from_template = FALSE, list/arguments)
+/datum/controller/subsystem/atoms/proc/InitAtom(atom/A, from_template = FALSE, should_swap = FALSE, list/arguments)
 	var/the_type = A.type
 
 	if(QDELING(A))
@@ -143,6 +147,16 @@ SUBSYSTEM_DEF(atoms)
 		if (A.gc_destroyed > init_start_time)
 			BadInitializeCalls[the_type] |= BAD_INIT_QDEL_BEFORE
 		return TRUE
+
+	if(should_swap)
+		if(isitem(A))
+			paths_to_swap[/obj/item] |= the_type
+			qued_swap_atoms += A
+			return TRUE
+		else if(istype(A, /obj/effect/spawner/random))
+			paths_to_swap[/obj/effect/spawner/random] |= the_type
+			qued_swap_atoms += A
+			return TRUE
 
 	#ifdef PROFILE_MAPLOAD_INIT_ATOM
 	init_costs |= A.type

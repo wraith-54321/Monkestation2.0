@@ -360,7 +360,8 @@
 		created = new stack_item(null, number_to_make)
 
 	else
-		created = new design.build_path(null)
+		var/actual_created = SSatoms.swap_paths[design.build_path] || design.build_path
+		created = new actual_created(null)
 		split_materials_uniformly(materials_needed, material_cost_coefficient, created)
 
 	if(isitem(created))
