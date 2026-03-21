@@ -145,7 +145,7 @@
 	for(var/iterator in 1 to greatest_dist)
 		if(!turfs_to_collapse[iterator])
 			continue
-		for(var/i in 1 to max(2, round(iterator / 10, 1) * (lowpop ? 1 : 2))) //if lowpop then only scale by 1
+		for(var/i in 1 to (lowpop ? 1 : 2)) //if lowpop then only do one collapse per ring, otherwise do two
 			addtimer(CALLBACK(pick_n_take(turfs_to_collapse[iterator]), TYPE_PROC_REF(/turf, structural_collapse), 6 SECONDS, list(0, 0, 3), list('sound/effects/creak1.ogg', \
 																																					'sound/effects/creak2.ogg', \
 																																					'sound/effects/creak3.ogg'), FALSE), \
