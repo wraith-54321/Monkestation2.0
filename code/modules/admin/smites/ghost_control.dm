@@ -1,5 +1,6 @@
 /datum/smite/ghost_control
 	name = "Ghost Control"
+	should_del = FALSE
 
 /datum/smite/ghost_control/effect(client/user, mob/living/target)
 	target.AddComponent(/datum/component/deadchat_control/cardinal_movement, ANARCHY_MODE, list(

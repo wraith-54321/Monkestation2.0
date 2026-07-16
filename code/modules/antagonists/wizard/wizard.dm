@@ -16,6 +16,7 @@ GLOBAL_LIST_EMPTY(wizard_spellbook_purchases_by_key)
 	default_custom_objective = "Demonstrate your incredible and destructive magical powers."
 	hardcore_random_bonus = TRUE
 	antag_count_points = 25 //might bump this up to 30
+	remove_from_manifest = TRUE
 	var/give_objectives = TRUE
 	var/strip = TRUE //strip before equipping
 	var/allow_rename = TRUE
@@ -34,53 +35,6 @@ GLOBAL_LIST_EMPTY(wizard_spellbook_purchases_by_key)
 	else
 		hosts_mind.make_wizard()
 
-/datum/antagonist/wizard_minion
-	name = "Wizard Minion"
-	antagpanel_category = ANTAG_GROUP_WIZARDS
-	antag_hud_name = "apprentice"
-	show_in_roundend = FALSE
-	show_name_in_check_antagonists = TRUE
-	antag_flags = parent_type::antag_flags | FLAG_ANTAG_CAP_IGNORE // monkestation addition
-	/// The wizard team this wizard minion is part of.
-	var/datum/team/wizard/wiz_team
-
-/datum/antagonist/wizard_minion/create_team(datum/team/wizard/new_team)
-	if(!new_team)
-		return
-	if(!istype(new_team))
-		stack_trace("Wrong team type passed to [type] initialization.")
-	wiz_team = new_team
-
-/datum/antagonist/wizard_minion/apply_innate_effects(mob/living/mob_override)
-	var/mob/living/current_mob = mob_override || owner.current
-	current_mob.faction |= ROLE_WIZARD
-	add_team_hud(current_mob)
-
-/datum/antagonist/wizard_minion/remove_innate_effects(mob/living/mob_override)
-	var/mob/living/last_mob = mob_override || owner.current
-	last_mob.faction -= ROLE_WIZARD
-
-/datum/antagonist/wizard_minion/on_gain()
-	create_objectives()
-	. = ..()
-	ADD_TRAIT(owner, TRAIT_MAGICALLY_GIFTED, REF(src))
-
-/datum/antagonist/wizard_minion/on_removal()
-	REMOVE_TRAIT(owner, TRAIT_MAGICALLY_GIFTED, REF(src))
-	return ..()
-
-/datum/antagonist/wizard_minion/proc/create_objectives()
-	if(!wiz_team)
-		return
-	var/datum/objective/custom/custom_objective = new()
-	custom_objective.owner = owner
-	custom_objective.name = "Serve [wiz_team.master_wizard?.owner]"
-	custom_objective.explanation_text = "Serve [wiz_team.master_wizard?.owner]"
-	objectives += custom_objective
-
-/datum/antagonist/wizard_minion/get_team()
-	return wiz_team
-
 /datum/antagonist/wizard/on_gain()
 	if(!owner)
 		CRASH("Wizard datum with no owner.")
@@ -94,6 +48,17 @@ GLOBAL_LIST_EMPTY(wizard_spellbook_purchases_by_key)
 	if(allow_rename)
 		rename_wizard()
 	ADD_TRAIT(owner, TRAIT_MAGICALLY_GIFTED, REF(src))
+	ADD_TRAIT(owner, TRAIT_CANT_SIGN_SPELLS, REF(src))
+
+/datum/antagonist/wizard/on_removal()
+	// Currently removes all spells regardless of innate or not. Could be improved.
+	for(var/datum/action/cooldown/spell/spell in owner.current.actions)
+		if(spell.target == owner)
+			qdel(spell)
+			owner.current.actions -= spell
+
+	REMOVE_TRAITS_IN(owner, REF(src))
+	return ..()
 
 /datum/antagonist/wizard/create_team(datum/team/wizard/new_team)
 	if(!new_team)
@@ -172,16 +137,6 @@ GLOBAL_LIST_EMPTY(wizard_spellbook_purchases_by_key)
 				var/datum/objective/hijack/hijack_objective = new
 				hijack_objective.owner = owner
 				objectives += hijack_objective
-
-/datum/antagonist/wizard/on_removal()
-	// Currently removes all spells regardless of innate or not. Could be improved.
-	for(var/datum/action/cooldown/spell/spell in owner.current.actions)
-		if(spell.target == owner)
-			qdel(spell)
-			owner.current.actions -= spell
-
-	REMOVE_TRAIT(owner, TRAIT_MAGICALLY_GIFTED, REF(src))
-	return ..()
 
 /datum/antagonist/wizard/proc/equip_wizard()
 	var/mob/living/carbon/human/H = owner.current
@@ -301,3 +256,15 @@ GLOBAL_LIST_EMPTY(wizard_spellbook_purchases_by_key)
 	parts += printplayerlist(members - master_wizard.owner)
 
 	return "<div class='panel redborder'>[parts.Join("<br>")]</div>"
+
+/proc/make_everyone_wizards()
+	for(var/mob/living/player_mob in GLOB.alive_player_list)
+		if(!player_mob.mind)
+			continue
+
+		if(!ishuman(player_mob))
+			var/mob/living/carbon/human/new_mob = new
+			player_mob.mind.transfer_to(new_mob, TRUE)
+			qdel(player_mob)
+			player_mob = new_mob
+		player_mob.mind.make_wizard()

@@ -2,9 +2,10 @@
 /datum/smite
 	/// The name of the smite, shown in the menu
 	var/name
-
 	/// Should this smite write to logs?
 	var/should_log = TRUE
+	/// Should this smite be deleted after effect() is called
+	var/should_del = TRUE
 
 /// Called once after either choosing the option to smite a player, or when selected in smite build mode.
 /// Use this to prompt the user configuration options.

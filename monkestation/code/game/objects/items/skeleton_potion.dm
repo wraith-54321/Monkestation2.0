@@ -13,5 +13,6 @@
 	var/datum/smite/rattle_he_bones/boned = new /datum/smite/rattle_he_bones
 	boned.should_log = FALSE
 	boned.effect(user, user)
+	qdel(boned)
 	user.balloon_alert(user, "you feel rattled!")
 	qdel(src)

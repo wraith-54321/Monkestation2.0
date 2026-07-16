@@ -24,3 +24,4 @@
 	var/datum/smite/bad_luck/cursed = new /datum/smite/bad_luck
 	cursed.incidents = 13
 	cursed.effect(user.client, user)
+	qdel(cursed)

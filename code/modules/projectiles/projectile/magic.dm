@@ -556,6 +556,10 @@
 	///A weakref to our "true" firer because ricochet changes firer
 	var/datum/weakref/true_firer
 
+/obj/projectile/magic/fire_ball/Destroy()
+	true_firer = null
+	return ..()
+
 /obj/projectile/magic/fire_ball/fire(angle, atom/direct_target)
 	. = ..()
 	if(firer)
@@ -586,10 +590,10 @@
 
 	if(pierces >= ricochets_max)
 		projectile_piercing = NONE
-	target.adjust_fire_stacks(2)
+	target.adjust_fire_stacks(5)
 	target.ignite_mob()
-	target.Knockdown(3 SECONDS)
-	target.Paralyze(0.5 SECONDS)
+	target.Knockdown(4 SECONDS)
+	target.Paralyze(1 SECONDS)
 	handle_bounce(target)
 
 /obj/projectile/magic/fire_ball/check_ricochet_flag(atom/A)
@@ -597,6 +601,13 @@
 
 /obj/projectile/magic/fire_ball/check_ricochet(atom/A)
 	return TRUE //this handles the prob checks which is always 100, so lets just skip the step to save resources
+
+/obj/projectile/magic/fire_ball/proc/handle_bounce(atom/target)
+	var/new_target = get_new_target()
+	if(new_target)
+		set_angle_centered(get_angle(target, new_target))
+	else
+		reflect(target)
 
 ///Find a tile within 1 range() of a valid mob in our view, if we cant find any then return FALSE
 /obj/projectile/magic/fire_ball/proc/get_new_target()
@@ -610,13 +621,6 @@
 	if(!length(possible_targets))
 		return FALSE
 	return pick(RANGE_TURFS(1, get_turf(pick(possible_targets))))
-
-/obj/projectile/magic/fire_ball/proc/handle_bounce(atom/target)
-	var/new_target = get_new_target()
-	if(new_target)
-		set_angle_centered(get_angle(target, new_target))
-	else
-		reflect(target)
 
 /obj/projectile/magic/aoe/magic_missile
 	name = "magic missile"

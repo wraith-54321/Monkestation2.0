@@ -166,8 +166,8 @@
 	heal_oxy = 25
 
 //wizard shield charges
-#define ADDED_MAX_CHARGE 50
-#define MAX_CHARGES_ABSORBED 3
+#define ADDED_MAX_CHARGE 55
+#define MAX_CHARGES_ABSORBED 2
 
 //Increase the amount of damage wizard MODsuit shields can absorb
 /obj/item/wizard_armour_charge
@@ -204,3 +204,26 @@
 
 #undef ADDED_MAX_CHARGE
 #undef MAX_CHARGES_ABSORBED
+
+//spellbook charges
+//technically not used now, still useful for badminning though
+/obj/item/spellbook_charge
+	name = "power charge"
+	desc = "An artifact that when inserted into a spellbook increases its power."
+	icon = 'icons/effects/anomalies.dmi'
+	icon_state = "flux"
+	var/value = 1
+
+/obj/item/spellbook_charge/ten
+	name = "greater power charge"
+	desc = "An artifact that when inserted into a spellbook increases its power by a massive amount."
+	value = 10
+
+/obj/item/spellbook_charge/debug
+	name = "debug power charge"
+	desc = "An artifact that when inserted into a spellbook increases its power by 100."
+	value = 100
+
+/obj/item/spellbook_charge/Initialize(mapload)
+	. = ..()
+	AddComponent(/datum/component/charge_adjuster, type_to_charge_to = /obj/item/spellbook, charges_given = value, called_proc_name = TYPE_PROC_REF(/obj/item/spellbook, adjust_charge))

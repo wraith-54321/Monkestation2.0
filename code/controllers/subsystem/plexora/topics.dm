@@ -486,6 +486,8 @@
 
 	usr = mockadmin
 	picking_smite.effect(client, client.mob)
+	if(picking_smite.should_del)
+		qdel(picking_smite)
 
 /datum/world_topic/plx_jailmob
 	keyword = "PLX_jailmob"

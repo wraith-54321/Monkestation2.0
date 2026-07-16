@@ -163,6 +163,8 @@ ADMIN_VERB_AND_CONTEXT_MENU(admin_smite, R_ADMIN | R_FUN, TRUE, "Smite", "Smite 
 	if (configuration_success == FALSE)
 		return
 	smite.effect(user, target)
+	if(smite.should_del)
+		qdel(smite)
 
 ///"Turns" people into bread. Really, we just add them to the contents of the bread food item.
 /proc/breadify(atom/movable/target)

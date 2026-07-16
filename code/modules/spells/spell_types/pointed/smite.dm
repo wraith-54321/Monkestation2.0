@@ -8,22 +8,19 @@
 	sound = 'sound/magic/disintegrate.ogg'
 
 	school = SCHOOL_EVOCATION
-	cooldown_time = 40 SECONDS
-	cooldown_reduction_per_rank = 5 SECONDS
-	cast_range = 2
+	cooldown_time = 8 SECONDS
+	cast_range = 3
 	antimagic_flags = MAGIC_RESISTANCE|MAGIC_RESISTANCE_HOLY // the gods have mercy upon the holy
 
 	invocation = "EI NATH!!"
 
-	spell_max_level = 1
+	spell_max_level = 3
 
 	active_msg = "You prepare to smite your foe..."
 	deactive_msg = "You dispel your power."
 
-	/// what type of smites should we be forced to used, if unset then pick normally
-	var/forced_smite_type = HEAVY_SMITE
-	/// what smite type is selected for our currenting casting, have to put it here so we can reference between procs
-	var/smite_type
+	/// the prob of a heavy smite being picked
+	var/heavy_smite_chance = 30
 	/// list of smites that have a high effect on the target, if a smite is not in one of these lists then it cannot be picked(besides rod which is unique)
 	var/list/heavy_smites = list(
 		/datum/smite/berforate,
@@ -51,6 +48,21 @@
 		/datum/smite/lightning,
 	)
 
+/datum/action/cooldown/spell/pointed/smite/level_spell(bypass_cap)
+	. = ..()
+	if(!.)
+		return
+
+	heavy_smite_chance += 30
+
+/datum/action/cooldown/spell/pointed/smite/get_spell_title()
+	switch(spell_level)
+		if(2)
+			return "Greater "
+		if(3)
+			return "Divine "
+	return ""
+
 /datum/action/cooldown/spell/pointed/smite/is_valid_target(atom/cast_on)
 	if(cast_on == owner)
 		return FALSE
@@ -66,12 +78,11 @@
 		to_chat(owner, span_warning("The spell had no effect!"))
 		return FALSE
 
-	smite_type = forced_smite_type
-	if(!smite_type)
-		if(prob(70))
-			smite_type = HEAVY_SMITE
-		else
-			smite_type = LIGHT_SMITE
+	var/smite_type
+	if(prob(heavy_smite_chance))
+		smite_type = HEAVY_SMITE
+	else
+		smite_type = LIGHT_SMITE
 
 	var/datum/smite/picked_smite
 	if(smite_type == HEAVY_SMITE)
@@ -85,36 +96,30 @@
 	switch(picked_smite) //subtype vars moment, I really want a better way to do this
 		if(/datum/smite/bad_luck)
 			var/datum/smite/bad_luck/luck_smite = new picked_smite
-			luck_smite.incidents = 0
-			do_smite(luck_smite, cast_on)
+			luck_smite.incidents = INFINITY
+			picked_smite = luck_smite
 		if(/datum/smite/berforate)
 			var/datum/smite/berforate/shoot_smite = new picked_smite
 			shoot_smite.hatred = "A lot"
-			do_smite(shoot_smite, cast_on)
+			picked_smite = shoot_smite
 		if(/datum/smite/puzzgrid)
 			var/datum/smite/puzzgrid/puzz_smite = new picked_smite
 			puzz_smite.gib_on_loss = TRUE
-			do_smite(puzz_smite, cast_on)
+			picked_smite = puzz_smite
 		else
 			picked_smite = new picked_smite
-			do_smite(picked_smite, cast_on)
+
+	picked_smite.should_log = FALSE
+	picked_smite.effect(owner.client, target)
+	if(picked_smite.should_del)
+		qdel(picked_smite)
 	to_chat(owner, span_notice("You call down a strike from the heavens upon [cast_on], resulting in [picked_smite.name]!"))
-
-/datum/action/cooldown/spell/pointed/smite/after_cast(atom/cast_on)
-	. = ..()
-	if(smite_type == LIGHT_SMITE) //these should give a lower cooldown as they dont do as much
-		next_use_time -= cooldown_time / 2
-	smite_type = null
-
-/datum/action/cooldown/spell/pointed/smite/proc/do_smite(datum/smite/real_smite, mob/living/carbon/target)
-	real_smite.should_log = FALSE
-	real_smite.effect(owner.client, target)
 
 /datum/action/cooldown/spell/pointed/smite/light //used for clown casting and admemery
 	name = "\"Harmless\" Smite"
 	desc = "For those who just want to watch the world burn."
-	cooldown_time = 20 SECONDS
-	forced_smite_type = LIGHT_SMITE
+	cooldown_time = 3 SECONDS
+	heavy_smite_chance = 0
 	spell_max_level = 1
 
 /datum/action/cooldown/spell/pointed/smite/light/New(Target)

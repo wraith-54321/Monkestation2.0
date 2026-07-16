@@ -1,5 +1,5 @@
 /// Number of times you need to cast on the rune to complete it
-//#define GRAND_RUNE_INVOKES_TO_COMPLETE 3 //monkestation removal
+#define GRAND_RUNE_INVOKES_TO_COMPLETE 3
 /// Base time to take to invoke one stage of the rune. This is done three times to complete the rune.
 #define BASE_INVOKE_TIME 7 SECONDS
 /// Time to add on to each step every time a previous rune is completed.
@@ -37,6 +37,10 @@
 	var/remains_typepath = /obj/effect/decal/cleanable/grand_remains
 	/// Magic words you say to invoke the ritual
 	var/list/magic_words = list()
+	/// Weakref to our owning mind
+	var/datum/weakref/owning_mind
+	/// How many times this rune needs to be invoked to complete
+	var/invokes_needed = GRAND_RUNE_INVOKES_TO_COMPLETE
 	/// Things you might yell when invoking a rune
 	var/static/list/possible_magic_words = list(
 		list("*scream", "*scream", "*scream"),
@@ -90,31 +94,25 @@
 
 /obj/effect/grand_rune/examine(mob/user)
 	. = ..()
-	if (times_invoked >= invokes_needed) //monkestation edit: replaced GRAND_RUNE_INVOKES_TO_COMPLETE with invokes_needed
+	if (times_invoked >= invokes_needed)
 		. += span_notice("Its power seems to have been expended.")
 		return
 	if(!IS_WIZARD(user))
 		return
-	. += span_notice("Invoke this rune [invokes_needed - times_invoked] more times to complete the ritual.")//monkestation edit: replaced GRAND_RUNE_INVOKES_TO_COMPLETE with invokes_needed
+	. += span_notice("Invoke this rune [invokes_needed - times_invoked] more times to complete the ritual.")
 
 /obj/effect/grand_rune/can_interact(mob/living/user)
 	. = ..()
 	if(!.)
 		return
-//monkestation edit start
 	if(!owning_mind && !IS_WIZARD(user))
 		return FALSE
 
 	else if(owning_mind && !(user.mind == owning_mind?.resolve()))
 		return FALSE
-//monkestation edit end
-//monkestation removal start
-	/*if(!IS_WIZARD(user))
-		return FALSE*/
-//monkestation removal end
 	if(is_in_use)
 		return FALSE
-	if (times_invoked >= invokes_needed) //monkestation edit: replaced GRAND_RUNE_INVOKES_TO_COMPLETE with invokes_needed
+	if (times_invoked >= invokes_needed)
 		return FALSE
 	return TRUE
 
@@ -177,11 +175,13 @@
 /obj/effect/grand_rune/proc/add_channel_effect(mob/living/user)
 	user.AddElement(/datum/element/forced_gravity, 0)
 	user.add_filter("channeling_glow", 2, list("type" = "outline", "color" = spell_colour, "size" = 2))
+	ADD_TRAIT(user, TRAIT_MOVE_FLYING, REF(src))
 
 /// Remove special effects for casting a spell
 /obj/effect/grand_rune/proc/remove_channel_effect(mob/living/user)
 	user.RemoveElement(/datum/element/forced_gravity, 0)
 	user.remove_filter("channeling_glow")
+	REMOVE_TRAIT(user, TRAIT_MOVE_FLYING, REF(src))
 
 /obj/effect/grand_rune/proc/get_invoke_time()
 	return  (BASE_INVOKE_TIME) + (potency * (ADD_INVOKE_TIME))
@@ -274,7 +274,7 @@
 			new_influence.after_drain()
 		created++
 
-//#undef GRAND_RUNE_INVOKES_TO_COMPLETE //monkestation removal
+#undef GRAND_RUNE_INVOKES_TO_COMPLETE
 
 #undef BASE_INVOKE_TIME
 #undef ADD_INVOKE_TIME

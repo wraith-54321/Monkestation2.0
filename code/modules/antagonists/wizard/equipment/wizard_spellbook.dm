@@ -320,10 +320,15 @@
 	uses += bonus_to_give
 	while(uses > 0 && length(entries_copy))
 		var/datum/spellbook_entry/entry = pick(entries_copy)
-		if(!entry.can_random) //monkestation edit: as explained on the var, some things dont random well
-			continue //monkestation edit
+		if(!entry.can_random)
+			continue
 		if(!purchase_entry(entry, wizard))
 			continue
 		entries_copy -= entry
 
 	refunds_allowed = FALSE
+
+/obj/item/spellbook/proc/adjust_charge(adjust_by)
+	log_spellbook("[src] charges adjusted by [adjust_by]. [usr ? "user: [usr]." : ""]")
+	uses += adjust_by
+	return TRUE
