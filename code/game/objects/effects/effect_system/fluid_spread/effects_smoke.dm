@@ -113,6 +113,22 @@
  * Returns whether the smoke effect was applied to the mob.
  */
 /obj/effect/particle_effect/fluid/smoke/proc/smoke_mob(mob/living/carbon/smoker, seconds_per_tick)
+	if(!smoke_checks(smoker, seconds_per_tick))
+		return FALSE
+
+	smoker.smoke_delay = TRUE
+	addtimer(VARSET_CALLBACK(smoker, smoke_delay, FALSE), 1 SECONDS)
+	return TRUE
+
+/**
+ * Checks if a mob is able to be smoked
+ * Arguments:
+ * - [smoker][/mob/living/carbon]: The mob that is being exposed to this smoke.
+ * - seconds_per_tick: A scaling factor for the effects this has. Primarily based off of tick rate to normalize effects to units of rate/sec.
+ *
+ * Returns whether the smoke effect can be applied to the mob.
+ */
+/obj/effect/particle_effect/fluid/smoke/proc/smoke_checks(mob/living/carbon/smoker, seconds_per_tick)
 	if(!istype(smoker))
 		return FALSE
 	if(lifetime < 1)
@@ -121,9 +137,6 @@
 		return FALSE
 	if(smoker.smoke_delay)
 		return FALSE
-
-	smoker.smoke_delay = TRUE
-	addtimer(VARSET_CALLBACK(smoker, smoke_delay, FALSE), 1 SECONDS)
 	return TRUE
 
 /**
@@ -192,6 +205,8 @@
 /// Smoke that makes you cough and reduces the power of lasers.
 /obj/effect/particle_effect/fluid/smoke/bad
 	lifetime = 16 SECONDS
+	///The level of the smoke, same as the spell used to cast it
+	var/level = 1
 
 /obj/effect/particle_effect/fluid/smoke/bad/Initialize(mapload)
 	. = ..()
@@ -204,10 +219,36 @@
 	. = ..()
 	if(!.)
 		return
+	if(IS_WIZARD(smoker))
+		if(level >= 3)
+			smoker.heal_overall_damage(1, 1, 3)
+		return FALSE
+
+	if(level >= 3)
+		smoker.adjustBruteLoss(2, FALSE, TRUE) //use the oxyloss to trigger the health update
 
 	smoker.drop_all_held_items()
-	smoker.adjustOxyLoss(1)
+	smoker.adjustOxyLoss(smoker.stat ? 1 : 4) //stat 0 is conscious
 	smoker.emote("cough")
+
+/obj/effect/particle_effect/fluid/smoke/bad/smoke_checks(mob/living/carbon/smoker, seconds_per_tick)
+	if(!istype(smoker) || lifetime < 1 || smoker.smoke_delay)
+		return FALSE
+
+	if(level >= 2) //if leveled high enough then ignore smoke protection
+		return TRUE
+
+	if(smoker.internal != null || smoker.has_smoke_protection())
+		return FALSE
+	return TRUE
+
+//this sucks bad but fluid spread code sucks more
+/obj/effect/particle_effect/fluid/smoke/bad/lv_two
+	level = 2
+
+/obj/effect/particle_effect/fluid/smoke/bad/lv_three
+	lifetime = 20 SECONDS
+	level = 3
 
 /**
  * Reduces the power of any beam projectile that passes through the smoke.

@@ -15,7 +15,7 @@
 								      /datum/action/cooldown/spell/conjure/bee, /datum/action/cooldown/spell/conjure/simian,
 								      /datum/action/cooldown/spell/teleport/radius_turf/blink)
 
-	COOLDOWN_DECLARE(armor_cooldown) //unsure if I should use a world.time instead of this
+	COOLDOWN_DECLARE(armor_cooldown)
 
 /obj/item/clothing/neck/neckless/wizard_reactive/examine(mob/user)
 	. = ..()
@@ -48,7 +48,6 @@
 //do the casting of the spell
 /obj/item/clothing/neck/neckless/wizard_reactive/proc/talisman_activation()
 	var/datum/action/cooldown/spell/new_spell = pick(spell_list)
-
 	COOLDOWN_START(src, armor_cooldown, REACTION_COOLDOWN_DURATION)
 	new_spell = new new_spell(binding_owner.mind || binding_owner)
 	new_spell.owner_has_control = FALSE
@@ -72,7 +71,7 @@
 
 /obj/item/clothing/neck/neckless/wizard_reactive/proc/check_block(mob/living/carbon/human/owner, atom/movable/hitby, damage, attack_text, attack_type, armour_penetration)
 	SIGNAL_HANDLER
-	if(!prob(50)) //high chanc, so no damage blocking
+	if(!prob(65)) //high chance, so no damage blocking
 		return
 	if(!COOLDOWN_FINISHED(src, armor_cooldown))
 		owner.visible_message("The [src] glows faintly for a second and then fades.")

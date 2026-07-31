@@ -7,13 +7,32 @@
 
 	school = SCHOOL_CONJURATION
 	cooldown_time = 12 SECONDS
-	cooldown_reduction_per_rank = 2.5 SECONDS
+	cooldown_reduction_per_rank = -7 SECONDS
 	spell_requirements = NONE
+	spell_max_level = 3
 
 	invocation_type = INVOCATION_NONE
-
-	smoke_type = /datum/effect_system/fluid_spread/smoke/bad
 	smoke_amt = 4
+
+/datum/action/cooldown/spell/smoke/get_spell_title()
+	switch(spell_level)
+		if(2)
+			return "Choking "
+		if(3)
+			return "Suffocating "
+	return ""
+
+/datum/action/cooldown/spell/smoke/cast(atom/cast_on)
+	. = ..()
+	if(!smoke_type) //so we can level it properly
+		var/datum/effect_system/fluid_spread/smoke/bad/smoke = new /datum/effect_system/fluid_spread/smoke/bad()
+		//smoke code is so bad but I dont have time to fix it
+		if(spell_level == 2)
+			smoke.effect_type = /obj/effect/particle_effect/fluid/smoke/bad/lv_two
+		else if(spell_level == 3)
+			smoke.effect_type = /obj/effect/particle_effect/fluid/smoke/bad/lv_three
+		smoke.set_up(smoke_amt, holder = owner, location = get_turf(owner))
+		smoke.start()
 
 /// Chaplain smoke.
 /datum/action/cooldown/spell/smoke/lesser

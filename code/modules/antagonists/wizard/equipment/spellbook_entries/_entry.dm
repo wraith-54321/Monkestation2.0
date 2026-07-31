@@ -27,7 +27,7 @@
 	/// Flavor. Verb used in saying how the spell is aquired. Ex "[Learn] Fireball" or "[Summon] Ghosts"
 	var/buy_word = "Learn"
 	/// The cooldown of the spell
-	var/cooldown
+	var/cooldown //NOT PROPERLY IMPLEMENTED
 	/// Whether the spell requires wizard garb or not
 	var/requires_wizard_garb = FALSE
 	/// Used so you can't have specific spells together

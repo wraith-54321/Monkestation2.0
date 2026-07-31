@@ -1,6 +1,6 @@
 // Ritual spells which affect the station at large
-/// How much threat we need to let these rituals happen on dynamic //monkestation edit: changed to a population check
-#define MINIMUM_POP_FOR_RITUALS 35 //monkestation edit: replaced MINIMUM_THREAT_FOR_RITUALS 100
+/// How much pop is needed for certain rituals
+#define MINIMUM_POP_FOR_RITUALS 35
 
 /datum/spellbook_entry/summon/ghosts
 	name = "Summon Ghosts"
@@ -8,6 +8,7 @@
 		Be warned, ghosts are capricious and occasionally vindicative, \
 		and some will use their incredibly minor abilities to frustrate you."
 	cost = 0
+	can_random = FALSE
 
 /datum/spellbook_entry/summon/ghosts/buy_spell(mob/living/carbon/human/user, obj/item/spellbook/book, log_buy = TRUE)
 	summon_ghosts(user)
@@ -20,9 +21,7 @@
 		There is a good chance that they will shoot each other first."
 
 /datum/spellbook_entry/summon/guns/can_be_purchased()
-	// Summon Guns requires 100 threat. //monkestation edit: now 35 pop
-//	var/datum/game_mode/dynamic/mode = SSticker.mode //monkestation edit: not needed for pop checks
-	if(get_active_player_count() < MINIMUM_POP_FOR_RITUALS) //monkestation edit: replaces a threat check with this pop check
+	if(get_active_player_count() < MINIMUM_POP_FOR_RITUALS)
 		return FALSE
 	// Also must be config enabled
 	return !CONFIG_GET(flag/no_summon_guns)
@@ -38,9 +37,7 @@
 		why they aren't to be trusted with it at the same time."
 
 /datum/spellbook_entry/summon/magic/can_be_purchased()
-	// Summon Magic requires 100 threat. //monkestation edit: now 35 pop
-//	var/datum/game_mode/dynamic/mode = SSticker.mode //monkestation edit: not needed for pop checks
-	if(get_active_player_count() < MINIMUM_POP_FOR_RITUALS) //monkestation edit: replaces a threat check with this pop check
+	if(get_active_player_count() < MINIMUM_POP_FOR_RITUALS)
 		return FALSE
 	// Also must be config enabled
 	return !CONFIG_GET(flag/no_summon_magic)
@@ -55,23 +52,21 @@
 	desc = "Give Murphy's law a little push and replace all events with \
 		special wizard ones that will confound and confuse everyone. \
 		Multiple castings increase the rate of these events. \
-		Can only be cast on station." //monkestation edit
+		Can only be cast on station."
 	cost = 2
 	limit = 5 // Each purchase can intensify it.
 
 /datum/spellbook_entry/summon/events/can_be_purchased()
-	// Summon Events requires 100 threat. //monkestation edit: now 35 pop
-//	var/datum/game_mode/dynamic/mode = SSticker.mode //monkestation edit: not needed for pop checks
-	if(get_active_player_count() < MINIMUM_POP_FOR_RITUALS) //monkestation edit: replaces a threat check with this pop check
+	if(get_active_player_count() < MINIMUM_POP_FOR_RITUALS)
 		return FALSE
 	// Also, must be config enabled
 	return !CONFIG_GET(flag/no_summon_events)
 
 /datum/spellbook_entry/summon/events/buy_spell(mob/living/carbon/human/user, obj/item/spellbook/book, log_buy = TRUE)
-	var/turf/user_turf = get_turf(user) //monkestation edit: you need to be on station to cast summon events to make sure you will also feel the effects
-	if(user_turf && !is_station_level(user_turf.z)) //monkestation edit
-		to_chat(user, span_warning("You need to be on the station!")) //monkestation edit
-		return FALSE //monkestation edit
+	var/turf/user_turf = get_turf(user)
+	if(user_turf && !is_station_level(user_turf.z))
+		to_chat(user, span_warning("You must be on the station!"))
+		return FALSE
 	summon_events(user)
 	playsound(get_turf(user), 'sound/magic/castsummon.ogg', 50, TRUE)
 	return ..()
@@ -80,6 +75,7 @@
 	name = "Curse of Madness"
 	desc = "Curses the station, warping the minds of everyone inside, causing lasting traumas. Warning: this spell can affect you if not cast from a safe distance."
 	cost = 4
+	can_random = FALSE
 
 /datum/spellbook_entry/summon/curse_of_madness/buy_spell(mob/living/carbon/human/user, obj/item/spellbook/book, log_buy = TRUE)
 	var/message = tgui_input_text(user, "Whisper a secret truth to drive your victims to madness", "Whispers of Madness")
@@ -97,6 +93,7 @@
 		The cost of this is increased by the cost of the spell you choose. And don't worry - you, too, will learn the spell!"
 	cost = 3 // cheapest is 4 cost, most expensive is 7 cost
 	limit = 1
+	can_random = FALSE
 
 /datum/spellbook_entry/summon/specific_spell/buy_spell(mob/living/carbon/human/user, obj/item/spellbook/book, log_buy = TRUE)
 	var/list/spell_options = list()
@@ -153,10 +150,11 @@
 	name = "Magical Announcement"
 	desc = "Stealth is for NERDS. Tell the station what you really think about them."
 	cost = 0
+	limit = 3 //cant spam it but you can taunt a little bit
 	can_random = FALSE
 
 /datum/spellbook_entry/summon/message/buy_spell(mob/living/carbon/human/user, obj/item/spellbook/book, log_buy = TRUE)
-	var/message = tgui_input_text(user, "Tell the station whats on your mind.", "Tell them All")
+	var/message = tgui_input_text(user, "Tell the station whats on your mind.", "Tell Them All")
 	if(!message)
 		return FALSE
 	for(var/mob/living/carbon/human/messaged in GLOB.player_list)

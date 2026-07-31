@@ -18,10 +18,25 @@
 
 /datum/action/cooldown/spell/pointed/projectile/bouncy_fire_ball/level_spell(bypass_cap)
 	. = ..()
+	if(!.)
+		return
+
 	projectile_amount++ //become the schoolyard bully
 	unset_after_click = FALSE
 	if(spell_level == spell_max_level)
 		projectiles_per_fire++
+
+/datum/action/cooldown/spell/pointed/projectile/bouncy_fire_ball/delevel_spell()
+	var/was_max = spell_level == spell_max_level
+	. = ..()
+	if(!.)
+		return
+
+	projectile_amount--
+	if(was_max)
+		projectiles_per_fire--
+	else if(spell_level == 1)
+		unset_after_click = TRUE
 
 /datum/action/cooldown/spell/pointed/projectile/bouncy_fire_ball/ready_projectile(obj/projectile/to_fire, atom/target, mob/user, iteration)
 	. = ..()

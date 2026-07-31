@@ -14,7 +14,7 @@
 	righthand_file = 'icons/mob/inhands/equipment/shields_righthand.dmi'
 	worn_icon = 'icons/mob/clothing/back.dmi'
 	worn_icon_state = "wizard_mirror_shield"
-	force = 20
+	force = 22
 	armour_penetration = 25
 	slot_flags = ITEM_SLOT_BACK
 	w_class = WEIGHT_CLASS_BULKY
